@@ -167,50 +167,6 @@ const en: LocaleType = {
       Title: "Auto Generate Title",
       SubTitle: "Generate a suitable title based on the conversation content",
     },
-    Sync: {
-      CloudState: "Last Update",
-      NotSyncYet: "Not sync yet",
-      Success: "Sync Success",
-      Fail: "Sync Fail",
-
-      Config: {
-        Modal: {
-          Title: "Config Sync",
-          Check: "Check Connection",
-        },
-        SyncType: {
-          Title: "Sync Type",
-          SubTitle: "Choose your favorite sync service",
-        },
-        Proxy: {
-          Title: "Enable CORS Proxy",
-          SubTitle: "Enable a proxy to avoid cross-origin restrictions",
-        },
-        ProxyUrl: {
-          Title: "Proxy Endpoint",
-          SubTitle:
-            "Only applicable to the built-in CORS proxy for this project",
-        },
-
-        WebDav: {
-          Endpoint: "WebDAV Endpoint",
-          UserName: "User Name",
-          Password: "Password",
-        },
-
-        UpStash: {
-          Endpoint: "UpStash Redis REST Url",
-          UserName: "Backup Name",
-          Password: "UpStash Redis REST Token",
-        },
-      },
-
-      LocalState: "Local Data",
-      Overview: (overview: any) => {
-        return `${overview.chat} chats，${overview.message} messages，${overview.prompt} prompts，${overview.mask} masks`;
-      },
-      ImportFailed: "Failed to import from file",
-    },
     Mask: {
       Splash: {
         Title: "Mask Splash Screen",

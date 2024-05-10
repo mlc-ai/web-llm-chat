@@ -150,37 +150,6 @@ const id: PartialLocaleType = {
       Title: "Hasilkan Judul Otomatis",
       SubTitle: "Hasilkan judul yang sesuai berdasarkan konten percakapan",
     },
-    Sync: {
-      CloudState: "Pembaruan Terakhir",
-      NotSyncYet: "Belum disinkronkan",
-      Success: "Sinkronisasi Berhasil",
-      Fail: "Sinkronisasi Gagal",
-
-      Config: {
-        Modal: {
-          Title: "Konfigurasi Sinkronisasi",
-        },
-        SyncType: {
-          Title: "Tipe Sinkronisasi",
-          SubTitle: "Pilih layanan sinkronisasi favorit Anda",
-        },
-        Proxy: {
-          Title: "Aktifkan Proxy CORS",
-          SubTitle:
-            "Aktifkan Proxy untuk menghindari pembatasan atau pemblokiran lintas sumber",
-        },
-        ProxyUrl: {
-          Title: "Lokasi Titik Akhir Proxy CORS",
-          SubTitle: "Hanya berlaku untuk Proxy CORS bawaan untuk proyek ini",
-        },
-
-        WebDav: {
-          Endpoint: "Lokasi Titik Akhir WebDAV",
-          UserName: "User Pengguna",
-          Password: "Kata Sandi",
-        },
-      },
-    },
     SendKey: "Kirim",
     Theme: "Tema",
     TightBorder: "Batas Ketat",

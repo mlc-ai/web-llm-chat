@@ -9,9 +9,6 @@ declare global {
       VERCEL?: string;
       BUILD_MODE?: "standalone" | "export";
 
-      HIDE_USER_API_KEY?: string; // disable user's api key input
-      DISABLE_GPT4?: string; // allow user to use gpt-4 or not
-      ENABLE_BALANCE_QUERY?: string; // allow user to query balance or not
       DISABLE_FAST_LINK?: string; // disallow parse settings from url or not
       CUSTOM_MODELS?: string; // to control custom models
       DEFAULT_MODEL?: string; // to cnntrol default model in every new chat window
@@ -58,17 +55,8 @@ export const getServerSideConfig = () => {
     );
   }
 
-  const disableGPT4 = !!process.env.DISABLE_GPT4;
   let customModels = process.env.CUSTOM_MODELS ?? "";
   let defaultModel = process.env.DEFAULT_MODEL ?? "";
-
-  if (disableGPT4) {
-    if (customModels) customModels += ",";
-    customModels += DEFAULT_MODELS.filter((m) => m.name.startsWith("gpt-4"))
-      .map((m) => "-" + m.name)
-      .join(",");
-    if (defaultModel.startsWith("gpt-4")) defaultModel = "";
-  }
 
   const isAzure = !!process.env.AZURE_URL;
   const isGoogle = !!process.env.GOOGLE_API_KEY;
@@ -114,9 +102,6 @@ export const getServerSideConfig = () => {
     proxyUrl: process.env.PROXY_URL,
     isVercel: !!process.env.VERCEL,
 
-    hideUserApiKey: !!process.env.HIDE_USER_API_KEY,
-    disableGPT4,
-    hideBalanceQuery: !process.env.ENABLE_BALANCE_QUERY,
     disableFastLink: !!process.env.DISABLE_FAST_LINK,
     customModels,
     defaultModel,
