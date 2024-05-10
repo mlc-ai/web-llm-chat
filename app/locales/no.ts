@@ -3,10 +3,6 @@ import type { PartialLocaleType } from "./index";
 
 const no: PartialLocaleType = {
   WIP: "Arbeid pågår ...",
-  Error: {
-    Unauthorized:
-      "Du har ikke tilgang. [Vennlig oppgi tildelt adgangskode](/#/auth).",
-  },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} meldinger`,
   },

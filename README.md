@@ -22,6 +22,7 @@ WebLLM Chat is an AI chat webapp that brings [WebLLM](https://github.com/mlc-ai/
 - **User-Friendly Interface**: Enjoy the intuitive and feature-rich user interface of [NextChat](), complete with markdown support, dark mode, and a responsive design optimized for various screen sizes.
 - **Privacy-Focused**: With all data processing happening locally within your browser, WebLLM Chat prioritizes your privacy and ensures your data remains secure locally.
 - **Open Source and Customizable**: Build and customize your own AI-powered applications with our open-source framework.
+- **i18n**: English, 简体中文, 繁体中文, 日本語, Français, Español, Italiano, Türkçe, Deutsch, Tiếng Việt, Русский, Čeština, 한국어, Indonesia
 
 WebLLM Chat is a pioneering initiative that combines the robust backend capabilities of WebLLM with the user-friendly interface of NextChat. As a part of the broader MLC.ai family, this project contributes to our mission of democratizing AI technology by making powerful tools accessible directly to end-users. By integrating with NextChat, WebLLM Chat not only enhances the chatting experience but also broadens the scope for deployment of self-hosted and customizable language models.
 

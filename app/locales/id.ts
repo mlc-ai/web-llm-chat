@@ -3,18 +3,6 @@ import { PartialLocaleType } from "./index";
 
 const id: PartialLocaleType = {
   WIP: "Coming Soon...",
-  Error: {
-    Unauthorized:
-      "Akses tidak diizinkan, silakan masukkan kode akses atau masukkan kunci API OpenAI Anda. di halaman [autentikasi](/#/auth) atau di halaman [Pengaturan](/#/settings).",
-  },
-  Auth: {
-    Title: "Diperlukan Kode Akses",
-    Tips: "Masukkan kode akses di bawah",
-    SubTips: "Atau masukkan kunci API OpenAI Anda",
-    Input: "Kode Akses",
-    Confirm: "Konfirmasi",
-    Later: "Nanti",
-  },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} pesan`,
   },
@@ -288,7 +276,7 @@ const id: PartialLocaleType = {
   Copy: {
     Success: "Tersalin ke clipboard",
     Failed:
-      "Gagal menyalin, mohon berikan izin untuk mengakses clipboard atau Clipboard API tidak didukung (Tauri)",
+      "Gagal menyalin, mohon berikan izin untuk mengakses clipboard atau Clipboard API tidak didukung",
   },
   Download: {
     Success: "Konten berhasil diunduh ke direktori Anda.",
@@ -369,8 +357,8 @@ const id: PartialLocaleType = {
   },
   Exporter: {
     Description: {
-      Title: "Hanya pesan setelah menghapus konteks yang akan ditampilkan"
-    },  
+      Title: "Hanya pesan setelah menghapus konteks yang akan ditampilkan",
+    },
     Model: "Model",
     Messages: "Pesan",
     Topic: "Topik",

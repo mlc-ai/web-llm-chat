@@ -1,26 +1,10 @@
-import { getClientConfig } from "../config/client";
 import { SubmitKey } from "../store/config";
-import { LocaleType } from "./index";
 import type { PartialLocaleType } from "./index";
 
 // if you are adding a new translation, please use PartialLocaleType instead of LocaleType
 
-const isApp = !!getClientConfig()?.isApp;
 const sk: PartialLocaleType = {
   WIP: "Už čoskoro...",
-  Error: {
-    Unauthorized: isApp
-      ? "Neplatný API kľúč, prosím skontrolujte ho na stránke [Nastavenia](/#/settings)."
-      : "Neoprávnený prístup, prosím zadajte prístupový kód na stránke [auth](/#/auth), alebo zadajte váš OpenAI API kľúč.",
-  },
-  Auth: {
-    Title: "Potrebný prístupový kód",
-    Tips: "Prosím, zadajte prístupový kód nižšie",
-    SubTips: "Alebo zadajte váš OpenAI alebo Google API kľúč",
-    Input: "prístupový kód",
-    Confirm: "Potvrdiť",
-    Later: "Neskôr",
-  },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} správ`,
   },

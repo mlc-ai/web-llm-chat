@@ -3,18 +3,6 @@ import { PartialLocaleType } from "./index";
 
 const bn: PartialLocaleType = {
   WIP: "শীঘ্রই আসছে...",
-  Error: {
-    Unauthorized:
-      "অননুমোদিত অ্যাক্সেস, অনুগ্রহ করে [অথোরাইজশন](/#/auth) পৃষ্ঠায় অ্যাক্সেস কোড ইনপুট করুন।",
-  },
-  Auth: {
-    Title: "একটি অ্যাক্সেস কোড প্রয়োজন",
-    Tips: "নীচে অ্যাক্সেস কোড ইনপুট করুন",
-    SubTips: "অথবা আপনার OpenAI API কী প্রবেশ করুন",
-    Input: "অ্যাক্সেস কোড",
-    Confirm: "নিশ্চিত করুন",
-    Later: "পরে",
-  },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} টি বার্তা`,
   },

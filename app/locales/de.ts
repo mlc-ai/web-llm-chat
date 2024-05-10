@@ -3,10 +3,6 @@ import type { PartialLocaleType } from "./index";
 
 const de: PartialLocaleType = {
   WIP: "In Bearbeitung...",
-  Error: {
-    Unauthorized:
-      "Unbefugter Zugriff, bitte geben Sie den Zugangscode auf der [Einstellungsseite](/#/auth) ein.",
-  },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} Nachrichten`,
   },

@@ -3,10 +3,6 @@ import type { PartialLocaleType } from "./index";
 
 const ru: PartialLocaleType = {
   WIP: "Скоро...",
-  Error: {
-    Unauthorized:
-      "Несанкционированный доступ. Пожалуйста, введите код доступа на [странице](/#/auth) настроек.",
-  },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} сообщений`,
   },

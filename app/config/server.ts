@@ -6,15 +6,8 @@ declare global {
     interface ProcessEnv {
       PROXY_URL?: string; // docker only
 
-      OPENAI_API_KEY?: string;
-      CODE?: string;
-
-      BASE_URL?: string;
-      OPENAI_ORG_ID?: string; // openai only
-
       VERCEL?: string;
       BUILD_MODE?: "standalone" | "export";
-      BUILD_APP?: string; // is building desktop app
 
       HIDE_USER_API_KEY?: string; // disable user's api key input
       DISABLE_GPT4?: string; // allow user to use gpt-4 or not
@@ -22,15 +15,6 @@ declare global {
       DISABLE_FAST_LINK?: string; // disallow parse settings from url or not
       CUSTOM_MODELS?: string; // to control custom models
       DEFAULT_MODEL?: string; // to cnntrol default model in every new chat window
-
-      // azure only
-      AZURE_URL?: string; // https://{azure-url}/openai/deployments/{deploy-name}
-      AZURE_API_KEY?: string;
-      AZURE_API_VERSION?: string;
-
-      // google only
-      GOOGLE_API_KEY?: string;
-      GOOGLE_URL?: string;
 
       // google tag manager
       GTM_ID?: string;
