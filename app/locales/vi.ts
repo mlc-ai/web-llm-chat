@@ -3,10 +3,6 @@ import type { PartialLocaleType } from "./index";
 
 const vi: PartialLocaleType = {
   WIP: "Sắp ra mắt...",
-  Error: {
-    Unauthorized:
-      "Truy cập chưa xác thực, vui lòng nhập mã truy cập trong trang cài đặt.",
-  },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} tin nhắn`,
   },

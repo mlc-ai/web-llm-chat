@@ -3,10 +3,6 @@ import type { PartialLocaleType } from "./index";
 
 const tr: PartialLocaleType = {
   WIP: "Çalışma devam ediyor...",
-  Error: {
-    Unauthorized:
-      "Yetkisiz erişim, lütfen erişim kodunu ayarlar [sayfasından](/#/auth) giriniz.",
-  },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} mesaj`,
   },

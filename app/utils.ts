@@ -17,12 +17,7 @@ export function trimTopic(topic: string) {
 
 export async function copyToClipboard(text: string) {
   try {
-    if (window.__TAURI__) {
-      window.__TAURI__.writeText(text);
-    } else {
-      await navigator.clipboard.writeText(text);
-    }
-
+    await navigator.clipboard.writeText(text);
     showToast(Locale.Copy.Success);
   } catch (error) {
     const textArea = document.createElement("textarea");
@@ -41,46 +36,19 @@ export async function copyToClipboard(text: string) {
 }
 
 export async function downloadAs(text: string, filename: string) {
-  if (window.__TAURI__) {
-    const result = await window.__TAURI__.dialog.save({
-      defaultPath: `${filename}`,
-      filters: [
-        {
-          name: `${filename.split(".").pop()} files`,
-          extensions: [`${filename.split(".").pop()}`],
-        },
-        {
-          name: "All Files",
-          extensions: ["*"],
-        },
-      ],
-    });
+  const element = document.createElement("a");
+  element.setAttribute(
+    "href",
+    "data:text/plain;charset=utf-8," + encodeURIComponent(text),
+  );
+  element.setAttribute("download", filename);
 
-    if (result !== null) {
-      try {
-        await window.__TAURI__.fs.writeTextFile(result, text);
-        showToast(Locale.Download.Success);
-      } catch (error) {
-        showToast(Locale.Download.Failed);
-      }
-    } else {
-      showToast(Locale.Download.Failed);
-    }
-  } else {
-    const element = document.createElement("a");
-    element.setAttribute(
-      "href",
-      "data:text/plain;charset=utf-8," + encodeURIComponent(text),
-    );
-    element.setAttribute("download", filename);
+  element.style.display = "none";
+  document.body.appendChild(element);
 
-    element.style.display = "none";
-    document.body.appendChild(element);
+  element.click();
 
-    element.click();
-
-    document.body.removeChild(element);
-  }
+  document.body.removeChild(element);
 }
 
 export function compressImage(file: File, maxSize: number): Promise<string> {
@@ -290,16 +258,14 @@ export function getMessageImages(message: RequestMessage): string[] {
 }
 
 export function isVisionModel(model: string) {
-  
   // Note: This is a better way using the TypeScript feature instead of `&&` or `||` (ts v5.5.0-dev.20240314 I've been using)
 
-  const visionKeywords = [
-    "vision",
-    "claude-3",
-    "gemini-1.5-pro",
-  ];
+  const visionKeywords = ["vision", "claude-3", "gemini-1.5-pro"];
 
-  const isGpt4Turbo = model.includes("gpt-4-turbo") && !model.includes("preview");
+  const isGpt4Turbo =
+    model.includes("gpt-4-turbo") && !model.includes("preview");
 
-  return visionKeywords.some((keyword) => model.includes(keyword)) || isGpt4Turbo;
+  return (
+    visionKeywords.some((keyword) => model.includes(keyword)) || isGpt4Turbo
+  );
 }

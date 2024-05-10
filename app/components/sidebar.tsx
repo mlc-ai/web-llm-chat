@@ -153,10 +153,8 @@ export function SideBar(props: { className?: string }) {
         transition: isMobileScreen && isIOSMobile ? "none" : undefined,
       }}
     >
-      <div className={styles["sidebar-header"]} data-tauri-drag-region>
-        <div className={styles["sidebar-title"]} data-tauri-drag-region>
-          Web LLM Chat
-        </div>
+      <div className={styles["sidebar-header"]}>
+        <div className={styles["sidebar-title"]}>Web LLM Chat</div>
         <div className={styles["sidebar-sub-title"]}>
           ChatBot in your browser.
         </div>

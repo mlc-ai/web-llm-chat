@@ -57,23 +57,6 @@ export function collectModelTable(
   return modelTable;
 }
 
-export function collectModelTableWithDefaultModel(
-  models: readonly LLMModel[],
-  customModels: string,
-  defaultModel: string,
-) {
-  let modelTable = collectModelTable(models, customModels);
-  if (defaultModel && defaultModel !== "") {
-    modelTable[defaultModel] = {
-      ...modelTable[defaultModel],
-      name: defaultModel,
-      available: true,
-      isDefault: true,
-    };
-  }
-  return modelTable;
-}
-
 /**
  * Generate full model table.
  */
@@ -84,19 +67,5 @@ export function collectModels(
   const modelTable = collectModelTable(models, customModels);
   const allModels = Object.values(modelTable);
 
-  return allModels;
-}
-
-export function collectModelsWithDefaultModel(
-  models: readonly LLMModel[],
-  customModels: string,
-  defaultModel: string,
-) {
-  const modelTable = collectModelTableWithDefaultModel(
-    models,
-    customModels,
-    defaultModel,
-  );
-  const allModels = Object.values(modelTable);
   return allModels;
 }

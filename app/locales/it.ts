@@ -3,10 +3,6 @@ import type { PartialLocaleType } from "./index";
 
 const it: PartialLocaleType = {
   WIP: "Work in progress...",
-  Error: {
-    Unauthorized:
-      "Accesso non autorizzato, inserire il codice di accesso nella [pagina](/#/auth) delle impostazioni.",
-  },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messaggi`,
   },
