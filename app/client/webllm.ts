@@ -4,26 +4,35 @@ import { ChatOptions, LLMApi } from "./api";
 import { ChatCompletionMessageParam } from "@mlc-ai/web-llm";
 
 export class WebLLMApi implements LLMApi {
-  private currentModel = "";
-  private engine: webllm.EngineInterface = new webllm.Engine();
+  private currentModel?: string;
+  private engine?: webllm.EngineInterface;
 
   async initModel(
     model: string,
     onUpdate?: (message: string, chunk: string) => void,
   ) {
     this.currentModel = model;
-    this.engine.setInitProgressCallback((report: webllm.InitProgressReport) => {
-      onUpdate?.(report.text, report.text);
-    });
-    await this.engine.reload(this.currentModel);
+    this.engine = await webllm.CreateWebWorkerEngine(
+      new Worker(new URL("./webllm-sw.ts", import.meta.url), {
+        type: "module",
+      }),
+      this.currentModel,
+      {
+        initProgressCallback: (report: webllm.InitProgressReport) => {
+          onUpdate?.(report.text, report.text);
+        },
+      },
+    );
   }
 
   async chat(options: ChatOptions): Promise<void> {
-    if (options.config.model != this.currentModel) {
+    console.log(this.currentModel, options.config.model);
+
+    if (options.config.model !== this.currentModel) {
       await this.initModel(options.config.model, options.onUpdate);
     }
 
-    const reply = await this.engine.chat.completions.create({
+    const reply = await this.engine!.chat.completions.create({
       stream: false,
       messages: options.messages as ChatCompletionMessageParam[],
     });
