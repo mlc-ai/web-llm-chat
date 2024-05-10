@@ -1,4 +1,5 @@
 @import "../styles/animation.scss";
+
 .mask-page {
   height: 100%;
   display: flex;
@@ -34,6 +35,20 @@
         box-sizing: border-box;
         min-width: 80px;
       }
+    }
+
+    @media screen and (max-width: 700px) {
+      .mask-filter {
+        margin-left: -10px;
+
+        .search-bar {
+          display: none;
+        }
+      }
+    }
+
+    .mask-item-container {
+      min-width: 400px;
     }
 
     .mask-item {
@@ -73,6 +88,7 @@
             font-size: 14px;
             font-weight: bold;
           }
+
           .mask-info {
             font-size: 12px;
           }

@@ -548,7 +548,7 @@ export function MaskPage() {
             />
           </div>
 
-          <div>
+          <div className={styles["mask-item-container"]}>
             {masks.map((m) => (
               <div className={styles["mask-item"]} key={m.id}>
                 <div className={styles["mask-header"]}>
