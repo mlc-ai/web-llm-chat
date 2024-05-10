@@ -38,9 +38,7 @@ import { DEFAULT_MASK_AVATAR } from "../store/mask";
 import { prettyObject } from "../utils/format";
 import { EXPORT_MESSAGE_CLASS_NAME, ModelProvider } from "../constant";
 import { getClientConfig } from "../config/client";
-import { ClientApi } from "../client/api";
 import { getMessageTextContent } from "../utils";
-import { identifyDefaultClaudeModel } from "../utils/checkers";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -301,6 +299,38 @@ export function RenderExport(props: {
   );
 }
 
+async function sharegpt(
+  messages: ChatMessage[],
+  avatarUrl: string | null = null,
+) {
+  const msgs = messages.map((m) => ({
+    from: m.role === "user" ? "human" : "gpt",
+    value: m.content,
+  }));
+
+  console.log("[Share]", messages, msgs);
+  const clientConfig = getClientConfig();
+  const proxyUrl = "/sharegpt";
+  const rawUrl = "https://sharegpt.com/api/conversations";
+  const shareUrl = clientConfig?.isApp ? rawUrl : proxyUrl;
+  const res = await fetch(shareUrl, {
+    body: JSON.stringify({
+      avatarUrl,
+      items: msgs,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+  });
+
+  const resJson = await res.json();
+  console.log("[Share]", resJson);
+  if (resJson.id) {
+    return `https://shareg.pt/${resJson.id}`;
+  }
+}
+
 export function PreviewActions(props: {
   download: () => void;
   copy: () => void;
@@ -313,9 +343,7 @@ export function PreviewActions(props: {
   const onRenderMsgs = (msgs: ChatMessage[]) => {
     setShouldExport(false);
 
-    var api: ClientApi = new ClientApi();
-    api
-      .share(msgs)
+    sharegpt(msgs)
       .then((res) => {
         if (!res) return;
         showModal({
