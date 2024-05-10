@@ -132,11 +132,6 @@ const fr: PartialLocaleType = {
       SubTitle: "Aperçu du Markdown dans une bulle",
     },
     Mask: {
-      Splash: {
-        Title: "Écran de masque",
-        SubTitle:
-          "Afficher un écran de masque avant de démarrer une nouvelle discussion",
-      },
       Builtin: {
         Title: "Masquer Les Assistants Intégrés",
         SubTitle: "Masquer les assistants intégrés par défaut",

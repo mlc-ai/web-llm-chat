@@ -87,12 +87,6 @@ const it: PartialLocaleType = {
       Title: "Anteprima di digitazione",
       SubTitle: "Preview markdown in bubble",
     },
-    Mask: {
-      Splash: {
-        Title: "Mask Splash Screen",
-        SubTitle: "Show a mask splash screen before starting new chat",
-      },
-    },
     Prompt: {
       Disable: {
         Title: "Disabilita l'auto completamento",

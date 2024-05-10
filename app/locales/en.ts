@@ -168,10 +168,6 @@ const en: LocaleType = {
       SubTitle: "Generate a suitable title based on the conversation content",
     },
     Mask: {
-      Splash: {
-        Title: "Mask Splash Screen",
-        SubTitle: "Show a mask splash screen before starting new chat",
-      },
       Builtin: {
         Title: "Hide Builtin Masks",
         SubTitle: "Hide builtin masks in mask list",

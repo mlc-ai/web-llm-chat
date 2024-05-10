@@ -87,12 +87,6 @@ const cs: PartialLocaleType = {
       Title: "Odesílat chatovací bublinu s náhledem",
       SubTitle: "Zobrazit v náhledu bubliny",
     },
-    Mask: {
-      Splash: {
-        Title: "Úvodní obrazovka Masek",
-        SubTitle: "Před zahájením nového chatu zobrazte úvodní obrazovku Masek",
-      },
-    },
     Prompt: {
       Disable: {
         Title: "Deaktivovat automatické dokončování",

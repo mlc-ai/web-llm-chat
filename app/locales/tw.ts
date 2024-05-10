@@ -209,10 +209,6 @@ const tw = {
       ImportFailed: "匯入失敗",
     },
     Mask: {
-      Splash: {
-        Title: "角色範本啟動頁面",
-        SubTitle: "新增聊天時，呈現角色範本啟動頁面",
-      },
       Builtin: {
         Title: "隱藏內建角色範本",
         SubTitle: "在所有角色範本列表中隱藏內建角色範本",

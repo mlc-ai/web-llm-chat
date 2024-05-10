@@ -166,11 +166,6 @@ const pt: PartialLocaleType = {
       SubTitle: "Gerar um título adequado baseado no conteúdo da conversa",
     },
     Mask: {
-      Splash: {
-        Title: "Tela de Início da Máscara",
-        SubTitle:
-          "Mostrar uma tela de início da máscara antes de iniciar novo chat",
-      },
       Builtin: {
         Title: "Esconder Máscaras Embutidas",
         SubTitle: "Esconder máscaras embutidas na lista de máscaras",

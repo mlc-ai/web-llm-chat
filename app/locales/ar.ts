@@ -123,12 +123,6 @@ const ar: PartialLocaleType = {
       Title: "عرض معاينة الـ Send",
       SubTitle: "معاينة Markdown في فقاعة",
     },
-    Mask: {
-      Splash: {
-        Title: "شاشة تظهر الأقنعة",
-        SubTitle: "عرض شاشة تظهر الأقنعة قبل بدء الدردشة الجديدة",
-      },
-    },
     Prompt: {
       Disable: {
         Title: "تعطيل الاكتمال التلقائي",

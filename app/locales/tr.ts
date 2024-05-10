@@ -87,12 +87,6 @@ const tr: PartialLocaleType = {
       Title: "Mesaj Önizleme Balonu",
       SubTitle: "Preview markdown in bubble",
     },
-    Mask: {
-      Splash: {
-        Title: "Mask Splash Screen",
-        SubTitle: "Show a mask splash screen before starting new chat",
-      },
-    },
     Prompt: {
       Disable: {
         Title: "Otomatik tamamlamayı devre dışı bırak",
