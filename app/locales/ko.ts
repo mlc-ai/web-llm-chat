@@ -88,12 +88,6 @@ const ko: PartialLocaleType = {
       Title: "미리 보기 버블 전송",
       SubTitle: "버블에서 마크다운 미리 보기",
     },
-    Mask: {
-      Splash: {
-        Title: "마스크 시작 화면",
-        SubTitle: "새로운 채팅 시작 전에 마스크 시작 화면 표시",
-      },
-    },
     Prompt: {
       Disable: {
         Title: "자동 완성 비활성화",

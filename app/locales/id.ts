@@ -158,11 +158,6 @@ const id: PartialLocaleType = {
       SubTitle: "Pratinjau Obrolan dengan markdown",
     },
     Mask: {
-      Splash: {
-        Title: "Layar Pembuka Masks",
-        SubTitle:
-          "Tampilkan layar pembuka masks sebelum memulai percakapan baru",
-      },
       Builtin: {
         Title: "Sembunyikan Masks Bawaan",
         SubTitle: "Sembunyikan Masks bawaan dari daftar masks",

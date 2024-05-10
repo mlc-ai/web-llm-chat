@@ -165,10 +165,6 @@ const cn = {
       SubTitle: "根据对话内容生成合适的标题",
     },
     Mask: {
-      Splash: {
-        Title: "面具启动页",
-        SubTitle: "新建聊天时，展示面具启动页",
-      },
       Builtin: {
         Title: "隐藏内置面具",
         SubTitle: "在所有面具列表中隐藏内置面具",

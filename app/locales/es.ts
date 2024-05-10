@@ -87,12 +87,6 @@ const es: PartialLocaleType = {
       Title: "Enviar burbuja de vista previa",
       SubTitle: "Preview markdown in bubble",
     },
-    Mask: {
-      Splash: {
-        Title: "Mask Splash Screen",
-        SubTitle: "Show a mask splash screen before starting new chat",
-      },
-    },
     Prompt: {
       Disable: {
         Title: "Desactivar autocompletado",

@@ -132,19 +132,6 @@ export const usePromptStore = createPersistStore(
   }),
   {
     name: StoreKey.Prompt,
-    version: 3,
-
-    migrate(state, version) {
-      const newState = JSON.parse(JSON.stringify(state)) as {
-        prompts: Record<string, Prompt>;
-      };
-
-      if (version < 3) {
-        Object.values(newState.prompts).forEach((p) => (p.id = nanoid()));
-      }
-
-      return newState as any;
-    },
 
     onRehydrateStorage(state) {
       const PROMPT_URL = "./prompts.json";

@@ -78,7 +78,6 @@ export function MaskConfig(props: {
   updateMask: Updater<Mask>;
   extraListItems?: JSX.Element;
   readonly?: boolean;
-  shouldSyncFromGlobal?: boolean;
 }) {
   const [showPicker, setShowPicker] = useState(false);
 
@@ -93,13 +92,6 @@ export function MaskConfig(props: {
       mask.syncGlobalConfig = false;
     });
   };
-
-  const copyMaskLink = () => {
-    const maskLink = `${location.protocol}//${location.host}/#${Path.NewChat}?mask=${props.mask.id}`;
-    copyToClipboard(maskLink);
-  };
-
-  const globalConfig = useAppConfig();
 
   return (
     <>
@@ -162,47 +154,6 @@ export function MaskConfig(props: {
             }}
           ></input>
         </ListItem>
-
-        {!props.shouldSyncFromGlobal ? (
-          <ListItem
-            title={Locale.Mask.Config.Share.Title}
-            subTitle={Locale.Mask.Config.Share.SubTitle}
-          >
-            <IconButton
-              icon={<CopyIcon />}
-              text={Locale.Mask.Config.Share.Action}
-              onClick={copyMaskLink}
-            />
-          </ListItem>
-        ) : null}
-
-        {props.shouldSyncFromGlobal ? (
-          <ListItem
-            title={Locale.Mask.Config.Sync.Title}
-            subTitle={Locale.Mask.Config.Sync.SubTitle}
-          >
-            <input
-              type="checkbox"
-              checked={props.mask.syncGlobalConfig}
-              onChange={async (e) => {
-                const checked = e.currentTarget.checked;
-                if (
-                  checked &&
-                  (await showConfirm(Locale.Mask.Config.Sync.Confirm))
-                ) {
-                  props.updateMask((mask) => {
-                    mask.syncGlobalConfig = checked;
-                    mask.modelConfig = { ...globalConfig.modelConfig };
-                  });
-                } else if (!checked) {
-                  props.updateMask((mask) => {
-                    mask.syncGlobalConfig = checked;
-                  });
-                }
-              }}
-            ></input>
-          </ListItem>
-        ) : null}
       </List>
 
       <List>

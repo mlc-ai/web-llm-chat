@@ -139,10 +139,6 @@ const jp: PartialLocaleType = {
       SubTitle: "プレビューバブルでマークダウンコンテンツをプレビュー",
     },
     Mask: {
-      Splash: {
-        Title: "キャラクターページ",
-        SubTitle: "新規チャット作成時にキャラクターページを表示する",
-      },
       Builtin: {
         Title: "ビルトインマスクを非表示",
         SubTitle: "マスクリストからビルトインを非表示する",

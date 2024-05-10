@@ -168,10 +168,6 @@ const sk: PartialLocaleType = {
       SubTitle: "Generovať vhodný názov na základe obsahu konverzácie",
     },
     Mask: {
-      Splash: {
-        Title: "Úvodná obrazovka masky",
-        SubTitle: "Zobraziť úvodnú obrazovku masky pred začatím nového chatu",
-      },
       Builtin: {
         Title: "Skryť vstavané masky",
         SubTitle: "Skryť vstavané masky v zozname masiek",
