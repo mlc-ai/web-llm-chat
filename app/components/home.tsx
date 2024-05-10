@@ -12,7 +12,7 @@ import LoadingIcon from "../icons/three-dots.svg";
 import { getCSSVar, useMobileScreen } from "../utils";
 
 import dynamic from "next/dynamic";
-import { ModelProvider, Path, SlotID } from "../constant";
+import { Path, SlotID } from "../constant";
 import { ErrorBoundary } from "./error";
 
 import { getISOLang, getLang } from "../locales";
@@ -27,9 +27,8 @@ import { SideBar } from "./sidebar";
 import { useAppConfig } from "../store/config";
 import { AuthPage } from "./auth";
 import { getClientConfig } from "../config/client";
-import { ClientApi } from "../client/api";
 import { useAccessStore } from "../store";
-import { identifyDefaultClaudeModel } from "../utils/checkers";
+import { webllm } from "../client/webllm";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -175,10 +174,9 @@ function Screen() {
 export function useLoadData() {
   const config = useAppConfig();
 
-  var api: ClientApi = new ClientApi();
   useEffect(() => {
     (async () => {
-      const models = await api.llm.models();
+      const models = await webllm.models();
       config.mergeModels(models);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps

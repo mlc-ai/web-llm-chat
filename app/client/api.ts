@@ -1,12 +1,6 @@
 import { getClientConfig } from "../config/client";
-import {
-  ACCESS_CODE_PREFIX,
-  Azure,
-  ModelProvider,
-  ServiceProvider,
-} from "../constant";
-import { ChatMessage, ModelType, useAccessStore, useChatStore } from "../store";
-import { WebLLMApi } from "./webllm";
+import { ACCESS_CODE_PREFIX, ServiceProvider } from "../constant";
+import { ModelType, useAccessStore, useChatStore } from "../store";
 export const ROLES = ["system", "user", "assistant"] as const;
 export type MessageRole = (typeof ROLES)[number];
 
@@ -66,80 +60,6 @@ export abstract class LLMApi {
   abstract chat(options: ChatOptions): Promise<void>;
   abstract usage(): Promise<LLMUsage>;
   abstract models(): Promise<LLMModel[]>;
-}
-
-type ProviderName = "openai" | "azure" | "claude" | "palm";
-
-interface Model {
-  name: string;
-  provider: ProviderName;
-  ctxlen: number;
-}
-
-interface ChatProvider {
-  name: ProviderName;
-  apiConfig: {
-    baseUrl: string;
-    apiKey: string;
-    summaryModel: Model;
-  };
-  models: Model[];
-
-  chat: () => void;
-  usage: () => void;
-}
-
-export class ClientApi {
-  public llm: LLMApi;
-
-  constructor() {
-    this.llm = new WebLLMApi();
-  }
-
-  config() {}
-
-  prompts() {}
-
-  masks() {}
-
-  async share(messages: ChatMessage[], avatarUrl: string | null = null) {
-    const msgs = messages
-      .map((m) => ({
-        from: m.role === "user" ? "human" : "gpt",
-        value: m.content,
-      }))
-      .concat([
-        {
-          from: "human",
-          value:
-            "Share from [NextChat]: https://github.com/Yidadaa/ChatGPT-Next-Web",
-        },
-      ]);
-    // 敬告二开开发者们，为了开源大模型的发展，请不要修改上述消息，此消息用于后续数据清洗使用
-    // Please do not modify this message
-
-    console.log("[Share]", messages, msgs);
-    const clientConfig = getClientConfig();
-    const proxyUrl = "/sharegpt";
-    const rawUrl = "https://sharegpt.com/api/conversations";
-    const shareUrl = clientConfig?.isApp ? rawUrl : proxyUrl;
-    const res = await fetch(shareUrl, {
-      body: JSON.stringify({
-        avatarUrl,
-        items: msgs,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    });
-
-    const resJson = await res.json();
-    console.log("[Share]", resJson);
-    if (resJson.id) {
-      return `https://shareg.pt/${resJson.id}`;
-    }
-  }
 }
 
 export function getHeaders() {

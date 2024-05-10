@@ -1,16 +1,9 @@
-import {
-  FETCH_COMMIT_URL,
-  FETCH_TAG_URL,
-  ModelProvider,
-  StoreKey,
-} from "../constant";
+import { FETCH_COMMIT_URL, FETCH_TAG_URL, StoreKey } from "../constant";
 import { getClientConfig } from "../config/client";
 import { createPersistStore } from "../utils/store";
 import ChatGptIcon from "../icons/chatgpt.png";
 import Locale from "../locales";
-import { use } from "react";
-import { useAppConfig } from ".";
-import { ClientApi } from "../client/api";
+import { webllm } from "../client/webllm";
 
 const ONE_MINUTE = 60 * 1000;
 const isApp = !!getClientConfig()?.isApp;
@@ -143,8 +136,7 @@ export const useUpdateStore = createPersistStore(
       }));
 
       try {
-        var api: ClientApi = new ClientApi();
-        const usage = await api.llm.usage();
+        const usage = await webllm.usage();
 
         if (usage) {
           set(() => ({

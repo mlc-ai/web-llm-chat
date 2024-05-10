@@ -9,20 +9,19 @@ import {
   DEFAULT_MODELS,
   DEFAULT_SYSTEM_TEMPLATE,
   KnowledgeCutOffDate,
-  ModelProvider,
   StoreKey,
   SUMMARIZE_MODEL,
   GEMINI_SUMMARIZE_MODEL,
 } from "../constant";
-import { ClientApi, RequestMessage, MultimodalContent } from "../client/api";
+import { RequestMessage, MultimodalContent } from "../client/api";
 import { ChatControllerPool } from "../client/controller";
 import { prettyObject } from "../utils/format";
 import { estimateTokenLength } from "../utils/token";
 import { nanoid } from "nanoid";
 import { createPersistStore } from "../utils/store";
-import { identifyDefaultClaudeModel } from "../utils/checkers";
 import { collectModelsWithDefaultModel } from "../utils/model";
 import { useAccessStore } from "./access";
+import { webllm } from "../client/webllm";
 
 export type ChatMessage = RequestMessage & {
   date: string;
@@ -363,10 +362,8 @@ export const useChatStore = createPersistStore(
           ]);
         });
 
-        var api: ClientApi = new ClientApi();
-
         // make request
-        api.llm.chat({
+        webllm.chat({
           messages: sendMessages,
           config: { ...modelConfig, stream: true },
           onUpdate(message) {
@@ -542,8 +539,6 @@ export const useChatStore = createPersistStore(
         const session = get().currentSession();
         const modelConfig = session.mask.modelConfig;
 
-        var api: ClientApi = new ClientApi();
-
         // remove error messages if any
         const messages = session.messages;
 
@@ -560,7 +555,7 @@ export const useChatStore = createPersistStore(
               content: Locale.Store.Prompt.Topic,
             }),
           );
-          api.llm.chat({
+          webllm.chat({
             messages: topicMessages,
             config: {
               model: getSummarizeModel(session.mask.modelConfig.model),
@@ -612,7 +607,7 @@ export const useChatStore = createPersistStore(
            * this param is just shit
            **/
           const { max_tokens, ...modelcfg } = modelConfig;
-          api.llm.chat({
+          webllm.chat({
             messages: toBeSummarizedMsgs.concat(
               createMessage({
                 role: "system",
