@@ -167,49 +167,6 @@ const sk: PartialLocaleType = {
       Title: "Automaticky generovať názov",
       SubTitle: "Generovať vhodný názov na základe obsahu konverzácie",
     },
-    Sync: {
-      CloudState: "Posledná aktualizácia",
-      NotSyncYet: "Zatiaľ nesynchronizované",
-      Success: "Synchronizácia úspešná",
-      Fail: "Synchronizácia zlyhala",
-
-      Config: {
-        Modal: {
-          Title: "Konfigurácia synchronizácie",
-          Check: "Skontrolovať pripojenie",
-        },
-        SyncType: {
-          Title: "Typ synchronizácie",
-          SubTitle: "Vyberte svoju obľúbenú službu synchronizácie",
-        },
-        Proxy: {
-          Title: "Povoliť CORS Proxy",
-          SubTitle: "Povoliť proxy na obídenie obmedzení cross-origin",
-        },
-        ProxyUrl: {
-          Title: "Koncový bod Proxy",
-          SubTitle: "Platné len pre vstavaný CORS proxy tohto projektu",
-        },
-
-        WebDav: {
-          Endpoint: "Koncový bod WebDAV",
-          UserName: "Meno používateľa",
-          Password: "Heslo",
-        },
-
-        UpStash: {
-          Endpoint: "URL REST služby UpStash Redis",
-          UserName: "Názov zálohy",
-          Password: "Token REST služby UpStash Redis",
-        },
-      },
-
-      LocalState: "Lokálne údaje",
-      Overview: (overview: any) => {
-        return `${overview.chat} chaty, ${overview.message} správy, ${overview.prompt} výzvy, ${overview.mask} masky`;
-      },
-      ImportFailed: "Import z súboru zlyhal",
-    },
     Mask: {
       Splash: {
         Title: "Úvodná obrazovka masky",

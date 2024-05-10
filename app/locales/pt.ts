@@ -165,49 +165,6 @@ const pt: PartialLocaleType = {
       Title: "Gerar Título Automaticamente",
       SubTitle: "Gerar um título adequado baseado no conteúdo da conversa",
     },
-    Sync: {
-      CloudState: "Última Atualização",
-      NotSyncYet: "Ainda não sincronizado",
-      Success: "Sincronização bem sucedida",
-      Fail: "Falha na sincronização",
-
-      Config: {
-        Modal: {
-          Title: "Configurar Sincronização",
-          Check: "Verificar Conexão",
-        },
-        SyncType: {
-          Title: "Tipo de Sincronização",
-          SubTitle: "Escolha seu serviço de sincronização favorito",
-        },
-        Proxy: {
-          Title: "Habilitar Proxy CORS",
-          SubTitle: "Habilitar um proxy para evitar restrições de cross-origin",
-        },
-        ProxyUrl: {
-          Title: "Endpoint de Proxy",
-          SubTitle: "Apenas aplicável ao proxy CORS embutido para este projeto",
-        },
-
-        WebDav: {
-          Endpoint: "Endpoint WebDAV",
-          UserName: "Nome de Usuário",
-          Password: "Senha",
-        },
-
-        UpStash: {
-          Endpoint: "URL REST Redis UpStash",
-          UserName: "Nome do Backup",
-          Password: "Token REST Redis UpStash",
-        },
-      },
-
-      LocalState: "Dados Locais",
-      Overview: (overview: any) => {
-        return `${overview.chat} chats，${overview.message} mensagens，${overview.prompt} prompts，${overview.mask} máscaras`;
-      },
-      ImportFailed: "Falha ao importar do arquivo",
-    },
     Mask: {
       Splash: {
         Title: "Tela de Início da Máscara",
