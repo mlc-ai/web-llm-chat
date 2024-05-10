@@ -158,7 +158,7 @@ export function SideBar(props: { className?: string }) {
           Web LLM Chat
         </div>
         <div className={styles["sidebar-sub-title"]}>
-          Run LLM inside the browser.
+          ChatBot in your browser.
         </div>
         <div className={styles["sidebar-logo"] + " no-dark"}>
           <MlcIcon />
