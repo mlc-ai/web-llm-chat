@@ -53,6 +53,7 @@ export interface ChatSession {
   lastUpdate: number;
   lastSummarizeIndex: number;
   clearContextIndex?: number;
+  isGenerating: boolean;
 
   mask: Mask;
 }
@@ -76,6 +77,7 @@ function createEmptySession(): ChatSession {
     },
     lastUpdate: Date.now(),
     lastSummarizeIndex: 0,
+    isGenerating: false,
 
     mask: createEmptyMask(),
   };
@@ -282,12 +284,7 @@ export const useChatStore = createPersistStore(
         get().summarizeSession();
       },
 
-      async onUserInput(
-        content: string,
-        attachImages?: string[],
-        onGenerateStart?: () => void,
-        onGenerateFinish?: () => void,
-      ) {
+      async onUserInput(content: string, attachImages?: string[]) {
         const session = get().currentSession();
         const modelConfig = session.mask.modelConfig;
 
@@ -340,14 +337,17 @@ export const useChatStore = createPersistStore(
             savedUserMessage,
             botMessage,
           ]);
+          session.isGenerating = true;
         });
-
-        onGenerateStart?.();
 
         // make request
         webllm.chat({
           messages: sendMessages,
-          config: { ...modelConfig, stream: true },
+          config: {
+            ...modelConfig,
+            cache: useAppConfig.getState().cacheType,
+            stream: true,
+          },
           onUpdate(message) {
             botMessage.streaming = true;
             if (message) {
@@ -363,8 +363,10 @@ export const useChatStore = createPersistStore(
               botMessage.content = message;
               get().onNewMessage(botMessage);
             }
+            get().updateCurrentSession((session) => {
+              session.isGenerating = false;
+            });
             ChatControllerPool.remove(session.id, botMessage.id);
-            onGenerateFinish?.();
           },
           onError(error) {
             const isAborted = error.message.includes("aborted");
@@ -379,13 +381,13 @@ export const useChatStore = createPersistStore(
             botMessage.isError = !isAborted;
             get().updateCurrentSession((session) => {
               session.messages = session.messages.concat();
+              session.isGenerating = false;
             });
             ChatControllerPool.remove(
               session.id,
               botMessage.id ?? messageIndex,
             );
 
-            onGenerateFinish?.();
             console.error("[Chat] failed ", error);
           },
           onController(controller) {
@@ -543,6 +545,7 @@ export const useChatStore = createPersistStore(
             messages: topicMessages,
             config: {
               model: session.mask.modelConfig.model,
+              cache: useAppConfig.getState().cacheType,
               stream: false,
             },
             onFinish(message) {
@@ -603,6 +606,7 @@ export const useChatStore = createPersistStore(
               ...modelcfg,
               stream: true,
               model: session.mask.modelConfig.model,
+              cache: useAppConfig.getState().cacheType,
             },
             onUpdate(message) {
               session.memoryPrompt = message;

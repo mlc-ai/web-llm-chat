@@ -21,7 +21,13 @@ import {
 import { ModelConfigList } from "./model-config";
 
 import { IconButton } from "./button";
-import { SubmitKey, useChatStore, Theme, useAppConfig } from "../store";
+import {
+  SubmitKey,
+  useChatStore,
+  Theme,
+  useAppConfig,
+  CacheType,
+} from "../store";
 
 import Locale, {
   AllLangs,
@@ -37,6 +43,7 @@ import { InputRange } from "./input-range";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarPicker } from "./emoji";
 import { nanoid } from "nanoid";
+import { webllm } from "../client/webllm";
 
 function EditPromptModal(props: { id: string; onClose: () => void }) {
   const promptStore = usePromptStore();
@@ -456,6 +463,29 @@ export function Settings() {
         </List>
 
         <List id={SlotID.CustomModel}>
+          <ListItem
+            title={Locale.Settings.Access.CacheType.Title}
+            subTitle={Locale.Settings.Access.CacheType.SubTitle}
+          >
+            <Select
+              value="cache"
+              onChange={(e) => {
+                webllm.clear();
+                updateConfig(
+                  (config) =>
+                    (config.cacheType = e.currentTarget
+                      .value as any as CacheType),
+                );
+              }}
+            >
+              <option value="cache" key="cache">
+                Cache
+              </option>
+              <option value="index_db" key="index_db">
+                Index DB
+              </option>
+            </Select>
+          </ListItem>
           <ListItem
             title={Locale.Settings.Access.CustomModel.Title}
             subTitle={Locale.Settings.Access.CustomModel.SubTitle}

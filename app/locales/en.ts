@@ -271,6 +271,10 @@ const en: LocaleType = {
           SubTitle: "Select and input a specific API version",
         },
       },
+      CacheType: {
+        Title: "Cache Type",
+        SubTitle: "Use IndexDB or Cache API to store model weights",
+      },
       CustomModel: {
         Title: "Custom Models",
         SubTitle: "Custom model options, seperated by comma",

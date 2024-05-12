@@ -7,10 +7,15 @@ import {
 
 import { ChatOptions, LLMApi, LLMConfig } from "./api";
 import { ChatCompletionMessageParam } from "@mlc-ai/web-llm";
+import { useAppConfig } from "../store";
 
 export class WebLLMApi implements LLMApi {
   private currentModel?: string;
   private engine?: EngineInterface;
+
+  clear() {
+    this.engine = undefined;
+  }
 
   async initModel(
     config: LLMConfig,
@@ -31,7 +36,7 @@ export class WebLLMApi implements LLMApi {
         },
         appConfig: {
           ...prebuiltAppConfig,
-          useIndexedDBCache: true,
+          useIndexedDBCache: config.cache === "index_db",
         },
         initProgressCallback: (report: InitProgressReport) => {
           onUpdate?.(report.text, report.text);
