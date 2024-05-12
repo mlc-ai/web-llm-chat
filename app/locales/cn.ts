@@ -284,6 +284,10 @@ const cn = {
           SubTitle: "选择一个特定的 API 版本",
         },
       },
+      CacheType: {
+        Title: "缓存类型",
+        SubTitle: "使用IndexDB或Cache API作为模型缓存",
+      },
       CustomModel: {
         Title: "自定义模型名",
         SubTitle: "增加自定义模型可选项，使用英文逗号隔开",
