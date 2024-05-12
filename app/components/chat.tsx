@@ -674,6 +674,7 @@ function _Chat() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [userInput, setUserInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   const { submitKey, shouldSubmit } = useSubmitHandler();
   const scrollRef = useRef<HTMLDivElement>(null);
   const isScrolledToBottom = scrollRef?.current
@@ -759,6 +760,7 @@ function _Chat() {
 
   const doSubmit = (userInput: string) => {
     if (userInput.trim() === "") return;
+
     const matchCommand = chatCommands.match(userInput);
     if (matchCommand.matched) {
       setUserInput("");
@@ -766,9 +768,21 @@ function _Chat() {
       matchCommand.invoke();
       return;
     }
+
+    if (isGenerating) return;
     setIsLoading(true);
+    setIsGenerating(true);
     chatStore
-      .onUserInput(userInput, attachImages)
+      .onUserInput(
+        userInput,
+        attachImages,
+        () => {
+          setIsGenerating(true);
+        },
+        () => {
+          setIsGenerating(false);
+        },
+      )
       .then(() => setIsLoading(false));
     setAttachImages([]);
     localStorage.setItem(LAST_INPUT_KEY, userInput);
@@ -920,7 +934,18 @@ function _Chat() {
     setIsLoading(true);
     const textContent = getMessageTextContent(userMessage);
     const images = getMessageImages(userMessage);
-    chatStore.onUserInput(textContent, images).then(() => setIsLoading(false));
+    chatStore
+      .onUserInput(
+        textContent,
+        images,
+        () => {
+          setIsGenerating(true);
+        },
+        () => {
+          setIsGenerating(false);
+        },
+      )
+      .then(() => setIsLoading(false));
     inputRef.current?.focus();
   };
 
@@ -1497,6 +1522,7 @@ function _Chat() {
             className={styles["chat-input-send"]}
             type="primary"
             onClick={() => doSubmit(userInput)}
+            disabled={isGenerating}
           />
         </label>
       </div>

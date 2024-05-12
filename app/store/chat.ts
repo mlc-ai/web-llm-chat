@@ -282,7 +282,12 @@ export const useChatStore = createPersistStore(
         get().summarizeSession();
       },
 
-      async onUserInput(content: string, attachImages?: string[]) {
+      async onUserInput(
+        content: string,
+        attachImages?: string[],
+        onGenerateStart?: () => void,
+        onGenerateFinish?: () => void,
+      ) {
         const session = get().currentSession();
         const modelConfig = session.mask.modelConfig;
 
@@ -337,6 +342,8 @@ export const useChatStore = createPersistStore(
           ]);
         });
 
+        onGenerateStart?.();
+
         // make request
         webllm.chat({
           messages: sendMessages,
@@ -357,6 +364,7 @@ export const useChatStore = createPersistStore(
               get().onNewMessage(botMessage);
             }
             ChatControllerPool.remove(session.id, botMessage.id);
+            onGenerateFinish?.();
           },
           onError(error) {
             const isAborted = error.message.includes("aborted");
@@ -377,6 +385,7 @@ export const useChatStore = createPersistStore(
               botMessage.id ?? messageIndex,
             );
 
+            onGenerateFinish?.();
             console.error("[Chat] failed ", error);
           },
           onController(controller) {
