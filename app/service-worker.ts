@@ -32,6 +32,9 @@ const engine: EngineInterface = new Engine();
 let handler: WebServiceWorkerEngineHandler;
 
 self.addEventListener("install", function (event) {
+  // Always update right away
+  self.skipWaiting();
+
   event.waitUntil(
     caches.open(CHATGPT_NEXT_WEB_CACHE).then(function (cache) {
       return cache.addAll([]);
