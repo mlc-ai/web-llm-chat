@@ -803,6 +803,11 @@ function _Chat() {
     ChatControllerPool.stop(session.id, messageId);
   };
 
+  // Reset session status on initial loading
+  useEffect(() => {
+    chatStore.resetGeneratingStatus();
+  }, []);
+
   useEffect(() => {
     chatStore.updateCurrentSession((session) => {
       const stopTiming = Date.now() - REQUEST_TIMEOUT_MS;
