@@ -13,6 +13,7 @@
   --hover-color: #f3f3f3;
   --bar-color: rgba(0, 0, 0, 0.1);
   --theme-color: var(--gray);
+  --mlc-icon-color: #062578;
 
   /* shadow */
   --shadow: 50px 50px 100px 10px rgb(0, 0, 0, 0.1);
@@ -32,6 +33,7 @@
   --primary: rgb(48, 65, 158);
   --second: rgb(33,36,49);
   --hover-color: #323232;
+  --mlc-icon-color: #ffffff;
 
   --bar-color: rgba(255, 255, 255, 0.1);
 
@@ -43,6 +45,7 @@
     filter: invert(0.5);
   }
 }
+
 
 .light {
   @include light;
@@ -357,10 +360,10 @@ pre {
   border-radius: 11px;
 
   svg {
-    height: 16px;
-    min-height: 16px;
-    width: 16px;
-    min-width: 16px;
+    height: 20px;
+    min-height: 20px;
+    width: 20px;
+    min-width: 20px;
   }
 }
 
