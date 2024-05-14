@@ -6,6 +6,7 @@ import { IconButton } from "./button";
 import SettingsIcon from "../icons/settings.svg";
 import GithubIcon from "../icons/github.svg";
 import MlcIcon from "../icons/mlc.svg";
+import MlcIconLight from "../icons/mlc-light.svg";
 import AddIcon from "../icons/add.svg";
 import CloseIcon from "../icons/close.svg";
 import DeleteIcon from "../icons/delete.svg";
@@ -141,6 +142,7 @@ export function SideBar(props: { className?: string }) {
     [isMobileScreen],
   );
 
+  const { theme } = config;
   useHotKey();
 
   return (
@@ -158,7 +160,7 @@ export function SideBar(props: { className?: string }) {
         <div className={styles["sidebar-sub-title"]}>
           ChatBot in your browser.
         </div>
-        <div className={styles["sidebar-logo"] + " no-dark"}>
+        <div className={styles["sidebar-logo"] + " no-dark mlc-icon"}>
           <MlcIcon />
         </div>
       </div>

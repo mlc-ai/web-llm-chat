@@ -32,7 +32,7 @@ export function Loading(props: { noLogo?: boolean }) {
   return (
     <div className={styles["loading-content"] + " no-dark"}>
       {!props.noLogo && (
-        <div className={styles["loading-content-logo"] + " no-dark"}>
+        <div className={styles["loading-content-logo"] + " no-dark mlc-icon"}>
           <MlcIcon />
         </div>
       )}
