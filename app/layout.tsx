@@ -61,8 +61,6 @@ export default function RootLayout({
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#062578" />
         <meta name="msapplication-TileColor" content="#2b5797" />
         <meta name="theme-color" content="#ffffff" />
-
-        <script src="/serviceWorkerRegister.js" defer></script>
       </head>
       <body>
         {children}

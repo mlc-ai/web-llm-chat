@@ -1,4 +1,5 @@
 import webpack from "webpack";
+import withSerwistInit from "@serwist/next";
 
 const mode = process.env.BUILD_MODE ?? "standalone";
 console.log("[Next] build mode", mode);
@@ -107,4 +108,9 @@ if (mode !== "export") {
   };
 }
 
-export default nextConfig;
+export default withSerwistInit({
+  // Note: This is only an example. If you use Pages Router,
+  // use something else that works, such as "service-worker/index.ts".
+  swSrc: "app/service-worker.ts",
+  swDest: "public/sw.js",
+})(nextConfig);

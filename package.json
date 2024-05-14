@@ -16,8 +16,9 @@
   "dependencies": {
     "@fortaine/fetch-event-source": "^3.0.6",
     "@hello-pangea/dnd": "^16.5.0",
-    "@mlc-ai/web-llm": "^0.2.35",
+    "@mlc-ai/web-llm": "file:./lib/@mlc-ai/web-llm",
     "@next/third-parties": "^14.1.0",
+    "@serwist/next": "^9.0.2",
     "@svgr/webpack": "^6.5.1",
     "@vercel/analytics": "^0.1.11",
     "@vercel/speed-insights": "^1.0.2",
@@ -27,6 +28,7 @@
     "mermaid": "^10.6.1",
     "nanoid": "^5.0.3",
     "next": "^13.4.9",
+    "next-pwa": "^5.6.0",
     "node-fetch": "^3.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -56,6 +58,7 @@
     "husky": "^8.0.0",
     "lint-staged": "^13.2.2",
     "prettier": "^3.0.2",
+    "serwist": "^9.0.2",
     "typescript": "^5.4.5",
     "webpack": "^5.88.1",
     "zustymiddlewarets": "^1.4.2"

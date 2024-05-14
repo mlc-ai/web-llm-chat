@@ -275,6 +275,16 @@ export const useChatStore = createPersistStore(
         return session;
       },
 
+      resetGeneratingStatus() {
+        set((state) => ({
+          ...state,
+          sessions: state.sessions.map((session) => ({
+            ...session,
+            isGenerating: false,
+          })),
+        }));
+      },
+
       onNewMessage(message: ChatMessage) {
         get().updateCurrentSession((session) => {
           session.messages = session.messages.concat();
