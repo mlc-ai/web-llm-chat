@@ -4,9 +4,7 @@ import {
   InitProgressReport,
   prebuiltAppConfig,
   ChatCompletionMessageParam,
-  clientBroadcastChannel,
   WebServiceWorkerEngine,
-  serviceWorkerBroadcastChannel,
 } from "@neet-nestor/web-llm";
 
 import { ChatOptions, LLMApi, LLMConfig } from "./api";
