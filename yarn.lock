@@ -2089,10 +2089,8 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@neet-nestor/web-llm@0.2.36":
-  version "0.2.36"
-  resolved "https://registry.yarnpkg.com/@neet-nestor/web-llm/-/web-llm-0.2.36.tgz#65823943d2d7e753d155e26fa76e16187af876c7"
-  integrity sha512-VxLcyC60HXnY417f9Z4qxNmpJitgL6sBmZMjmoUz9tif4DzKmzOnzcLweNYlPDsXJqgZidPSqVcaKLbBsicXLQ==
+"@neet-nestor/web-llm@file:./lib":
+  version "0.0.0"
 
 "@next/env@13.4.9":
   version "13.4.9"

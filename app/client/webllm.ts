@@ -70,8 +70,9 @@ export class WebLLMApi implements LLMApi {
             options.onUpdate?.(reply, chunk.choices[0].delta.content);
           }
         }
-      } catch (e) {
-        console.error("Error in streaming chatCompletion", e);
+      } catch (err) {
+        console.error("Error in streaming chatCompletion", err);
+        options.onError?.(err as Error);
       }
     } else {
       try {
@@ -80,8 +81,9 @@ export class WebLLMApi implements LLMApi {
           messages: options.messages as ChatCompletionMessageParam[],
         });
         reply = completion.choices[0].message.content;
-      } catch (e) {
-        console.error("Error in streaming chatCompletion", e);
+      } catch (err) {
+        console.error("Error in non-streaming chatCompletion", err);
+        options.onError?.(err as Error);
       }
     }
 
