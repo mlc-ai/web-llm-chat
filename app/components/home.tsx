@@ -2,7 +2,7 @@
 
 require("../polyfill");
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useContext } from "react";
 
 import styles from "./home.module.scss";
 
@@ -26,7 +26,8 @@ import {
 import { SideBar } from "./sidebar";
 import { useAppConfig } from "../store/config";
 import { getClientConfig } from "../config/client";
-import { webllm } from "../client/webllm";
+import { WebLLMApi, WebLLMContext } from "../client/webllm";
+import Locale from "../locales";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -37,6 +38,14 @@ export function Loading(props: { noLogo?: boolean }) {
         </div>
       )}
       <LoadingIcon />
+    </div>
+  );
+}
+
+export function ErrorScreen(props: { message: string }) {
+  return (
+    <div className={styles["error-screen"] + " no-dark"}>
+      <p>{props.message}</p>
     </div>
   );
 }
@@ -168,33 +177,49 @@ function Screen() {
   );
 }
 
-export function useLoadData() {
+export function useLoadData(webllm: WebLLMApi) {
   const config = useAppConfig();
 
   useEffect(() => {
     (async () => {
-      const models = await webllm.models();
-      config.mergeModels(models);
+      if (webllm) {
+        const models = await webllm.models();
+        config.mergeModels(models);
+      }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [webllm]);
 }
 
 export function Home() {
-  useSwitchTheme();
-  useLoadData();
-  useHtmlLang();
   const hasHydrated = useHasHydrated();
   const isServiceWorkerReady = useServiceWorkerReady();
+  const [isEngineCrash, setEngineCrash] = useState(false);
+
+  const webllm = useMemo(() => {
+    return new WebLLMApi(() => {
+      setEngineCrash(true);
+    });
+  }, []);
+
+  useLoadData(webllm);
+  useSwitchTheme();
+  useHtmlLang();
 
   if (!hasHydrated || !isServiceWorkerReady) {
     return <Loading />;
   }
 
+  if (isEngineCrash) {
+    return <ErrorScreen message={Locale.ServiceWorker.Error} />;
+  }
+
   return (
     <ErrorBoundary>
       <Router>
-        <Screen />
+        <WebLLMContext.Provider value={webllm}>
+          <Screen />
+        </WebLLMContext.Provider>
       </Router>
     </ErrorBoundary>
   );

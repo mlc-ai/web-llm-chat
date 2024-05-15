@@ -17,7 +17,7 @@ import { prettyObject } from "../utils/format";
 import { estimateTokenLength } from "../utils/token";
 import { nanoid } from "nanoid";
 import { createPersistStore } from "../utils/store";
-import { webllm } from "../client/webllm";
+import { WebLLMApi } from "../client/webllm";
 
 export type ChatMessage = RequestMessage & {
   date: string;
@@ -285,16 +285,20 @@ export const useChatStore = createPersistStore(
         }));
       },
 
-      onNewMessage(message: ChatMessage) {
+      onNewMessage(message: ChatMessage, webllm: WebLLMApi) {
         get().updateCurrentSession((session) => {
           session.messages = session.messages.concat();
           session.lastUpdate = Date.now();
         });
         get().updateStat(message);
-        get().summarizeSession();
+        get().summarizeSession(webllm);
       },
 
-      async onUserInput(content: string, attachImages?: string[]) {
+      async onUserInput(
+        content: string,
+        webllm: WebLLMApi,
+        attachImages?: string[],
+      ) {
         const session = get().currentSession();
         const modelConfig = session.mask.modelConfig;
 
@@ -371,7 +375,7 @@ export const useChatStore = createPersistStore(
             botMessage.streaming = false;
             if (message) {
               botMessage.content = message;
-              get().onNewMessage(botMessage);
+              get().onNewMessage(botMessage, webllm);
             }
             get().updateCurrentSession((session) => {
               session.isGenerating = false;
@@ -530,7 +534,7 @@ export const useChatStore = createPersistStore(
         });
       },
 
-      summarizeSession() {
+      summarizeSession(webllm: WebLLMApi) {
         const config = useAppConfig.getState();
         const session = get().currentSession();
         const modelConfig = session.mask.modelConfig;
@@ -604,14 +608,24 @@ export const useChatStore = createPersistStore(
            * this param is just shit
            **/
           const { max_tokens, ...modelcfg } = modelConfig;
-          webllm.chat({
-            messages: toBeSummarizedMsgs.concat(
+          // System prompt has to be the first message
+          if (toBeSummarizedMsgs[0]?.role === "system") {
+            // Merge system prompts
+            toBeSummarizedMsgs[0].content =
+              Locale.Store.Prompt.Summarize + toBeSummarizedMsgs[0].content;
+          } else {
+            toBeSummarizedMsgs = [
               createMessage({
                 role: "system",
                 content: Locale.Store.Prompt.Summarize,
                 date: "",
               }),
-            ),
+              ...toBeSummarizedMsgs,
+            ];
+          }
+          console.log("summarizeSession", messages);
+          webllm.chat({
+            messages: toBeSummarizedMsgs,
             config: {
               ...modelcfg,
               stream: true,
