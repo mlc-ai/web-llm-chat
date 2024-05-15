@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@fortaine/fetch-event-source": "^3.0.6",
-    "@hello-pangea/dnd": "^16.5.0",
+    "@hello-pangea/dnd": "^16.6.0",
     "@mlc-ai/web-llm": "file:./lib/@mlc-ai/web-llm",
     "@next/third-parties": "^14.1.0",
     "@serwist/next": "^9.0.2",
