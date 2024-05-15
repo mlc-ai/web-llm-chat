@@ -10,8 +10,8 @@ import { GoogleTagManager } from "@next/third-parties/google";
 const serverConfig = getServerSideConfig();
 
 export const metadata: Metadata = {
-  title: "Web LLM Chat",
-  description: "ChatBot in your browser.",
+  title: "WebLLM Chat",
+  description: "Chat with AI natively in your browser.",
   viewport: {
     width: "device-width",
     initialScale: 1,
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     { media: "(prefers-color-scheme: dark)", color: "#151515" },
   ],
   appleWebApp: {
-    title: "Web LLM Chat",
+    title: "WebLLM Chat",
     statusBarStyle: "default",
   },
 };

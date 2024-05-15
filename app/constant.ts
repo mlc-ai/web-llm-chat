@@ -1,7 +1,7 @@
-import { prebuiltAppConfig } from "@mlc-ai/web-llm";
+import { prebuiltAppConfig } from "@neet-nestor/web-llm";
 
 export const OWNER = "mlc-ai";
-export const REPO = "web-llm";
+export const REPO = "web-llm-chat";
 export const REPO_URL = `https://github.com/${OWNER}/${REPO}`;
 export const ISSUE_URL = `https://github.com/${OWNER}/${REPO}/issues`;
 

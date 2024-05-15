@@ -533,7 +533,7 @@ export function ImagePreviewer(props: {
           </div>
 
           <div>
-            <div className={styles["main-title"]}>Web LLM Chat</div>
+            <div className={styles["main-title"]}>WebLLM Chat</div>
             <div className={styles["sub-title"]}>chat.neet.coffee</div>
             <div className={styles["icons"]}>
               <ExportAvatar avatar={config.avatar} />
