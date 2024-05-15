@@ -73,6 +73,7 @@ export class WebLLMApi implements LLMApi {
       } catch (err) {
         console.error("Error in streaming chatCompletion", err);
         options.onError?.(err as Error);
+        return;
       }
     } else {
       try {
@@ -84,6 +85,7 @@ export class WebLLMApi implements LLMApi {
       } catch (err) {
         console.error("Error in non-streaming chatCompletion", err);
         options.onError?.(err as Error);
+        return;
       }
     }
 
