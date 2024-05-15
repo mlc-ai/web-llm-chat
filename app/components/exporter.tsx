@@ -23,7 +23,7 @@ import CopyIcon from "../icons/copy.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 import ChatGptIcon from "../icons/chatgpt.png";
 import ShareIcon from "../icons/share.svg";
-import BotIcon from "../icons/bot.png";
+import MlcIcon from "../icons/mlc.png";
 
 import DownloadIcon from "../icons/download.svg";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -313,15 +313,7 @@ export function PreviewActions(props: {
   const onRenderMsgs = (msgs: ChatMessage[]) => {
     setShouldExport(false);
 
-    var api: ClientApi;
-    if (config.modelConfig.model.startsWith("gemini")) {
-      api = new ClientApi(ModelProvider.GeminiPro);
-    } else if (identifyDefaultClaudeModel(config.modelConfig.model)) {
-      api = new ClientApi(ModelProvider.Claude);
-    } else {
-      api = new ClientApi(ModelProvider.GPT);
-    }
-
+    var api: ClientApi = new ClientApi();
     api
       .share(msgs)
       .then((res) => {
@@ -416,13 +408,9 @@ export function PreviewActions(props: {
 function ExportAvatar(props: { avatar: string }) {
   if (props.avatar === DEFAULT_MASK_AVATAR) {
     return (
-      <img
-        src={BotIcon.src}
-        width={30}
-        height={30}
-        alt="bot"
-        className="user-avatar"
-      />
+      <div className="user-avatar">
+        <img src={MlcIcon.src} height={20} alt="bot" />
+      </div>
     );
   }
 
@@ -547,10 +535,8 @@ export function ImagePreviewer(props: {
           </div>
 
           <div>
-            <div className={styles["main-title"]}>NextChat</div>
-            <div className={styles["sub-title"]}>
-              github.com/Yidadaa/ChatGPT-Next-Web
-            </div>
+            <div className={styles["main-title"]}>Web LLM Chat</div>
+            <div className={styles["sub-title"]}>chat.neet.coffee</div>
             <div className={styles["icons"]}>
               <ExportAvatar avatar={config.avatar} />
               <span className={styles["icon-space"]}>&</span>

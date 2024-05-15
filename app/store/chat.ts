@@ -363,14 +363,7 @@ export const useChatStore = createPersistStore(
           ]);
         });
 
-        var api: ClientApi;
-        if (modelConfig.model.startsWith("gemini")) {
-          api = new ClientApi(ModelProvider.GeminiPro);
-        } else if (identifyDefaultClaudeModel(modelConfig.model)) {
-          api = new ClientApi(ModelProvider.Claude);
-        } else {
-          api = new ClientApi(ModelProvider.GPT);
-        }
+        var api: ClientApi = new ClientApi();
 
         // make request
         api.llm.chat({
@@ -549,14 +542,7 @@ export const useChatStore = createPersistStore(
         const session = get().currentSession();
         const modelConfig = session.mask.modelConfig;
 
-        var api: ClientApi;
-        if (modelConfig.model.startsWith("gemini")) {
-          api = new ClientApi(ModelProvider.GeminiPro);
-        } else if (identifyDefaultClaudeModel(modelConfig.model)) {
-          api = new ClientApi(ModelProvider.Claude);
-        } else {
-          api = new ClientApi(ModelProvider.GPT);
-        }
+        var api: ClientApi = new ClientApi();
 
         // remove error messages if any
         const messages = session.messages;

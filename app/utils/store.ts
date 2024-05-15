@@ -1,3 +1,5 @@
+import zustymiddleware from "zustymiddlewarets";
+
 import { create } from "zustand";
 import { combine, persist } from "zustand/middleware";
 import { Updater } from "../typing";
@@ -32,33 +34,33 @@ export function createPersistStore<T extends object, M>(
   persistOptions: SecondParam<typeof persist<T & M & MakeUpdater<T>>>,
 ) {
   return create(
-    persist(
-      combine(
-        {
-          ...state,
-          lastUpdateTime: 0,
-        },
-        (set, get) => {
-          return {
-            ...methods(set, get as any),
+    // persist(
+    combine(
+      {
+        ...state,
+        lastUpdateTime: 0,
+      },
+      (set, get) => {
+        return {
+          ...methods(set, get as any),
 
-            markUpdate() {
-              set({ lastUpdateTime: Date.now() } as Partial<
-                T & M & MakeUpdater<T>
-              >);
-            },
-            update(updater) {
-              const state = deepClone(get());
-              updater(state);
-              set({
-                ...state,
-                lastUpdateTime: Date.now(),
-              });
-            },
-          } as M & MakeUpdater<T>;
-        },
-      ),
-      persistOptions as any,
+          markUpdate() {
+            set({ lastUpdateTime: Date.now() } as Partial<
+              T & M & MakeUpdater<T>
+            >);
+          },
+          update(updater) {
+            const state = deepClone(get());
+            updater(state);
+            set({
+              ...state,
+              lastUpdateTime: Date.now(),
+            });
+          },
+        } as M & MakeUpdater<T>;
+      },
     ),
+    // persistOptions as any,
+    // ),
   );
 }
