@@ -1,16 +1,27 @@
+import { createContext } from "react";
 import {
-  EngineInterface,
   CreateWebServiceWorkerEngine,
   InitProgressReport,
   prebuiltAppConfig,
   ChatCompletionMessageParam,
+  clientBroadcastChannel,
+  WebServiceWorkerEngine,
+  serviceWorkerBroadcastChannel,
 } from "@neet-nestor/web-llm";
 
 import { ChatOptions, LLMApi, LLMConfig } from "./api";
 
 export class WebLLMApi implements LLMApi {
   private currentModel?: string;
-  private engine?: EngineInterface;
+  private engine?: WebServiceWorkerEngine;
+
+  constructor(onEngineCrash: () => void) {
+    setInterval(() => {
+      if ((this.engine?.missedHeatbeat || 0) > 2) {
+        onEngineCrash?.();
+      }
+    }, 10000);
+  }
 
   clear() {
     this.engine = undefined;
@@ -40,28 +51,40 @@ export class WebLLMApi implements LLMApi {
 
   async chat(options: ChatOptions): Promise<void> {
     if (options.config.model !== this.currentModel) {
-      await this.initModel(options.config, options.onUpdate);
+      try {
+        await this.initModel(options.config, options.onUpdate);
+      } catch (e) {
+        console.error("Error in initModel", e);
+      }
     }
 
     let reply: string | null = "";
     if (options.config.stream) {
-      const asyncChunkGenerator = await this.engine!.chatCompletion({
-        stream: options.config.stream,
-        messages: options.messages as ChatCompletionMessageParam[],
-      });
+      try {
+        const asyncChunkGenerator = await this.engine!.chatCompletion({
+          stream: options.config.stream,
+          messages: options.messages as ChatCompletionMessageParam[],
+        });
 
-      for await (const chunk of asyncChunkGenerator) {
-        if (chunk.choices[0].delta.content) {
-          reply += chunk.choices[0].delta.content;
-          options.onUpdate?.(reply, chunk.choices[0].delta.content);
+        for await (const chunk of asyncChunkGenerator) {
+          if (chunk.choices[0].delta.content) {
+            reply += chunk.choices[0].delta.content;
+            options.onUpdate?.(reply, chunk.choices[0].delta.content);
+          }
         }
+      } catch (e) {
+        console.error("Error in streaming chatCompletion", e);
       }
     } else {
-      const completion = await this.engine!.chatCompletion({
-        stream: options.config.stream,
-        messages: options.messages as ChatCompletionMessageParam[],
-      });
-      reply = completion.choices[0].message.content;
+      try {
+        const completion = await this.engine!.chatCompletion({
+          stream: options.config.stream,
+          messages: options.messages as ChatCompletionMessageParam[],
+        });
+        reply = completion.choices[0].message.content;
+      } catch (e) {
+        console.error("Error in streaming chatCompletion", e);
+      }
     }
 
     if (reply) {
@@ -91,4 +114,4 @@ export class WebLLMApi implements LLMApi {
   }
 }
 
-export const webllm: LLMApi = new WebLLMApi();
+export const WebLLMContext = createContext<WebLLMApi | null>(null);
