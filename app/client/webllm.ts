@@ -92,6 +92,10 @@ export class WebLLMApi implements LLMApi {
     }
   }
 
+  async abort() {
+    await this.engine?.interruptGenerate();
+  }
+
   async usage() {
     return {
       used: 0,
