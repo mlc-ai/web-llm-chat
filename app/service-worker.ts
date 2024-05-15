@@ -2,7 +2,7 @@ import {
   WebServiceWorkerEngineHandler,
   EngineInterface,
   Engine,
-} from "@mlc-ai/web-llm";
+} from "@neet-nestor/web-llm";
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { Serwist } from "serwist";

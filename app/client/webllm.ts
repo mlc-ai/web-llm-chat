@@ -4,7 +4,7 @@ import {
   InitProgressReport,
   prebuiltAppConfig,
   ChatCompletionMessageParam,
-} from "@mlc-ai/web-llm";
+} from "@neet-nestor/web-llm";
 
 import { ChatOptions, LLMApi, LLMConfig } from "./api";
 
