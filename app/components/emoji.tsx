@@ -6,8 +6,7 @@ import EmojiPicker, {
 
 import { ModelType } from "../store";
 
-import BotIcon from "../icons/bot.svg";
-import BlackBotIcon from "../icons/black-bot.svg";
+import MlcIcon from "../icons/mlc.svg";
 
 export function getEmojiUrl(unified: string, style: EmojiStyle) {
   // Whoever owns this Content Delivery Network (CDN), I am using your CDN to serve emojis
@@ -35,12 +34,8 @@ export function AvatarPicker(props: {
 export function Avatar(props: { model?: ModelType; avatar?: string }) {
   if (props.model) {
     return (
-      <div className="no-dark">
-        {props.model?.startsWith("gpt-4") ? (
-          <BlackBotIcon className="user-avatar" />
-        ) : (
-          <BotIcon className="user-avatar" />
-        )}
+      <div className="bot-avatar no-dark">
+        <MlcIcon />
       </div>
     );
   }

@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 
 import styles from "./home.module.scss";
 
-import BotIcon from "../icons/bot.svg";
+import MlcIcon from "../icons/mlc.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 
 import { getCSSVar, useMobileScreen } from "../utils";
@@ -34,7 +34,11 @@ import { identifyDefaultClaudeModel } from "../utils/checkers";
 export function Loading(props: { noLogo?: boolean }) {
   return (
     <div className={styles["loading-content"] + " no-dark"}>
-      {!props.noLogo && <BotIcon />}
+      {!props.noLogo && (
+        <div className={styles["loading-content-logo"] + " no-dark"}>
+          <MlcIcon />
+        </div>
+      )}
       <LoadingIcon />
     </div>
   );
@@ -171,14 +175,7 @@ function Screen() {
 export function useLoadData() {
   const config = useAppConfig();
 
-  var api: ClientApi;
-  if (config.modelConfig.model.startsWith("gemini")) {
-    api = new ClientApi(ModelProvider.GeminiPro);
-  } else if (identifyDefaultClaudeModel(config.modelConfig.model)) {
-    api = new ClientApi(ModelProvider.Claude);
-  } else {
-    api = new ClientApi(ModelProvider.GPT);
-  }
+  var api: ClientApi = new ClientApi();
   useEffect(() => {
     (async () => {
       const models = await api.llm.models();

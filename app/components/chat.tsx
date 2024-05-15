@@ -472,7 +472,6 @@ export function ChatActions(props: {
       props.setAttachImages([]);
       props.setUploading(false);
     }
-
     // if current model is not available
     // switch to first available model
     const isUnavaliableModel = !models.some((m) => m.name === currentModel);
@@ -669,6 +668,8 @@ function _Chat() {
   const session = chatStore.currentSession();
   const config = useAppConfig();
   const fontSize = config.fontSize;
+
+  const currentModel = chatStore.currentSession().mask.modelConfig.model;
 
   const [showExport, setShowExport] = useState(false);
 
@@ -949,9 +950,6 @@ function _Chat() {
     session.messages.at(0)?.content !== BOT_HELLO.content
   ) {
     const copiedHello = Object.assign({}, BOT_HELLO);
-    if (!accessStore.isAuthorized()) {
-      copiedHello.content = Locale.Error.Unauthorized;
-    }
     context.push(copiedHello);
   }
 
