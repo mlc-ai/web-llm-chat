@@ -3,7 +3,7 @@
 
 # WebLLM Chat
 
-<img src="https://img.shields.io/github/deployments/mlc-ai/web-llm-chat/production?label=vercel&logo=vercel&logoColor=white">
+<img src="https://img.shields.io/github/actions/workflow/status/mlc-ai/web-llm-chat/deploy.yaml?label=Vercel Deployment&logo=vercel&logoColor=white">
 <a href="https://discord.gg/9Xpy2HGBuD"><img alt="Static Badge" src="https://img.shields.io/badge/Join-Discord-7289DA"></a>
 
 **AI Conversations, Fully In-Browser.**
