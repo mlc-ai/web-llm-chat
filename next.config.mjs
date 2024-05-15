@@ -8,7 +8,7 @@ console.log("[Next] build with chunk: ", !disableChunk);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack(config) {
+  webpack(config, { isServer }) {
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"],
@@ -23,6 +23,16 @@ const nextConfig = {
     config.resolve.fallback = {
       child_process: false,
     };
+
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback, // if you miss it, all the other options in fallback, specified
+          // by next.js will be dropped. Doesn't make much sense, but how it is
+        fs: false, // the solution
+        module: false,
+        perf_hooks: false,
+      };
+    }
 
     return config;
   },
