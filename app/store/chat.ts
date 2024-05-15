@@ -608,7 +608,7 @@ export const useChatStore = createPersistStore(
            * this param is just shit
            **/
           const { max_tokens, ...modelcfg } = modelConfig;
-          // System prompt has to be the first message
+          // The first message must be from system
           if (toBeSummarizedMsgs[0]?.role === "system") {
             // Merge system prompts
             toBeSummarizedMsgs[0].content =
@@ -623,6 +623,19 @@ export const useChatStore = createPersistStore(
               ...toBeSummarizedMsgs,
             ];
           }
+          // The last message must be from user
+          if (
+            toBeSummarizedMsgs[toBeSummarizedMsgs.length - 1].role === "system"
+          ) {
+            toBeSummarizedMsgs = toBeSummarizedMsgs.concat([
+              createMessage({
+                role: "user",
+                content: "",
+                date: "",
+              }),
+            ]);
+          }
+
           console.log("summarizeSession", messages);
           webllm.chat({
             messages: toBeSummarizedMsgs,
