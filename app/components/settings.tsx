@@ -471,7 +471,6 @@ export function Settings() {
             <Select
               value="cache"
               onChange={(e) => {
-                webllm?.clear();
                 updateConfig(
                   (config) =>
                     (config.cacheType = e.currentTarget

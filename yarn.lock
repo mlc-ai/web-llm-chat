@@ -2089,10 +2089,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@neet-nestor/web-llm@0.2.37":
-  version "0.2.37"
-  resolved "https://registry.yarnpkg.com/@neet-nestor/web-llm/-/web-llm-0.2.37.tgz#dfb7e81387066f300162ca45bce9a9ccd432aa56"
-  integrity sha512-lQQkG4vMOYVyf5F+rNCIHBoBWtViBMvb0nCd5yCWEwxcijv4uECRPoYpCa8lhdYmEFmN2li9D9cfNw6AgAde9g==
+"@neet-nestor/web-llm@0.2.41":
+  version "0.2.41"
+  resolved "https://registry.yarnpkg.com/@neet-nestor/web-llm/-/web-llm-0.2.41.tgz#ff90892d0dc20165153eebd5ea4e92d7e7308fe8"
+  integrity sha512-AEmo4I8PoKGfn486oo//18YZIw6VUdpAKlkSoRMY0EbCvdur8gZ3Y6mi1+YKwHk6FJk6rmpOStn8KC4tmjwU0Q==
 
 "@next/env@13.4.9":
   version "13.4.9"
@@ -2741,16 +2741,6 @@
   dependencies:
     "@typescript-eslint/types" "6.4.0"
     eslint-visitor-keys "^3.4.1"
-
-"@vercel/analytics@^0.1.11":
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/@vercel/analytics/-/analytics-0.1.11.tgz#727a0ac655a4a89104cdea3e6925476470299428"
-  integrity sha512-mj5CPR02y0BRs1tN3oZcBNAX9a8NxsIUl9vElDPcqxnMfP0RbRc9fI9Ud7+QDg/1Izvt5uMumsr+6YsmVHcyuw==
-
-"@vercel/speed-insights@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@vercel/speed-insights/-/speed-insights-1.0.2.tgz#1bebf3e7c7046b6a911721233b263b69214ddb3e"
-  integrity sha512-y5HWeB6RmlyVYxJAMrjiDEz8qAIy2cit0fhBq+MD78WaUwQvuBnQlX4+5MuwVTWi46bV3klaRMq83u9zUy1KOg==
 
 "@webassemblyjs/ast@1.11.6", "@webassemblyjs/ast@^1.11.5":
   version "1.11.6"

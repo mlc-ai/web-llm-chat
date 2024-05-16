@@ -97,7 +97,7 @@ import { ExportMessageModal } from "./exporter";
 import { getClientConfig } from "../config/client";
 import { useAllModels } from "../utils/hooks";
 import { MultimodalContent } from "../client/api";
-import { WebLLMApi, WebLLMContext } from "../client/webllm";
+import { WebLLMContext } from "../client/webllm";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -682,8 +682,7 @@ function _Chat() {
   const navigate = useNavigate();
   const [attachImages, setAttachImages] = useState<string[]>([]);
   const [uploading, setUploading] = useState(false);
-
-  const webllm = useContext(WebLLMContext);
+  const webllm = useContext(WebLLMContext)!;
 
   // prompt hints
   const promptStore = usePromptStore();
@@ -764,7 +763,7 @@ function _Chat() {
     if (isStreaming) return;
     setIsLoading(true);
     chatStore
-      .onUserInput(userInput, webllm!, attachImages)
+      .onUserInput(userInput, webllm, attachImages)
       .then(() => setIsLoading(false));
     setAttachImages([]);
     localStorage.setItem(LAST_INPUT_KEY, userInput);
@@ -922,7 +921,7 @@ function _Chat() {
     const textContent = getMessageTextContent(userMessage);
     const images = getMessageImages(userMessage);
     chatStore
-      .onUserInput(textContent, webllm!, images)
+      .onUserInput(textContent, webllm, images)
       .then(() => setIsLoading(false));
     inputRef.current?.focus();
   };

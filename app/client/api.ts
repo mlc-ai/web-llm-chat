@@ -58,7 +58,5 @@ export interface LLMModelProvider {
 export abstract class LLMApi {
   abstract chat(options: ChatOptions): Promise<void>;
   abstract usage(): Promise<LLMUsage>;
-  abstract models(): Promise<LLMModel[]>;
   abstract abort(): Promise<void>;
-  abstract clear(): void;
 }

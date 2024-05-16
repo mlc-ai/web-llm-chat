@@ -28,6 +28,7 @@ import { useAppConfig } from "../store/config";
 import { getClientConfig } from "../config/client";
 import { WebLLMApi, WebLLMContext } from "../client/webllm";
 import Locale from "../locales";
+import { prebuiltAppConfig } from "@neet-nestor/web-llm";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -177,32 +178,48 @@ function Screen() {
   );
 }
 
-export function useLoadData(webllm: WebLLMApi) {
+export function useLoadData() {
   const config = useAppConfig();
 
   useEffect(() => {
-    (async () => {
-      if (webllm) {
-        const models = await webllm.models();
-        config.mergeModels(models);
-      }
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [webllm]);
+    config.mergeModels(
+      prebuiltAppConfig.model_list.map((record) => ({
+        name: record.model_id,
+        available: true,
+        provider: {
+          id: "huggingface",
+          providerName: "huggingface",
+          providerType: "huggingface",
+        },
+      })),
+    );
+  }, []);
 }
+
+const useWebLLM = () => {
+  const [webllm, setWebLLM] = useState<WebLLMApi | null>(null);
+  const [isSWAlive, setSWAlive] = useState(true);
+
+  useEffect(() => {
+    setWebLLM(new WebLLMApi());
+  }, []);
+
+  setInterval(() => {
+    if (webllm) {
+      // 10s per heartbeat, dead after 1 min of inactivity
+      setSWAlive(!!webllm.engine && webllm.engine.missedHeatbeat < 6);
+    }
+  });
+
+  return { webllm, isWebllmAlive: isSWAlive };
+};
 
 export function Home() {
   const hasHydrated = useHasHydrated();
   const isServiceWorkerReady = useServiceWorkerReady();
-  const [isEngineCrash, setEngineCrash] = useState(false);
+  const { webllm, isWebllmAlive } = useWebLLM();
 
-  const webllm = useMemo(() => {
-    return new WebLLMApi(() => {
-      setEngineCrash(true);
-    });
-  }, []);
-
-  useLoadData(webllm);
+  useLoadData();
   useSwitchTheme();
   useHtmlLang();
 
@@ -210,7 +227,7 @@ export function Home() {
     return <Loading />;
   }
 
-  if (isEngineCrash) {
+  if (!isWebllmAlive) {
     return <ErrorScreen message={Locale.ServiceWorker.Error} />;
   }
 

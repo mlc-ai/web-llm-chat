@@ -1,9 +1,11 @@
 import {
-  WebServiceWorkerEngineHandler,
+  ServiceWorkerEngineHandler,
   EngineInterface,
   Engine,
 } from "@neet-nestor/web-llm";
+import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { CacheFirst, ExpirationPlugin, Serwist } from "serwist";
 
 // This declares the value of `injectionPoint` to TypeScript.
 // `injectionPoint` is the string that will be replaced by the
@@ -14,27 +16,60 @@ declare global {
     __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
   }
 }
-// Note: this line is REQUIRED for Serwist to build
-self.__SW_MANIFEST;
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+  skipWaiting: true,
+  clientsClaim: true,
+  navigationPreload: true,
+  runtimeCaching: [
+    ...defaultCache,
+    {
+      matcher: ({ sameOrigin, url: { pathname } }) =>
+        sameOrigin && pathname === "/ping.txt",
+      handler: new CacheFirst({
+        cacheName: "WebLLMChatServiceWorkerKeepAlive",
+        plugins: [
+          new ExpirationPlugin({
+            maxEntries: 1,
+            maxAgeSeconds: 365 * 24 * 60 * 60, // 365 days
+            maxAgeFrom: "last-used",
+          }),
+        ],
+      }),
+    },
+  ],
+});
 
 declare const self: ServiceWorkerGlobalScope;
 
 const CHATGPT_NEXT_WEB_CACHE = "chatgpt-next-web-cache";
 const engine: EngineInterface = new Engine();
-let handler: WebServiceWorkerEngineHandler;
+let handler: ServiceWorkerEngineHandler;
 
-self.addEventListener("install", function (event) {
+self.addEventListener("install", (event) => {
   // Always update right away
   self.skipWaiting();
 
   event.waitUntil(
-    caches.open(CHATGPT_NEXT_WEB_CACHE).then(function (cache) {
+    caches.open(CHATGPT_NEXT_WEB_CACHE).then((cache) => {
       return cache.addAll([]);
     }),
   );
 });
 
-self.addEventListener("activate", function (event) {
-  handler = new WebServiceWorkerEngineHandler(engine);
-  console.log("Web-LLM Service Worker Activated");
+self.addEventListener("activate", (event) => {
+  if (!handler) {
+    handler = new ServiceWorkerEngineHandler(engine);
+    console.log("Service Worker: Web-LLM Engine Activated");
+  }
 });
+
+self.addEventListener("fetch", (event) => {
+  console.log("sw fetch handler");
+  if (!handler) {
+    handler = new ServiceWorkerEngineHandler(engine);
+    console.log("Service Worker: Web-LLM Engine Activated");
+  }
+});
+
+serwist.addEventListeners();

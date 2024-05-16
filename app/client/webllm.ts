@@ -1,92 +1,143 @@
 import { createContext } from "react";
 import {
-  CreateWebServiceWorkerEngine,
   InitProgressReport,
   prebuiltAppConfig,
   ChatCompletionMessageParam,
-  WebServiceWorkerEngine,
+  ServiceWorkerEngine,
+  ServiceWorker,
+  ChatCompletionChunk,
+  ChatCompletion,
 } from "@neet-nestor/web-llm";
 
-import { ChatOptions, LLMApi, LLMConfig } from "./api";
+import { ChatOptions, LLMApi, LLMConfig, RequestMessage } from "./api";
+
+const KEEP_ALIVE_INTERVAL = 10000;
 
 export class WebLLMApi implements LLMApi {
-  private currentModel?: string;
-  private engine?: WebServiceWorkerEngine;
+  private llmConfig?: LLMConfig;
+  engine?: ServiceWorkerEngine;
 
-  constructor(onEngineCrash: () => void) {
-    setInterval(() => {
-      if ((this.engine?.missedHeatbeat || 0) > 2) {
-        onEngineCrash?.();
-      }
-    }, 10000);
+  constructor() {
+    this.engine = new ServiceWorkerEngine(new ServiceWorker());
+    this.engine.keepAlive(
+      window.location.href + "ping.txt",
+      KEEP_ALIVE_INTERVAL,
+    );
   }
 
-  clear() {
-    this.engine = undefined;
-  }
+  async initModel(onUpdate?: (message: string, chunk: string) => void) {
+    if (!this.llmConfig) {
+      throw Error("llmConfig is undefined");
+    }
+    if (!this.engine) {
+      this.engine = new ServiceWorkerEngine(new ServiceWorker());
+    }
+    let hasResponse = false;
+    this.engine.setInitProgressCallback((report: InitProgressReport) => {
+      onUpdate?.(report.text, report.text);
+      hasResponse = true;
+    });
+    let initRequest = this.engine.init(this.llmConfig.model, this.llmConfig, {
+      ...prebuiltAppConfig,
+      useIndexedDBCache: this.llmConfig.cache === "index_db",
+    });
+    // In case the service worker is dead, init will halt indefinitely
+    // so we manually retry if timeout
+    let retry = 0;
+    let engine = this.engine;
+    let llmConfig = this.llmConfig;
+    let retryInterval: NodeJS.Timeout;
 
-  async initModel(
-    config: LLMConfig,
-    onUpdate?: (message: string, chunk: string) => void,
-  ) {
-    this.currentModel = config.model;
-    this.engine = await CreateWebServiceWorkerEngine(config.model, {
-      chatOpts: {
-        temperature: config.temperature,
-        top_p: config.top_p,
-        presence_penalty: config.presence_penalty,
-        frequency_penalty: config.frequency_penalty,
-      },
-      appConfig: {
-        ...prebuiltAppConfig,
-        useIndexedDBCache: config.cache === "index_db",
-      },
-      initProgressCallback: (report: InitProgressReport) => {
-        onUpdate?.(report.text, report.text);
-      },
+    await new Promise<void>((resolve, reject) => {
+      retryInterval = setInterval(() => {
+        if (hasResponse) {
+          clearInterval(retryInterval);
+          initRequest.then(resolve);
+          return;
+        }
+        if (retry >= 5) {
+          clearInterval(retryInterval);
+          reject("Model initialization timed out for too many times");
+          return;
+        }
+        retry += 1;
+        initRequest = engine.init(llmConfig.model, llmConfig, {
+          ...prebuiltAppConfig,
+          useIndexedDBCache: llmConfig.cache === "index_db",
+        });
+      }, 5000);
     });
   }
 
+  isConfigChanged(config: LLMConfig) {
+    return (
+      this.llmConfig?.model !== config.model ||
+      this.llmConfig?.cache !== config.cache ||
+      this.llmConfig?.temperature !== config.temperature ||
+      this.llmConfig?.top_p !== config.top_p ||
+      this.llmConfig?.presence_penalty !== config.presence_penalty ||
+      this.llmConfig?.frequency_penalty !== config.frequency_penalty
+    );
+  }
+
+  async chatCompletion(
+    stream: boolean,
+    messages: RequestMessage[],
+    onUpdate?: (message: string, chunk: string) => void,
+  ) {
+    let reply: string | null = "";
+
+    const completion = await this.engine!.chatCompletion({
+      stream: stream,
+      messages: messages as ChatCompletionMessageParam[],
+    });
+
+    if (stream) {
+      const asyncGenerator = completion as AsyncIterable<ChatCompletionChunk>;
+      for await (const chunk of asyncGenerator) {
+        if (chunk.choices[0].delta.content) {
+          reply += chunk.choices[0].delta.content;
+          onUpdate?.(reply, chunk.choices[0].delta.content);
+        }
+      }
+      return reply;
+    }
+    return (completion as ChatCompletion).choices[0].message.content;
+  }
+
   async chat(options: ChatOptions): Promise<void> {
-    if (options.config.model !== this.currentModel) {
+    // in case the service worker is dead, revive it by firing a fetch event
+    fetch("/ping.txt");
+
+    if (this.isConfigChanged(options.config)) {
+      this.llmConfig = options.config;
       try {
-        await this.initModel(options.config, options.onUpdate);
+        await this.initModel(options.onUpdate);
       } catch (e) {
         console.error("Error in initModel", e);
       }
     }
 
     let reply: string | null = "";
-    if (options.config.stream) {
-      try {
-        const asyncChunkGenerator = await this.engine!.chatCompletion({
-          stream: options.config.stream,
-          messages: options.messages as ChatCompletionMessageParam[],
-        });
-
-        for await (const chunk of asyncChunkGenerator) {
-          if (chunk.choices[0].delta.content) {
-            reply += chunk.choices[0].delta.content;
-            options.onUpdate?.(reply, chunk.choices[0].delta.content);
-          }
-        }
-      } catch (err) {
-        console.error("Error in streaming chatCompletion", err);
+    try {
+      reply = await this.chatCompletion(
+        !!options.config.stream,
+        options.messages,
+        options.onUpdate,
+      );
+    } catch (err: any) {
+      if (err.toString().includes("Please call `Engine.reload(model)` first")) {
+        console.error("Error in chatCompletion", err);
         options.onError?.(err as Error);
         return;
       }
-    } else {
-      try {
-        const completion = await this.engine!.chatCompletion({
-          stream: options.config.stream,
-          messages: options.messages as ChatCompletionMessageParam[],
-        });
-        reply = completion.choices[0].message.content;
-      } catch (err) {
-        console.error("Error in non-streaming chatCompletion", err);
-        options.onError?.(err as Error);
-        return;
-      }
+      // Service worker has been stopped. Restart it
+      await this.initModel(options.onUpdate);
+      reply = await this.chatCompletion(
+        !!options.config.stream,
+        options.messages,
+        options.onUpdate,
+      );
     }
 
     if (reply) {
@@ -105,18 +156,6 @@ export class WebLLMApi implements LLMApi {
       used: 0,
       total: 0,
     };
-  }
-
-  async models() {
-    return prebuiltAppConfig.model_list.map((record) => ({
-      name: record.model_id,
-      available: true,
-      provider: {
-        id: "huggingface",
-        providerName: "huggingface",
-        providerType: "huggingface",
-      },
-    }));
   }
 }
 
