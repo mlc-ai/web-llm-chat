@@ -3,9 +3,7 @@ import {
   EngineInterface,
   Engine,
 } from "@neet-nestor/web-llm";
-import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { Serwist } from "serwist";
 
 // This declares the value of `injectionPoint` to TypeScript.
 // `injectionPoint` is the string that will be replaced by the
@@ -16,16 +14,10 @@ declare global {
     __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
   }
 }
+// Note: this line is REQUIRED for Serwist to build
+self.__SW_MANIFEST;
 
 declare const self: ServiceWorkerGlobalScope;
-
-const serwist = new Serwist({
-  precacheEntries: self.__SW_MANIFEST,
-  skipWaiting: true,
-  clientsClaim: true,
-  navigationPreload: true,
-  runtimeCaching: defaultCache,
-});
 
 const CHATGPT_NEXT_WEB_CACHE = "chatgpt-next-web-cache";
 const engine: EngineInterface = new Engine();
@@ -46,5 +38,3 @@ self.addEventListener("activate", function (event) {
   handler = new WebServiceWorkerEngineHandler(engine);
   console.log("Web-LLM Service Worker Activated");
 });
-
-serwist.addEventListeners();

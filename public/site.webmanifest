@@ -1,6 +1,6 @@
 {
   "name": "WebLLM Chat",
-  "short_name": "WebLLM",
+  "short_name": "WebLLMChat",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",

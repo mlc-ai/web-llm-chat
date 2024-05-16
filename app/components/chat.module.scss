@@ -330,10 +330,6 @@
   align-items: center;
   width: 100%;
 
-  .chat-message-model-name-container {
-    width: 100%;
-  }
-
   .chat-message-actions {
     display: flex;
     box-sizing: border-box;
@@ -360,15 +356,18 @@
   flex-direction: column;
   align-items: flex-start;
 
-  .chat-message-model-name-container {
-    position: relative;
+  .chat-message-header {
+    .chat-message-model-name-container {
+      position: relative;
 
-    .chat-message-model-name {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-      transition: opacity 0.3s ease;
+      .chat-message-model-name {
+        position: absolute;
+        text-wrap: nowrap;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        transition: opacity 0.3s ease;
+      }
     }
   }
 
