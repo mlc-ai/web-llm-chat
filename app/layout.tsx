@@ -4,10 +4,7 @@ import "./styles/markdown.scss";
 import "./styles/highlight.scss";
 import { getClientConfig } from "./config/client";
 import { type Metadata } from "next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { getServerSideConfig } from "./config/server";
 import { GoogleTagManager } from "@next/third-parties/google";
-const serverConfig = getServerSideConfig();
 
 export const metadata: Metadata = {
   title: "WebLLM Chat",
@@ -64,14 +61,9 @@ export default function RootLayout({
       </head>
       <body>
         {children}
-        {serverConfig?.isVercel && (
+        {process.env.GTM_ID && (
           <>
-            <SpeedInsights />
-          </>
-        )}
-        {serverConfig?.gtmId && (
-          <>
-            <GoogleTagManager gtmId={serverConfig.gtmId} />
+            <GoogleTagManager gtmId={process.env.GTM_ID} />
           </>
         )}
       </body>
