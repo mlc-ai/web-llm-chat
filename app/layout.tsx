@@ -4,7 +4,7 @@ import "./styles/markdown.scss";
 import "./styles/highlight.scss";
 import { getClientConfig } from "./config/client";
 import { type Metadata } from "next";
-import { GoogleTagManager } from "@next/third-parties/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: "WebLLM Chat",
@@ -61,10 +61,8 @@ export default function RootLayout({
       </head>
       <body>
         {children}
-        {process.env.GTM_ID && (
-          <>
-            <GoogleTagManager gtmId={process.env.GTM_ID} />
-          </>
+        {process.env.GOOGLE_ANALYTICS_ID && (
+          <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID} />
         )}
       </body>
     </html>
