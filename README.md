@@ -16,7 +16,7 @@
 
 ## Overview
 
-**WebLLM Chat** is an AI chat webapp that brings [WebLLM](https://github.com/mlc-ai/web-llm) with a user-friendly interface to deliver an fully open-source and accssible AI chat application. WebLLM Chat leverages WebGPU to run large language models (LLMs) natively in your browser, offering a seamless AI chatting experience with unprecedented privacy and performance.
+**WebLLM Chat** is a private AI chat interface that combines [WebLLM](https://github.com/mlc-ai/web-llm) with a user-friendly design, leveraging WebGPU to run large language models (LLMs) natively in your browser. Enjoy an unprecedented, private, and accessible AI conversation experience.
 
 ## Key Features
 
