@@ -1,26 +1,28 @@
 <div align="center">
-<img src="./docs/images/mlc-logo-with-text-landscape.png" style="background-color: white"/>
+<a href="https://mlc.ai"><img src="./docs/images/mlc-logo-with-text-landscape.png" style="background-color: white"/></a>
 
 # WebLLM Chat
 
-<img alt="GitHub deployments" src="https://img.shields.io/github/deployments/mlc-ai/web-llm-chat/github-pages">
+<a href="https://chat.webllm.ai"><img alt="GitHub deployments" src="https://img.shields.io/github/deployments/mlc-ai/web-llm-chat/github-pages">
 <a href="https://discord.gg/9Xpy2HGBuD"><img alt="Static Badge" src="https://img.shields.io/badge/Join-Discord-7289DA"></a>
 
-**AI Conversations, Fully In-Browser.**
+**Private AI Conversations, Fully In-Browser.**
 
 [**Chat Now**](https://chat.webllm.ai/)
 
+<a href="https://chat.webllm.ai"><img alt="WebLLM Chat" src="./docs/images/web-llm-chat.gif"></a>
+
 </div>
 
-## Introduction
+## Overview
 
-WebLLM Chat is an AI chat webapp that brings [WebLLM](https://github.com/mlc-ai/web-llm) with a user-friendly interface to deliver an fully open-source and accssible AI chat application. WebLLM Chat leverages WebGPU to run large language models (LLMs) natively in your browser, offering a seamless AI chatting experience with unprecedented privacy and performance.
+**WebLLM Chat** is an AI chat webapp that brings [WebLLM](https://github.com/mlc-ai/web-llm) with a user-friendly interface to deliver an fully open-source and accssible AI chat application. WebLLM Chat leverages WebGPU to run large language models (LLMs) natively in your browser, offering a seamless AI chatting experience with unprecedented privacy and performance.
 
 ## Key Features
 
 - **Browser-Native AI**: Experience cutting-edge language models running natively within your web browser with WebGPU acceleration, eliminating the need for server-side processing or cloud dependencies.
+- **Ganranteed Privacy**: With the AI model running locally on your hardware and all data processing happening within your browser, your data and conversations never leave your computer, ensuring your privacy.
 - **User-Friendly Interface**: Enjoy the intuitive and feature-rich user interface of [NextChat](), complete with markdown support, dark mode, and a responsive design optimized for various screen sizes.
-- **Privacy-Focused**: With all data processing happening locally within your browser, WebLLM Chat prioritizes your privacy and ensures your data remains secure locally.
 - **Open Source and Customizable**: Build and customize your own AI-powered applications with our open-source framework.
 - **i18n**: English, 简体中文, 繁体中文, 日本語, Français, Español, Italiano, Türkçe, Deutsch, Tiếng Việt, Русский, Čeština, 한국어, Indonesia
 
