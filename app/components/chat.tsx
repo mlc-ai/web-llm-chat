@@ -340,6 +340,7 @@ function ChatAction(props: {
   text: string;
   icon: JSX.Element;
   onClick: () => void;
+  fullWidth?: boolean;
 }) {
   const iconRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -359,7 +360,19 @@ function ChatAction(props: {
     });
   }
 
-  return (
+  return props.fullWidth ? (
+    <div
+      className={`${styles["chat-input-action"]} clickable ${styles["full-width"]}`}
+      onClick={props.onClick}
+    >
+      <div ref={iconRef} className={styles["icon"]}>
+        {props.icon}
+      </div>
+      <div className={styles["text"]} ref={textRef}>
+        {props.text}
+      </div>
+    </div>
+  ) : (
     <div
       className={`${styles["chat-input-action"]} clickable`}
       onClick={() => {
@@ -555,6 +568,7 @@ export function ChatActions(props: {
         onClick={() => setShowModelSelector(true)}
         text={currentModel}
         icon={<RobotIcon />}
+        fullWidth
       />
 
       {showModelSelector && (

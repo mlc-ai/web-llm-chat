@@ -178,24 +178,6 @@ function Screen() {
   );
 }
 
-export function useLoadData() {
-  const config = useAppConfig();
-
-  useEffect(() => {
-    config.mergeModels(
-      prebuiltAppConfig.model_list.map((record) => ({
-        name: record.model_id,
-        available: true,
-        provider: {
-          id: "huggingface",
-          providerName: "huggingface",
-          providerType: "huggingface",
-        },
-      })),
-    );
-  }, []);
-}
-
 const useWebLLM = () => {
   const [webllm, setWebLLM] = useState<WebLLMApi | null>(null);
   const [isSWAlive, setSWAlive] = useState(true);
@@ -219,7 +201,6 @@ export function Home() {
   const isServiceWorkerReady = useServiceWorkerReady();
   const { webllm, isWebllmAlive } = useWebLLM();
 
-  useLoadData();
   useSwitchTheme();
   useHtmlLang();
 

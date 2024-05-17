@@ -75,6 +75,15 @@
       pointer-events: none;
     }
 
+    &.full-width {
+      width: fit-content;
+
+      .text {
+        opacity: 1;
+        transform: translate(0);
+      }
+    }
+
     &:hover {
       --delay: 0.5s;
       width: var(--full-width);
