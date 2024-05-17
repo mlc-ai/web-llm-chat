@@ -45,14 +45,11 @@ export interface LLMUsage {
 
 export interface LLMModel {
   name: string;
-  available: boolean;
-  provider: LLMModelProvider;
-}
-
-export interface LLMModelProvider {
-  id: string;
-  providerName: string;
-  providerType: string;
+  display_name: string;
+  provider?: string;
+  size?: string;
+  precision?: string;
+  is_default?: boolean;
 }
 
 export abstract class LLMApi {

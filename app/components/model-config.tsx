@@ -25,13 +25,12 @@ export function ModelConfigList(props: {
             );
           }}
         >
-          {allModels
-            .filter((v) => v.available)
-            .map((v, i) => (
-              <option value={v.name} key={i}>
-                {v.displayName}({v.provider?.providerName})
-              </option>
-            ))}
+          {allModels.map((v, i) => (
+            <option value={v.name} key={i}>
+              {v.name}
+              {v.provider ? ` (${v.provider})` : ""}
+            </option>
+          ))}
         </Select>
       </ListItem>
       <ListItem

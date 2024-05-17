@@ -1,11 +1,5 @@
 import { LLMModel } from "../client/api";
 
-const customProvider = (modelName: string) => ({
-  id: modelName,
-  providerName: "",
-  providerType: "custom",
-});
-
 export function collectModelTable(
   models: readonly LLMModel[],
   customModels: string,
@@ -13,9 +7,8 @@ export function collectModelTable(
   const modelTable: Record<
     string,
     {
-      available: boolean;
       name: string;
-      displayName: string;
+      display_name: string;
       provider?: LLMModel["provider"]; // Marked as optional
       isDefault?: boolean;
     }
@@ -25,7 +18,7 @@ export function collectModelTable(
   models.forEach((m) => {
     modelTable[m.name] = {
       ...m,
-      displayName: m.name, // 'provider' is copied over if it exists
+      display_name: m.name, // 'provider' is copied over if it exists
     };
   });
 
@@ -37,21 +30,13 @@ export function collectModelTable(
       const available = !m.startsWith("-");
       const nameConfig =
         m.startsWith("+") || m.startsWith("-") ? m.slice(1) : m;
-      const [name, displayName] = nameConfig.split("=");
+      const [name, display_name] = nameConfig.split("=");
 
-      // enable or disable all models
-      if (name === "all") {
-        Object.values(modelTable).forEach(
-          (model) => (model.available = available),
-        );
-      } else {
-        modelTable[name] = {
-          name,
-          displayName: displayName || name,
-          available,
-          provider: modelTable[name]?.provider ?? customProvider(name), // Use optional chaining
-        };
-      }
+      modelTable[name] = {
+        name,
+        display_name: display_name || name,
+        provider: modelTable[name]?.provider ?? "", // Use optional chaining
+      };
     });
 
   return modelTable;
