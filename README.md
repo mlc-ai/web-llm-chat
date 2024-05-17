@@ -3,7 +3,7 @@
 
 # WebLLM Chat
 
-<a href="https://chat.webllm.ai"><img alt="GitHub deployments" src="https://img.shields.io/github/deployments/mlc-ai/web-llm-chat/github-pages">
+<a href="https://chat.webllm.ai"><img alt="GitHub Pages Deployed" src="https://img.shields.io/badge/GitHub_Pages-Deployed-%2332a852?logo=github">
 <a href="https://discord.gg/9Xpy2HGBuD"><img alt="Static Badge" src="https://img.shields.io/badge/Join-Discord-7289DA"></a>
 
 **Private AI Conversations, Fully In-Browser.**
