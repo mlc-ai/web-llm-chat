@@ -37,7 +37,7 @@ const vi: PartialLocaleType = {
     Copy: "Sao chép tất cả",
     Download: "Tải xuống",
     MessageFromYou: "Tin nhắn của bạn",
-    MessageFromChatGPT: "Tin nhắn từ ChatGPT",
+    MessageFromWebLLM: "Tin nhắn từ WebLLM",
   },
   Memory: {
     Title: "Lịch sử tin nhắn",

@@ -37,7 +37,7 @@ const it: PartialLocaleType = {
     Copy: "Copia tutto",
     Download: "Scarica",
     MessageFromYou: "Messaggio da te",
-    MessageFromChatGPT: "Messaggio da ChatGPT",
+    MessageFromWebLLM: "Messaggio da WebLLM",
   },
   Memory: {
     Title: "Prompt di memoria",

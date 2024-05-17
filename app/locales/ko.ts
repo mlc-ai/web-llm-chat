@@ -38,7 +38,7 @@ const ko: PartialLocaleType = {
     Copy: "모두 복사",
     Download: "다운로드",
     MessageFromYou: "나의 메시지",
-    MessageFromChatGPT: "ChatGPT의 메시지",
+    MessageFromWebLLM: "WebLLM의 메시지",
   },
   Memory: {
     Title: "기억 프롬프트",

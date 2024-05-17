@@ -70,8 +70,8 @@ const pt: PartialLocaleType = {
     Copy: "Copiar Tudo",
     Download: "Baixar",
     MessageFromYou: "Mensagem De Você",
-    MessageFromChatGPT: "Mensagem De ChatGPT",
-    Share: "Compartilhar para ShareGPT",
+    MessageFromWebLLM: "Mensagem De WebLLM",
+    Share: "Compartilhar",
     Format: {
       Title: "Formato de Exportação",
       SubTitle: "Markdown ou Imagem PNG",

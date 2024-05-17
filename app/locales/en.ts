@@ -72,8 +72,8 @@ const en = {
     Copy: "Copy All",
     Download: "Download",
     MessageFromYou: "Message From You",
-    MessageFromChatGPT: "Message From ChatGPT",
-    Share: "Share to ShareGPT",
+    MessageFromWebLLM: "Message From WebLLM",
+    Share: "Share",
     Format: {
       Title: "Export Format",
       SubTitle: "Markdown or PNG Image",

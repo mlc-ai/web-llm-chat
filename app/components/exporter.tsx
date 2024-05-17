@@ -21,9 +21,9 @@ import {
 
 import CopyIcon from "../icons/copy.svg";
 import LoadingIcon from "../icons/three-dots.svg";
-import ChatGptIcon from "../icons/chatgpt.png";
 import ShareIcon from "../icons/share.svg";
-import MlcIcon from "../icons/mlc.png";
+import MlcIcon from "../icons/mlc.svg";
+import MlcIconPng from "../icons/mlc.png";
 
 import DownloadIcon from "../icons/download.svg";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -434,8 +434,8 @@ export function PreviewActions(props: {
 function ExportAvatar(props: { avatar: string }) {
   if (props.avatar === DEFAULT_MASK_AVATAR) {
     return (
-      <div className="user-avatar">
-        <img src={MlcIcon.src} height={20} alt="bot" />
+      <div className="bot-avatar no-dark">
+        <MlcIcon />
       </div>
     );
   }
@@ -524,22 +524,12 @@ export function ImagePreviewer(props: {
       >
         <div className={styles["chat-info"]}>
           <div className={styles["logo"] + " no-dark"}>
-            <NextImage
-              src={ChatGptIcon.src}
-              alt="logo"
-              width={50}
-              height={50}
-            />
+            <MlcIcon />
           </div>
 
           <div>
             <div className={styles["main-title"]}>WebLLM Chat</div>
-            <div className={styles["sub-title"]}>chat.neet.coffee</div>
-            <div className={styles["icons"]}>
-              <ExportAvatar avatar={config.avatar} />
-              <span className={styles["icon-space"]}>&</span>
-              <ExportAvatar avatar={mask.avatar} />
-            </div>
+            <div className={styles["sub-title"]}>{window.location.host}</div>
           </div>
           <div>
             <div className={styles["chat-info-item"]}>
@@ -565,11 +555,11 @@ export function ImagePreviewer(props: {
               className={styles["message"] + " " + styles["message-" + m.role]}
               key={i}
             >
-              <div className={styles["avatar"]}>
-                <ExportAvatar
-                  avatar={m.role === "user" ? config.avatar : mask.avatar}
-                />
-              </div>
+              {m.role !== "user" && (
+                <div className={styles["avatar"]}>
+                  <ExportAvatar avatar={mask.avatar} />
+                </div>
+              )}
 
               <div className={styles["body"]}>
                 <Markdown
@@ -623,7 +613,7 @@ export function MarkdownPreviewer(props: {
       .map((m) => {
         return m.role === "user"
           ? `## ${Locale.Export.MessageFromYou}:\n${getMessageTextContent(m)}`
-          : `## ${Locale.Export.MessageFromChatGPT}:\n${getMessageTextContent(
+          : `## ${Locale.Export.MessageFromWebLLM}:\n${getMessageTextContent(
               m,
             ).trim()}`;
       })

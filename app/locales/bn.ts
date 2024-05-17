@@ -62,7 +62,7 @@ const bn: PartialLocaleType = {
     Copy: "সমস্তটি কপি করুন",
     Download: "ডাউনলোড করুন",
     MessageFromYou: "আপনার বার্তা",
-    MessageFromChatGPT: "চ্যাটজিপিটির বার্তা",
+    MessageFromWebLLM: "ওয়েবএলএলএমের বার্তা",
     Share: "শেয়ার করুন শেয়ারজিপিটি তে",
     Format: {
       Title: "রপ্তানি ফরম্যাট",

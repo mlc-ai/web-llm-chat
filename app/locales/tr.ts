@@ -37,7 +37,7 @@ const tr: PartialLocaleType = {
     Copy: "Tümünü Kopyala",
     Download: "İndir",
     MessageFromYou: "Sizin Mesajınız",
-    MessageFromChatGPT: "ChatGPT'nin Mesajı",
+    MessageFromWebLLM: "WebLLM'nin Mesajı",
   },
   Memory: {
     Title: "Bellek Komutları",

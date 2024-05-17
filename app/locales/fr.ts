@@ -62,7 +62,7 @@ const fr: PartialLocaleType = {
     Copy: "Tout sélectionner",
     Download: "Télécharger",
     MessageFromYou: "Message de votre part",
-    MessageFromChatGPT: "Message de ChatGPT",
+    MessageFromWebLLM: "Message de WebLLM",
   },
   Memory: {
     Title: "Prompt mémoire",

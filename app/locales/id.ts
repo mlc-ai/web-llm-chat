@@ -64,8 +64,8 @@ const id: PartialLocaleType = {
     Copy: "Salin Semua",
     Download: "Unduh",
     MessageFromYou: "Pesan dari Anda",
-    MessageFromChatGPT: "Pesan dari ChatGPT",
-    Share: "Bagikan ke ShareGPT",
+    MessageFromWebLLM: "Pesan dari WebLLM",
+    Share: "Bagikan",
     Format: {
       Title: "Format Ekspor",
       SubTitle: "Markdown atau Gambar PNG",

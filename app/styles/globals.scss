@@ -31,7 +31,7 @@
   --black: rgb(187, 187, 187);
   --gray: rgb(21, 21, 21);
   --primary: rgb(48, 65, 158);
-  --second: rgb(33,36,49);
+  --second: rgb(33, 36, 49);
   --hover-color: #323232;
   --mlc-icon-color: #ffffff;
 
@@ -41,7 +41,7 @@
 
   --theme-color: var(--gray);
 
-  div:not(.no-dark) > svg {
+  div:not(.no-dark)>svg {
     filter: invert(0.5);
   }
 }
@@ -313,6 +313,7 @@ pre {
   &:hover {
     filter: brightness(0.9);
   }
+
   &:focus {
     filter: brightness(0.95);
   }

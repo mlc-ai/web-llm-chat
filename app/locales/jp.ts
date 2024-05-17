@@ -49,7 +49,7 @@ const jp: PartialLocaleType = {
     Copy: "すべてコピー",
     Download: "ファイルをダウンロード",
     MessageFromYou: "あなたからのメッセージ",
-    MessageFromChatGPT: "ChatGPTからのメッセージ",
+    MessageFromWebLLM: "WebLLMからのメッセージ",
     Format: {
       Title: "フォーマットをエクスポート",
       SubTitle: "マークダウン形式、PNG画像形式を選択できます。",
