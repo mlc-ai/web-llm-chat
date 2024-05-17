@@ -10,7 +10,7 @@
 
 [**Chat Now**](https://chat.webllm.ai/)
 
-<a href="https://chat.webllm.ai"><img alt="WebLLM Chat" src="./docs/images/web-llm-chat.gif"></a>
+[WebLLM Chat Demo Video](https://github.com/mlc-ai/web-llm-chat/assets/23090573/f700e27e-bb88-4068-bc8b-8a33ea5a4300)
 
 </div>
 
