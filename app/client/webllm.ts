@@ -4,23 +4,27 @@ import {
   prebuiltAppConfig,
   ChatCompletionMessageParam,
   ServiceWorkerEngine,
-  ServiceWorker,
   ChatCompletionChunk,
   ChatCompletion,
 } from "@neet-nestor/web-llm";
 
 import { ChatOptions, LLMApi, LLMConfig, RequestMessage } from "./api";
 
-const KEEP_ALIVE_INTERVAL = 10000;
+const KEEP_ALIVE_INTERVAL = 10_000;
 
 export class WebLLMApi implements LLMApi {
   private llmConfig?: LLMConfig;
-  engine?: ServiceWorkerEngine;
+  engine: ServiceWorkerEngine;
 
   constructor() {
-    this.engine = new ServiceWorkerEngine(new ServiceWorker());
-    this.engine.keepAlive(
-      window.location.href + "ping.txt",
+    if (!("serviceWorker" in navigator)) {
+      throw Error("Service worker API is not available");
+    }
+    if (!navigator.serviceWorker.controller) {
+      throw Error("There is no active service worker");
+    }
+    this.engine = new ServiceWorkerEngine(
+      navigator.serviceWorker.controller,
       KEEP_ALIVE_INTERVAL,
     );
   }
@@ -29,43 +33,12 @@ export class WebLLMApi implements LLMApi {
     if (!this.llmConfig) {
       throw Error("llmConfig is undefined");
     }
-    if (!this.engine) {
-      this.engine = new ServiceWorkerEngine(new ServiceWorker());
-    }
-    let hasResponse = false;
     this.engine.setInitProgressCallback((report: InitProgressReport) => {
       onUpdate?.(report.text, report.text);
-      hasResponse = true;
     });
-    let initRequest = this.engine.init(this.llmConfig.model, this.llmConfig, {
+    await this.engine.init(this.llmConfig.model, this.llmConfig, {
       ...prebuiltAppConfig,
       useIndexedDBCache: this.llmConfig.cache === "index_db",
-    });
-    // In case the service worker is dead, init will halt indefinitely
-    // so we manually retry if timeout
-    let retry = 0;
-    let engine = this.engine;
-    let llmConfig = this.llmConfig;
-    let retryInterval: NodeJS.Timeout;
-
-    await new Promise<void>((resolve, reject) => {
-      retryInterval = setInterval(() => {
-        if (hasResponse) {
-          clearInterval(retryInterval);
-          initRequest.then(resolve);
-          return;
-        }
-        if (retry >= 5) {
-          clearInterval(retryInterval);
-          reject("Model initialization timed out for too many times");
-          return;
-        }
-        retry += 1;
-        initRequest = engine.init(llmConfig.model, llmConfig, {
-          ...prebuiltAppConfig,
-          useIndexedDBCache: llmConfig.cache === "index_db",
-        });
-      }, 5000);
     });
   }
 
@@ -81,15 +54,12 @@ export class WebLLMApi implements LLMApi {
   }
 
   async chat(options: ChatOptions): Promise<void> {
-    // in case the service worker is dead, revive it by firing a fetch event
-    fetch("/ping.txt");
-
     if (this.isDifferentConfig(options.config)) {
       this.llmConfig = { ...(this.llmConfig || {}), ...options.config };
       try {
         await this.initModel(options.onUpdate);
       } catch (e) {
-        console.error("Error in initModel", e);
+        console.error("Error while initializing the model", e);
       }
     }
 

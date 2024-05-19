@@ -64,8 +64,7 @@ self.addEventListener("activate", (event) => {
   }
 });
 
-self.addEventListener("fetch", (event) => {
-  console.log("sw fetch handler");
+self.addEventListener("message", (event) => {
   if (!handler) {
     handler = new ServiceWorkerEngineHandler(engine);
     console.log("Service Worker: Web-LLM Engine Activated");
