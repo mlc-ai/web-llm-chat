@@ -129,7 +129,19 @@ export const useAppConfig = createPersistStore(
       }));
     },
 
-    allModels() {},
+    allModels() {
+      return get().models;
+    },
+
+    updateModelConfig(config: Partial<ModelConfig>) {
+      set((state) => ({
+        ...state,
+        modelConfig: {
+          ...state.modelConfig,
+          ...config,
+        },
+      }));
+    },
   }),
   {
     name: StoreKey.Config,
