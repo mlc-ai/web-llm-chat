@@ -191,6 +191,9 @@ export const useChatStore = createPersistStore(
             },
           };
           session.topic = mask.name;
+        } else {
+          // inherit current model config
+          session.mask.modelConfig = this.currentSession().mask.modelConfig;
         }
 
         set((state) => ({
