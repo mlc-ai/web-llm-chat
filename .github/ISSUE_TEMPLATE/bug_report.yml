@@ -58,19 +58,6 @@ body:
 
   - type: markdown
     attributes:
-      value: "## Deployment"
-  - type: checkboxes
-    id: deployment
-    attributes:
-      label: "Deployment Method"
-      description: "Please select the deployment method you are using."
-      options:
-        - label: "Docker"
-        - label: "Vercel"
-        - label: "Server"
-
-  - type: markdown
-    attributes:
       value: "## Desktop (please complete the following information):"
   - type: input
     id: desktop-os
