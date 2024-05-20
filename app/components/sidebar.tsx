@@ -9,7 +9,6 @@ import MlcIcon from "../icons/mlc.svg";
 import AddIcon from "../icons/add.svg";
 import DeleteIcon from "../icons/delete.svg";
 import TemplateIcon from "../icons/chat.svg";
-import PluginIcon from "../icons/plugin.svg";
 import DragIcon from "../icons/drag.svg";
 import LightIcon from "../icons/light.svg";
 import DarkIcon from "../icons/dark.svg";
@@ -184,10 +183,12 @@ export function SideBar(props: { className?: string }) {
           shadow
         />
         <IconButton
-          icon={<PluginIcon />}
-          text={shouldNarrow ? undefined : Locale.Plugin.Name}
+          icon={<SettingsIcon />}
+          text={shouldNarrow ? undefined : Locale.Settings.Title}
           className={styles["sidebar-bar-button"]}
-          onClick={() => showToast(Locale.WIP)}
+          onClick={() => {
+            navigate(Path.Settings);
+          }}
           shadow
         />
       </div>
@@ -216,9 +217,9 @@ export function SideBar(props: { className?: string }) {
             />
           </div>
           <div className={styles["sidebar-action"]}>
-            <Link to={Path.Settings}>
-              <IconButton icon={<SettingsIcon />} shadow />
-            </Link>
+            <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
+              <IconButton icon={<GithubIcon />} shadow />
+            </a>
           </div>
           <div className={styles["sidebar-action"]}>
             <IconButton
@@ -236,11 +237,6 @@ export function SideBar(props: { className?: string }) {
               onClick={nextTheme}
               shadow
             />
-          </div>
-          <div className={styles["sidebar-action"]}>
-            <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
-              <IconButton icon={<GithubIcon />} shadow />
-            </a>
           </div>
         </div>
         <div>
