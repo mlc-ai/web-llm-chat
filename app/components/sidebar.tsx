@@ -163,10 +163,8 @@ export function SideBar(props: { className?: string }) {
       }}
     >
       <div className={styles["sidebar-header"]}>
-        <div className={styles["sidebar-title"]}>WebLLM Chat</div>
-        <div className={styles["sidebar-sub-title"]}>
-          Chat with AI natively in your browser.
-        </div>
+        <div className={styles["sidebar-title"]}>{Locale.Title}</div>
+        <div className={styles["sidebar-sub-title"]}>{Locale.Subtitle}</div>
         <div className={styles["sidebar-logo"] + " no-dark mlc-icon"}>
           <MlcIcon />
         </div>

@@ -8,7 +8,8 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: "WebLLM Chat",
-  description: "Chat with AI natively in your browser.",
+  description:
+    "Chat with AI large language models running natively in your browser. Enjoy private, server-free, seamless AI conversations.",
   viewport: {
     width: "device-width",
     initialScale: 1,

@@ -3,6 +3,8 @@ import { SubmitKey } from "../store/config";
 // if you are adding a new translation, please use PartialLocaleType instead of LocaleType
 
 const en = {
+  Title: "WebLLM Chat",
+  Subtitle: "AI Models Running in Browser",
   WIP: "Coming Soon...",
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messages`,
@@ -363,7 +365,7 @@ const en = {
     Name: "Prompts",
     Page: {
       Title: "Prompt Library",
-      SubTitle: "Tailored prompt collection for specific topics",
+      SubTitle: "Tailored Prompt Collection",
       Search: "Search Prompts",
       Create: "Create",
     },
