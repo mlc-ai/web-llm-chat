@@ -18,6 +18,7 @@ const cn = {
       ChatList: "查看消息列表",
       CompressedHistory: "查看压缩后的历史 Prompt",
       Export: "导出聊天记录",
+      Share: "分享",
       Copy: "复制",
       Stop: "停止",
       Retry: "重试",
