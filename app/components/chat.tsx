@@ -378,6 +378,11 @@ export function ChatActions(props: {
 
   return (
     <div className={styles["chat-input-actions"]}>
+      <ChatAction
+        onClick={props.scrollToBottom}
+        text={Locale.Chat.InputActions.ToBottom}
+        icon={<BottomIcon />}
+      />
       {showUploadImage && (
         <ChatAction
           onClick={props.uploadImage}
