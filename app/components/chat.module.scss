@@ -366,10 +366,10 @@
   align-items: flex-start;
 
   .chat-message-header {
-    .chat-message-model-name-container {
+    .chat-message-role-name-container {
       position: relative;
 
-      .chat-message-model-name {
+      .chat-message-role-name {
         position: absolute;
         text-wrap: nowrap;
         top: 50%;
@@ -387,7 +387,7 @@
       transform: scale(1) translateY(0);
     }
 
-    .chat-message-model-name {
+    .chat-message-role-name:not(.no-hide) {
       opacity: 0;
     }
   }
@@ -621,7 +621,7 @@
   }
 }
 
-.chat-message-model-name {
+.chat-message-role-name {
   font-size: 14px;
   margin-left: 8px;
 }

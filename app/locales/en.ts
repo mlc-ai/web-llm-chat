@@ -35,6 +35,11 @@ const en = {
       clear: "Clear Context",
       del: "Delete Chat",
     },
+    Roles: {
+      System: "System Prompt",
+      Assistant: "Assistant",
+      User: "User",
+    },
     InputActions: {
       Stop: "Stop",
       ToBottom: "To Latest",
@@ -379,7 +384,7 @@ const en = {
     },
     Config: {
       Avatar: "Bot Avatar",
-      Name: "Bot Name",
+      Name: "Conversation Name",
       Sync: {
         Title: "Use Global Config",
         SubTitle: "Use global config in this chat",

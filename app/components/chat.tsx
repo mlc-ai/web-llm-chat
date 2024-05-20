@@ -1190,11 +1190,16 @@ function _Chat() {
                         </>
                       )}
                     </div>
-                    <div
-                      className={styles["chat-message-model-name-container"]}
-                    >
-                      {!isUser && (
-                        <div className={styles["chat-message-model-name"]}>
+                    <div className={styles["chat-message-role-name-container"]}>
+                      {message.role === "system" && (
+                        <div
+                          className={`${styles["chat-message-role-name"]} ${styles["no-hide"]}`}
+                        >
+                          {Locale.Chat.Roles.System}
+                        </div>
+                      )}
+                      {message.role === "assistant" && (
+                        <div className={styles["chat-message-role-name"]}>
                           {config.models.find((m) => m.name === message.model)
                             ? config.models.find(
                                 (m) => m.name === message.model,
