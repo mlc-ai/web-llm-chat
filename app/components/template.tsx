@@ -3,6 +3,7 @@ import { ErrorBoundary } from "./error";
 
 import styles from "./template.module.scss";
 
+import ConfirmIcon from "../icons/confirm.svg";
 import DownloadIcon from "../icons/download.svg";
 import UploadIcon from "../icons/upload.svg";
 import EditIcon from "../icons/edit.svg";
@@ -21,7 +22,6 @@ import {
 import {
   ChatMessage,
   createMessage,
-  ModelConfig,
   ModelType,
   useAppConfig,
   useChatStore,
@@ -494,7 +494,9 @@ export function TemplatePage() {
               <div className={styles["template-item"]} key={m.id}>
                 <div className={styles["template-header"]}>
                   <div className={styles["template-icon"]}>
-                    <TemplateAvatar avatar={m.avatar} />
+                    <TemplateAvatar
+                      avatar={m.avatar || DEFAULT_TEMPLATE_AVATAR}
+                    />
                   </div>
                   <div className={styles["template-title"]}>
                     <div className={styles["template-name"]}>{m.name}</div>
@@ -553,6 +555,13 @@ export function TemplatePage() {
             title={Locale.Template.EditModal.Title(editingTemplate?.builtin)}
             onClose={closeTemplateModal}
             actions={[
+              <IconButton
+                icon={<ConfirmIcon />}
+                text={Locale.Template.EditModal.Save}
+                key="save"
+                bordered
+                onClick={closeTemplateModal}
+              />,
               <IconButton
                 icon={<DownloadIcon />}
                 text={Locale.Template.EditModal.Download}

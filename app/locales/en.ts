@@ -374,6 +374,7 @@ const en = {
     EditModal: {
       Title: (readonly: boolean) =>
         `Edit Prompt Template ${readonly ? "(readonly)" : ""}`,
+      Save: "Save",
       Download: "Download",
       Clone: "Clone",
     },

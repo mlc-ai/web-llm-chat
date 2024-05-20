@@ -356,6 +356,7 @@ const cn = {
       SubTitle: (count: number) => `${count} 个预设角色定义`,
       Search: "搜索角色模版",
       Create: "新建",
+      Save: "保存",
     },
     Item: {
       Info: (count: number) => `包含 ${count} 条预设对话`,

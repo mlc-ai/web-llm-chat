@@ -1103,7 +1103,7 @@ function _Chat() {
                       {!isUser && (
                         <>
                           {["system"].includes(message.role) ? (
-                            <Avatar avatar="2699-fe0f" />
+                            <Avatar avatar="2699-fe0f" /> // Gear icon
                           ) : (
                             <TemplateAvatar
                               avatar={session.template.avatar}
