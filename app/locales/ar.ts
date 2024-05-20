@@ -26,7 +26,7 @@ const ar: PartialLocaleType = {
         dark: "نمط داكن",
       },
       Prompt: "الاقتراحات",
-      Masks: "الأقنعة",
+      Templates: "القوالب",
       Clear: "مسح السياق",
       Settings: "الإعدادات",
     },
@@ -42,7 +42,7 @@ const ar: PartialLocaleType = {
     Send: "إرسال",
     Config: {
       Reset: "إعادة التعيين إلى الإعدادات الافتراضية",
-      SaveAs: "حفظ كأقنعة",
+      SaveAs: "الحفظ كقالب",
     },
   },
   Export: {
@@ -105,8 +105,8 @@ const ar: PartialLocaleType = {
         "قم بإضافة تلميحة نظام محاكاة ChatGPT إلى بداية قائمة الرسائل المُطلَبة في كل طلب",
     },
     InputTemplate: {
-      Title: "نموذج الإدخال",
-      SubTitle: "سيتم ملء أحدث رسالة في هذا النموذج",
+      Title: "قالب الإدخال",
+      SubTitle: "سيتم تعبئة أحدث رسالة في هذا القالب",
     },
     Update: {
       Version: (x: string) => ` الإصدار: ${x}`,
@@ -207,8 +207,8 @@ ${builtin} مدمجة، ${custom} تم تعريفها من قبل المستخد
   FineTuned: {
     Sysmessage: "أنت مساعد ي",
   },
-  Mask: {
-    Name: "الأقنعة",
+  Template: {
+    Name: "القوالب",
     Page: {
       Title: "قالب الاقتراح",
       SubTitle: (count: number) => `${count} قوالب الاقتراح`,

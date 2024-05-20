@@ -50,7 +50,7 @@ function EditPromptModal(props: { id: string; onClose: () => void }) {
   const prompt = promptStore.get(props.id);
 
   return prompt ? (
-    <div className="modal-mask">
+    <div className="modal-template">
       <Modal
         title={Locale.Settings.Prompt.EditModal.Title}
         onClose={props.onClose}
@@ -115,7 +115,7 @@ function UserPromptModal(props: { onClose?: () => void }) {
   }, [searchInput]);
 
   return (
-    <div className="modal-mask">
+    <div className="modal-template">
       <Modal
         title={Locale.Settings.Prompt.Modal.Title}
         onClose={() => props.onClose?.()}
@@ -415,16 +415,16 @@ export function Settings() {
 
         <List>
           <ListItem
-            title={Locale.Settings.Mask.Builtin.Title}
-            subTitle={Locale.Settings.Mask.Builtin.SubTitle}
+            title={Locale.Settings.Template.Builtin.Title}
+            subTitle={Locale.Settings.Template.Builtin.SubTitle}
           >
             <input
               type="checkbox"
-              checked={config.hideBuiltinMasks}
+              checked={config.hideBuiltinTemplates}
               onChange={(e) =>
                 updateConfig(
                   (config) =>
-                    (config.hideBuiltinMasks = e.currentTarget.checked),
+                    (config.hideBuiltinTemplates = e.currentTarget.checked),
                 )
               }
             ></input>

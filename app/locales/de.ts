@@ -29,7 +29,7 @@ const de: PartialLocaleType = {
     Send: "Senden",
     Config: {
       Reset: "Reset to Default",
-      SaveAs: "Save as Mask",
+      SaveAs: "Save as Template",
     },
   },
   Export: {
@@ -175,8 +175,8 @@ const de: PartialLocaleType = {
   FineTuned: {
     Sysmessage: "Du bist ein Assistent, der",
   },
-  Mask: {
-    Name: "Mask",
+  Template: {
+    Name: "Template",
     Page: {
       Title: "Prompt Template",
       SubTitle: (count: number) => `${count} prompt templates`,
@@ -203,13 +203,14 @@ const de: PartialLocaleType = {
     },
   },
   NewChat: {
-    Return: "Return",
-    Skip: "Skip",
-    Title: "Pick a Mask",
-    SubTitle: "Chat with the Soul behind the Mask",
-    More: "Find More",
-    NotShow: "Not Show Again",
-    ConfirmNoShow: "Confirm to disable？You can enable it in settings later.",
+    Return: "Zurückkehren",
+    Skip: "Fang einfach an",
+    Title: "Wählen Sie eine Vorlage",
+    SubTitle: "Starten Sie den Chat mit einer Vorlage",
+    More: "Finde mehr",
+    NotShow: "Nie wieder zeigen",
+    ConfirmNoShow:
+      "Zum Deaktivieren bestätigen? Sie können es später in den Einstellungen aktivieren.",
   },
 
   UI: {

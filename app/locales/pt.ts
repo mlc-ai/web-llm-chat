@@ -30,7 +30,7 @@ const pt: PartialLocaleType = {
     },
     Commands: {
       new: "Iniciar um novo chat",
-      newm: "Iniciar um novo chat com máscara",
+      newt: "Iniciar um novo chat com máscara",
       next: "Próximo Chat",
       prev: "Chat Anterior",
       clear: "Limpar Contexto",
@@ -45,7 +45,7 @@ const pt: PartialLocaleType = {
         dark: "Tema Escuro",
       },
       Prompt: "Prompts",
-      Masks: "Máscaras",
+      Templates: "Modelos",
       Clear: "Limpar Contexto",
       Settings: "Configurações",
     },
@@ -165,10 +165,10 @@ const pt: PartialLocaleType = {
       Title: "Gerar Título Automaticamente",
       SubTitle: "Gerar um título adequado baseado no conteúdo da conversa",
     },
-    Mask: {
+    Template: {
       Builtin: {
-        Title: "Esconder Máscaras Embutidas",
-        SubTitle: "Esconder máscaras embutidas na lista de máscaras",
+        Title: "Esconder Modelos Embutidas",
+        SubTitle: "Esconder modelos embutidas na lista de modelos",
       },
     },
     Prompt: {
@@ -335,12 +335,12 @@ const pt: PartialLocaleType = {
   FineTuned: {
     Sysmessage: "Você é um assistente que",
   },
-  Mask: {
-    Name: "Máscara",
+  Template: {
+    Name: "Modelos",
     Page: {
-      Title: "Template de Prompt",
-      SubTitle: (count: number) => `${count} templates de prompt`,
-      Search: "Buscar Templates",
+      Title: "Modelos de Prompt",
+      SubTitle: (count: number) => `${count} Modelos de prompt`,
+      Search: "Buscar Modelos",
       Create: "Criar",
     },
     Item: {
@@ -353,7 +353,7 @@ const pt: PartialLocaleType = {
     },
     EditModal: {
       Title: (readonly: boolean) =>
-        `Editar Template de Prompt ${readonly ? "(somente leitura)" : ""}`,
+        `Editar Modelos de Prompt ${readonly ? "(somente leitura)" : ""}`,
       Download: "Baixar",
       Clone: "Clonar",
     },

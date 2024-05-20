@@ -171,7 +171,7 @@ const vi: PartialLocaleType = {
   FineTuned: {
     Sysmessage: "Bạn là một trợ lý",
   },
-  Mask: {
+  Template: {
     Name: "Mẫu",
     Page: {
       Title: "Mẫu trò chuyện",

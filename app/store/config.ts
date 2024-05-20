@@ -42,7 +42,7 @@ export const DEFAULT_CONFIG = {
 
   disablePromptHint: false,
 
-  hideBuiltinMasks: false, // dont add builtin masks
+  hideBuiltinTemplates: false, // dont add builtin masks
 
   cacheType: "cache" as CacheType,
   customModels: "",

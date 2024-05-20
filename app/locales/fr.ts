@@ -23,7 +23,7 @@ const fr: PartialLocaleType = {
     },
     Commands: {
       new: "Commencer une nouvelle conversation",
-      newm: "Démarrer une nouvelle conversation avec un assistant",
+      newt: "Démarrer une nouvelle conversation avec un assistant",
       next: "Conversation suivante",
       prev: "Conversation précédente",
       clear: "Effacer le contexte",
@@ -38,7 +38,7 @@ const fr: PartialLocaleType = {
         dark: "Thème sombre",
       },
       Prompt: "Instructions",
-      Masks: "Assistants",
+      Templates: "Assistants",
       Clear: "Effacer le contexte",
       Settings: "Réglages",
     },
@@ -131,7 +131,7 @@ const fr: PartialLocaleType = {
       Title: "Aperçu de l'envoi dans une bulle",
       SubTitle: "Aperçu du Markdown dans une bulle",
     },
-    Mask: {
+    Template: {
       Builtin: {
         Title: "Masquer Les Assistants Intégrés",
         SubTitle: "Masquer les assistants intégrés par défaut",
@@ -230,7 +230,7 @@ const fr: PartialLocaleType = {
   FineTuned: {
     Sysmessage: "Eres un asistente que",
   },
-  Mask: {
+  Template: {
     Name: "Masque",
     Page: {
       Title: "Modèle de prompt",

@@ -32,7 +32,7 @@ const sk: PartialLocaleType = {
     },
     Commands: {
       new: "Začať nový chat",
-      newm: "Začať nový chat s maskou",
+      newt: "Začať nový chat s maskou",
       next: "Ďalší Chat",
       prev: "Predchádzajúci Chat",
       clear: "Vymazať kontext",
@@ -47,7 +47,7 @@ const sk: PartialLocaleType = {
         dark: "Tmavý motív",
       },
       Prompt: "Výzvy",
-      Masks: "Masky",
+      Templates: "šablón",
       Clear: "Vymazať kontext",
       Settings: "Nastavenia",
     },
@@ -167,10 +167,10 @@ const sk: PartialLocaleType = {
       Title: "Automaticky generovať názov",
       SubTitle: "Generovať vhodný názov na základe obsahu konverzácie",
     },
-    Mask: {
+    Template: {
       Builtin: {
-        Title: "Skryť vstavané masky",
-        SubTitle: "Skryť vstavané masky v zozname masiek",
+        Title: "Skryť vstavané šablóny",
+        SubTitle: "Skryť vstavané šablóny v zozname masiek",
       },
     },
     Prompt: {
@@ -354,8 +354,8 @@ const sk: PartialLocaleType = {
   FineTuned: {
     Sysmessage: "Ste asistent, ktorý",
   },
-  Mask: {
-    Name: "Maska",
+  Template: {
+    Name: "šablóny",
     Page: {
       Title: "Šablóna výziev",
       SubTitle: (count: number) => `${count} šablón výziev`,

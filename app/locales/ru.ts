@@ -176,8 +176,8 @@ const ru: PartialLocaleType = {
   FineTuned: {
     Sysmessage: "Вы - ассистент, который",
   },
-  Mask: {
-    Name: "Маска",
+  Template: {
+    Name: "шаблон",
     Page: {
       Title: "Шаблон подсказки",
       SubTitle: (count: number) => `${count} шаблонов подсказок`,

@@ -26,7 +26,10 @@ export function Popover(props: {
     <div className={styles.popover}>
       {props.children}
       {props.open && (
-        <div className={styles["popover-mask"]} onClick={props.onClose}></div>
+        <div
+          className={styles["popover-template"]}
+          onClick={props.onClose}
+        ></div>
       )}
       {props.open && (
         <div className={styles["popover-content"]}>{props.content}</div>
@@ -163,7 +166,7 @@ export function Modal(props: ModalProps) {
 
 export function showModal(props: ModalProps) {
   const div = document.createElement("div");
-  div.className = "modal-mask";
+  div.className = "modal-template";
   document.body.appendChild(div);
 
   const root = createRoot(div);
@@ -294,7 +297,7 @@ export function Select(
 
 export function showConfirm(content: any) {
   const div = document.createElement("div");
-  div.className = "modal-mask";
+  div.className = "modal-template";
   document.body.appendChild(div);
 
   const root = createRoot(div);
@@ -367,7 +370,7 @@ function PromptInput(props: {
 
 export function showPrompt(content: any, value = "", rows = 3) {
   const div = document.createElement("div");
-  div.className = "modal-mask";
+  div.className = "modal-template";
   document.body.appendChild(div);
 
   const root = createRoot(div);

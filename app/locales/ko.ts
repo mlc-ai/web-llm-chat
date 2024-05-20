@@ -30,7 +30,7 @@ const ko: PartialLocaleType = {
     Send: "보내기",
     Config: {
       Reset: "기본값으로 재설정",
-      SaveAs: "마스크로 저장",
+      SaveAs: "템플릿으로 저장",
     },
   },
   Export: {
@@ -171,8 +171,8 @@ const ko: PartialLocaleType = {
   FineTuned: {
     Sysmessage: "당신은 어시스턴트입니다",
   },
-  Mask: {
-    Name: "마스크",
+  Template: {
+    Name: "주형",
     Page: {
       Title: "프롬프트 템플릿",
       SubTitle: (count: number) => `${count}개의 프롬프트 템플릿`,
@@ -201,8 +201,8 @@ const ko: PartialLocaleType = {
   NewChat: {
     Return: "돌아가기",
     Skip: "건너뛰기",
-    Title: "마스크 선택",
-    SubTitle: "마스크 뒤의 영혼과 대화하세요",
+    Title: "주형 선택",
+    SubTitle: "주형 뒤의 영혼과 대화하세요",
     More: "더 보기",
     NotShow: "다시 표시하지 않음",
     ConfirmNoShow:

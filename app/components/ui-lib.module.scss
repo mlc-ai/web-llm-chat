@@ -19,12 +19,14 @@
   right: 0;
   top: calc(100% + 10px);
 }
+
 @media screen and (max-width: 600px) {
   .popover-content {
     width: auto;
   }
 }
-.popover-mask {
+
+.popover-template {
   position: fixed;
   top: 0;
   left: 0;

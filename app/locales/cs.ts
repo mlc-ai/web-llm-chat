@@ -29,7 +29,7 @@ const cs: PartialLocaleType = {
     Send: "Odeslat",
     Config: {
       Reset: "Obnovit výchozí",
-      SaveAs: "Uložit jako Masku",
+      SaveAs: "Uložit jako šablonu",
     },
   },
   Export: {
@@ -173,8 +173,8 @@ const cs: PartialLocaleType = {
   FineTuned: {
     Sysmessage: "Jste asistent, který",
   },
-  Mask: {
-    Name: "Maska",
+  Template: {
+    Name: "Templatea",
     Page: {
       Title: "Šablona pokynu",
       SubTitle: (count: number) => `${count} šablon pokynů`,
@@ -203,8 +203,8 @@ const cs: PartialLocaleType = {
   NewChat: {
     Return: "Zpět",
     Skip: "Přeskočit",
-    Title: "Vyberte Masku",
-    SubTitle: "Chatovat s duší za Maskou",
+    Title: "Vyberte Templateu",
+    SubTitle: "Chatovat s duší za Templateou",
     More: "Najít více",
     NotShow: "Nezobrazovat znovu",
     ConfirmNoShow: "Potvrdit zakázání？Můžete jej povolit později v nastavení.",

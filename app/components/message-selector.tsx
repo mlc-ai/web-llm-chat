@@ -3,7 +3,7 @@ import { ChatMessage, useAppConfig, useChatStore } from "../store";
 import { Updater } from "../typing";
 import { IconButton } from "./button";
 import { Avatar } from "./emoji";
-import { MaskAvatar } from "./mask";
+import { TemplateAvatar } from "./template";
 import Locale from "../locales";
 
 import styles from "./message-selector.module.scss";
@@ -211,9 +211,9 @@ export function MessageSelector(props: {
                 {m.role === "user" ? (
                   <Avatar avatar={config.avatar}></Avatar>
                 ) : (
-                  <MaskAvatar
-                    avatar={session.mask.avatar}
-                    model={m.model || session.mask.modelConfig.model}
+                  <TemplateAvatar
+                    avatar={session.template.avatar}
+                    model={m.model || session.template.modelConfig.model}
                   />
                 )}
               </div>

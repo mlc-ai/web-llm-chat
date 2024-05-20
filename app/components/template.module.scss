@@ -1,15 +1,15 @@
 @import "../styles/animation.scss";
 
-.mask-page {
+.template-page {
   height: 100%;
   display: flex;
   flex-direction: column;
 
-  .mask-page-body {
+  .template-page-body {
     padding: 20px;
     overflow-y: auto;
 
-    .mask-filter {
+    .template-filter {
       width: 100%;
       max-width: 100%;
       margin-bottom: 20px;
@@ -24,12 +24,12 @@
         min-width: 0;
       }
 
-      .mask-filter-lang {
+      .template-filter-lang {
         height: 100%;
         margin-left: 10px;
       }
 
-      .mask-create {
+      .template-create {
         height: 100%;
         margin-left: 10px;
         box-sizing: border-box;
@@ -38,7 +38,7 @@
     }
 
     @media screen and (max-width: 700px) {
-      .mask-filter {
+      .template-filter {
         margin-left: -10px;
 
         .search-bar {
@@ -47,11 +47,11 @@
       }
     }
 
-    .mask-item-container {
+    .template-item-container {
       min-width: 400px;
     }
 
-    .mask-item {
+    .template-item {
       display: flex;
       justify-content: space-between;
       padding: 20px;
@@ -72,30 +72,30 @@
         border-bottom-right-radius: 10px;
       }
 
-      .mask-header {
+      .template-header {
         display: flex;
         align-items: center;
 
-        .mask-icon {
+        .template-icon {
           display: flex;
           align-items: center;
           justify-content: center;
           margin-right: 10px;
         }
 
-        .mask-title {
-          .mask-name {
+        .template-title {
+          .template-name {
             font-size: 14px;
             font-weight: bold;
           }
 
-          .mask-info {
+          .template-info {
             font-size: 12px;
           }
         }
       }
 
-      .mask-actions {
+      .template-actions {
         display: flex;
         flex-wrap: nowrap;
         transition: all ease 0.3s;
@@ -113,7 +113,7 @@
           border-bottom: var(--border-in-light);
         }
 
-        .mask-actions {
+        .template-actions {
           width: 100%;
           justify-content: space-between;
           padding-top: 10px;

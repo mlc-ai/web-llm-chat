@@ -30,7 +30,7 @@ const tw = {
     },
     Commands: {
       new: "新建聊天",
-      newm: "從角色範本新建聊天",
+      newt: "從角色範本新建聊天",
       next: "下一個聊天",
       prev: "上一個聊天",
       clear: "清除上下文",
@@ -45,7 +45,7 @@ const tw = {
         dark: "深色模式",
       },
       Prompt: "快捷指令",
-      Masks: "所有角色範本",
+      Templates: "所有角色範本",
       Clear: "清除聊天",
       Settings: "對話設定",
       UploadImage: "上傳圖片",
@@ -208,7 +208,7 @@ const tw = {
       },
       ImportFailed: "匯入失敗",
     },
-    Mask: {
+    Template: {
       Builtin: {
         Title: "隱藏內建角色範本",
         SubTitle: "在所有角色範本列表中隱藏內建角色範本",
@@ -386,7 +386,7 @@ const tw = {
   },
   Plugin: { Name: "外掛" },
   FineTuned: { Sysmessage: "你是一個助手" },
-  Mask: {
+  Template: {
     Name: "角色範本",
     Page: {
       Title: "預設角色角色範本",

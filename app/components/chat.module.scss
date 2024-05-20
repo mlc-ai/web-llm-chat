@@ -18,14 +18,14 @@
   background-position: center;
   background-color: var(--white);
 
-  .attach-image-mask {
+  .attach-image-template {
     width: 100%;
     height: 100%;
     opacity: 0;
     transition: all ease 0.2s;
   }
 
-  .attach-image-mask:hover {
+  .attach-image-template:hover {
     opacity: 1;
   }
 

@@ -23,7 +23,7 @@ const bn: PartialLocaleType = {
     },
     Commands: {
       new: "নতুন চ্যাট শুরু করুন",
-      newm: "মাস্ক সহ নতুন চ্যাট শুরু করুন",
+      newt: "মাস্ক সহ নতুন চ্যাট শুরু করুন",
       next: "পরবর্তী চ্যাট",
       prev: "পূর্ববর্তী চ্যাট",
       clear: "সংশ্লিষ্টতাবদ্ধকরণ পরিষ্কার করুন",
@@ -38,7 +38,7 @@ const bn: PartialLocaleType = {
         dark: "ডার্ক থিম",
       },
       Prompt: "প্রম্পটগুলিতে",
-      Masks: "মাস্কগুলি",
+      Templates: "টেমপ্লেট",
       Clear: "সংশ্লিষ্টতাবদ্ধকরণ পরিষ্কার করুন",
       Settings: "সেটিংস",
     },
@@ -70,7 +70,7 @@ const bn: PartialLocaleType = {
     },
     IncludeContext: {
       Title: "মাস্ক অন্তর্ভুক্ত করুন",
-      SubTitle: "মাস্কগুলি সংরক্ষণ করবেন না কি",
+      SubTitle: "টেমপ্লেট সংরক্ষণ করবেন না কি",
     },
     Steps: {
       Select: "নির্বাচন করুন",
@@ -149,10 +149,10 @@ const bn: PartialLocaleType = {
       Title: "প্রিভিউ বুলবুল প্রেরণ করুন",
       SubTitle: "বুলবুলে মার্কডাউন প্রিভিউ করুন",
     },
-    Mask: {
+    Template: {
       Builtin: {
         Title: "মূলত মাস্ক গোপন করুন",
-        SubTitle: "মাস্ক তালিকা থেকে মূলত মাস্কগুলি লুকান",
+        SubTitle: "মাস্ক তালিকা থেকে মূলত টেমপ্লেট লুকান",
       },
     },
     Prompt: {
@@ -246,7 +246,7 @@ const bn: PartialLocaleType = {
   FineTuned: {
     Sysmessage: "আপনি একটি সহকারী যা",
   },
-  Mask: {
+  Template: {
     Name: "মাস্ক",
     Page: {
       Title: "প্রম্পট টেমপ্লেট",

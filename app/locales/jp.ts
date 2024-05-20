@@ -138,10 +138,10 @@ const jp: PartialLocaleType = {
       Title: "プレビューバブルの送信",
       SubTitle: "プレビューバブルでマークダウンコンテンツをプレビュー",
     },
-    Mask: {
+    Template: {
       Builtin: {
-        Title: "ビルトインマスクを非表示",
-        SubTitle: "マスクリストからビルトインを非表示する",
+        Title: "ビルトインテンプレートを非表示",
+        SubTitle: "テンプレートリストからビルトインを非表示する",
       },
     },
     Prompt: {
@@ -230,7 +230,7 @@ const jp: PartialLocaleType = {
   },
   Plugin: { Name: "プラグイン" },
   FineTuned: { Sysmessage: "あなたはアシスタントです" },
-  Mask: {
+  Template: {
     Name: "キャラクタープリセット",
     Page: {
       Title: "キャラクタープリセット",

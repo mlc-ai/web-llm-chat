@@ -1,6 +1,6 @@
-import { BuiltinMask } from "./typing";
+import { BuiltinTemplate } from "./typing";
 
-export const CN_MASKS: BuiltinMask[] = [
+export const CN_TEMPLATES: BuiltinTemplate[] = [
   {
     avatar: "1f5bc-fe0f",
     name: "以文搜图",

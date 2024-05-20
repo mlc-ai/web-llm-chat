@@ -1,7 +1,7 @@
 import { IconButton } from "./button";
 import { ErrorBoundary } from "./error";
 
-import styles from "./mask.module.scss";
+import styles from "./template.module.scss";
 
 import DownloadIcon from "../icons/download.svg";
 import UploadIcon from "../icons/upload.svg";
@@ -13,7 +13,11 @@ import EyeIcon from "../icons/eye.svg";
 import CopyIcon from "../icons/copy.svg";
 import DragIcon from "../icons/drag.svg";
 
-import { DEFAULT_MASK_AVATAR, Mask, useMaskStore } from "../store/mask";
+import {
+  DEFAULT_TEMPLATE_AVATAR,
+  Template,
+  useTemplateStore,
+} from "../store/template";
 import {
   ChatMessage,
   createMessage,
@@ -47,8 +51,7 @@ import {
 import { Updater } from "../typing";
 import { ModelConfigList } from "./model-config";
 import { FileName, Path } from "../constant";
-import { BUILTIN_MASK_STORE } from "../masks";
-import { nanoid } from "nanoid";
+import { BUILTIN_TEMPLATE_STORE } from "../templates";
 import {
   DragDropContext,
   Droppable,
@@ -65,17 +68,17 @@ function reorder<T>(list: T[], startIndex: number, endIndex: number): T[] {
   return result;
 }
 
-export function MaskAvatar(props: { avatar: string; model?: ModelType }) {
-  return props.avatar !== DEFAULT_MASK_AVATAR ? (
+export function TemplateAvatar(props: { avatar: string; model?: ModelType }) {
+  return props.avatar !== DEFAULT_TEMPLATE_AVATAR ? (
     <Avatar avatar={props.avatar} />
   ) : (
     <Avatar model={props.model} />
   );
 }
 
-export function MaskConfig(props: {
-  mask: Mask;
-  updateMask: Updater<Mask>;
+export function TemplateConfig(props: {
+  template: Template;
+  updateTemplate: Updater<Template>;
   extraListItems?: JSX.Element;
   readonly?: boolean;
 }) {
@@ -84,33 +87,33 @@ export function MaskConfig(props: {
   const updateConfig = (updater: (config: ModelConfig) => void) => {
     if (props.readonly) return;
 
-    const config = { ...props.mask.modelConfig };
+    const config = { ...props.template.modelConfig };
     updater(config);
-    props.updateMask((mask) => {
-      mask.modelConfig = config;
-      // if user changed current session mask, it will disable auto sync
-      mask.syncGlobalConfig = false;
+    props.updateTemplate((template) => {
+      template.modelConfig = config;
+      // if user changed current session template, it will disable auto sync
+      template.syncGlobalConfig = false;
     });
   };
 
   return (
     <>
       <ContextPrompts
-        context={props.mask.context}
+        context={props.template.context}
         updateContext={(updater) => {
-          const context = props.mask.context.slice();
+          const context = props.template.context.slice();
           updater(context);
-          props.updateMask((mask) => (mask.context = context));
+          props.updateTemplate((template) => (template.context = context));
         }}
       />
 
       <List>
-        <ListItem title={Locale.Mask.Config.Avatar}>
+        <ListItem title={Locale.Template.Config.Avatar}>
           <Popover
             content={
               <AvatarPicker
                 onEmojiClick={(emoji) => {
-                  props.updateMask((mask) => (mask.avatar = emoji));
+                  props.updateTemplate((template) => (template.avatar = emoji));
                   setShowPicker(false);
                 }}
               ></AvatarPicker>
@@ -122,34 +125,34 @@ export function MaskConfig(props: {
               onClick={() => setShowPicker(true)}
               style={{ cursor: "pointer" }}
             >
-              <MaskAvatar
-                avatar={props.mask.avatar}
-                model={props.mask.modelConfig.model}
+              <TemplateAvatar
+                avatar={props.template.avatar}
+                model={props.template.modelConfig.model}
               />
             </div>
           </Popover>
         </ListItem>
-        <ListItem title={Locale.Mask.Config.Name}>
+        <ListItem title={Locale.Template.Config.Name}>
           <input
             type="text"
-            value={props.mask.name}
+            value={props.template.name}
             onInput={(e) =>
-              props.updateMask((mask) => {
-                mask.name = e.currentTarget.value;
+              props.updateTemplate((template) => {
+                template.name = e.currentTarget.value;
               })
             }
           ></input>
         </ListItem>
         <ListItem
-          title={Locale.Mask.Config.HideContext.Title}
-          subTitle={Locale.Mask.Config.HideContext.SubTitle}
+          title={Locale.Template.Config.HideContext.Title}
+          subTitle={Locale.Template.Config.HideContext.SubTitle}
         >
           <input
             type="checkbox"
-            checked={props.mask.hideContext}
+            checked={props.template.hideContext}
             onChange={(e) => {
-              props.updateMask((mask) => {
-                mask.hideContext = e.currentTarget.checked;
+              props.updateTemplate((template) => {
+                template.hideContext = e.currentTarget.checked;
               });
             }}
           ></input>
@@ -158,7 +161,7 @@ export function MaskConfig(props: {
 
       <List>
         <ModelConfigList
-          modelConfig={{ ...props.mask.modelConfig }}
+          modelConfig={{ ...props.template.modelConfig }}
           updateConfig={updateConfig}
         />
         {props.extraListItems}
@@ -349,68 +352,74 @@ export function ContextPrompts(props: {
   );
 }
 
-export function MaskPage() {
+export function TemplatePage() {
   const navigate = useNavigate();
 
-  const maskStore = useMaskStore();
+  const templateStore = useTemplateStore();
   const chatStore = useChatStore();
 
   const [filterLang, setFilterLang] = useState<Lang | undefined>(
-    () => localStorage.getItem("Mask-language") as Lang | undefined,
+    () => localStorage.getItem("Template-language") as Lang | undefined,
   );
   useEffect(() => {
     if (filterLang) {
-      localStorage.setItem("Mask-language", filterLang);
+      localStorage.setItem("Template-language", filterLang);
     } else {
-      localStorage.removeItem("Mask-language");
+      localStorage.removeItem("Template-language");
     }
   }, [filterLang]);
 
-  const allMasks = maskStore
+  const allTemplates = templateStore
     .getAll()
     .filter((m) => !filterLang || m.lang === filterLang);
 
-  const [searchMasks, setSearchMasks] = useState<Mask[]>([]);
+  const [searchTemplates, setSearchTemplates] = useState<Template[]>([]);
   const [searchText, setSearchText] = useState("");
-  const masks = searchText.length > 0 ? searchMasks : allMasks;
+  const templates = searchText.length > 0 ? searchTemplates : allTemplates;
 
   // refactored already, now it accurate
   const onSearch = (text: string) => {
     setSearchText(text);
     if (text.length > 0) {
-      const result = allMasks.filter((m) =>
+      const result = allTemplates.filter((m) =>
         m.name.toLowerCase().includes(text.toLowerCase()),
       );
-      setSearchMasks(result);
+      setSearchTemplates(result);
     } else {
-      setSearchMasks(allMasks);
+      setSearchTemplates(allTemplates);
     }
   };
 
-  const [editingMaskId, setEditingMaskId] = useState<string | undefined>();
-  const editingMask =
-    maskStore.get(editingMaskId) ?? BUILTIN_MASK_STORE.get(editingMaskId);
-  const closeMaskModal = () => setEditingMaskId(undefined);
+  const [editingTemplateId, setEditingTemplateId] = useState<
+    string | undefined
+  >();
+  const editingTemplate =
+    templateStore.get(editingTemplateId) ??
+    BUILTIN_TEMPLATE_STORE.get(editingTemplateId);
+  const closeTemplateModal = () => setEditingTemplateId(undefined);
 
   const downloadAll = () => {
-    downloadAs(JSON.stringify(masks.filter((v) => !v.builtin)), FileName.Masks);
+    downloadAs(
+      JSON.stringify(templates.filter((v) => !v.builtin)),
+      FileName.Templates,
+    );
   };
 
   const importFromFile = () => {
     readFromFile().then((content) => {
       try {
-        const importMasks = JSON.parse(content);
-        if (Array.isArray(importMasks)) {
-          for (const mask of importMasks) {
-            if (mask.name) {
-              maskStore.create(mask);
+        const importTemplates = JSON.parse(content);
+        if (Array.isArray(importTemplates)) {
+          for (const template of importTemplates) {
+            if (template.name) {
+              templateStore.create(template);
             }
           }
           return;
         }
-        //if the content is a single mask.
-        if (importMasks.name) {
-          maskStore.create(importMasks);
+        //if the content is a single template.
+        if (importTemplates.name) {
+          templateStore.create(importTemplates);
         }
       } catch {}
     });
@@ -418,14 +427,14 @@ export function MaskPage() {
 
   return (
     <ErrorBoundary>
-      <div className={styles["mask-page"]}>
+      <div className={styles["template-page"]}>
         <div className="window-header">
           <div className="window-header-title">
             <div className="window-header-main-title">
-              {Locale.Mask.Page.Title}
+              {Locale.Template.Page.Title}
             </div>
             <div className="window-header-submai-title">
-              {Locale.Mask.Page.SubTitle(allMasks.length)}
+              {Locale.Template.Page.SubTitle(allTemplates.length)}
             </div>
           </div>
 
@@ -456,17 +465,17 @@ export function MaskPage() {
           </div>
         </div>
 
-        <div className={styles["mask-page-body"]}>
-          <div className={styles["mask-filter"]}>
+        <div className={styles["template-page-body"]}>
+          <div className={styles["template-filter"]}>
             <input
               type="text"
               className={styles["search-bar"]}
-              placeholder={Locale.Mask.Page.Search}
+              placeholder={Locale.Template.Page.Search}
               autoFocus
               onInput={(e) => onSearch(e.currentTarget.value)}
             />
             <Select
-              className={styles["mask-filter-lang"]}
+              className={styles["template-filter-lang"]}
               value={filterLang ?? Locale.Settings.Lang.All}
               onChange={(e) => {
                 const value = e.currentTarget.value;
@@ -488,37 +497,40 @@ export function MaskPage() {
             </Select>
 
             <IconButton
-              className={styles["mask-create"]}
+              className={styles["template-create"]}
               icon={<AddIcon />}
-              text={Locale.Mask.Page.Create}
+              text={Locale.Template.Page.Create}
               bordered
               onClick={() => {
-                const createdMask = maskStore.create();
-                setEditingMaskId(createdMask.id);
+                const createdTemplate = templateStore.create();
+                setEditingTemplateId(createdTemplate.id);
               }}
             />
           </div>
 
-          <div className={styles["mask-item-container"]}>
-            {masks.map((m) => (
-              <div className={styles["mask-item"]} key={m.id}>
-                <div className={styles["mask-header"]}>
-                  <div className={styles["mask-icon"]}>
-                    <MaskAvatar avatar={m.avatar} model={m.modelConfig.model} />
+          <div className={styles["template-item-container"]}>
+            {templates.map((m) => (
+              <div className={styles["template-item"]} key={m.id}>
+                <div className={styles["template-header"]}>
+                  <div className={styles["template-icon"]}>
+                    <TemplateAvatar
+                      avatar={m.avatar}
+                      model={m.modelConfig.model}
+                    />
                   </div>
-                  <div className={styles["mask-title"]}>
-                    <div className={styles["mask-name"]}>{m.name}</div>
-                    <div className={styles["mask-info"] + " one-line"}>
-                      {`${Locale.Mask.Item.Info(m.context.length)} / ${
+                  <div className={styles["template-title"]}>
+                    <div className={styles["template-name"]}>{m.name}</div>
+                    <div className={styles["template-info"] + " one-line"}>
+                      {`${Locale.Template.Item.Info(m.context.length)} / ${
                         ALL_LANG_OPTIONS[m.lang]
                       } / ${m.modelConfig.model}`}
                     </div>
                   </div>
                 </div>
-                <div className={styles["mask-actions"]}>
+                <div className={styles["template-actions"]}>
                   <IconButton
                     icon={<AddIcon />}
-                    text={Locale.Mask.Item.Chat}
+                    text={Locale.Template.Item.Chat}
                     onClick={() => {
                       chatStore.newSession(m);
                       navigate(Path.Chat);
@@ -527,23 +539,25 @@ export function MaskPage() {
                   {m.builtin ? (
                     <IconButton
                       icon={<EyeIcon />}
-                      text={Locale.Mask.Item.View}
-                      onClick={() => setEditingMaskId(m.id)}
+                      text={Locale.Template.Item.View}
+                      onClick={() => setEditingTemplateId(m.id)}
                     />
                   ) : (
                     <IconButton
                       icon={<EditIcon />}
-                      text={Locale.Mask.Item.Edit}
-                      onClick={() => setEditingMaskId(m.id)}
+                      text={Locale.Template.Item.Edit}
+                      onClick={() => setEditingTemplateId(m.id)}
                     />
                   )}
                   {!m.builtin && (
                     <IconButton
                       icon={<DeleteIcon />}
-                      text={Locale.Mask.Item.Delete}
+                      text={Locale.Template.Item.Delete}
                       onClick={async () => {
-                        if (await showConfirm(Locale.Mask.Item.DeleteConfirm)) {
-                          maskStore.delete(m.id);
+                        if (
+                          await showConfirm(Locale.Template.Item.DeleteConfirm)
+                        ) {
+                          templateStore.delete(m.id);
                         }
                       }}
                     />
@@ -555,21 +569,21 @@ export function MaskPage() {
         </div>
       </div>
 
-      {editingMask && (
-        <div className="modal-mask">
+      {editingTemplate && (
+        <div className="modal-template">
           <Modal
-            title={Locale.Mask.EditModal.Title(editingMask?.builtin)}
-            onClose={closeMaskModal}
+            title={Locale.Template.EditModal.Title(editingTemplate?.builtin)}
+            onClose={closeTemplateModal}
             actions={[
               <IconButton
                 icon={<DownloadIcon />}
-                text={Locale.Mask.EditModal.Download}
+                text={Locale.Template.EditModal.Download}
                 key="export"
                 bordered
                 onClick={() =>
                   downloadAs(
-                    JSON.stringify(editingMask),
-                    `${editingMask.name}.json`,
+                    JSON.stringify(editingTemplate),
+                    `${editingTemplate.name}.json`,
                   )
                 }
               />,
@@ -577,21 +591,21 @@ export function MaskPage() {
                 key="copy"
                 icon={<CopyIcon />}
                 bordered
-                text={Locale.Mask.EditModal.Clone}
+                text={Locale.Template.EditModal.Clone}
                 onClick={() => {
-                  navigate(Path.Masks);
-                  maskStore.create(editingMask);
-                  setEditingMaskId(undefined);
+                  navigate(Path.Templates);
+                  templateStore.create(editingTemplate);
+                  setEditingTemplateId(undefined);
                 }}
               />,
             ]}
           >
-            <MaskConfig
-              mask={editingMask}
-              updateMask={(updater) =>
-                maskStore.updateMask(editingMaskId!, updater)
+            <TemplateConfig
+              template={editingTemplate}
+              updateTemplate={(updater) =>
+                templateStore.updateTemplate(editingTemplateId!, updater)
               }
-              readonly={editingMask.builtin}
+              readonly={editingTemplate.builtin}
             />
           </Modal>
         </div>

@@ -6,7 +6,7 @@ type Command = (param: string) => void;
 interface Commands {
   fill?: Command;
   submit?: Command;
-  mask?: Command;
+  template?: Command;
 }
 
 export function useCommand(commands: Commands = {}) {
@@ -32,7 +32,7 @@ export function useCommand(commands: Commands = {}) {
 
 interface ChatCommands {
   new?: Command;
-  newm?: Command;
+  newt?: Command;
   next?: Command;
   prev?: Command;
   clear?: Command;

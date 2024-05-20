@@ -1,6 +1,6 @@
-import { BuiltinMask } from "./typing";
+import { BuiltinTemplate } from "./typing";
 
-export const EN_MASKS: BuiltinMask[] = [
+export const EN_TEMPLATES: BuiltinTemplate[] = [
   {
     avatar: "1f47e",
     name: "GitHub Copilot",

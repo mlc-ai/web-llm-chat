@@ -8,7 +8,7 @@ import GithubIcon from "../icons/github.svg";
 import MlcIcon from "../icons/mlc.svg";
 import AddIcon from "../icons/add.svg";
 import DeleteIcon from "../icons/delete.svg";
-import MaskIcon from "../icons/mask.svg";
+import TemplateIcon from "../icons/chat.svg";
 import PluginIcon from "../icons/plugin.svg";
 import DragIcon from "../icons/drag.svg";
 
@@ -165,11 +165,11 @@ export function SideBar(props: { className?: string }) {
 
       <div className={styles["sidebar-header-bar"]}>
         <IconButton
-          icon={<MaskIcon />}
-          text={shouldNarrow ? undefined : Locale.Mask.Name}
+          icon={<TemplateIcon />}
+          text={shouldNarrow ? undefined : Locale.Template.Name}
           className={styles["sidebar-bar-button"]}
           onClick={() => {
-            navigate(Path.Masks, { state: { fromHome: true } });
+            navigate(Path.Templates, { state: { fromHome: true } });
           }}
           shadow
         />

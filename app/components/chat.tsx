@@ -19,7 +19,7 @@ import CopyIcon from "../icons/copy.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 import LoadingButtonIcon from "../icons/loading.svg";
 import PromptIcon from "../icons/prompt.svg";
-import MaskIcon from "../icons/mask.svg";
+import TemplateIcon from "../icons/chat.svg";
 import MaxIcon from "../icons/max.svg";
 import MinIcon from "../icons/min.svg";
 import ResetIcon from "../icons/reload.svg";
@@ -89,8 +89,8 @@ import {
   UNFINISHED_INPUT,
 } from "../constant";
 import { Avatar } from "./emoji";
-import { ContextPrompts, MaskAvatar, MaskConfig } from "./mask";
-import { useMaskStore } from "../store/mask";
+import { ContextPrompts, TemplateAvatar, TemplateConfig } from "./template";
+import { useTemplateStore } from "../store/template";
 import { ChatCommandPrefix, useChatCommand, useCommand } from "../command";
 import { prettyObject } from "../utils/format";
 import { ExportMessageModal } from "./exporter";
@@ -106,11 +106,11 @@ const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
 export function SessionConfigModel(props: { onClose: () => void }) {
   const chatStore = useChatStore();
   const session = chatStore.currentSession();
-  const maskStore = useMaskStore();
+  const templateStore = useTemplateStore();
   const navigate = useNavigate();
 
   return (
-    <div className="modal-mask">
+    <div className="modal-template">
       <Modal
         title={Locale.Context.Edit}
         onClose={() => props.onClose()}
@@ -134,23 +134,25 @@ export function SessionConfigModel(props: { onClose: () => void }) {
             bordered
             text={Locale.Chat.Config.SaveAs}
             onClick={() => {
-              navigate(Path.Masks);
+              navigate(Path.Templates);
               setTimeout(() => {
-                maskStore.create(session.mask);
+                templateStore.create(session.template);
               }, 500);
             }}
           />,
         ]}
       >
-        <MaskConfig
-          mask={session.mask}
-          updateMask={(updater) => {
-            const mask = { ...session.mask };
-            updater(mask);
-            chatStore.updateCurrentSession((session) => (session.mask = mask));
+        <TemplateConfig
+          template={session.template}
+          updateTemplate={(updater) => {
+            const template = { ...session.template };
+            updater(template);
+            chatStore.updateCurrentSession(
+              (session) => (session.template = template),
+            );
           }}
           extraListItems={
-            session.mask.modelConfig.sendMemory ? (
+            session.template.modelConfig.sendMemory ? (
               <ListItem
                 className="copyable"
                 title={`${Locale.Memory.Title} (${session.lastSummarizeIndex} of ${session.messages.length})`}
@@ -160,7 +162,7 @@ export function SessionConfigModel(props: { onClose: () => void }) {
               <></>
             )
           }
-        ></MaskConfig>
+        ></TemplateConfig>
       </Modal>
     </div>
   );
@@ -173,7 +175,7 @@ function PromptToast(props: {
 }) {
   const chatStore = useChatStore();
   const session = chatStore.currentSession();
-  const context = session.mask.context;
+  const context = session.template.context;
 
   return (
     <div className={styles["prompt-toast"]} key="prompt-toast">
@@ -455,7 +457,7 @@ export function ChatActions(props: {
   }
 
   // switch model
-  const currentModel = chatStore.currentSession().mask.modelConfig.model;
+  const currentModel = chatStore.currentSession().template.modelConfig.model;
   const allModels = useAllModels();
   const models = useMemo(() => {
     const defaultModel = allModels.find((m) => m.is_default);
@@ -489,7 +491,7 @@ export function ChatActions(props: {
         models.find((model) => model.is_default) || models[0]
       ).name;
       chatStore.updateCurrentSession(
-        (session) => (session.mask.modelConfig.model = nextModel),
+        (session) => (session.template.modelConfig.model = nextModel),
       );
       showToast(nextModel);
     }
@@ -543,10 +545,10 @@ export function ChatActions(props: {
 
       <ChatAction
         onClick={() => {
-          navigate(Path.Masks);
+          navigate(Path.Templates);
         }}
-        text={Locale.Chat.InputActions.Masks}
-        icon={<MaskIcon />}
+        text={Locale.Chat.InputActions.Templates}
+        icon={<TemplateIcon />}
       />
 
       <ChatAction
@@ -582,8 +584,8 @@ export function ChatActions(props: {
           onSelection={(s) => {
             if (s.length === 0) return;
             chatStore.updateCurrentSession((session) => {
-              session.mask.modelConfig.model = s[0] as ModelType;
-              session.mask.syncGlobalConfig = false;
+              session.template.modelConfig.model = s[0] as ModelType;
+              session.template.syncGlobalConfig = false;
             });
             config.updateModelConfig({ model: s[0] as ModelType });
             showToast(s[0]);
@@ -600,7 +602,7 @@ export function EditMessageModal(props: { onClose: () => void }) {
   const [messages, setMessages] = useState(session.messages.slice());
 
   return (
-    <div className="modal-mask">
+    <div className="modal-template">
       <Modal
         title={Locale.Chat.EditMessage.Title}
         onClose={props.onClose}
@@ -834,10 +836,13 @@ function _Chat() {
         }
       });
 
-      // auto sync mask config from global config
-      if (session.mask.syncGlobalConfig) {
-        console.log("[Mask] syncing from global, name = ", session.mask.name);
-        session.mask.modelConfig = { ...config.modelConfig };
+      // auto sync template config from global config
+      if (session.template.syncGlobalConfig) {
+        console.log(
+          "[Template] syncing from global, name = ",
+          session.template.name,
+        );
+        session.template.modelConfig = { ...config.modelConfig };
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -942,7 +947,7 @@ function _Chat() {
 
   const onPinMessage = (message: ChatMessage) => {
     chatStore.updateCurrentSession((session) =>
-      session.mask.context.push(message),
+      session.template.context.push(message),
     );
 
     showToast(Locale.Chat.Actions.PinToastContent, {
@@ -954,8 +959,8 @@ function _Chat() {
   };
 
   const context: RenderMessage[] = useMemo(() => {
-    return session.mask.hideContext ? [] : session.mask.context.slice();
-  }, [session.mask.context, session.mask.hideContext]);
+    return session.template.hideContext ? [] : session.template.context.slice();
+  }, [session.template.context, session.template.hideContext]);
 
   if (
     context.length === 0 &&
@@ -1088,7 +1093,8 @@ function _Chat() {
 
   const handlePaste = useCallback(
     async (event: React.ClipboardEvent<HTMLTextAreaElement>) => {
-      const currentModel = chatStore.currentSession().mask.modelConfig.model;
+      const currentModel =
+        chatStore.currentSession().template.modelConfig.model;
       if (!isVisionModel(currentModel)) {
         return;
       }
@@ -1279,10 +1285,11 @@ function _Chat() {
                           {["system"].includes(message.role) ? (
                             <Avatar avatar="2699-fe0f" />
                           ) : (
-                            <MaskAvatar
-                              avatar={session.mask.avatar}
+                            <TemplateAvatar
+                              avatar={session.template.avatar}
                               model={
-                                message.model || session.mask.modelConfig.model
+                                message.model ||
+                                session.template.modelConfig.model
                               }
                             />
                           )}
@@ -1326,7 +1333,7 @@ function _Chat() {
                                   }
                                 }
                                 chatStore.updateCurrentSession((session) => {
-                                  const m = session.mask.context
+                                  const m = session.template.context
                                     .concat(session.messages)
                                     .find((m) => m.id === message.id);
                                   if (m) {
@@ -1500,7 +1507,7 @@ function _Chat() {
                     className={styles["attach-image"]}
                     style={{ backgroundImage: `url("${image}")` }}
                   >
-                    <div className={styles["attach-image-mask"]}>
+                    <div className={styles["attach-image-template"]}>
                       <DeleteImageButton
                         deleteImage={() => {
                           setAttachImages(

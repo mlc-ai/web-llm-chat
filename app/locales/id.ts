@@ -23,7 +23,7 @@ const id: PartialLocaleType = {
     },
     Commands: {
       new: "Mulai Chat Baru",
-      newm: "Mulai Chat Baru dengan Masks",
+      newt: "Mulai Chat Baru dengan templat",
       next: "Chat Selanjutnya",
       prev: "Chat Sebelumnya",
       clear: "Bersihkan Percakapan",
@@ -38,7 +38,7 @@ const id: PartialLocaleType = {
         dark: "Tema Gelap",
       },
       Prompt: "Prompts",
-      Masks: "Masks",
+      Templates: "templat",
       Clear: "Bersihkan Percakapan",
       Settings: "Pengaturan",
     },
@@ -56,7 +56,7 @@ const id: PartialLocaleType = {
     Send: "Kirim",
     Config: {
       Reset: "Reset ke Default",
-      SaveAs: "Simpan sebagai Masks",
+      SaveAs: "Simpan sebagai templat",
     },
   },
   Export: {
@@ -134,8 +134,8 @@ const id: PartialLocaleType = {
         "Tambahkan petunjuk simulasi sistem ChatGPT di awal daftar pesan yang diminta dalam setiap permintaan",
     },
     InputTemplate: {
-      Title: "Template Input",
-      SubTitle: "Pesan baru akan diisi menggunakan template ini",
+      Title: "Templat Input",
+      SubTitle: "Pesan baru akan diisi menggunakan templat ini",
     },
 
     Update: {
@@ -157,10 +157,10 @@ const id: PartialLocaleType = {
       Title: "Pratinjau Obrolan",
       SubTitle: "Pratinjau Obrolan dengan markdown",
     },
-    Mask: {
+    Template: {
       Builtin: {
-        Title: "Sembunyikan Masks Bawaan",
-        SubTitle: "Sembunyikan Masks bawaan dari daftar masks",
+        Title: "Sembunyikan Templat Bawaan",
+        SubTitle: "Sembunyikan templat bawaan dari daftar masks",
       },
     },
     Prompt: {
@@ -259,12 +259,12 @@ const id: PartialLocaleType = {
   FineTuned: {
     Sysmessage: "Anda adalah asisten yang",
   },
-  Mask: {
-    Name: "Masks",
+  Template: {
+    Name: "Templat",
     Page: {
-      Title: "Template Promp",
-      SubTitle: (count: number) => `${count} template prompt`,
-      Search: "Cari template",
+      Title: "Templat Promp",
+      SubTitle: (count: number) => `${count} templat prompt`,
+      Search: "Cari templat",
       Create: "Buat",
     },
     Item: {
@@ -277,7 +277,7 @@ const id: PartialLocaleType = {
     },
     EditModal: {
       Title: (readonly: boolean) =>
-        `Edit Template Prompt ${readonly ? "(hanya baca)" : ""}`,
+        `Edit Templat Prompt ${readonly ? "(hanya baca)" : ""}`,
       Download: "Unduh",
       Clone: "Duplikat",
     },
@@ -295,7 +295,7 @@ const id: PartialLocaleType = {
         SubTitle: "Tidak menampilkan prompt konteks dalam obrolan",
       },
       Share: {
-        Title: "Bagikan Masks Ini",
+        Title: "Bagikan Templat Ini",
         SubTitle: "Buat tautan untuk masks ini",
         Action: "Salin Tautan",
       },
@@ -304,7 +304,7 @@ const id: PartialLocaleType = {
   NewChat: {
     Return: "Kembali",
     Skip: "Lewati",
-    Title: "Pilih Masks",
+    Title: "Pilih Templat",
     SubTitle: "Berkonversasilah dengan diri Anda di balik masks",
     More: "Lebih Lanjut",
     NotShow: "Jangan Tampilkan Sekarang",
