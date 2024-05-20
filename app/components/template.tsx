@@ -37,11 +37,11 @@ import {
   showConfirm,
 } from "./ui-lib";
 import { Avatar, AvatarPicker } from "./emoji";
-import Locale, { AllLangs, ALL_LANG_OPTIONS, Lang } from "../locales";
+import Locale, { ALL_LANG_OPTIONS } from "../locales";
 import { useNavigate } from "react-router-dom";
 
 import chatStyle from "./chat.module.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   copyToClipboard,
   downloadAs,
