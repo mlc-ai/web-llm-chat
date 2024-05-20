@@ -64,6 +64,7 @@ const en = {
     Config: {
       Reset: "Reset to Default",
       SaveAs: "Save as Template",
+      Confirm: "Confirm",
     },
     IsContext: "Contextual Prompt",
   },

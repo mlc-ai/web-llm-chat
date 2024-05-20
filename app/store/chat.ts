@@ -11,7 +11,6 @@ import {
   StoreKey,
 } from "../constant";
 import { RequestMessage, MultimodalContent } from "../client/api";
-import { ChatControllerPool } from "../client/controller";
 import { prettyObject } from "../utils/format";
 import { estimateTokenLength } from "../utils/token";
 import { nanoid } from "nanoid";
@@ -363,7 +362,6 @@ export const useChatStore = createPersistStore(
             get().updateCurrentSession((session) => {
               session.isGenerating = false;
             });
-            ChatControllerPool.remove(session.id, botMessage.id);
           },
           onError(error) {
             const isAborted = error.message.includes("aborted");
@@ -380,20 +378,8 @@ export const useChatStore = createPersistStore(
               session.messages = session.messages.concat();
               session.isGenerating = false;
             });
-            ChatControllerPool.remove(
-              session.id,
-              botMessage.id ?? messageIndex,
-            );
 
             console.error("[Chat] failed ", error);
-          },
-          onController(controller) {
-            // collect controller for stop/retry
-            ChatControllerPool.addController(
-              session.id,
-              botMessage.id ?? messageIndex,
-              controller,
-            );
           },
         });
       },

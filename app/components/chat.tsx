@@ -18,8 +18,8 @@ import CopyIcon from "../icons/copy.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 import LoadingButtonIcon from "../icons/loading.svg";
 import PromptIcon from "../icons/prompt.svg";
-import TemplateIcon from "../icons/chat.svg";
 import MaxIcon from "../icons/max.svg";
+import BrainIcon from "../icons/brain.svg";
 import MinIcon from "../icons/min.svg";
 import ResetIcon from "../icons/reload.svg";
 import BreakIcon from "../icons/break.svg";
@@ -31,9 +31,6 @@ import ConfirmIcon from "../icons/confirm.svg";
 import CancelIcon from "../icons/cancel.svg";
 import ImageIcon from "../icons/image.svg";
 
-import LightIcon from "../icons/light.svg";
-import DarkIcon from "../icons/dark.svg";
-import AutoIcon from "../icons/auto.svg";
 import BottomIcon from "../icons/bottom.svg";
 import StopIcon from "../icons/pause.svg";
 import RobotIcon from "../icons/robot.svg";
@@ -44,7 +41,6 @@ import {
   useChatStore,
   BOT_HELLO,
   createMessage,
-  Theme,
   useAppConfig,
   DEFAULT_TOPIC,
   ModelType,
@@ -63,7 +59,6 @@ import {
 
 import dynamic from "next/dynamic";
 
-import { ChatControllerPool } from "../client/controller";
 import { Prompt, usePromptStore } from "../store/prompt";
 import Locale from "../locales";
 
@@ -75,6 +70,7 @@ import {
   ListItem,
   Modal,
   Selector,
+  showConfirm,
   showPrompt,
   showToast,
 } from "./ui-lib";
@@ -95,6 +91,98 @@ import { getClientConfig } from "../config/client";
 import { useAllModels } from "../utils/hooks";
 import { MultimodalContent } from "../client/api";
 import { WebLLMContext } from "../client/webllm";
+import { useTemplateStore } from "../store/template";
+
+export function SessionConfigModel(props: { onClose: () => void }) {
+  const chatStore = useChatStore();
+  const session = chatStore.currentSession();
+  const templateStore = useTemplateStore();
+  const navigate = useNavigate();
+
+  return (
+    <div className="modal-template">
+      <Modal
+        title={Locale.Context.Edit}
+        onClose={() => props.onClose()}
+        actions={[
+          <IconButton
+            key="reset"
+            icon={<ResetIcon />}
+            bordered
+            text={Locale.Chat.Config.Reset}
+            onClick={async () => {
+              if (await showConfirm(Locale.Memory.ResetConfirm)) {
+                chatStore.updateCurrentSession(
+                  (session) => (session.memoryPrompt = ""),
+                );
+              }
+            }}
+          />,
+          <IconButton
+            key="copy"
+            icon={<CopyIcon />}
+            bordered
+            text={Locale.Chat.Config.SaveAs}
+            onClick={() => {
+              navigate(Path.Templates);
+              setTimeout(() => {
+                templateStore.create(session.template);
+              }, 500);
+            }}
+          />,
+          <IconButton
+            key="Confirm"
+            icon={<ConfirmIcon />}
+            bordered
+            text={Locale.Chat.Config.Confirm}
+            onClick={props.onClose}
+          />,
+        ]}
+      >
+        <TemplateConfig
+          template={session.template}
+          updateTemplate={(updater) => {
+            const template = { ...session.template };
+            updater(template);
+            chatStore.updateCurrentSession(
+              (session) => (session.template = template),
+            );
+          }}
+        ></TemplateConfig>
+      </Modal>
+    </div>
+  );
+}
+
+function PromptToast(props: {
+  showToast?: boolean;
+  showModal?: boolean;
+  setShowModal: (_: boolean) => void;
+}) {
+  const chatStore = useChatStore();
+  const session = chatStore.currentSession();
+  const context = session.template.context;
+
+  return (
+    <div className={styles["prompt-toast"]} key="prompt-toast">
+      {props.showToast && (
+        <div
+          className={styles["prompt-toast-inner"] + " clickable"}
+          role="button"
+          onClick={() => props.setShowModal(true)}
+        >
+          <BrainIcon />
+          <span className={styles["prompt-toast-content"]}>
+            {Locale.Context.Toast(context.length)}
+          </span>
+        </div>
+      )}
+      {props.showModal && (
+        <SessionConfigModel onClose={() => props.setShowModal(false)} />
+      )}
+    </div>
+  );
+}
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -345,7 +433,6 @@ export function ChatActions(props: {
   uploading: boolean;
 }) {
   const config = useAppConfig();
-  const navigate = useNavigate();
   const chatStore = useChatStore();
 
   // switch model
@@ -382,6 +469,11 @@ export function ChatActions(props: {
         onClick={props.scrollToBottom}
         text={Locale.Chat.InputActions.ToBottom}
         icon={<BottomIcon />}
+      />
+      <ChatAction
+        onClick={props.showPromptModal}
+        text={Locale.Chat.InputActions.Settings}
+        icon={<SettingsIcon />}
       />
       {showUploadImage && (
         <ChatAction
@@ -1071,6 +1163,12 @@ function _Chat() {
               />
             </div>
           )}
+
+          <PromptToast
+            showToast={!hitBottom}
+            showModal={showPromptModal}
+            setShowModal={setShowPromptModal}
+          />
         </div>
       </div>
 
