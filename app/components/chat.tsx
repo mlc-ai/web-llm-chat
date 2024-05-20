@@ -12,7 +12,7 @@ import React, {
 
 import SendWhiteIcon from "../icons/send-white.svg";
 import RenameIcon from "../icons/rename.svg";
-import ExportIcon from "../icons/share.svg";
+import ExportIcon from "../icons/export.svg";
 import ReturnIcon from "../icons/return.svg";
 import CopyIcon from "../icons/copy.svg";
 import LoadingIcon from "../icons/three-dots.svg";
