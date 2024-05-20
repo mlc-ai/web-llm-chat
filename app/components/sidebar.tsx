@@ -11,10 +11,13 @@ import DeleteIcon from "../icons/delete.svg";
 import TemplateIcon from "../icons/chat.svg";
 import PluginIcon from "../icons/plugin.svg";
 import DragIcon from "../icons/drag.svg";
+import LightIcon from "../icons/light.svg";
+import DarkIcon from "../icons/dark.svg";
+import AutoIcon from "../icons/auto.svg";
 
 import Locale from "../locales";
 
-import { useAppConfig, useChatStore } from "../store";
+import { Theme, useAppConfig, useChatStore } from "../store";
 
 import {
   DEFAULT_SIDEBAR_WIDTH,
@@ -139,9 +142,16 @@ export function SideBar(props: { className?: string }) {
     () => isIOS() && isMobileScreen,
     [isMobileScreen],
   );
+  useHotKey();
 
   const { theme } = config;
-  useHotKey();
+  function nextTheme() {
+    const themes = [Theme.Auto, Theme.Light, Theme.Dark];
+    const themeIndex = themes.indexOf(theme);
+    const nextIndex = (themeIndex + 1) % themes.length;
+    const nextTheme = themes[nextIndex];
+    config.update((config) => (config.theme = nextTheme));
+  }
 
   return (
     <div
@@ -209,6 +219,23 @@ export function SideBar(props: { className?: string }) {
             <Link to={Path.Settings}>
               <IconButton icon={<SettingsIcon />} shadow />
             </Link>
+          </div>
+          <div className={styles["sidebar-action"]}>
+            <IconButton
+              icon={
+                <>
+                  {theme === Theme.Auto ? (
+                    <AutoIcon />
+                  ) : theme === Theme.Light ? (
+                    <LightIcon />
+                  ) : theme === Theme.Dark ? (
+                    <DarkIcon />
+                  ) : null}
+                </>
+              }
+              onClick={nextTheme}
+              shadow
+            />
           </div>
           <div className={styles["sidebar-action"]}>
             <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
