@@ -28,7 +28,6 @@ import { useAppConfig } from "../store/config";
 import { getClientConfig } from "../config/client";
 import { WebLLMApi, WebLLMContext } from "../client/webllm";
 import Locale from "../locales";
-import { prebuiltAppConfig } from "@neet-nestor/web-llm";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -199,6 +198,40 @@ const useWebLLM = () => {
   return { webllm, isWebllmAlive: isSWAlive };
 };
 
+const useLoadUrlParam = () => {
+  const config = useAppConfig();
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    let modelConfig: any = {
+      model: params.get("model"),
+      temperature: params.has("temperature")
+        ? parseFloat(params.get("temperature")!)
+        : null,
+      top_p: params.has("top_p") ? parseFloat(params.get("top_p")!) : null,
+      max_tokens: params.has("max_tokens")
+        ? parseInt(params.get("max_tokens")!)
+        : null,
+      presence_penalty: params.has("presence_penalty")
+        ? parseFloat(params.get("presence_penalty")!)
+        : null,
+      frequency_penalty: params.has("frequency_penalty")
+        ? parseFloat(params.get("frequency_penalty")!)
+        : null,
+    };
+    Object.keys(modelConfig).forEach((key) => {
+      // If the value of the key is null, delete the key
+      if (modelConfig[key] === null) {
+        delete modelConfig[key];
+      }
+    });
+    if (Object.keys(modelConfig).length > 0) {
+      console.log("Load model config from URL params", modelConfig);
+      config.updateModelConfig(modelConfig);
+    }
+  }, []);
+};
+
 export function Home() {
   const hasHydrated = useHasHydrated();
   const isServiceWorkerReady = useServiceWorkerReady();
@@ -206,6 +239,7 @@ export function Home() {
 
   useSwitchTheme();
   useHtmlLang();
+  useLoadUrlParam();
 
   if (!hasHydrated || !isServiceWorkerReady) {
     return <Loading />;

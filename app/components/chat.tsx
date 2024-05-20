@@ -1157,7 +1157,20 @@ function _Chat() {
               bordered
               title={Locale.Chat.Actions.Share}
               onClick={() => {
-                copyToClipboard(window.location.href);
+                const params = new URLSearchParams({
+                  model: config.modelConfig.model,
+                  temperature: config.modelConfig.temperature.toString(),
+                  top_p: config.modelConfig.top_p.toString(),
+                  max_tokens: config.modelConfig.max_tokens.toString(),
+                  presence_penalty:
+                    config.modelConfig.presence_penalty.toString(),
+                  frequency_penalty:
+                    config.modelConfig.frequency_penalty.toString(),
+                });
+                const shareUrl = new URL(
+                  `${window.location.origin}${window.location.pathname}?${params}`,
+                );
+                copyToClipboard(shareUrl.href);
               }}
             />
           </div>
