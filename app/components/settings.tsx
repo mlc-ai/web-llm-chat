@@ -241,7 +241,6 @@ function DangerItems() {
 
 export function Settings() {
   const navigate = useNavigate();
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const config = useAppConfig();
   const updateConfig = config.update;
 
@@ -249,7 +248,6 @@ export function Settings() {
   const builtinCount = SearchService.count.builtin;
   const customCount = promptStore.getUserPrompts().length ?? 0;
   const [shouldShowPromptModal, setShowPromptModal] = useState(false);
-  const webllm = useContext(WebLLMContext);
 
   useEffect(() => {
     const keydownEvent = (e: KeyboardEvent) => {

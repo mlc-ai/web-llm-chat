@@ -49,7 +49,6 @@ import {
   readFromFile,
 } from "../utils";
 import { Updater } from "../typing";
-import { ModelConfigList } from "./model-config";
 import { FileName, Path } from "../constant";
 import { BUILTIN_TEMPLATE_STORE } from "../templates";
 import {
@@ -339,20 +338,7 @@ export function TemplatePage() {
   const templateStore = useTemplateStore();
   const chatStore = useChatStore();
 
-  const [filterLang, setFilterLang] = useState<Lang | undefined>(
-    () => localStorage.getItem("Template-language") as Lang | undefined,
-  );
-  useEffect(() => {
-    if (filterLang) {
-      localStorage.setItem("Template-language", filterLang);
-    } else {
-      localStorage.removeItem("Template-language");
-    }
-  }, [filterLang]);
-
-  const allTemplates = templateStore
-    .getAll()
-    .filter((m) => !filterLang || m.lang === filterLang);
+  const allTemplates = templateStore.getAll();
 
   const [searchTemplates, setSearchTemplates] = useState<Template[]>([]);
   const [searchText, setSearchText] = useState("");
@@ -455,27 +441,6 @@ export function TemplatePage() {
               autoFocus
               onInput={(e) => onSearch(e.currentTarget.value)}
             />
-            <Select
-              className={styles["template-filter-lang"]}
-              value={filterLang ?? Locale.Settings.Lang.All}
-              onChange={(e) => {
-                const value = e.currentTarget.value;
-                if (value === Locale.Settings.Lang.All) {
-                  setFilterLang(undefined);
-                } else {
-                  setFilterLang(value as Lang);
-                }
-              }}
-            >
-              <option key="all" value={Locale.Settings.Lang.All}>
-                {Locale.Settings.Lang.All}
-              </option>
-              {AllLangs.map((lang) => (
-                <option value={lang} key={lang}>
-                  {ALL_LANG_OPTIONS[lang]}
-                </option>
-              ))}
-            </Select>
 
             <IconButton
               className={styles["template-create"]}
