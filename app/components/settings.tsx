@@ -41,9 +41,11 @@ import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
 import { InputRange } from "./input-range";
 import { useNavigate } from "react-router-dom";
+import { getClientConfig } from "../config/client";
 import { Avatar, AvatarPicker } from "./emoji";
 import { nanoid } from "nanoid";
 import { WebLLMContext } from "../client/webllm";
+import { TemplateConfig } from "./template";
 
 function EditPromptModal(props: { id: string; onClose: () => void }) {
   const promptStore = usePromptStore();
@@ -287,30 +289,17 @@ export function Settings() {
       </div>
       <div className={styles["settings"]}>
         <List>
-          <ListItem title={Locale.Settings.Avatar}>
-            <Popover
-              onClose={() => setShowEmojiPicker(false)}
-              content={
-                <AvatarPicker
-                  onEmojiClick={(avatar: string) => {
-                    updateConfig((config) => (config.avatar = avatar));
-                    setShowEmojiPicker(false);
-                  }}
-                />
-              }
-              open={showEmojiPicker}
-            >
-              <div
-                className={styles.avatar}
-                onClick={() => {
-                  setShowEmojiPicker(!showEmojiPicker);
-                }}
-              >
-                <Avatar avatar={config.avatar} />
-              </div>
-            </Popover>
-          </ListItem>
+          <ModelConfigList
+            modelConfig={config.modelConfig}
+            updateConfig={(updater) => {
+              const modelConfig = { ...config.modelConfig };
+              updater(modelConfig);
+              config.update((config) => (config.modelConfig = modelConfig));
+            }}
+          />
+        </List>
 
+        <List>
           <ListItem title={Locale.Settings.SendKey}>
             <Select
               value={config.submitKey}
@@ -501,17 +490,6 @@ export function Settings() {
               }
             ></input>
           </ListItem>
-        </List>
-
-        <List>
-          <ModelConfigList
-            modelConfig={config.modelConfig}
-            updateConfig={(updater) => {
-              const modelConfig = { ...config.modelConfig };
-              updater(modelConfig);
-              config.update((config) => (config.modelConfig = modelConfig));
-            }}
-          />
         </List>
 
         {shouldShowPromptModal && (
