@@ -650,6 +650,17 @@ export const useChatStore = createPersistStore(
         }
       },
 
+      stopStreaming() {
+        get().updateCurrentSession((session) => {
+          session.messages = session.messages
+            .map((m: ChatMessage) => ({
+              ...m,
+              streaming: false,
+            }))
+            .filter((m: ChatMessage) => !!m.content);
+        });
+      },
+
       updateStat(message: ChatMessage) {
         get().updateCurrentSession((session) => {
           session.stat.charCount += message.content.length;

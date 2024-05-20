@@ -809,6 +809,7 @@ function _Chat() {
   // stop response
   const onUserStop = () => {
     webllm?.abort();
+    chatStore.stopStreaming();
   };
 
   // Reset session status on initial loading
