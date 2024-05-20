@@ -175,33 +175,6 @@ const de: PartialLocaleType = {
   FineTuned: {
     Sysmessage: "Du bist ein Assistent, der",
   },
-  Template: {
-    Name: "Template",
-    Page: {
-      Title: "Prompt Template",
-      SubTitle: (count: number) => `${count} prompt templates`,
-      Search: "Search Templates",
-      Create: "Create",
-    },
-    Item: {
-      Info: (count: number) => `${count} prompts`,
-      Chat: "Chat",
-      View: "View",
-      Edit: "Edit",
-      Delete: "Delete",
-      DeleteConfirm: "Confirm to delete?",
-    },
-    EditModal: {
-      Title: (readonly: boolean) =>
-        `Edit Prompt Template ${readonly ? "(readonly)" : ""}`,
-      Download: "Download",
-      Clone: "Clone",
-    },
-    Config: {
-      Avatar: "Bot Avatar",
-      Name: "Bot Name",
-    },
-  },
   NewChat: {
     Return: "Zurückkehren",
     Skip: "Fang einfach an",

@@ -211,7 +211,6 @@ ${builtin} مدمجة، ${custom} تم تعريفها من قبل المستخد
     Name: "القوالب",
     Page: {
       Title: "قالب الاقتراح",
-      SubTitle: (count: number) => `${count} قوالب الاقتراح`,
       Search: "البحث في القوالب",
       Create: "إنشاء",
     },

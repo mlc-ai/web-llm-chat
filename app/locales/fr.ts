@@ -16,9 +16,6 @@ const fr: PartialLocaleType = {
       Stop: "Arrêter",
       Retry: "Réessayer",
       Delete: "Supprimer",
-      Pin: "Épingler",
-      PinToastContent: "Épingler 2 messages à des messages contextuels",
-      PinToastAction: "Voir",
       Edit: "Modifier",
     },
     Commands: {
@@ -234,7 +231,6 @@ const fr: PartialLocaleType = {
     Name: "Masque",
     Page: {
       Title: "Modèle de prompt",
-      SubTitle: (count: number) => `${count} modèles de prompts`,
       Search: "Rechercher des modèles",
       Create: "Créer",
     },

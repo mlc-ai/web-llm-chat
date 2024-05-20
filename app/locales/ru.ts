@@ -178,12 +178,6 @@ const ru: PartialLocaleType = {
   },
   Template: {
     Name: "шаблон",
-    Page: {
-      Title: "Шаблон подсказки",
-      SubTitle: (count: number) => `${count} шаблонов подсказок`,
-      Search: "Поиск шаблонов",
-      Create: "Создать",
-    },
     Item: {
       Info: (count: number) => `${count} подсказок`,
       Chat: "Чат",

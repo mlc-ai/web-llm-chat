@@ -176,13 +176,7 @@ const it: PartialLocaleType = {
     Sysmessage: "Sei un assistente che",
   },
   Template: {
-    Name: "Template",
-    Page: {
-      Title: "Prompt Template",
-      SubTitle: (count: number) => `${count} prompt templates`,
-      Search: "Search Templates",
-      Create: "Create",
-    },
+    Name: "Prompts",
     Item: {
       Info: (count: number) => `${count} prompts`,
       Chat: "Chat",

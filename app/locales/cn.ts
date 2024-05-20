@@ -351,10 +351,10 @@ const cn = {
     Sysmessage: "你是一个助手",
   },
   Template: {
-    Name: "模版",
+    Name: "角色模版",
     Page: {
-      Title: "预设角色模版",
-      SubTitle: (count: number) => `${count} 个预设角色定义`,
+      Title: "角色模版",
+      SubTitle: "为不同的场景设计的预设提示词",
       Search: "搜索角色模版",
       Create: "新建",
       Save: "保存",

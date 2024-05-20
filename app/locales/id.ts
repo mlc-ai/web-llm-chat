@@ -15,9 +15,6 @@ const id: PartialLocaleType = {
       Copy: "Salin",
       Stop: "Berhenti",
       Retry: "Coba Lagi",
-      Pin: "Pin",
-      PinToastContent: "2 pesan telah ditandai",
-      PinToastAction: "Lihat",
       Delete: "Hapus",
       Edit: "Edit",
     },
@@ -260,13 +257,6 @@ const id: PartialLocaleType = {
     Sysmessage: "Anda adalah asisten yang",
   },
   Template: {
-    Name: "Templat",
-    Page: {
-      Title: "Templat Promp",
-      SubTitle: (count: number) => `${count} templat prompt`,
-      Search: "Cari templat",
-      Create: "Buat",
-    },
     Item: {
       Info: (count: number) => `${count} prompt`,
       Chat: "Obrolan",

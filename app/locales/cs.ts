@@ -174,10 +174,9 @@ const cs: PartialLocaleType = {
     Sysmessage: "Jste asistent, který",
   },
   Template: {
-    Name: "Templatea",
+    Name: "Výzvy",
     Page: {
       Title: "Šablona pokynu",
-      SubTitle: (count: number) => `${count} šablon pokynů`,
       Search: "Hledat v šablonách",
       Create: "Vytvořit",
     },

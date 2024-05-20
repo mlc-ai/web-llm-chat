@@ -15,9 +15,6 @@ const bn: PartialLocaleType = {
       Copy: "কপি",
       Stop: "বন্ধ করুন",
       Retry: "পুনরায় চেষ্টা করুন",
-      Pin: "পিন করুন",
-      PinToastContent: "পিন করা হয়েছে ২টি বার্তা প্রম্পটে",
-      PinToastAction: "দেখুন",
       Delete: "মুছে ফেলুন",
       Edit: "সম্পাদন করুন",
     },
@@ -250,7 +247,6 @@ const bn: PartialLocaleType = {
     Name: "মাস্ক",
     Page: {
       Title: "প্রম্পট টেমপ্লেট",
-      SubTitle: (count: number) => `${count} টি প্রম্পট টেমপ্লেট`,
       Search: "টেমপ্লেট অনুসন্ধান করুন",
       Create: "তৈরি করুন",
     },

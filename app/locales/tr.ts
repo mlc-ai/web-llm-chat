@@ -178,12 +178,6 @@ const tr: PartialLocaleType = {
   },
   Template: {
     Name: "Template",
-    Page: {
-      Title: "Prompt Template",
-      SubTitle: (count: number) => `${count} prompt templates`,
-      Search: "Search Templates",
-      Create: "Create",
-    },
     Item: {
       Info: (count: number) => `${count} prompts`,
       Chat: "Chat",
@@ -210,7 +204,7 @@ const tr: PartialLocaleType = {
     SubTitle: "Start chat with a template",
     More: "Find More",
     NotShow: "Not Show Again",
-    ConfirmNoShow: "Confirm to disable？You can enable it in settings later.",
+    ConfirmNoShow: "Confirm to disable? You can enable it in settings later.",
   },
 
   UI: {

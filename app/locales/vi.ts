@@ -173,12 +173,6 @@ const vi: PartialLocaleType = {
   },
   Template: {
     Name: "Mẫu",
-    Page: {
-      Title: "Mẫu trò chuyện",
-      SubTitle: (count: number) => `${count} mẫu`,
-      Search: "Tìm kiếm mẫu",
-      Create: "Tạo",
-    },
     Item: {
       Info: (count: number) => `${count} tin nhắn`,
       Chat: "Chat",

@@ -22,9 +22,6 @@ const pt: PartialLocaleType = {
       Copy: "Copiar",
       Stop: "Parar",
       Retry: "Tentar Novamente",
-      Pin: "Fixar",
-      PinToastContent: "Fixada 1 mensagem para prompts contextuais",
-      PinToastAction: "Visualizar",
       Delete: "Deletar",
       Edit: "Editar",
     },
@@ -337,12 +334,6 @@ const pt: PartialLocaleType = {
   },
   Template: {
     Name: "Modelos",
-    Page: {
-      Title: "Modelos de Prompt",
-      SubTitle: (count: number) => `${count} Modelos de prompt`,
-      Search: "Buscar Modelos",
-      Create: "Criar",
-    },
     Item: {
       Info: (count: number) => `${count} prompts`,
       Chat: "Chat",

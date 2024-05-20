@@ -24,9 +24,6 @@ const sk: PartialLocaleType = {
       Copy: "Kopírovať",
       Stop: "Zastaviť",
       Retry: "Skúsiť znova",
-      Pin: "Pripnúť",
-      PinToastContent: "Pripnuté 1 správy do kontextových výziev",
-      PinToastAction: "Zobraziť",
       Delete: "Vymazať",
       Edit: "Upraviť",
     },
@@ -355,13 +352,6 @@ const sk: PartialLocaleType = {
     Sysmessage: "Ste asistent, ktorý",
   },
   Template: {
-    Name: "šablóny",
-    Page: {
-      Title: "Šablóna výziev",
-      SubTitle: (count: number) => `${count} šablón výziev`,
-      Search: "Hľadať šablóny",
-      Create: "Vytvoriť",
-    },
     Item: {
       Info: (count: number) => `${count} výziev`,
       Chat: "Chat",

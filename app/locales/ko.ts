@@ -175,7 +175,6 @@ const ko: PartialLocaleType = {
     Name: "주형",
     Page: {
       Title: "프롬프트 템플릿",
-      SubTitle: (count: number) => `${count}개의 프롬프트 템플릿`,
       Search: "템플릿 검색",
       Create: "생성",
     },

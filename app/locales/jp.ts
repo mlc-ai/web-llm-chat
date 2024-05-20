@@ -22,10 +22,6 @@ const jp: PartialLocaleType = {
       Copy: "コピー",
       Stop: "停止",
       Retry: "リトライ",
-      Pin: "ピン",
-      PinToastContent:
-        "コンテキストプロンプトに1つのメッセージをピン留めしました",
-      PinToastAction: "表示",
       Delete: "削除",
       Edit: "編集",
     },
@@ -234,7 +230,6 @@ const jp: PartialLocaleType = {
     Name: "キャラクタープリセット",
     Page: {
       Title: "キャラクタープリセット",
-      SubTitle: (count: number) => `${count} 件見つかりました。`,
       Search: "検索",
       Create: "新規",
     },

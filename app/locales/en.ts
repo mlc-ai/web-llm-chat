@@ -24,9 +24,6 @@ const en = {
       Stop: "Stop",
       Share: "Share",
       Retry: "Retry",
-      Pin: "Pin",
-      PinToastContent: "Pinned 1 messages to contextual prompts",
-      PinToastAction: "View",
       Delete: "Delete",
       Edit: "Edit",
     },
@@ -358,11 +355,11 @@ const en = {
     Sysmessage: "You are an assistant that",
   },
   Template: {
-    Name: "Template",
+    Name: "Prompts",
     Page: {
-      Title: "Prompt Template",
-      SubTitle: (count: number) => `${count} prompt templates`,
-      Search: "Search Templates",
+      Title: "Prompt Library",
+      SubTitle: "Tailored prompt collection for specific topics",
+      Search: "Search Prompts",
       Create: "Create",
     },
     Item: {

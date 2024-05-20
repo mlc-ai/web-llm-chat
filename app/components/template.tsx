@@ -401,7 +401,7 @@ export function TemplatePage() {
               {Locale.Template.Page.Title}
             </div>
             <div className="window-header-submai-title">
-              {Locale.Template.Page.SubTitle(allTemplates.length)}
+              {Locale.Template.Page.SubTitle}
             </div>
           </div>
 
