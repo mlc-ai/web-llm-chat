@@ -1,7 +1,7 @@
 import { BUILTIN_TEMPLATES } from "../templates";
 import { getLang, Lang } from "../locales";
-import { DEFAULT_TOPIC, ChatMessage, useChatStore } from "./chat";
-import { ModelConfig, useAppConfig } from "./config";
+import { DEFAULT_TOPIC, ChatMessage } from "./chat";
+import { useAppConfig } from "./config";
 import { StoreKey } from "../constant";
 import { nanoid } from "nanoid";
 import { createPersistStore } from "../utils/store";
@@ -14,7 +14,6 @@ export type Template = {
   hideContext?: boolean;
   context: ChatMessage[];
   syncGlobalConfig?: boolean;
-  modelConfig: ModelConfig;
   lang: Lang;
   builtin: boolean;
 };
@@ -32,10 +31,6 @@ export const createEmptyTemplate = () =>
     avatar: DEFAULT_TEMPLATE_AVATAR,
     name: DEFAULT_TOPIC,
     context: [],
-    syncGlobalConfig: true, // use global config as default
-    modelConfig: {
-      ...useAppConfig.getState().modelConfig,
-    },
     lang: getLang(),
     builtin: false,
     createdAt: Date.now(),
@@ -90,10 +85,7 @@ export const useTemplateStore = createPersistStore(
         (t) =>
           ({
             ...t,
-            modelConfig: {
-              ...config.modelConfig,
-              ...t.modelConfig,
-            },
+            id: "",
           }) as Template,
       );
       return userTemplates.concat(buildinTemplates);

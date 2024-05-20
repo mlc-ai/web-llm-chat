@@ -180,15 +180,8 @@ export const useChatStore = createPersistStore(
         const session = createEmptySession();
 
         if (template) {
-          const config = useAppConfig.getState();
-          const globalModelConfig = config.modelConfig;
-
           session.template = {
             ...template,
-            modelConfig: {
-              ...globalModelConfig,
-              ...template.modelConfig,
-            },
           };
           session.topic = template.name;
         }
@@ -288,7 +281,7 @@ export const useChatStore = createPersistStore(
         attachImages?: string[],
       ) {
         const session = get().currentSession();
-        const modelConfig = session.template.modelConfig;
+        const modelConfig = useAppConfig.getState().modelConfig;
 
         const userContent = fillTemplateWith(content, modelConfig);
         console.log("[User Input] after template: ", userContent);
@@ -420,7 +413,7 @@ export const useChatStore = createPersistStore(
 
       getMessagesWithMemory() {
         const session = get().currentSession();
-        const modelConfig = session.template.modelConfig;
+        const modelConfig = useAppConfig.getState().modelConfig;
         const clearContextIndex = session.clearContextIndex ?? 0;
         const messages = session.messages.slice();
         const totalMessageCount = session.messages.length;
@@ -525,7 +518,7 @@ export const useChatStore = createPersistStore(
       summarizeSession(webllm: WebLLMApi) {
         const config = useAppConfig.getState();
         const session = get().currentSession();
-        const modelConfig = session.template.modelConfig;
+        const modelConfig = useAppConfig.getState().modelConfig;
 
         // remove error messages if any
         const messages = session.messages;
@@ -546,7 +539,7 @@ export const useChatStore = createPersistStore(
           webllm.chat({
             messages: topicMessages,
             config: {
-              model: session.template.modelConfig.model,
+              model: modelConfig.model,
               cache: useAppConfig.getState().cacheType,
               stream: false,
             },
@@ -630,7 +623,7 @@ export const useChatStore = createPersistStore(
             config: {
               ...modelcfg,
               stream: true,
-              model: session.template.modelConfig.model,
+              model: modelConfig.model,
               cache: useAppConfig.getState().cacheType,
             },
             onUpdate(message) {

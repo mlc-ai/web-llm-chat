@@ -11,7 +11,6 @@ import React, {
 } from "react";
 
 import SendWhiteIcon from "../icons/send-white.svg";
-import BrainIcon from "../icons/brain.svg";
 import RenameIcon from "../icons/rename.svg";
 import ExportIcon from "../icons/share.svg";
 import ReturnIcon from "../icons/return.svg";
@@ -76,7 +75,6 @@ import {
   ListItem,
   Modal,
   Selector,
-  showConfirm,
   showPrompt,
   showToast,
 } from "./ui-lib";
@@ -90,7 +88,6 @@ import {
 } from "../constant";
 import { Avatar } from "./emoji";
 import { ContextPrompts, TemplateAvatar, TemplateConfig } from "./template";
-import { useTemplateStore } from "../store/template";
 import { ChatCommandPrefix, useChatCommand, useCommand } from "../command";
 import { prettyObject } from "../utils/format";
 import { ExportMessageModal } from "./exporter";
@@ -102,101 +99,6 @@ import { WebLLMContext } from "../client/webllm";
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
 });
-
-export function SessionConfigModel(props: { onClose: () => void }) {
-  const chatStore = useChatStore();
-  const session = chatStore.currentSession();
-  const templateStore = useTemplateStore();
-  const navigate = useNavigate();
-
-  return (
-    <div className="modal-template">
-      <Modal
-        title={Locale.Context.Edit}
-        onClose={() => props.onClose()}
-        actions={[
-          <IconButton
-            key="reset"
-            icon={<ResetIcon />}
-            bordered
-            text={Locale.Chat.Config.Reset}
-            onClick={async () => {
-              if (await showConfirm(Locale.Memory.ResetConfirm)) {
-                chatStore.updateCurrentSession(
-                  (session) => (session.memoryPrompt = ""),
-                );
-              }
-            }}
-          />,
-          <IconButton
-            key="copy"
-            icon={<CopyIcon />}
-            bordered
-            text={Locale.Chat.Config.SaveAs}
-            onClick={() => {
-              navigate(Path.Templates);
-              setTimeout(() => {
-                templateStore.create(session.template);
-              }, 500);
-            }}
-          />,
-        ]}
-      >
-        <TemplateConfig
-          template={session.template}
-          updateTemplate={(updater) => {
-            const template = { ...session.template };
-            updater(template);
-            chatStore.updateCurrentSession(
-              (session) => (session.template = template),
-            );
-          }}
-          extraListItems={
-            session.template.modelConfig.sendMemory ? (
-              <ListItem
-                className="copyable"
-                title={`${Locale.Memory.Title} (${session.lastSummarizeIndex} of ${session.messages.length})`}
-                subTitle={session.memoryPrompt || Locale.Memory.EmptyContent}
-              ></ListItem>
-            ) : (
-              <></>
-            )
-          }
-        ></TemplateConfig>
-      </Modal>
-    </div>
-  );
-}
-
-function PromptToast(props: {
-  showToast?: boolean;
-  showModal?: boolean;
-  setShowModal: (_: boolean) => void;
-}) {
-  const chatStore = useChatStore();
-  const session = chatStore.currentSession();
-  const context = session.template.context;
-
-  return (
-    <div className={styles["prompt-toast"]} key="prompt-toast">
-      {props.showToast && (
-        <div
-          className={styles["prompt-toast-inner"] + " clickable"}
-          role="button"
-          onClick={() => props.setShowModal(true)}
-        >
-          <BrainIcon />
-          <span className={styles["prompt-toast-content"]}>
-            {Locale.Context.Toast(context.length)}
-          </span>
-        </div>
-      )}
-      {props.showModal && (
-        <SessionConfigModel onClose={() => props.setShowModal(false)} />
-      )}
-    </div>
-  );
-}
 
 function useSubmitHandler() {
   const config = useAppConfig();
@@ -446,18 +348,8 @@ export function ChatActions(props: {
   const navigate = useNavigate();
   const chatStore = useChatStore();
 
-  // switch themes
-  const theme = config.theme;
-  function nextTheme() {
-    const themes = [Theme.Auto, Theme.Light, Theme.Dark];
-    const themeIndex = themes.indexOf(theme);
-    const nextIndex = (themeIndex + 1) % themes.length;
-    const nextTheme = themes[nextIndex];
-    config.update((config) => (config.theme = nextTheme));
-  }
-
   // switch model
-  const currentModel = chatStore.currentSession().template.modelConfig.model;
+  const currentModel = config.modelConfig.model;
   const allModels = useAllModels();
   const models = useMemo(() => {
     const defaultModel = allModels.find((m) => m.is_default);
@@ -482,38 +374,10 @@ export function ChatActions(props: {
       props.setAttachImages([]);
       props.setUploading(false);
     }
-    // if current model is not available
-    // switch to first available model
-    const isUnavaliableModel = !models.some((m) => m.name === currentModel);
-    if (isUnavaliableModel && models.length > 0) {
-      // show next model to default model if exist
-      let nextModel: ModelType = (
-        models.find((model) => model.is_default) || models[0]
-      ).name;
-      chatStore.updateCurrentSession(
-        (session) => (session.template.modelConfig.model = nextModel),
-      );
-      showToast(nextModel);
-    }
   }, [chatStore, currentModel, models]);
 
   return (
     <div className={styles["chat-input-actions"]}>
-      {!props.hitBottom && (
-        <ChatAction
-          onClick={props.scrollToBottom}
-          text={Locale.Chat.InputActions.ToBottom}
-          icon={<BottomIcon />}
-        />
-      )}
-      {props.hitBottom && (
-        <ChatAction
-          onClick={props.showPromptModal}
-          text={Locale.Chat.InputActions.Settings}
-          icon={<SettingsIcon />}
-        />
-      )}
-
       {showUploadImage && (
         <ChatAction
           onClick={props.uploadImage}
@@ -522,35 +386,10 @@ export function ChatActions(props: {
         />
       )}
       <ChatAction
-        onClick={nextTheme}
-        text={Locale.Chat.InputActions.Theme[theme]}
-        icon={
-          <>
-            {theme === Theme.Auto ? (
-              <AutoIcon />
-            ) : theme === Theme.Light ? (
-              <LightIcon />
-            ) : theme === Theme.Dark ? (
-              <DarkIcon />
-            ) : null}
-          </>
-        }
-      />
-
-      <ChatAction
         onClick={props.showPromptHints}
         text={Locale.Chat.InputActions.Prompt}
         icon={<PromptIcon />}
       />
-
-      <ChatAction
-        onClick={() => {
-          navigate(Path.Templates);
-        }}
-        text={Locale.Chat.InputActions.Templates}
-        icon={<TemplateIcon />}
-      />
-
       <ChatAction
         text={Locale.Chat.InputActions.Clear}
         icon={<BreakIcon />}
@@ -583,10 +422,6 @@ export function ChatActions(props: {
           onClose={() => setShowModelSelector(false)}
           onSelection={(s) => {
             if (s.length === 0) return;
-            chatStore.updateCurrentSession((session) => {
-              session.template.modelConfig.model = s[0] as ModelType;
-              session.template.syncGlobalConfig = false;
-            });
             config.updateModelConfig({ model: s[0] as ModelType });
             showToast(s[0]);
           }}
@@ -836,15 +671,7 @@ function _Chat() {
           }
         }
       });
-
-      // auto sync template config from global config
-      if (session.template.syncGlobalConfig) {
-        console.log(
-          "[Template] syncing from global, name = ",
-          session.template.name,
-        );
-        session.template.modelConfig = { ...config.modelConfig };
-      }
+      session.messages.filter((m) => m.content.length > 0);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -1094,8 +921,7 @@ function _Chat() {
 
   const handlePaste = useCallback(
     async (event: React.ClipboardEvent<HTMLTextAreaElement>) => {
-      const currentModel =
-        chatStore.currentSession().template.modelConfig.model;
+      const currentModel = config.modelConfig.model;
       if (!isVisionModel(currentModel)) {
         return;
       }
@@ -1242,12 +1068,6 @@ function _Chat() {
             </div>
           )}
         </div>
-
-        <PromptToast
-          showToast={!hitBottom}
-          showModal={showPromptModal}
-          setShowModal={setShowPromptModal}
-        />
       </div>
 
       <div
@@ -1288,10 +1108,7 @@ function _Chat() {
                           ) : (
                             <TemplateAvatar
                               avatar={session.template.avatar}
-                              model={
-                                message.model ||
-                                session.template.modelConfig.model
-                              }
+                              model={message.model || config.modelConfig.model}
                             />
                           )}
                         </>

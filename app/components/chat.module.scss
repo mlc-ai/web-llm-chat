@@ -76,7 +76,7 @@
     }
 
     &.full-width {
-      width: fit-content;
+      max-width: fit-content;
 
       .text {
         opacity: 1;

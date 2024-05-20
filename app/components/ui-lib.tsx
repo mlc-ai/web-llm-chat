@@ -218,11 +218,17 @@ export function Toast(props: ToastProps) {
 export function showToast(
   content: string,
   action?: ToastProps["action"],
+  parent?: HTMLElement,
   delay = 3000,
 ) {
   const div = document.createElement("div");
   div.className = styles.show;
-  document.body.appendChild(div);
+
+  if (parent) {
+    parent.appendChild(div);
+  } else {
+    document.body.appendChild(div);
+  }
 
   const root = createRoot(div);
   const close = () => {
