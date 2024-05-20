@@ -51,6 +51,7 @@ export interface LLMModel {
   quantization?: string;
   context_length?: string;
   is_default?: boolean;
+  family?: string;
 }
 
 export abstract class LLMApi {

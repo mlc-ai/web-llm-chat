@@ -1256,15 +1256,9 @@ function _Chat() {
                       {!isUser && (
                         <div className={styles["chat-message-model-name"]}>
                           {config.models.find((m) => m.name === message.model)
-                            ? `${
-                                config.models.find(
-                                  (m) => m.name === message.model,
-                                )!.display_name
-                              } ${
-                                config.models.find(
-                                  (m) => m.name === message.model,
-                                )?.size || ""
-                              }`
+                            ? config.models.find(
+                                (m) => m.name === message.model,
+                              )!.display_name
                             : message.model}
                         </div>
                       )}
