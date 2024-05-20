@@ -93,6 +93,21 @@ import { MultimodalContent } from "../client/api";
 import { WebLLMContext } from "../client/webllm";
 import { useTemplateStore } from "../store/template";
 
+export function ScrollDownToast(prop: { show: boolean; onclick: () => void }) {
+  return (
+    <div
+      className={
+        styles["toast-container"] + (prop.show ? ` ${styles["show"]}` : "")
+      }
+      onClick={() => prop.onclick()}
+    >
+      <div className={styles["toast-content"]}>
+        <BottomIcon />
+      </div>
+    </div>
+  );
+}
+
 export function SessionConfigModel(props: { onClose: () => void }) {
   const chatStore = useChatStore();
   const session = chatStore.currentSession();
@@ -465,11 +480,6 @@ export function ChatActions(props: {
 
   return (
     <div className={styles["chat-input-actions"]}>
-      <ChatAction
-        onClick={props.scrollToBottom}
-        text={Locale.Chat.InputActions.ToBottom}
-        icon={<BottomIcon />}
-      />
       <ChatAction
         onClick={props.showPromptModal}
         text={Locale.Chat.InputActions.Settings}
@@ -1379,8 +1389,8 @@ function _Chat() {
           );
         })}
       </div>
-
       <div className={styles["chat-input-panel"]}>
+        <ScrollDownToast onclick={scrollToBottom} show={!hitBottom} />
         <PromptHints prompts={promptHints} onPromptSelect={onPromptSelect} />
 
         <ChatActions
