@@ -9,7 +9,7 @@ import {
   OnDragEndResponder,
 } from "@hello-pangea/dnd";
 
-import { useChatStore } from "../store";
+import { useAppConfig, useChatStore } from "../store";
 
 import Locale from "../locales";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -32,6 +32,7 @@ export function ChatItem(props: {
   narrow?: boolean;
   template: Template;
 }) {
+  const config = useAppConfig();
   const draggableRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     if (props.selected && draggableRef.current) {
@@ -67,7 +68,7 @@ export function ChatItem(props: {
               <div className={styles["chat-item-avatar"] + " no-dark"}>
                 <TemplateAvatar
                   avatar={props.template.avatar}
-                  model={props.template.modelConfig.model}
+                  model={config.modelConfig.model}
                 />
               </div>
               <div className={styles["chat-item-narrow-count"]}>

@@ -218,8 +218,8 @@ export function Toast(props: ToastProps) {
 export function showToast(
   content: string,
   action?: ToastProps["action"],
-  parent?: HTMLElement,
   delay = 3000,
+  parent?: HTMLElement,
 ) {
   const div = document.createElement("div");
   div.className = styles.show;

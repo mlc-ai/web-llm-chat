@@ -83,18 +83,7 @@ export function TemplateConfig(props: {
   readonly?: boolean;
 }) {
   const [showPicker, setShowPicker] = useState(false);
-
-  const updateConfig = (updater: (config: ModelConfig) => void) => {
-    if (props.readonly) return;
-
-    const config = { ...props.template.modelConfig };
-    updater(config);
-    props.updateTemplate((template) => {
-      template.modelConfig = config;
-      // if user changed current session template, it will disable auto sync
-      template.syncGlobalConfig = false;
-    });
-  };
+  const config = useAppConfig();
 
   return (
     <>
@@ -127,7 +116,7 @@ export function TemplateConfig(props: {
             >
               <TemplateAvatar
                 avatar={props.template.avatar}
-                model={props.template.modelConfig.model}
+                model={config.modelConfig.model}
               />
             </div>
           </Popover>
@@ -157,14 +146,6 @@ export function TemplateConfig(props: {
             }}
           ></input>
         </ListItem>
-      </List>
-
-      <List>
-        <ModelConfigList
-          modelConfig={{ ...props.template.modelConfig }}
-          updateConfig={updateConfig}
-        />
-        {props.extraListItems}
       </List>
     </>
   );
@@ -513,17 +494,14 @@ export function TemplatePage() {
               <div className={styles["template-item"]} key={m.id}>
                 <div className={styles["template-header"]}>
                   <div className={styles["template-icon"]}>
-                    <TemplateAvatar
-                      avatar={m.avatar}
-                      model={m.modelConfig.model}
-                    />
+                    <TemplateAvatar avatar={m.avatar} />
                   </div>
                   <div className={styles["template-title"]}>
                     <div className={styles["template-name"]}>{m.name}</div>
                     <div className={styles["template-info"] + " one-line"}>
                       {`${Locale.Template.Item.Info(m.context.length)} / ${
                         ALL_LANG_OPTIONS[m.lang]
-                      } / ${m.modelConfig.model}`}
+                      }`}
                     </div>
                   </div>
                 </div>

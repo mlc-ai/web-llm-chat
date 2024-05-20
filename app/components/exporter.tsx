@@ -533,7 +533,7 @@ export function ImagePreviewer(props: {
           </div>
           <div>
             <div className={styles["chat-info-item"]}>
-              {Locale.Exporter.Model}: {template.modelConfig.model}
+              {Locale.Exporter.Model}: {config.modelConfig.model}
             </div>
             <div className={styles["chat-info-item"]}>
               {Locale.Exporter.Messages}: {props.messages.length}
