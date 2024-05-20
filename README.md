@@ -22,7 +22,7 @@
 
 - **Browser-Native AI**: Experience cutting-edge language models running natively within your web browser with WebGPU acceleration, eliminating the need for server-side processing or cloud dependencies.
 - **Ganranteed Privacy**: With the AI model running locally on your hardware and all data processing happening within your browser, your data and conversations never leave your computer, ensuring your privacy.
-- **User-Friendly Interface**: Enjoy the intuitive and feature-rich user interface of [NextChat](), complete with markdown support, dark mode, and a responsive design optimized for various screen sizes.
+- **User-Friendly Interface**: Enjoy the intuitive and feature-rich user interface, complete with markdown support, dark mode, and a responsive design optimized for various screen sizes.
 - **Open Source and Customizable**: Build and customize your own AI-powered applications with our open-source framework.
 - **i18n**: English, 简体中文, 繁体中文, 日本語, Français, Español, Italiano, Türkçe, Deutsch, Tiếng Việt, Русский, Čeština, 한국어, Indonesia
 
