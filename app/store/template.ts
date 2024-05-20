@@ -1,4 +1,4 @@
-import { BUILTIN_TEMPLATES } from "../templates";
+import { BUILTIN_TEMPLATE_ID, BUILTIN_TEMPLATES } from "../templates";
 import { getLang, Lang } from "../locales";
 import { DEFAULT_TOPIC, ChatMessage } from "./chat";
 import { useAppConfig } from "./config";
@@ -79,16 +79,7 @@ export const useTemplateStore = createPersistStore(
       const userTemplates = Object.values(get().templates).sort(
         (a, b) => b.createdAt - a.createdAt,
       );
-      const config = useAppConfig.getState();
-      if (config.hideBuiltinTemplates) return userTemplates;
-      const buildinTemplates = BUILTIN_TEMPLATES.map(
-        (t) =>
-          ({
-            ...t,
-            id: "",
-          }) as Template,
-      );
-      return userTemplates.concat(buildinTemplates);
+      return userTemplates.concat(BUILTIN_TEMPLATES);
     },
     search(text: string) {
       return Object.values(get().templates);

@@ -8,18 +8,18 @@ export const BUILTIN_TEMPLATE_ID = 100000;
 
 export const BUILTIN_TEMPLATE_STORE = {
   buildinId: BUILTIN_TEMPLATE_ID,
-  templates: {} as Record<string, BuiltinTemplate>,
+  masks: {} as Record<string, BuiltinTemplate>,
   get(id?: string) {
     if (!id) return undefined;
-    return this.templates[id] as Template | undefined;
+    return this.masks[id] as Template | undefined;
   },
   add(m: BuiltinTemplate) {
-    const mask = { ...m, id: this.buildinId++, builtin: true };
-    this.templates[mask.id] = mask;
-    return mask;
+    const mask = { ...m, id: (this.buildinId++).toString(), builtin: true };
+    this.masks[mask.id] = mask;
+    return mask as Template;
   },
 };
 
-export const BUILTIN_TEMPLATES: BuiltinTemplate[] = EN_TEMPLATES.map((m) =>
+export const BUILTIN_TEMPLATES: Template[] = EN_TEMPLATES.map((m) =>
   BUILTIN_TEMPLATE_STORE.add(m),
 );
