@@ -100,9 +100,8 @@ export function ScrollDownToast(prop: { show: boolean; onclick: () => void }) {
       className={
         styles["toast-container"] + (prop.show ? ` ${styles["show"]}` : "")
       }
-      onClick={() => prop.onclick()}
     >
-      <div className={styles["toast-content"]}>
+      <div className={styles["toast-content"]} onClick={() => prop.onclick()}>
         <BottomIcon />
       </div>
     </div>
@@ -1166,6 +1165,7 @@ function _Chat() {
                     config.modelConfig.presence_penalty.toString(),
                   frequency_penalty:
                     config.modelConfig.frequency_penalty.toString(),
+                  // template: chatStore.currentSession().template;
                 });
                 const shareUrl = new URL(
                   `${window.location.origin}${window.location.pathname}?${params}`,
