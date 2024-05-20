@@ -10,7 +10,7 @@ import {
 
 import { ChatOptions, LLMApi, LLMConfig, RequestMessage } from "./api";
 
-const KEEP_ALIVE_INTERVAL = 10_000;
+const KEEP_ALIVE_INTERVAL = 5_000;
 
 export class WebLLMApi implements LLMApi {
   private llmConfig?: LLMConfig;
@@ -71,7 +71,9 @@ export class WebLLMApi implements LLMApi {
         options.onUpdate,
       );
     } catch (err: any) {
-      if (err.toString().includes("Please call `Engine.reload(model)` first")) {
+      if (
+        !err.toString().includes("Please call `Engine.reload(model)` first")
+      ) {
         console.error("Error in chatCompletion", err);
         options.onError?.(err as Error);
         return;
