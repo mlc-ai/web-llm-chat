@@ -24,7 +24,6 @@ import BrainIcon from "../icons/brain.svg";
 import MinIcon from "../icons/min.svg";
 import ResetIcon from "../icons/reload.svg";
 import BreakIcon from "../icons/break.svg";
-import SettingsIcon from "../icons/chat-settings.svg";
 import DeleteIcon from "../icons/clear.svg";
 import PinIcon from "../icons/pin.svg";
 import EditIcon from "../icons/rename.svg";
@@ -165,36 +164,6 @@ export function SessionConfigModel(props: { onClose: () => void }) {
           }}
         ></TemplateConfig>
       </Modal>
-    </div>
-  );
-}
-
-function PromptToast(props: {
-  showToast?: boolean;
-  showModal?: boolean;
-  setShowModal: (_: boolean) => void;
-}) {
-  const chatStore = useChatStore();
-  const session = chatStore.currentSession();
-  const context = session.template.context;
-
-  return (
-    <div className={styles["prompt-toast"]} key="prompt-toast">
-      {props.showToast && (
-        <div
-          className={styles["prompt-toast-inner"] + " clickable"}
-          role="button"
-          onClick={() => props.setShowModal(true)}
-        >
-          <BrainIcon />
-          <span className={styles["prompt-toast-content"]}>
-            {Locale.Context.Toast(context.length)}
-          </span>
-        </div>
-      )}
-      {props.showModal && (
-        <SessionConfigModel onClose={() => props.setShowModal(false)} />
-      )}
     </div>
   );
 }
@@ -441,7 +410,6 @@ export function ChatActions(props: {
   uploadImage: () => void;
   setAttachImages: (images: string[]) => void;
   setUploading: (uploading: boolean) => void;
-  showPromptModal: () => void;
   scrollToBottom: () => void;
   showPromptHints: () => void;
   hitBottom: boolean;
@@ -480,11 +448,6 @@ export function ChatActions(props: {
 
   return (
     <div className={styles["chat-input-actions"]}>
-      <ChatAction
-        onClick={props.showPromptModal}
-        text={Locale.Chat.InputActions.Settings}
-        icon={<SettingsIcon />}
-      />
       {showUploadImage && (
         <ChatAction
           onClick={props.uploadImage}
@@ -879,19 +842,6 @@ function _Chat() {
     inputRef.current?.focus();
   };
 
-  const onPinMessage = (message: ChatMessage) => {
-    chatStore.updateCurrentSession((session) =>
-      session.template.context.push(message),
-    );
-
-    showToast(Locale.Chat.Actions.PinToastContent, {
-      text: Locale.Chat.Actions.PinToastAction,
-      onClick: () => {
-        setShowPromptModal(true);
-      },
-    });
-  };
-
   const context: RenderMessage[] = useMemo(() => {
     return session.template.hideContext ? [] : session.template.context.slice();
   }, [session.template.context, session.template.hideContext]);
@@ -990,10 +940,6 @@ function _Chat() {
     (session.clearContextIndex ?? -1) >= 0
       ? session.clearContextIndex! + context.length - msgRenderIndex
       : -1;
-
-  const [showPromptModal, setShowPromptModal] = useState(false);
-
-  const clientConfig = useMemo(() => getClientConfig(), []);
 
   const autoFocus = !isMobileScreen; // wont auto focus on mobile screen
   const showMaxIcon = !isMobileScreen;
@@ -1197,12 +1143,6 @@ function _Chat() {
               />
             </div>
           )}
-
-          <PromptToast
-            showToast={!hitBottom}
-            showModal={showPromptModal}
-            setShowModal={setShowPromptModal}
-          />
         </div>
       </div>
 
@@ -1321,11 +1261,6 @@ function _Chat() {
                                 />
 
                                 <ChatAction
-                                  text={Locale.Chat.Actions.Pin}
-                                  icon={<PinIcon />}
-                                  onClick={() => onPinMessage(message)}
-                                />
-                                <ChatAction
                                   text={Locale.Chat.Actions.Copy}
                                   icon={<CopyIcon />}
                                   onClick={() =>
@@ -1415,7 +1350,6 @@ function _Chat() {
           uploadImage={uploadImage}
           setAttachImages={setAttachImages}
           setUploading={setUploading}
-          showPromptModal={() => setShowPromptModal(true)}
           scrollToBottom={scrollToBottom}
           hitBottom={hitBottom}
           uploading={uploading}
