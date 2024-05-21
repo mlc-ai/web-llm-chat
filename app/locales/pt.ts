@@ -351,12 +351,6 @@ const pt: PartialLocaleType = {
     Config: {
       Avatar: "Avatar do Bot",
       Name: "Nome do Bot",
-      Sync: {
-        Title: "Usar Configuração Global",
-        SubTitle: "Usar configuração global neste chat",
-        Confirm:
-          "Confirmar para substituir a configuração personalizada pela configuração global?",
-      },
       HideContext: {
         Title: "Esconder Prompts de Contexto",
         SubTitle: "Não mostrar prompts de contexto no chat",

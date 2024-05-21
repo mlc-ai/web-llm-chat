@@ -274,12 +274,6 @@ const id: PartialLocaleType = {
     Config: {
       Avatar: "Avatar Bot",
       Name: "Nama Bot",
-      Sync: {
-        Title: "Gunakan Konfigurasi Global",
-        SubTitle: "Gunakan konfigurasi global dalam percakapan ini",
-        Confirm:
-          "Pastikan untuk mengganti konfigurasi kustom dengan konfigurasi global?",
-      },
       HideContext: {
         Title: "Sembunyikan Prompt Konteks",
         SubTitle: "Tidak menampilkan prompt konteks dalam obrolan",

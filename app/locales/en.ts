@@ -365,7 +365,7 @@ const en = {
     Name: "Prompts",
     Page: {
       Title: "Prompt Library",
-      SubTitle: "Tailored Prompt Collection",
+      SubTitle: "Saved Prompt Collection",
       Search: "Search Prompts",
       Create: "Create",
     },
@@ -379,7 +379,9 @@ const en = {
     },
     EditModal: {
       Title: (readonly: boolean) =>
-        `Edit Prompt Template ${readonly ? "(readonly)" : ""}`,
+        `${readonly ? "View" : "Edit"} Prompt Template ${
+          readonly ? "(readonly)" : ""
+        }`,
       Save: "Save",
       Download: "Download",
       Clone: "Clone",
@@ -387,11 +389,6 @@ const en = {
     Config: {
       Avatar: "Bot Avatar",
       Name: "Conversation Name",
-      Sync: {
-        Title: "Use Global Config",
-        SubTitle: "Use global config in this chat",
-        Confirm: "Confirm to override custom config with global config?",
-      },
       HideContext: {
         Title: "Hide Context Prompts",
         SubTitle: "Do not show in-context prompts in chat",

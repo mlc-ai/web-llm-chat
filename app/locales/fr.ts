@@ -251,11 +251,6 @@ const fr: PartialLocaleType = {
     Config: {
       Avatar: "Avatar de lassistant",
       Name: "Nom de lassistant",
-      Sync: {
-        Title: "Utiliser la configuration globale",
-        SubTitle: "Utiliser la configuration globale dans cette conversation",
-        Confirm: "Voulez-vous definir votre configuration personnalisée ?",
-      },
       HideContext: {
         Title: "Masquer les invites contextuelles",
         SubTitle: "Ne pas afficher les instructions contextuelles dans le chat",

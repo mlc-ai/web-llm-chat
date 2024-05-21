@@ -369,11 +369,6 @@ const sk: PartialLocaleType = {
     Config: {
       Avatar: "Avatar robota",
       Name: "Meno robota",
-      Sync: {
-        Title: "Použiť globálne nastavenia",
-        SubTitle: "Použiť globálne nastavenia v tomto chate",
-        Confirm: "Potvrdiť prepísanie vlastného nastavenia globálnym?",
-      },
       HideContext: {
         Title: "Skryť kontextové výzvy",
         SubTitle: "Nezobrazovať kontextové výzvy v chate",

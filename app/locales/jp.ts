@@ -250,12 +250,6 @@ const jp: PartialLocaleType = {
     Config: {
       Avatar: "キャラクターのアイコン",
       Name: "キャラクターの名前",
-      Sync: {
-        Title: "グローバル設定を利用する",
-        SubTitle: "このチャットでグローバル設定を利用します。",
-        Confirm:
-          "カスタム設定を上書きしてグローバル設定を使用します、よろしいですか？",
-      },
       HideContext: {
         Title: "キャラクター設定を表示しない",
         SubTitle: "チャット画面でのキャラクター設定を非表示にします。",

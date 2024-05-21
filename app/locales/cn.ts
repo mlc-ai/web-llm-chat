@@ -354,7 +354,7 @@ const cn = {
     Name: "角色模版",
     Page: {
       Title: "角色模版",
-      SubTitle: "为不同的场景设计的预设提示词",
+      SubTitle: "已保存的提示词模板",
       Search: "搜索角色模版",
       Create: "新建",
       Save: "保存",
@@ -369,18 +369,13 @@ const cn = {
     },
     EditModal: {
       Title: (readonly: boolean) =>
-        `编辑预设模版 ${readonly ? "（只读）" : ""}`,
-      Download: "下载预设",
-      Clone: "克隆预设",
+        `${readonly ? "查看" : "编辑"}提示词模版 ${readonly ? "（只读）" : ""}`,
+      Download: "下载模板",
+      Clone: "克隆模板",
     },
     Config: {
       Avatar: "角色头像",
       Name: "角色名称",
-      Sync: {
-        Title: "使用全局设置",
-        SubTitle: "当前对话是否使用全局模型设置",
-        Confirm: "当前对话的自定义设置将会被自动覆盖，确认启用全局设置？",
-      },
       HideContext: {
         Title: "隐藏预设对话",
         SubTitle: "隐藏后预设对话不会出现在聊天界面",
