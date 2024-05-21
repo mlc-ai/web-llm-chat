@@ -37,7 +37,7 @@ import {
   showConfirm,
 } from "./ui-lib";
 import { Avatar, AvatarPicker } from "./emoji";
-import Locale, { ALL_LANG_OPTIONS } from "../locales";
+import Locale from "../locales";
 import { useNavigate } from "react-router-dom";
 
 import chatStyle from "./chat.module.scss";
@@ -48,7 +48,7 @@ import {
   getMessageImages,
   readFromFile,
 } from "../utils";
-import { Updater } from "../typing";
+import { MessageRole, Updater } from "../typing";
 import { FileName, Path } from "../constant";
 import { BUILTIN_TEMPLATE_STORE } from "../templates";
 import {
@@ -106,7 +106,7 @@ export function TemplateConfig(props: {
                 }}
               ></AvatarPicker>
             }
-            open={showPicker}
+            open={!props.readonly && showPicker}
             onClose={() => setShowPicker(false)}
           >
             <div
@@ -129,6 +129,7 @@ export function TemplateConfig(props: {
                 template.name = e.currentTarget.value;
               })
             }
+            disabled={props.readonly}
           ></input>
         </ListItem>
         <ListItem
@@ -153,6 +154,7 @@ export function TemplateConfig(props: {
 function ContextPromptItem(props: {
   index: number;
   prompt: ChatMessage;
+  roles: MessageRole[];
   update: (prompt: ChatMessage) => void;
   remove: () => void;
 }) {
@@ -175,7 +177,7 @@ function ContextPromptItem(props: {
               })
             }
           >
-            {ROLES.map((r) => (
+            {props.roles.map((r) => (
               <option key={r} value={r}>
                 {r}
               </option>
@@ -252,6 +254,11 @@ export function ContextPrompts(props: {
       result.source.index,
       result.destination.index,
     );
+    newContext.forEach((c, i) => {
+      if (i > 0 && c.role === "system") {
+        c.role = "assistant";
+      }
+    });
     props.updateContext((context) => {
       context.splice(0, context.length, ...newContext);
     });
@@ -279,6 +286,9 @@ export function ContextPrompts(props: {
                         <ContextPromptItem
                           index={i}
                           prompt={c}
+                          roles={ROLES.filter((r) =>
+                            i > 0 ? r !== "system" : true,
+                          )}
                           update={(prompt) => updateContextPrompt(i, prompt)}
                           remove={() => removeContextPrompt(i)}
                         />
@@ -466,9 +476,7 @@ export function TemplatePage() {
                   <div className={styles["template-title"]}>
                     <div className={styles["template-name"]}>{m.name}</div>
                     <div className={styles["template-info"] + " one-line"}>
-                      {`${Locale.Template.Item.Info(m.context.length)} / ${
-                        ALL_LANG_OPTIONS[m.lang]
-                      }`}
+                      {Locale.Template.Item.Info(m.context.length)}
                     </div>
                   </div>
                 </div>
