@@ -22,6 +22,8 @@ concurrency:
 jobs:
   # Build job
   build:
+    environment:
+      name: github-pages
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -51,7 +53,9 @@ jobs:
         run: yarn install
 
       - name: Build with Next.js
-        run: yarn export
+        run: |
+          echo "NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=${{ vars.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID }}" >> .env
+          yarn export
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
