@@ -14,6 +14,7 @@ const KEEP_ALIVE_INTERVAL = 5_000;
 
 export class WebLLMApi implements LLMApi {
   private llmConfig?: LLMConfig;
+  private initialized = false;
   engine: ServiceWorkerMLCEngine;
 
   constructor() {
@@ -30,25 +31,18 @@ export class WebLLMApi implements LLMApi {
     );
   }
 
-  async initModel(
-    onUpdate?: (message: string, chunk: string) => void,
-    onError?: (e: Error) => void,
-  ) {
+  async initModel(onUpdate?: (message: string, chunk: string) => void) {
     if (!this.llmConfig) {
       throw Error("llmConfig is undefined");
     }
     this.engine.setInitProgressCallback((report: InitProgressReport) => {
       onUpdate?.(report.text, report.text);
     });
-    try {
-      await this.engine.init(this.llmConfig.model, this.llmConfig, {
-        ...prebuiltAppConfig,
-        useIndexedDBCache: this.llmConfig.cache === "index_db",
-      });
-    } catch (e) {
-      onError?.(e as Error);
-      console.error("Error while initializing the model", e);
-    }
+    await this.engine.init(this.llmConfig.model, this.llmConfig, {
+      ...prebuiltAppConfig,
+      useIndexedDBCache: this.llmConfig.cache === "index_db",
+    });
+    this.initialized = true;
   }
 
   isConfigChanged(config: LLMConfig) {
@@ -63,9 +57,15 @@ export class WebLLMApi implements LLMApi {
   }
 
   async chat(options: ChatOptions): Promise<void> {
-    if (this.isDifferentConfig(options.config)) {
+    if (!this.initialized || this.isDifferentConfig(options.config)) {
       this.llmConfig = { ...(this.llmConfig || {}), ...options.config };
-      await this.initModel(options.onUpdate, options.onError);
+      try {
+        await this.initModel(options.onUpdate);
+      } catch (e) {
+        options?.onError?.(e as Error);
+        console.error("Error while initializing the model", e);
+        return;
+      }
     }
 
     let reply: string | null = "";
@@ -77,19 +77,31 @@ export class WebLLMApi implements LLMApi {
       );
     } catch (err: any) {
       if (
-        !err.toString().includes("Please call `Engine.reload(model)` first")
+        !err?.toString()?.includes("Please call `Engine.reload(model)` first")
       ) {
         console.error("Error in chatCompletion", err);
         options.onError?.(err as Error);
         return;
       }
       // Service worker has been stopped. Restart it
-      await this.initModel(options.onUpdate, options.onError);
-      reply = await this.chatCompletion(
-        !!options.config.stream,
-        options.messages,
-        options.onUpdate,
-      );
+      try {
+        await this.initModel(options.onUpdate);
+      } catch (e) {
+        options?.onError?.(e as Error);
+        console.error("Error while initializing the model", e);
+        return;
+      }
+      try {
+        reply = await this.chatCompletion(
+          !!options.config.stream,
+          options.messages,
+          options.onUpdate,
+        );
+      } catch (err: any) {
+        console.error("Error in chatCompletion", err);
+        options.onError?.(err as Error);
+        return;
+      }
     }
 
     if (reply) {

@@ -364,12 +364,14 @@ export const useChatStore = createPersistStore(
             });
           },
           onError(error) {
-            const isAborted = error.message.includes("aborted");
+            const errorMessage =
+              error.message || error.toString?.() || undefined;
+            const isAborted = errorMessage?.includes("aborted");
             botMessage.content +=
               "\n\n" +
               prettyObject({
                 error: true,
-                message: error.message,
+                message: errorMessage,
               });
             botMessage.streaming = false;
             userMessage.isError = !isAborted;
