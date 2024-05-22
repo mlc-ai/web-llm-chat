@@ -26,6 +26,7 @@ export class WebLLMApi implements LLMApi {
     this.engine = new ServiceWorkerMLCEngine(
       navigator.serviceWorker.controller,
       KEEP_ALIVE_INTERVAL,
+      Boolean(process.env.NEXT_PUBLIC_DEBUG),
     );
   }
 

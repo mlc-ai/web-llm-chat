@@ -44,6 +44,9 @@ const nextConfig = {
   experimental: {
     forceSwcTransforms: true,
   },
+  env: {
+    NEXT_PUBLIC_DEBUG: true,
+  },
 };
 
 const CorsHeaders = [

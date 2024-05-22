@@ -55,14 +55,20 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("activate", (event) => {
   if (!handler) {
-    handler = new ServiceWorkerMLCEngineHandler(engine);
+    handler = new ServiceWorkerMLCEngineHandler(
+      engine,
+      Boolean(process.env.NEXT_PUBLIC_DEBUG),
+    );
     console.log("Service Worker: Web-LLM Engine Activated");
   }
 });
 
 self.addEventListener("message", (event) => {
   if (!handler) {
-    handler = new ServiceWorkerMLCEngineHandler(engine);
+    handler = new ServiceWorkerMLCEngineHandler(
+      engine,
+      Boolean(process.env.NEXT_PUBLIC_DEBUG),
+    );
     console.log("Service Worker: Web-LLM Engine Activated");
   }
 });
