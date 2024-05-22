@@ -3,7 +3,7 @@ import {
   InitProgressReport,
   prebuiltAppConfig,
   ChatCompletionMessageParam,
-  ServiceWorkerEngine,
+  ServiceWorkerMLCEngine,
   ChatCompletionChunk,
   ChatCompletion,
 } from "@neet-nestor/web-llm";
@@ -14,7 +14,7 @@ const KEEP_ALIVE_INTERVAL = 5_000;
 
 export class WebLLMApi implements LLMApi {
   private llmConfig?: LLMConfig;
-  engine: ServiceWorkerEngine;
+  engine: ServiceWorkerMLCEngine;
 
   constructor() {
     if (!("serviceWorker" in navigator)) {
@@ -23,23 +23,31 @@ export class WebLLMApi implements LLMApi {
     if (!navigator.serviceWorker.controller) {
       throw Error("There is no active service worker");
     }
-    this.engine = new ServiceWorkerEngine(
+    this.engine = new ServiceWorkerMLCEngine(
       navigator.serviceWorker.controller,
       KEEP_ALIVE_INTERVAL,
     );
   }
 
-  async initModel(onUpdate?: (message: string, chunk: string) => void) {
+  async initModel(
+    onUpdate?: (message: string, chunk: string) => void,
+    onError?: (e: Error) => void,
+  ) {
     if (!this.llmConfig) {
       throw Error("llmConfig is undefined");
     }
     this.engine.setInitProgressCallback((report: InitProgressReport) => {
       onUpdate?.(report.text, report.text);
     });
-    await this.engine.init(this.llmConfig.model, this.llmConfig, {
-      ...prebuiltAppConfig,
-      useIndexedDBCache: this.llmConfig.cache === "index_db",
-    });
+    try {
+      await this.engine.init(this.llmConfig.model, this.llmConfig, {
+        ...prebuiltAppConfig,
+        useIndexedDBCache: this.llmConfig.cache === "index_db",
+      });
+    } catch (e) {
+      onError?.(e as Error);
+      console.error("Error while initializing the model", e);
+    }
   }
 
   isConfigChanged(config: LLMConfig) {
@@ -56,11 +64,7 @@ export class WebLLMApi implements LLMApi {
   async chat(options: ChatOptions): Promise<void> {
     if (this.isDifferentConfig(options.config)) {
       this.llmConfig = { ...(this.llmConfig || {}), ...options.config };
-      try {
-        await this.initModel(options.onUpdate);
-      } catch (e) {
-        console.error("Error while initializing the model", e);
-      }
+      await this.initModel(options.onUpdate, options.onError);
     }
 
     let reply: string | null = "";
@@ -79,7 +83,7 @@ export class WebLLMApi implements LLMApi {
         return;
       }
       // Service worker has been stopped. Restart it
-      await this.initModel(options.onUpdate);
+      await this.initModel(options.onUpdate, options.onError);
       reply = await this.chatCompletion(
         !!options.config.stream,
         options.messages,
