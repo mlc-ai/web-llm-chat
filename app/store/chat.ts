@@ -630,14 +630,24 @@ export const useChatStore = createPersistStore(
       },
 
       stopStreaming() {
-        get().updateCurrentSession((session) => {
-          session.messages = session.messages
-            .map((m: ChatMessage) => ({
-              ...m,
-              streaming: false,
-            }))
-            .filter((m: ChatMessage) => !!m.content);
+        const sessions = get().sessions;
+        sessions.forEach((session) => {
+          if (session.messages.length === 0) {
+            return;
+          }
+          const lastMessage = session.messages[session.messages.length - 1];
+          if (
+            lastMessage.role === "assistant" &&
+            lastMessage.streaming &&
+            lastMessage.content.length === 0
+          ) {
+            // This message generation is interrupted by refresh and is stuck
+            session.messages.splice(session.messages.length - 1, 1);
+          }
+          // Reset streaming status for all messages
+          session.messages.forEach((m) => (m.streaming = false));
         });
+        set(() => ({ sessions }));
       },
 
       updateStat(message: ChatMessage) {

@@ -168,4 +168,4 @@ export class WebLLMApi implements LLMApi {
   }
 }
 
-export const WebLLMContext = createContext<WebLLMApi | null>(null);
+export const WebLLMContext = createContext<WebLLMApi | undefined>(undefined);

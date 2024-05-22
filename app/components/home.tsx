@@ -28,6 +28,7 @@ import { useAppConfig } from "../store/config";
 import { getClientConfig } from "../config/client";
 import { WebLLMApi, WebLLMContext } from "../client/webllm";
 import Locale from "../locales";
+import { useChatStore } from "../store";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -181,7 +182,7 @@ function Screen() {
 }
 
 const useWebLLM = () => {
-  const [webllm, setWebLLM] = useState<WebLLMApi | null>(null);
+  const [webllm, setWebLLM] = useState<WebLLMApi | undefined>(undefined);
   const [isSWAlive, setSWAlive] = useState(true);
 
   useEffect(() => {
@@ -232,6 +233,15 @@ const useLoadUrlParam = () => {
   }, []);
 };
 
+const useStopStreamingMessages = () => {
+  const chatStore = useChatStore();
+
+  // Clean up bad chat messages due to refresh during generating
+  useEffect(() => {
+    chatStore.stopStreaming();
+  }, []);
+};
+
 export function Home() {
   const hasHydrated = useHasHydrated();
   const isServiceWorkerReady = useServiceWorkerReady();
@@ -240,6 +250,7 @@ export function Home() {
   useSwitchTheme();
   useHtmlLang();
   useLoadUrlParam();
+  useStopStreamingMessages();
 
   if (!hasHydrated || !isServiceWorkerReady) {
     return <Loading />;
