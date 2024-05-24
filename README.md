@@ -3,8 +3,9 @@
 
 # WebLLM Chat
 
-<a href="https://chat.webllm.ai"><img alt="GitHub Pages Deployed" src="https://img.shields.io/badge/GitHub_Pages-Deployed-%2332a852?logo=github">
-<a href="https://discord.gg/9Xpy2HGBuD"><img alt="Static Badge" src="https://img.shields.io/badge/Join-Discord-7289DA"></a>
+<a href="https://chat.webllm.ai"><img alt="GitHub Pages Deployed" src="https://img.shields.io/badge/Pages-Deployed-32a852?logo=github"></a>
+<a href="https://discord.gg/9Xpy2HGBuD"><img alt="Join Discord" src="https://img.shields.io/badge/Join-Discord-7289DA"></a>
+<a href="https://chat.webllm.ai"><img alt="WebLLM GitHub Repo" src="https://img.shields.io/badge/WebLLM-Repo-77bdfb?logo=github"></a>
 
 **Private AI Conversations, Fully In-Browser.**
 
