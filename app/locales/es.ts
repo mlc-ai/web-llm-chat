@@ -165,8 +165,8 @@ const es: PartialLocaleType = {
       "La copia falló, por favor concede permiso para acceder al portapapeles",
   },
   Context: {
-    Toast: (x: any) => `With ${x} contextual prompts`,
-    Edit: "Contextual and Memory Prompts",
+    Toast: (x: any) => `With ${x} system prompts`,
+    Edit: "System and Memory Prompts",
     Add: "Add One",
   },
   Plugin: {

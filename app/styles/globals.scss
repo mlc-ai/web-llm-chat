@@ -8,12 +8,13 @@
   --white: white;
   --black: rgb(48, 48, 48);
   --gray: rgb(250, 250, 250);
-  --primary: rgb(72, 75, 106);
+  --light-gray: rgb(120, 120, 120);
+  --primary: rgb(21, 55, 177);
   --second: rgb(228, 229, 241);
   --hover-color: #f3f3f3;
   --bar-color: rgba(0, 0, 0, 0.1);
   --theme-color: var(--gray);
-  --mlc-icon-color: #062578;
+  --mlc-icon-color: rgb(6, 37, 120);
 
   /* shadow */
   --shadow: 50px 50px 100px 10px rgb(0, 0, 0, 0.1);
@@ -30,6 +31,7 @@
   --white: rgb(30, 30, 30);
   --black: rgb(187, 187, 187);
   --gray: rgb(21, 21, 21);
+  --light-gray: rgb(120, 120, 120);
   --primary: rgb(57, 78, 196);
   --second: rgb(33, 36, 49);
   --hover-color: #323232;

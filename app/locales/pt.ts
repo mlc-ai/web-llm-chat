@@ -60,7 +60,7 @@ const pt: PartialLocaleType = {
       Reset: "Redefinir para Padrão",
       SaveAs: "Salvar como Máscara",
     },
-    IsContext: "Prompt Contextual",
+    IsContext: "prompt do sistema",
   },
   Export: {
     Title: "Exportar Mensagens",

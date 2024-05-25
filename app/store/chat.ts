@@ -367,12 +367,7 @@ export const useChatStore = createPersistStore(
             const errorMessage =
               error.message || error.toString?.() || undefined;
             const isAborted = errorMessage?.includes("aborted");
-            botMessage.content +=
-              "\n\n" +
-              prettyObject({
-                error: true,
-                message: errorMessage,
-              });
+            botMessage.content += "\n\n" + errorMessage;
             botMessage.streaming = false;
             userMessage.isError = !isAborted;
             botMessage.isError = !isAborted;

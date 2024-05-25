@@ -231,7 +231,7 @@ const bn: PartialLocaleType = {
     Failed: "কপি ব্যর্থ, অনুমতি প্রদান করার জন্য অনুমতি প্রদান করুন",
   },
   Context: {
-    Toast: (x: any) => `With ${x} contextual prompts`,
+    Toast: (x: any) => `With ${x} system prompts`,
     Edit: "বর্তমান চ্যাট সেটিংস",
     Add: "একটি প্রম্পট যোগ করুন",
     Clear: "সঙ্গতি পরিস্কার করুন",

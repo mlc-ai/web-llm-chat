@@ -71,7 +71,7 @@ const en = {
       SaveAs: "Save as Template",
       Confirm: "Confirm",
     },
-    IsContext: "Contextual Prompt",
+    IsContext: "System Prompt",
   },
   Export: {
     Title: "Export Messages",
@@ -349,7 +349,7 @@ const en = {
     Failed: "Download failed.",
   },
   Context: {
-    Toast: (x: any) => `With ${x} contextual prompts`,
+    Toast: (x: any) => `With ${x} system prompts`,
     Edit: "Current Chat Settings",
     Add: "Add a Prompt",
     Clear: "Context Cleared",
