@@ -1,5 +1,4 @@
 <div align="center">
-<a href="https://mlc.ai"><img src="./docs/images/mlc-logo-with-text-landscape.png" style="background-color: white"/></a>
 
 # WebLLM Chat
 
