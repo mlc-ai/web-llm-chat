@@ -52,7 +52,6 @@ const en = {
         dark: "Dark Theme",
       },
       QuickPrompt: "Quick Prompts",
-      Templates: "Templates",
       Clear: "Clear Context",
       Settings: "Settings",
       UploadImage: "Upload Images",

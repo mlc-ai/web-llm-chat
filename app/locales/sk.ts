@@ -43,8 +43,6 @@ const sk: PartialLocaleType = {
         light: "Svetlý motív",
         dark: "Tmavý motív",
       },
-      Prompt: "Výzvy",
-      Templates: "šablón",
       Clear: "Vymazať kontext",
       Settings: "Nastavenia",
     },

@@ -34,8 +34,6 @@ const fr: PartialLocaleType = {
         light: "Thème clair",
         dark: "Thème sombre",
       },
-      Prompt: "Instructions",
-      Templates: "Assistants",
       Clear: "Effacer le contexte",
       Settings: "Réglages",
     },

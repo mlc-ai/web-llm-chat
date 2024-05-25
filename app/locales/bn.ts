@@ -34,8 +34,6 @@ const bn: PartialLocaleType = {
         light: "হালকা থিম",
         dark: "ডার্ক থিম",
       },
-      Prompt: "প্রম্পটগুলিতে",
-      Templates: "টেমপ্লেট",
       Clear: "সংশ্লিষ্টতাবদ্ধকরণ পরিষ্কার করুন",
       Settings: "সেটিংস",
     },

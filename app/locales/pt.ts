@@ -41,8 +41,6 @@ const pt: PartialLocaleType = {
         light: "Tema Claro",
         dark: "Tema Escuro",
       },
-      Prompt: "Prompts",
-      Templates: "Modelos",
       Clear: "Limpar Contexto",
       Settings: "Configurações",
     },

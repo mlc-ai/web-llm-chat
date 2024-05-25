@@ -25,8 +25,6 @@ const ar: PartialLocaleType = {
         light: "نمط فاتح",
         dark: "نمط داكن",
       },
-      Prompt: "الاقتراحات",
-      Templates: "القوالب",
       Clear: "مسح السياق",
       Settings: "الإعدادات",
     },

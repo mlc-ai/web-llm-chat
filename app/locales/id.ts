@@ -34,8 +34,6 @@ const id: PartialLocaleType = {
         light: "Tema Terang",
         dark: "Tema Gelap",
       },
-      Prompt: "Prompts",
-      Templates: "templat",
       Clear: "Bersihkan Percakapan",
       Settings: "Pengaturan",
     },
