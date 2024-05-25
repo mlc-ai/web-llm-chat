@@ -69,6 +69,7 @@ import {
   List,
   ListItem,
   Modal,
+  Popover,
   Selector,
   showConfirm,
   showPrompt,
@@ -82,7 +83,7 @@ import {
   REQUEST_TIMEOUT_MS,
   UNFINISHED_INPUT,
 } from "../constant";
-import { Avatar } from "./emoji";
+import { Avatar, AvatarPicker } from "./emoji";
 import { ContextPrompts, TemplateAvatar, TemplateConfig } from "./template";
 import { ChatCommandPrefix, useChatCommand, useCommand } from "../command";
 import { prettyObject } from "../utils/format";
@@ -90,61 +91,7 @@ import { ExportMessageModal } from "./exporter";
 import { useAllModels } from "../utils/hooks";
 import { MultimodalContent } from "../client/api";
 import { WebLLMContext } from "../client/webllm";
-import { useTemplateStore } from "../store/template";
-
-export function PromptsConfigModel(props: { onClose: () => void }) {
-  const chatStore = useChatStore();
-  const session = chatStore.currentSession();
-  const templateStore = useTemplateStore();
-  const navigate = useNavigate();
-
-  return (
-    <div className="modal-template">
-      <Modal
-        title={Locale.Context.Edit}
-        onClose={() => props.onClose()}
-        actions={[
-          <IconButton
-            key="reset"
-            icon={<ResetIcon />}
-            bordered
-            text={Locale.Chat.Config.Reset}
-            onClick={async () => {
-              if (await showConfirm(Locale.Memory.ResetConfirm)) {
-                chatStore.updateCurrentSession(
-                  (session) => (session.memoryPrompt = ""),
-                );
-              }
-            }}
-          />,
-          <IconButton
-            key="copy"
-            icon={<CopyIcon />}
-            bordered
-            text={Locale.Chat.Config.SaveAs}
-            onClick={() => {
-              navigate(Path.Templates);
-              setTimeout(() => {
-                templateStore.create(session.template);
-              }, 500);
-            }}
-          />,
-        ]}
-      >
-        <TemplateConfig
-          template={session.template}
-          updateTemplate={(updater) => {
-            const template = { ...session.template };
-            updater(template);
-            chatStore.updateCurrentSession(
-              (session) => (session.template = template),
-            );
-          }}
-        ></TemplateConfig>
-      </Modal>
-    </div>
-  );
-}
+import { Template, useTemplateStore } from "../store/template";
 
 export function ScrollDownToast(prop: { show: boolean; onclick: () => void }) {
   return (
@@ -161,10 +108,18 @@ export function ScrollDownToast(prop: { show: boolean; onclick: () => void }) {
 }
 
 export function SessionConfigModel(props: { onClose: () => void }) {
+  const [showPicker, setShowPicker] = useState(false);
+  const config = useAppConfig();
   const chatStore = useChatStore();
   const session = chatStore.currentSession();
   const templateStore = useTemplateStore();
   const navigate = useNavigate();
+
+  const updateTemplate = (updater: (value: Template) => void) => {
+    const template = { ...session.template };
+    updater(template);
+    chatStore.updateCurrentSession((session) => (session.template = template));
+  };
 
   return (
     <div className="modal-template">
@@ -191,14 +146,22 @@ export function SessionConfigModel(props: { onClose: () => void }) {
             bordered
             text={Locale.Chat.Config.SaveAs}
             onClick={() => {
-              navigate(Path.Templates);
-              setTimeout(() => {
-                templateStore.create(session.template);
-              }, 500);
+              showPrompt(Locale.Template.Config.Name, session.topic, 1).then(
+                (templateName) => {
+                  updateTemplate((template) => {
+                    template.name = templateName;
+                  });
+                  navigate(Path.Templates);
+                  setTimeout(() => {
+                    templateStore.create(session.template);
+                  }, 500);
+                },
+              );
             }}
           />,
           <IconButton
-            key="Confirm"
+            type="primary"
+            key="ok"
             icon={<ConfirmIcon />}
             bordered
             text={Locale.Chat.Config.Confirm}
@@ -206,16 +169,69 @@ export function SessionConfigModel(props: { onClose: () => void }) {
           />,
         ]}
       >
-        <TemplateConfig
-          template={session.template}
-          updateTemplate={(updater) => {
-            const template = { ...session.template };
-            updater(template);
-            chatStore.updateCurrentSession(
-              (session) => (session.template = template),
-            );
+        <ContextPrompts
+          context={session.template.context}
+          updateContext={(updater) => {
+            const context = session.template.context.slice();
+            updater(context);
+            updateTemplate((template) => (template.context = context));
           }}
-        ></TemplateConfig>
+        />
+
+        <List>
+          <ListItem
+            title={Locale.Chat.EditMessage.Topic.Title}
+            subTitle={Locale.Chat.EditMessage.Topic.SubTitle}
+          >
+            <input
+              type="text"
+              value={session.topic}
+              onInput={(e) =>
+                chatStore.updateCurrentSession(
+                  (session) => (session.topic = e.currentTarget.value),
+                )
+              }
+            ></input>
+          </ListItem>
+          <ListItem title={Locale.Template.Config.Avatar}>
+            <Popover
+              content={
+                <AvatarPicker
+                  onEmojiClick={(emoji) => {
+                    updateTemplate((template) => (template.avatar = emoji));
+                    setShowPicker(false);
+                  }}
+                ></AvatarPicker>
+              }
+              open={showPicker}
+              onClose={() => setShowPicker(false)}
+            >
+              <div
+                onClick={() => setShowPicker(true)}
+                style={{ cursor: "pointer" }}
+              >
+                <TemplateAvatar
+                  avatar={session.template.avatar}
+                  model={config.modelConfig.model}
+                />
+              </div>
+            </Popover>
+          </ListItem>
+          <ListItem
+            title={Locale.Template.Config.HideContext.Title}
+            subTitle={Locale.Template.Config.HideContext.SubTitle}
+          >
+            <input
+              type="checkbox"
+              checked={session.template.hideContext}
+              onChange={(e) => {
+                updateTemplate((template) => {
+                  template.hideContext = e.currentTarget.checked;
+                });
+              }}
+            ></input>
+          </ListItem>
+        </List>
       </Modal>
     </div>
   );
@@ -511,7 +527,7 @@ export function ChatActions(props: {
       )}
       <ChatAction
         onClick={props.showPromptSetting}
-        text={Locale.Chat.InputActions.Settings}
+        text={Locale.Chat.Actions.EditPrompts}
         icon={<EditIcon />}
       />
       <ChatAction
@@ -555,68 +571,6 @@ export function ChatActions(props: {
           }}
         />
       )}
-    </div>
-  );
-}
-
-export function EditMessageModal(props: { onClose: () => void }) {
-  const chatStore = useChatStore();
-  const session = chatStore.currentSession();
-  const [messages, setMessages] = useState(session.messages.slice());
-
-  return (
-    <div className="modal-template">
-      <Modal
-        title={Locale.Chat.EditMessage.Title}
-        onClose={props.onClose}
-        actions={[
-          <IconButton
-            text={Locale.UI.Cancel}
-            icon={<CancelIcon />}
-            key="cancel"
-            onClick={() => {
-              props.onClose();
-            }}
-          />,
-          <IconButton
-            type="primary"
-            text={Locale.UI.Confirm}
-            icon={<ConfirmIcon />}
-            key="ok"
-            onClick={() => {
-              chatStore.updateCurrentSession(
-                (session) => (session.messages = messages),
-              );
-              props.onClose();
-            }}
-          />,
-        ]}
-      >
-        <List>
-          <ListItem
-            title={Locale.Chat.EditMessage.Topic.Title}
-            subTitle={Locale.Chat.EditMessage.Topic.SubTitle}
-          >
-            <input
-              type="text"
-              value={session.topic}
-              onInput={(e) =>
-                chatStore.updateCurrentSession(
-                  (session) => (session.topic = e.currentTarget.value),
-                )
-              }
-            ></input>
-          </ListItem>
-        </List>
-        <ContextPrompts
-          context={messages}
-          updateContext={(updater) => {
-            const newMessages = messages.slice();
-            updater(newMessages);
-            setMessages(newMessages);
-          }}
-        />
-      </Modal>
     </div>
   );
 }
@@ -1012,9 +966,6 @@ function _Chat() {
     },
   });
 
-  // edit / insert message modal
-  const [isEditingMessage, setIsEditingMessage] = useState(false);
-
   // remember unfinished input
   useEffect(() => {
     // try to load from local storage
@@ -1139,7 +1090,7 @@ function _Chat() {
         <div className={`window-header-title ${styles["chat-body-title"]}`}>
           <div
             className={`window-header-main-title ${styles["chat-body-main-title"]}`}
-            onClickCapture={() => setIsEditingMessage(true)}
+            onClickCapture={() => setShowEditPromptModal(true)}
           >
             {!session.topic ? DEFAULT_TOPIC : session.topic}
           </div>
@@ -1153,7 +1104,7 @@ function _Chat() {
               <IconButton
                 icon={<RenameIcon />}
                 bordered
-                onClick={() => setIsEditingMessage(true)}
+                onClick={() => setShowEditPromptModal(true)}
               />
             </div>
           )}
@@ -1510,14 +1461,6 @@ function _Chat() {
 
       {showExport && (
         <ExportMessageModal onClose={() => setShowExport(false)} />
-      )}
-
-      {isEditingMessage && (
-        <EditMessageModal
-          onClose={() => {
-            setIsEditingMessage(false);
-          }}
-        />
       )}
 
       {showEditPromptModal && (
