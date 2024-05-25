@@ -279,7 +279,6 @@ export const useChatStore = createPersistStore(
         webllm: WebLLMApi,
         attachImages?: string[],
       ) {
-        const session = get().currentSession();
         const modelConfig = useAppConfig.getState().modelConfig;
 
         const userContent = fillTemplateWith(content, modelConfig);
@@ -319,7 +318,6 @@ export const useChatStore = createPersistStore(
         // get recent messages
         const recentMessages = get().getMessagesWithMemory();
         const sendMessages = recentMessages.concat(userMessage);
-        const messageIndex = get().currentSession().messages.length + 1;
 
         console.log("Messages: ", sendMessages);
 

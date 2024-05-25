@@ -28,6 +28,7 @@ const en = {
       Retry: "Retry",
       Delete: "Delete",
       Edit: "Edit",
+      EditPrompts: "Edit Prompts",
     },
     Commands: {
       new: "Start a new chat",
@@ -50,7 +51,7 @@ const en = {
         light: "Light Theme",
         dark: "Dark Theme",
       },
-      Prompt: "Prompts",
+      QuickPrompt: "Quick Prompts",
       Templates: "Templates",
       Clear: "Clear Context",
       Settings: "Settings",
@@ -68,7 +69,7 @@ const en = {
     Send: "Send",
     Config: {
       Reset: "Reset to Default",
-      SaveAs: "Save as Template",
+      SaveAs: "Save Prompts",
       Confirm: "Confirm",
     },
     IsContext: "System Prompt",
@@ -350,7 +351,7 @@ const en = {
   },
   Context: {
     Toast: (x: any) => `With ${x} system prompts`,
-    Edit: "Current Chat Settings",
+    Edit: "Prompts Settings",
     Add: "Add a Prompt",
     Clear: "Context Cleared",
     Revert: "Revert",

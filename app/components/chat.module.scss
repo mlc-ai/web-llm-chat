@@ -301,6 +301,29 @@
   overscroll-behavior: none;
 }
 
+.chat-action-context {
+  display: flex;
+  justify-content: center;
+
+  .chat-input-action {
+    display: inline-flex;
+    border-radius: 20px;
+    font-size: 12px;
+    background-color: var(--white);
+    color: var(--black);
+    border: var(--border-in-light);
+    padding: 4px 10px;
+    box-shadow: var(--card-shadow);
+    align-items: center;
+    height: 16px;
+    overflow: hidden;
+
+    .text {
+      padding-left: 5px;
+    }
+  }
+}
+
 .chat-body-main-title {
   cursor: pointer;
 

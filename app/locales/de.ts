@@ -29,7 +29,6 @@ const de: PartialLocaleType = {
     Send: "Senden",
     Config: {
       Reset: "Reset to Default",
-      SaveAs: "Save as Template",
     },
   },
   Export: {
