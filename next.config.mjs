@@ -7,6 +7,20 @@ console.log("[Next] build mode", mode);
 const disableChunk = !!process.env.DISABLE_CHUNK || mode === "export";
 console.log("[Next] build with chunk: ", !disableChunk);
 
+const cspHeader = `
+    default-src 'self';
+    script-src 'self' 'unsafe-inline';
+    worker-src 'self';
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' blob: data:;
+    font-src 'self';
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    upgrade-insecure-requests;
+`;
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack(config, { isServer }) {
@@ -69,6 +83,15 @@ if (mode !== "export") {
       {
         source: "/api/:path*",
         headers: CorsHeaders,
+      },
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: cspHeader.replace(/\n/g, ""),
+          },
+        ],
       },
     ];
   };

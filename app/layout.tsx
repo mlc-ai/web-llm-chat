@@ -24,6 +24,19 @@ export const metadata: Metadata = {
   },
 };
 
+const cspHeader = `
+    default-src 'self';
+    script-src 'self' 'unsafe-inline';
+    worker-src 'self';
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' blob: data:;
+    font-src 'self';
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    upgrade-insecure-requests;
+`;
+
 export default function RootLayout({
   children,
 }: {
@@ -32,11 +45,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="config" content={JSON.stringify(getClientConfig())} />
         <meta
           httpEquiv="Content-Security-Policy"
-          content="worker-src 'self';"
+          content={cspHeader.replace(/\n/g, "")}
         />
+        <meta name="config" content={JSON.stringify(getClientConfig())} />
         <meta name="referrer" content="strict-origin-when-cross-origin" />
         <meta
           name="viewport"
