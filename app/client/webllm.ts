@@ -34,7 +34,7 @@ export class WebLLMApi implements LLMApi {
 
   constructor() {
     if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
-      console.log("Service Worker API available");
+      console.log("Service Worker API is available and in use.");
       this.webllm = {
         type: "serviceWorker",
         engine: new ServiceWorkerMLCEngine(
@@ -43,7 +43,9 @@ export class WebLLMApi implements LLMApi {
         ),
       };
     } else {
-      console.log("Service Worker API unavailable, falling back to web worker");
+      console.log(
+        "Service Worker API is unavailable. Falling back to use web worker.",
+      );
       this.webllm = {
         type: "webWorker",
         engine: new WebWorkerMLCEngine(

@@ -119,18 +119,10 @@ const useHasHydrated = () => {
   return hasHydrated;
 };
 
-const loadAsyncGoogleFont = () => {
+const loadAsyncFonts = () => {
   const linkEl = document.createElement("link");
-  const proxyFontUrl = "/google-fonts";
-  const remoteFontUrl = "https://fonts.googleapis.com";
-  const googleFontUrl =
-    getClientConfig()?.buildMode === "export" ? remoteFontUrl : proxyFontUrl;
   linkEl.rel = "stylesheet";
-  linkEl.href =
-    googleFontUrl +
-    "/css2?family=" +
-    encodeURIComponent("Noto Sans:wght@300;400;700;900") +
-    "&display=swap";
+  linkEl.href = "/fonts/font.css";
   document.head.appendChild(linkEl);
 };
 
@@ -142,7 +134,7 @@ function Screen() {
   const shouldTightBorder = config.tightBorder && !isMobileScreen;
 
   useEffect(() => {
-    loadAsyncGoogleFont();
+    loadAsyncFonts();
   }, []);
 
   return (

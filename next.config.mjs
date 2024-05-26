@@ -72,19 +72,6 @@ if (mode !== "export") {
       },
     ];
   };
-
-  nextConfig.rewrites = async () => {
-    const ret = [
-      // adjust for previous version directly using "/api/proxy/" as proxy base route
-      {
-        source: "/google-fonts/:path*",
-        destination: "https://fonts.googleapis.com/:path*",
-      },
-    ];
-    return {
-      beforeFiles: ret,
-    };
-  };
 }
 
 export default withSerwistInit({
