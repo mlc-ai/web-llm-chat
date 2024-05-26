@@ -35,6 +35,11 @@ export default function RootLayout({
       <head>
         <meta name="config" content={JSON.stringify(getClientConfig())} />
         <meta
+          httpEquiv="Content-Security-Policy"
+          content="worker-src 'self';"
+        />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+        <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
