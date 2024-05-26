@@ -66,7 +66,7 @@ Latex block format: $$e=mc^2$$
 
 export const DEFAULT_MODELS: LLMModel[] = [
   {
-    name: "Llama-3-8B-Instruct-q4f32_1",
+    name: "Llama-3-8B-Instruct-q4f32_1-MLC",
     display_name: "Llama 3",
     provider: "Meta",
     size: "8B",
@@ -75,7 +75,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Llama 3",
   },
   {
-    name: "Llama-3-8B-Instruct-q4f16_1",
+    name: "Llama-3-8B-Instruct-q4f16_1-MLC",
     display_name: "Llama 3",
     provider: "Meta",
     size: "8B",
@@ -83,7 +83,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Llama 3",
   },
   {
-    name: "Llama-3-8B-Instruct-q4f32_1-1k",
+    name: "Llama-3-8B-Instruct-q4f32_1-MLC-1k",
     display_name: "Llama 3",
     provider: "Meta",
     size: "8B",
@@ -92,7 +92,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Llama 3",
   },
   {
-    name: "Llama-3-8B-Instruct-q4f16_1-1k",
+    name: "Llama-3-8B-Instruct-q4f16_1-MLC-1k",
     display_name: "Llama 3",
     provider: "Meta",
     size: "8B",
@@ -101,7 +101,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Llama 3",
   },
   {
-    name: "Llama-3-70B-Instruct-q3f16_1",
+    name: "Llama-3-70B-Instruct-q3f16_1-MLC",
     display_name: "Llama 3",
     provider: "Meta",
     size: "70B",
@@ -109,7 +109,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Llama 3",
   },
   {
-    name: "Llama-2-7b-chat-hf-q4f32_1-1k",
+    name: "Llama-2-7b-chat-hf-q4f32_1-MLC-1k",
     display_name: "Llama 2",
     provider: "Meta",
     size: "7B",
@@ -118,7 +118,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Llama 2",
   },
   {
-    name: "Llama-2-7b-chat-hf-q4f16_1-1k",
+    name: "Llama-2-7b-chat-hf-q4f16_1-MLC-1k",
     display_name: "Llama 2",
     provider: "Meta",
     size: "7B",
@@ -127,7 +127,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Llama 2",
   },
   {
-    name: "Llama-2-7b-chat-hf-q4f32_1",
+    name: "Llama-2-7b-chat-hf-q4f32_1-MLC",
     display_name: "Llama 2",
     provider: "Meta",
     size: "7B",
@@ -135,14 +135,14 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Llama 2",
   },
   {
-    name: "Llama-2-7b-chat-hf-q4f16_1",
+    name: "Llama-2-7b-chat-hf-q4f16_1-MLC",
     display_name: "Llama 2",
     provider: "Meta",
     size: "7B",
     family: "Llama 2",
   },
   {
-    name: "Llama-2-13b-chat-hf-q4f16_1",
+    name: "Llama-2-13b-chat-hf-q4f16_1-MLC",
     display_name: "Llama 2",
     provider: "Meta",
     size: "13B",
@@ -150,7 +150,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Llama 2",
   },
   {
-    name: "WizardMath-7B-V1.1-q4f16_1",
+    name: "WizardMath-7B-V1.1-q4f16_1-MLC",
     display_name: "WizardMath",
     provider: "WizardLM",
     size: "7B",
@@ -158,7 +158,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "WizardMath",
   },
   {
-    name: "Mistral-7B-Instruct-v0.2-q4f16_1",
+    name: "Mistral-7B-Instruct-v0.2-q4f16_1-MLC",
     display_name: "Mistral",
     provider: "Mistral AI",
     size: "7B",
@@ -166,7 +166,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Mistral",
   },
   {
-    name: "OpenHermes-2.5-Mistral-7B-q4f16_1",
+    name: "OpenHermes-2.5-Mistral-7B-q4f16_1-MLC",
     display_name: "OpenHermes 2.5",
     provider: "NousResearch",
     size: "7B",
@@ -174,7 +174,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Hermes",
   },
   {
-    name: "NeuralHermes-2.5-Mistral-7B-q4f16_1",
+    name: "NeuralHermes-2.5-Mistral-7B-q4f16_1-MLC",
     display_name: "NeuralHermes 2.5",
     provider: "Maxime Labonne",
     size: "7B",
@@ -182,7 +182,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Hermes",
   },
   {
-    name: "Hermes-2-Pro-Mistral-7B-q4f16_1",
+    name: "Hermes-2-Pro-Mistral-7B-q4f16_1-MLC",
     display_name: "Hermes 2 Pro",
     provider: "NousResearch",
     size: "7B",
@@ -190,7 +190,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Hermes",
   },
   {
-    name: "gemma-2b-it-q4f16_1",
+    name: "gemma-2b-it-q4f16_1-MLC",
     display_name: "Gemma",
     provider: "Google",
     size: "2B",
@@ -198,7 +198,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Gemma",
   },
   {
-    name: "gemma-2b-it-q4f32_1",
+    name: "gemma-2b-it-q4f32_1-MLC",
     display_name: "Gemma",
     provider: "Google",
     size: "2B",
@@ -206,7 +206,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Gemma",
   },
   {
-    name: "gemma-2b-it-q4f16_1-1k",
+    name: "gemma-2b-it-q4f16_1-MLC-1k",
     display_name: "Gemma",
     provider: "Google",
     size: "2B",
@@ -215,7 +215,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Gemma",
   },
   {
-    name: "gemma-2b-it-q4f32_1-1k",
+    name: "gemma-2b-it-q4f32_1-MLC-1k",
     display_name: "Gemma",
     provider: "Google",
     size: "2B",
@@ -224,7 +224,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Gemma",
   },
   {
-    name: "RedPajama-INCITE-Chat-3B-v1-q4f16_1",
+    name: "RedPajama-INCITE-Chat-3B-v1-q4f16_1-MLC",
     display_name: "RedPajama",
     provider: "Together",
     size: "3B",
@@ -232,7 +232,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "RedPajama",
   },
   {
-    name: "RedPajama-INCITE-Chat-3B-v1-q4f32_1",
+    name: "RedPajama-INCITE-Chat-3B-v1-q4f32_1-MLC",
     display_name: "RedPajama",
     provider: "Together",
     size: "3B",
@@ -240,7 +240,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "RedPajama",
   },
   {
-    name: "RedPajama-INCITE-Chat-3B-v1-q4f16_1-1k",
+    name: "RedPajama-INCITE-Chat-3B-v1-q4f16_1-MLC-1k",
     display_name: "RedPajama",
     provider: "Together",
     size: "3B",
@@ -249,7 +249,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "RedPajama",
   },
   {
-    name: "RedPajama-INCITE-Chat-3B-v1-q4f32_1-1k",
+    name: "RedPajama-INCITE-Chat-3B-v1-q4f32_1-MLC-1k",
     display_name: "RedPajama",
     provider: "Together",
     size: "3B",
@@ -258,35 +258,35 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "RedPajama",
   },
   {
-    name: "Phi2-q0f16",
+    name: "Phi2-q0f16-MLC",
     display_name: "Phi 2",
     provider: "Microsoft",
     quantization: "q0f16",
     family: "Phi2",
   },
   {
-    name: "Phi2-q0f32",
+    name: "Phi2-q0f32-MLC",
     display_name: "Phi 2",
     provider: "Microsoft",
     quantization: "q0f32",
     family: "Phi2",
   },
   {
-    name: "Phi2-q4f16_1",
+    name: "Phi2-q4f16_1-MLC",
     display_name: "Phi 2",
     provider: "Microsoft",
     quantization: "q4f16_1",
     family: "Phi2",
   },
   {
-    name: "Phi2-q4f32_1",
+    name: "Phi2-q4f32_1-MLC",
     display_name: "Phi 2",
     provider: "Microsoft",
     quantization: "q4f32_1",
     family: "Phi2",
   },
   {
-    name: "Phi2-q4f16_1-1k",
+    name: "Phi2-q4f16_1-MLC-1k",
     display_name: "Phi 2",
     provider: "Microsoft",
     quantization: "q4f16_1",
@@ -294,7 +294,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Phi2",
   },
   {
-    name: "Phi2-q4f32_1-1k",
+    name: "Phi2-q4f32_1-MLC-1k",
     display_name: "Phi 2",
     provider: "Microsoft",
     quantization: "q4f32_1",
@@ -302,21 +302,21 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Phi2",
   },
   {
-    name: "Phi1.5-q0f16",
+    name: "Phi1.5-q0f16-MLC",
     display_name: "Phi 1.5",
     provider: "Microsoft",
     quantization: "q0f16",
     family: "Phi1.5",
   },
   {
-    name: "Phi1.5-q0f32",
+    name: "Phi1.5-q0f32-MLC",
     display_name: "Phi 1.5",
     provider: "Microsoft",
     quantization: "q0f32",
     family: "Phi1.5",
   },
   {
-    name: "Phi1.5-q4f16_1-1k",
+    name: "Phi1.5-q4f16_1-MLC-1k",
     display_name: "Phi 1.5",
     provider: "Microsoft",
     quantization: "q4f16_1",
@@ -324,7 +324,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Phi1.5",
   },
   {
-    name: "Phi1.5-q4f32_1-1k",
+    name: "Phi1.5-q4f32_1-MLC-1k",
     display_name: "Phi 1.5",
     provider: "Microsoft",
     quantization: "q4f32_1",
@@ -332,7 +332,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "Phi1.5",
   },
   {
-    name: "TinyLlama-1.1B-Chat-v0.4-q0f16",
+    name: "TinyLlama-1.1B-Chat-v0.4-q0f16-MLC",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
     size: "1.1B",
@@ -340,7 +340,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "TinyLlama",
   },
   {
-    name: "TinyLlama-1.1B-Chat-v0.4-q0f32",
+    name: "TinyLlama-1.1B-Chat-v0.4-q0f32-MLC",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
     size: "1.1B",
@@ -348,7 +348,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "TinyLlama",
   },
   {
-    name: "TinyLlama-1.1B-Chat-v0.4-q4f16_1-1k",
+    name: "TinyLlama-1.1B-Chat-v0.4-q4f16_1-MLC-1k",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
     size: "1.1B",
@@ -357,7 +357,7 @@ export const DEFAULT_MODELS: LLMModel[] = [
     family: "TinyLlama",
   },
   {
-    name: "TinyLlama-1.1B-Chat-v0.4-q4f32_1-1k",
+    name: "TinyLlama-1.1B-Chat-v0.4-q4f32_1-MLC-1k",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
     size: "1.1B",
