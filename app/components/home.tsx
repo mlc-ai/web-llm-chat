@@ -118,18 +118,6 @@ const useHasHydrated = () => {
   return hasHydrated;
 };
 
-const useServiceWorkerReady = () => {
-  const [serviceWorkerReady, setServiceWorkerReady] = useState<boolean>(false);
-
-  useEffect(() => {
-    navigator.serviceWorker.ready.then(() => {
-      setServiceWorkerReady(true);
-    });
-  }, []);
-
-  return serviceWorkerReady;
-};
-
 const loadAsyncGoogleFont = () => {
   const linkEl = document.createElement("link");
   const proxyFontUrl = "/google-fonts";
@@ -182,11 +170,15 @@ function Screen() {
 }
 
 const useWebLLM = () => {
+  const [serviceWorkerReady, setServiceWorkerReady] = useState<boolean>(false);
   const [webllm, setWebLLM] = useState<WebLLMApi | undefined>(undefined);
   const [isSWAlive, setSWAlive] = useState(true);
 
   useEffect(() => {
-    setWebLLM(new WebLLMApi());
+    navigator.serviceWorker.ready.then(() => {
+      setServiceWorkerReady(true);
+      setWebLLM(new WebLLMApi());
+    });
   }, []);
 
   setInterval(() => {
@@ -194,9 +186,9 @@ const useWebLLM = () => {
       // 10s per heartbeat, dead after 1 min of inactivity
       setSWAlive(!!webllm.engine && webllm.engine.missedHeatbeat < 6);
     }
-  });
+  }, 10_000);
 
-  return { webllm, isWebllmAlive: isSWAlive };
+  return { serviceWorkerReady, webllm, isWebllmAlive: isSWAlive };
 };
 
 const useLoadUrlParam = () => {
@@ -244,15 +236,14 @@ const useStopStreamingMessages = () => {
 
 export function Home() {
   const hasHydrated = useHasHydrated();
-  const isServiceWorkerReady = useServiceWorkerReady();
-  const { webllm, isWebllmAlive } = useWebLLM();
+  const { serviceWorkerReady, webllm, isWebllmAlive } = useWebLLM();
 
   useSwitchTheme();
   useHtmlLang();
   useLoadUrlParam();
   useStopStreamingMessages();
 
-  if (!hasHydrated || !isServiceWorkerReady) {
+  if (!hasHydrated || !serviceWorkerReady) {
     return <Loading />;
   }
 
