@@ -28,6 +28,44 @@
 
 WebLLM Chat is a pioneering initiative that combines the robust backend capabilities of WebLLM with the user-friendly interface of NextChat. As a part of the broader MLC.ai family, this project contributes to our mission of democratizing AI technology by making powerful tools accessible directly to end-users. By integrating with NextChat, WebLLM Chat not only enhances the chatting experience but also broadens the scope for deployment of self-hosted and customizable language models.
 
+## Development
+
+```shell
+# 1. install nodejs and yarn first
+# 2. config local env vars in `.env.local`
+# 3. run
+yarn install
+yarn dev
+```
+
+## Deployment
+
+### Build
+
+You can build the application as a Next.js build using `yarn build` or as a static site using `yarn export`. For more information, check [Next.js documentation](https://nextjs.org/docs/pages/building-your-application/deploying);
+
+### Docker
+
+```shell
+docker build -t webllm_chat .
+docker run -d -p 3000:3000 webllm_chat
+```
+
+You can start service behind a proxy:
+
+```shell
+docker build -t webllm_chat .
+docker run -d -p 3000:3000 \
+   -e PROXY_URL=http://localhost:7890 \
+   webllm_chat
+```
+
+If your proxy needs password, use:
+
+```shell
+-e PROXY_URL="http://127.0.0.1:7890 user pass"
+```
+
 ## Community and Contributions
 
 WebLLM Chat thrives on community involvement. We are committed to fostering an inclusive and innovative community where developers and AI enthusiasts can collaborate, contribute, and push the boundaries of what's possible in AI technology. Join us on Discord to connect with fellow developers and contribute to the project.
