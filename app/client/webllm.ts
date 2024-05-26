@@ -83,11 +83,20 @@ export class WebLLMApi implements LLMApi {
         options.onUpdate,
       );
     } catch (err: any) {
-      if (
-        !err?.toString()?.includes("Please call `Engine.reload(model)` first")
-      ) {
+      let errorMessage = err.message || err.toString() || "";
+      if (!errorMessage.includes("Please call `Engine.reload(model)` first")) {
         console.error("Error in chatCompletion", err);
-        options.onError?.(err as Error);
+        if (
+          errorMessage.includes("WebGPU") &&
+          errorMessage.includes("compatibility chart")
+        ) {
+          // Add WebGPU compatibility chart link
+          errorMessage = errorMessage.replace(
+            "compatibility chart",
+            "[compatibility chart](https://caniuse.com/webgpu)",
+          );
+        }
+        options.onError?.(errorMessage);
         sendGAEvent({
           event: "exception",
           step: "chatCompletion",
