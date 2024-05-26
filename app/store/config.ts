@@ -50,7 +50,7 @@ export const DEFAULT_CONFIG = {
 
   modelConfig: {
     model: DEFAULT_MODELS[0].name,
-    temperature: 0.5,
+    temperature: 1.0,
     top_p: 1,
     max_tokens: 4000,
     presence_penalty: 0,
@@ -145,5 +145,30 @@ export const useAppConfig = createPersistStore(
   }),
   {
     name: StoreKey.Config,
+    version: 0.1,
+    migrate: (persistedState, version) => {
+      if (version < 0.1) {
+        return {
+          ...(persistedState as ChatConfig),
+          models: DEFAULT_MODELS as any as LLMModel[],
+
+          modelConfig: {
+            model: DEFAULT_MODELS[0].name,
+            temperature: 1.0,
+            top_p: 1,
+            max_tokens: 4000,
+            presence_penalty: 0,
+            frequency_penalty: 0,
+            sendMemory: true,
+            historyMessageCount: 4,
+            compressMessageLengthThreshold: 1000,
+            enableInjectSystemPrompts: false,
+            template: DEFAULT_INPUT_TEMPLATE,
+          },
+        };
+      }
+
+      return persistedState as any;
+    },
   },
 );
