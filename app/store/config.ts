@@ -147,13 +147,14 @@ export const useAppConfig = createPersistStore(
   }),
   {
     name: StoreKey.Config,
-    version: 0.2,
+    version: 0.3,
     migrate: (persistedState, version) => {
-      if (version < 0.15) {
+      if (version < 0.3) {
         return {
           ...(persistedState as ChatConfig),
           models: DEFAULT_MODELS as any as LLMModel[],
 
+          logLevel: "WARN",
           modelConfig: {
             model: DEFAULT_MODELS[0].name,
             temperature: 1.0,
@@ -167,11 +168,6 @@ export const useAppConfig = createPersistStore(
             enableInjectSystemPrompts: false,
             template: DEFAULT_INPUT_TEMPLATE,
           },
-        };
-      } else if (version === 0.15) {
-        return {
-          ...(persistedState as ChatConfig),
-          logLevel: "WARN",
         };
       }
 
