@@ -53,9 +53,7 @@ jobs:
         run: yarn install
 
       - name: Build with Next.js
-        run: |
-          echo "NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=${{ vars.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID }}" >> .env
-          yarn export
+        run: yarn export
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

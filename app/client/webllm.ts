@@ -11,7 +11,6 @@ import {
 } from "@neet-nestor/web-llm";
 
 import { ChatOptions, LLMApi, LLMConfig, RequestMessage } from "./api";
-import { sendGAEvent } from "@next/third-parties/google";
 
 const KEEP_ALIVE_INTERVAL = 5_000;
 
@@ -66,11 +65,6 @@ export class WebLLMApi implements LLMApi {
       } catch (err) {
         console.error("Error while initializing the model", err);
         options?.onError?.(err as Error);
-        sendGAEvent({
-          event: "exception",
-          step: "MLCEngineInitModel",
-          error: (err as Error).message || (err as Error).toString(),
-        });
         return;
       }
     }
@@ -97,11 +91,6 @@ export class WebLLMApi implements LLMApi {
           );
         }
         options.onError?.(errorMessage);
-        sendGAEvent({
-          event: "exception",
-          step: "chatCompletion",
-          error: (err as Error).message || (err as Error).toString(),
-        });
         return;
       }
       // Service worker has been stopped. Restart it
@@ -110,11 +99,6 @@ export class WebLLMApi implements LLMApi {
       } catch (err) {
         console.error("Error while initializing the model", err);
         options?.onError?.(err as Error);
-        sendGAEvent({
-          event: "exception",
-          step: "MLCEngineInitModel",
-          error: (err as Error).message || (err as Error).toString(),
-        });
         return;
       }
       try {
@@ -126,11 +110,6 @@ export class WebLLMApi implements LLMApi {
       } catch (err: any) {
         console.error("Error in chatCompletion", err);
         options.onError?.(err as Error);
-        sendGAEvent({
-          event: "exception",
-          step: "chatCompletion",
-          error: (err as Error).message || (err as Error).toString(),
-        });
         return;
       }
     }
