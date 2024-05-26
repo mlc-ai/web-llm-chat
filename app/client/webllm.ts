@@ -12,6 +12,7 @@ import {
 } from "@neet-nestor/web-llm";
 
 import { ChatOptions, LLMApi, LLMConfig, RequestMessage } from "./api";
+import { LogLevel } from "@neet-nestor/web-llm/lib/types";
 
 const KEEP_ALIVE_INTERVAL = 5_000;
 
@@ -40,6 +41,7 @@ export class WebLLMApi implements LLMApi {
         engine: new ServiceWorkerMLCEngine(
           navigator.serviceWorker.controller,
           KEEP_ALIVE_INTERVAL,
+          process.env.NEXT_PUBLIC_LOG_LEVEL as LogLevel,
         ),
       };
     } else {
@@ -52,6 +54,7 @@ export class WebLLMApi implements LLMApi {
           new Worker(new URL("../worker/web-worker.ts", import.meta.url), {
             type: "module",
           }),
+          process.env.NEXT_PUBLIC_LOG_LEVEL as LogLevel,
         ),
       };
     }
@@ -94,9 +97,13 @@ export class WebLLMApi implements LLMApi {
       this.llmConfig = { ...(this.llmConfig || {}), ...options.config };
       try {
         await this.initModel(options.onUpdate);
-      } catch (err) {
-        console.error("Error while initializing the model", err);
-        options?.onError?.(err as Error);
+      } catch (err: any) {
+        let errorMessage = err.message || err.toString() || "";
+        if (errorMessage === "[object Object]") {
+          errorMessage = JSON.stringify(err);
+        }
+        console.error("Error while initializing the model", errorMessage);
+        options?.onError?.(errorMessage);
         return;
       }
     }
@@ -110,8 +117,12 @@ export class WebLLMApi implements LLMApi {
       );
     } catch (err: any) {
       let errorMessage = err.message || err.toString() || "";
+      if (errorMessage === "[object Object]") {
+        console.log(JSON.stringify(err));
+        errorMessage = JSON.stringify(err);
+      }
       if (!errorMessage.includes("Please call `Engine.reload(model)` first")) {
-        console.error("Error in chatCompletion", err);
+        console.error("Error in chatCompletion", errorMessage);
         if (
           errorMessage.includes("WebGPU") &&
           errorMessage.includes("compatibility chart")
@@ -128,9 +139,13 @@ export class WebLLMApi implements LLMApi {
       // Service worker has been stopped. Restart it
       try {
         await this.initModel(options.onUpdate);
-      } catch (err) {
-        console.error("Error while initializing the model", err);
-        options?.onError?.(err as Error);
+      } catch (err: any) {
+        let errorMessage = err.message || err.toString() || "";
+        if (errorMessage === "[object Object]") {
+          errorMessage = JSON.stringify(err);
+        }
+        console.error("Error while initializing the model", errorMessage);
+        options?.onError?.(errorMessage);
         return;
       }
       try {
@@ -140,8 +155,12 @@ export class WebLLMApi implements LLMApi {
           options.onUpdate,
         );
       } catch (err: any) {
-        console.error("Error in chatCompletion", err);
-        options.onError?.(err as Error);
+        let errorMessage = err.message || err.toString() || "";
+        if (errorMessage === "[object Object]") {
+          errorMessage = JSON.stringify(err);
+        }
+        console.error("Error in chatCompletion", errorMessage);
+        options.onError?.(errorMessage);
         return;
       }
     }

@@ -2089,10 +2089,12 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@neet-nestor/web-llm@^0.2.48":
-  version "0.2.48"
-  resolved "https://registry.yarnpkg.com/@neet-nestor/web-llm/-/web-llm-0.2.48.tgz#7a04cf2b76d22dd2c0aa65c10179bf5bea199ce8"
-  integrity sha512-yNq57NDM0yRv+quFaIfISkglaBuSES2KSoH53kq/yW0scBncko+qOh3IOL6s3TuSQ469fgGowElxGrLOeHIALw==
+"@neet-nestor/web-llm@^0.2.49":
+  version "0.2.49"
+  resolved "https://registry.yarnpkg.com/@neet-nestor/web-llm/-/web-llm-0.2.49.tgz#a8614e65ea9037a7e9771384d6282e4f7fe47d4c"
+  integrity sha512-fqHlOqB68vF2tzS8yJydD/5UZK1NopFlLIGVQac72sUPvwpXPq8YTYkcOCQRgS8WR2Mzs/vLNmqgXFx4KoyFoQ==
+  dependencies:
+    loglevel "^1.9.1"
 
 "@next/env@13.4.9":
   version "13.4.9"
@@ -5858,6 +5860,11 @@ log-update@^4.0.0:
     cli-cursor "^3.1.0"
     slice-ansi "^4.0.0"
     wrap-ansi "^6.2.0"
+
+loglevel@^1.9.1:
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/loglevel/-/loglevel-1.9.1.tgz#d63976ac9bcd03c7c873116d41c2a85bafff1be7"
+  integrity sha512-hP3I3kCrDIMuRwAwHltphhDM1r8i55H33GgqjXbrisuJhF4kRhW1dNuxsRklp4bXl8DSdLaNLuiL4A/LWRfxvg==
 
 longest-streak@^3.0.0:
   version "3.1.0"

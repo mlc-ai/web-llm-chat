@@ -9,10 +9,10 @@ console.log("[Next] build with chunk: ", !disableChunk);
 
 const cspHeader = `
     default-src 'self';
-    script-src 'self' 'unsafe-inline';
+    script-src 'self' 'unsafe-eval' 'unsafe-inline';
     worker-src 'self';
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data:;
+    img-src 'self' blob: data: https:;
     font-src 'self';
     object-src 'none';
     base-uri 'self';
@@ -57,6 +57,9 @@ const nextConfig = {
   },
   experimental: {
     forceSwcTransforms: true,
+  },
+  env: {
+    NEXT_PUBLIC_LOG_LEVEL: "TRACE",
   },
 };
 
