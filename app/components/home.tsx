@@ -29,6 +29,7 @@ import { getClientConfig } from "../config/client";
 import { WebLLMApi, WebLLMContext } from "../client/webllm";
 import Locale from "../locales";
 import { useChatStore } from "../store";
+import { ServiceWorkerMLCEngine } from "@neet-nestor/web-llm";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -170,25 +171,37 @@ function Screen() {
 }
 
 const useWebLLM = () => {
-  const [serviceWorkerReady, setServiceWorkerReady] = useState<boolean>(false);
   const [webllm, setWebLLM] = useState<WebLLMApi | undefined>(undefined);
   const [isSWAlive, setSWAlive] = useState(true);
 
   useEffect(() => {
-    navigator.serviceWorker.ready.then(() => {
-      setServiceWorkerReady(true);
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.ready.then(() => {
+        setWebLLM(new WebLLMApi());
+      });
+    } else {
       setWebLLM(new WebLLMApi());
-    });
+    }
+
+    // If service worker registration timeout
+    setTimeout(() => {
+      setWebLLM(new WebLLMApi());
+    }, 5_000);
   }, []);
 
-  setInterval(() => {
-    if (webllm) {
-      // 10s per heartbeat, dead after 1 min of inactivity
-      setSWAlive(!!webllm.engine && webllm.engine.missedHeatbeat < 6);
-    }
-  }, 10_000);
+  if (webllm?.webllm.type === "serviceWorker") {
+    setInterval(() => {
+      if (webllm) {
+        // 10s per heartbeat, dead after 1 min of inactivity
+        setSWAlive(
+          !!webllm.webllm.engine &&
+            (webllm.webllm.engine as ServiceWorkerMLCEngine).missedHeatbeat < 6,
+        );
+      }
+    }, 10_000);
+  }
 
-  return { serviceWorkerReady, webllm, isWebllmAlive: isSWAlive };
+  return { webllm, isWebllmAlive: isSWAlive };
 };
 
 const useLoadUrlParam = () => {
@@ -236,14 +249,14 @@ const useStopStreamingMessages = () => {
 
 export function Home() {
   const hasHydrated = useHasHydrated();
-  const { serviceWorkerReady, webllm, isWebllmAlive } = useWebLLM();
+  const { webllm, isWebllmAlive } = useWebLLM();
 
   useSwitchTheme();
   useHtmlLang();
   useLoadUrlParam();
   useStopStreamingMessages();
 
-  if (!hasHydrated || !serviceWorkerReady) {
+  if (!hasHydrated || !webllm) {
     return <Loading />;
   }
 

@@ -88,8 +88,6 @@ if (mode !== "export") {
 }
 
 export default withSerwistInit({
-  // Note: This is only an example. If you use Pages Router,
-  // use something else that works, such as "service-worker/index.ts".
-  swSrc: "app/service-worker.ts",
+  swSrc: "app/worker/service-worker.ts",
   swDest: "public/sw.js",
 })(nextConfig);
