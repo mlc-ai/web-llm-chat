@@ -217,53 +217,6 @@ const pt: PartialLocaleType = {
         Title: "Provedor do Modelo",
         SubTitle: "Selecione Azure ou OpenAI",
       },
-      OpenAI: {
-        ApiKey: {
-          Title: "Chave API OpenAI",
-          SubTitle: "Usar Chave API OpenAI personalizada",
-          Placeholder: "sk-xxx",
-        },
-
-        Endpoint: {
-          Title: "Endpoint OpenAI",
-          SubTitle:
-            "Deve começar com http(s):// ou usar /api/openai como padrão",
-        },
-      },
-      Azure: {
-        ApiKey: {
-          Title: "Chave API Azure",
-          SubTitle: "Verifique sua chave API do console Azure",
-          Placeholder: "Chave API Azure",
-        },
-
-        Endpoint: {
-          Title: "Endpoint Azure",
-          SubTitle: "Exemplo: ",
-        },
-
-        ApiVerion: {
-          Title: "Versão API Azure",
-          SubTitle: "Verifique sua versão API do console Azure",
-        },
-      },
-      Anthropic: {
-        ApiKey: {
-          Title: "Chave API Anthropic",
-          SubTitle: "Verifique sua chave API do console Anthropic",
-          Placeholder: "Chave API Anthropic",
-        },
-
-        Endpoint: {
-          Title: "Endpoint Address",
-          SubTitle: "Exemplo: ",
-        },
-
-        ApiVerion: {
-          Title: "Versão API (Versão api claude)",
-          SubTitle: "Verifique sua versão API do console Anthropic",
-        },
-      },
       CustomModel: {
         Title: "Modelos Personalizados",
         SubTitle: "Opções de modelo personalizado, separados por vírgula",

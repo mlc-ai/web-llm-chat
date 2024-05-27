@@ -1,4 +1,3 @@
-import { LogLevel } from "@neet-nestor/web-llm/lib/types";
 import { LLMModel } from "./client/api";
 
 export const OWNER = "mlc-ai";

@@ -12,7 +12,7 @@ import {
 } from "@neet-nestor/web-llm";
 
 import { ChatOptions, LLMApi, LLMConfig, RequestMessage } from "./api";
-import { LogLevel } from "@neet-nestor/web-llm/lib/types";
+import { LogLevel } from "@neet-nestor/web-llm";
 
 const KEEP_ALIVE_INTERVAL = 5_000;
 
@@ -41,7 +41,6 @@ export class WebLLMApi implements LLMApi {
         engine: new ServiceWorkerMLCEngine(
           navigator.serviceWorker.controller,
           KEEP_ALIVE_INTERVAL,
-          logLevel,
         ),
       };
     } else {
@@ -54,10 +53,10 @@ export class WebLLMApi implements LLMApi {
           new Worker(new URL("../worker/web-worker.ts", import.meta.url), {
             type: "module",
           }),
-          logLevel,
         ),
       };
     }
+    this.webllm.engine.setLogLevel(logLevel);
   }
 
   async initModel(onUpdate?: (message: string, chunk: string) => void) {

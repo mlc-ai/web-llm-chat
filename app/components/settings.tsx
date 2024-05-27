@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import log from "loglevel";
+import { useState, useEffect, useContext } from "react";
 
 import styles from "./settings.module.scss";
 import AddIcon from "../icons/add.svg";
@@ -41,12 +40,9 @@ import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
 import { InputRange } from "./input-range";
 import { useNavigate } from "react-router-dom";
-import { getClientConfig } from "../config/client";
-import { Avatar, AvatarPicker } from "./emoji";
 import { nanoid } from "nanoid";
+import { LogLevel } from "@neet-nestor/web-llm";
 import { WebLLMContext } from "../client/webllm";
-import { TemplateConfig } from "./template";
-import { LogLevel } from "@neet-nestor/web-llm/lib/types";
 
 function EditPromptModal(props: { id: string; onClose: () => void }) {
   const promptStore = usePromptStore();
@@ -244,6 +240,7 @@ export function Settings() {
   const navigate = useNavigate();
   const config = useAppConfig();
   const updateConfig = config.update;
+  const webllm = useContext(WebLLMContext);
 
   const promptStore = usePromptStore();
   const builtinCount = SearchService.count.builtin;
@@ -489,7 +486,7 @@ export function Settings() {
                   ([_, value]) => value === parseInt(e.target.value),
                 )?.[0] as LogLevel;
 
-                log.setLevel(logLevel);
+                webllm?.webllm.engine.setLogLevel(logLevel);
                 updateConfig((config) => (config.logLevel = logLevel));
               }}
             ></InputRange>

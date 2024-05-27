@@ -1,4 +1,4 @@
-import { LogLevel } from "@neet-nestor/web-llm/lib/types";
+import { LogLevel } from "@neet-nestor/web-llm";
 import { LLMModel } from "../client/api";
 import {
   DEFAULT_INPUT_TEMPLATE,

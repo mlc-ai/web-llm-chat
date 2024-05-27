@@ -115,7 +115,6 @@ const ru: PartialLocaleType = {
       SubTitle:
         "Будет сжимать, если длина несжатых сообщений превышает указанное значение",
     },
-
     Usage: {
       Title: "Баланс аккаунта",
       SubTitle(used: any, total: any) {

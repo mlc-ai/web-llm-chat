@@ -177,7 +177,7 @@ const useWebLLM = () => {
 
     // If service worker registration timeout
     setTimeout(() => {
-      setWebLLM(new WebLLMApi());
+      setWebLLM(new WebLLMApi(config.logLevel));
     }, 5_000);
   }, []);
 

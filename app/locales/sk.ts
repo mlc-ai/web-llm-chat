@@ -219,53 +219,6 @@ const sk: PartialLocaleType = {
         Title: "Poskytovateľ modelu",
         SubTitle: "Vyberte Azure alebo OpenAI",
       },
-      OpenAI: {
-        ApiKey: {
-          Title: "API kľúč OpenAI",
-          SubTitle: "Použiť vlastný API kľúč OpenAI",
-          Placeholder: "sk-xxx",
-        },
-
-        Endpoint: {
-          Title: "Koncový bod OpenAI",
-          SubTitle:
-            "Musí začínať http(s):// alebo použiť /api/openai ako predvolený",
-        },
-      },
-      Azure: {
-        ApiKey: {
-          Title: "API kľúč Azure",
-          SubTitle: "Skontrolujte svoj API kľúč v Azure konzole",
-          Placeholder: "API kľúč Azure",
-        },
-
-        Endpoint: {
-          Title: "Koncový bod Azure",
-          SubTitle: "Príklad: ",
-        },
-
-        ApiVerion: {
-          Title: "Verzia API Azure",
-          SubTitle: "Skontrolujte svoju verziu API v Azure konzole",
-        },
-      },
-      Anthropic: {
-        ApiKey: {
-          Title: "API kľúč Anthropic",
-          SubTitle: "Skontrolujte svoj API kľúč v Anthropic konzole",
-          Placeholder: "API kľúč Anthropic",
-        },
-
-        Endpoint: {
-          Title: "Adresa koncového bodu",
-          SubTitle: "Príklad:",
-        },
-
-        ApiVerion: {
-          Title: "Verzia API (claude verzia API)",
-          SubTitle: "Vyberte špecifickú verziu časti",
-        },
-      },
       CustomModel: {
         Title: "Vlastné modely",
         SubTitle: "Možnosti vlastného modelu, oddelené čiarkou",
