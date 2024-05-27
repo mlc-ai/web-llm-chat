@@ -1,3 +1,4 @@
+import { LogLevel } from "@neet-nestor/web-llm/lib/types";
 import { LLMModel } from "./client/api";
 
 export const OWNER = "mlc-ai";
@@ -369,3 +370,12 @@ export const DEFAULT_MODELS: LLMModel[] = [
 
 export const CHAT_PAGE_SIZE = 15;
 export const MAX_RENDER_MSG_COUNT = 45;
+
+export const LOG_LEVELS = {
+  TRACE: 0,
+  DEBUG: 1,
+  INFO: 2,
+  WARN: 3,
+  ERROR: 4,
+  SILENT: 5,
+};

@@ -1,7 +1,7 @@
-import { useState, useEffect, useMemo, useContext } from "react";
+import { useState, useEffect } from "react";
+import log from "loglevel";
 
 import styles from "./settings.module.scss";
-
 import AddIcon from "../icons/add.svg";
 import CloseIcon from "../icons/close.svg";
 import CopyIcon from "../icons/copy.svg";
@@ -36,7 +36,7 @@ import Locale, {
   getLang,
 } from "../locales";
 import { copyToClipboard } from "../utils";
-import { Path, SlotID } from "../constant";
+import { LOG_LEVELS, Path, SlotID } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
 import { InputRange } from "./input-range";
@@ -46,6 +46,7 @@ import { Avatar, AvatarPicker } from "./emoji";
 import { nanoid } from "nanoid";
 import { WebLLMContext } from "../client/webllm";
 import { TemplateConfig } from "./template";
+import { LogLevel } from "@neet-nestor/web-llm/lib/types";
 
 function EditPromptModal(props: { id: string; onClose: () => void }) {
   const promptStore = usePromptStore();
@@ -452,8 +453,8 @@ export function Settings() {
 
         <List id={SlotID.CustomModel}>
           <ListItem
-            title={Locale.Settings.Access.CacheType.Title}
-            subTitle={Locale.Settings.Access.CacheType.SubTitle}
+            title={Locale.Settings.CacheType.Title}
+            subTitle={Locale.Settings.CacheType.SubTitle}
           >
             <Select
               value="cache"
@@ -472,6 +473,26 @@ export function Settings() {
                 Index DB
               </option>
             </Select>
+          </ListItem>
+          <ListItem
+            title={Locale.Settings.LogLevel.Title}
+            subTitle={Locale.Settings.LogLevel.SubTitle}
+          >
+            <InputRange
+              title={config.logLevel}
+              value={LOG_LEVELS[config.logLevel]}
+              min={`${Math.min(...Object.values(LOG_LEVELS))}`}
+              max={`${Math.max(...Object.values(LOG_LEVELS))}`}
+              step="1"
+              onChange={(e) => {
+                const logLevel = Object.entries(LOG_LEVELS).find(
+                  ([_, value]) => value === parseInt(e.target.value),
+                )?.[0] as LogLevel;
+
+                log.setLevel(logLevel);
+                updateConfig((config) => (config.logLevel = logLevel));
+              }}
+            ></InputRange>
           </ListItem>
           <ListItem
             title={Locale.Settings.Access.CustomModel.Title}

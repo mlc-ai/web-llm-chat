@@ -229,57 +229,6 @@ const en = {
         Title: "Model Provider",
         SubTitle: "Select Azure or OpenAI",
       },
-      OpenAI: {
-        ApiKey: {
-          Title: "OpenAI API Key",
-          SubTitle: "User custom OpenAI Api Key",
-          Placeholder: "sk-xxx",
-        },
-
-        Endpoint: {
-          Title: "OpenAI Endpoint",
-          SubTitle: "Must starts with http(s):// or use /api/openai as default",
-        },
-      },
-      Azure: {
-        ApiKey: {
-          Title: "Azure Api Key",
-          SubTitle: "Check your api key from Azure console",
-          Placeholder: "Azure Api Key",
-        },
-
-        Endpoint: {
-          Title: "Azure Endpoint",
-          SubTitle: "Example: ",
-        },
-
-        ApiVerion: {
-          Title: "Azure Api Version",
-          SubTitle: "Check your api version from azure console",
-        },
-      },
-      Anthropic: {
-        ApiKey: {
-          Title: "Anthropic API Key",
-          SubTitle:
-            "Use a custom Anthropic Key to bypass password access restrictions",
-          Placeholder: "Anthropic API Key",
-        },
-
-        Endpoint: {
-          Title: "Endpoint Address",
-          SubTitle: "Example:",
-        },
-
-        ApiVerion: {
-          Title: "API Version (claude api version)",
-          SubTitle: "Select and input a specific API version",
-        },
-      },
-      CacheType: {
-        Title: "Cache Type",
-        SubTitle: "Use IndexDB or Cache API to store model weights",
-      },
       CustomModel: {
         Title: "Custom Models",
         SubTitle: "Custom model options, seperated by comma",
@@ -325,6 +274,14 @@ const en = {
       Title: "Frequency Penalty",
       SubTitle:
         "A larger value decreasing the likelihood to repeat the same line",
+    },
+    CacheType: {
+      Title: "Cache Type",
+      SubTitle: "Use IndexDB or Cache API to store model weights",
+    },
+    LogLevel: {
+      Title: "Logging Level",
+      SubTitle: "Adjust how much detail should be printed to console",
     },
   },
   Store: {

@@ -51,9 +51,6 @@ const nextConfig = {
   experimental: {
     forceSwcTransforms: true,
   },
-  env: {
-    NEXT_PUBLIC_LOG_LEVEL: "TRACE",
-  },
 };
 
 const CorsHeaders = [

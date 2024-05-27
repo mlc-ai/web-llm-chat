@@ -33,7 +33,7 @@ export class WebLLMApi implements LLMApi {
   private initialized = false;
   webllm: WebLLMHandler;
 
-  constructor() {
+  constructor(logLevel: LogLevel = "WARN") {
     if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
       console.log("Service Worker API is available and in use.");
       this.webllm = {
@@ -41,7 +41,7 @@ export class WebLLMApi implements LLMApi {
         engine: new ServiceWorkerMLCEngine(
           navigator.serviceWorker.controller,
           KEEP_ALIVE_INTERVAL,
-          process.env.NEXT_PUBLIC_LOG_LEVEL as LogLevel,
+          logLevel,
         ),
       };
     } else {
@@ -54,7 +54,7 @@ export class WebLLMApi implements LLMApi {
           new Worker(new URL("../worker/web-worker.ts", import.meta.url), {
             type: "module",
           }),
-          process.env.NEXT_PUBLIC_LOG_LEVEL as LogLevel,
+          logLevel,
         ),
       };
     }

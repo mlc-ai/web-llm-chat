@@ -25,7 +25,6 @@ import {
 } from "react-router-dom";
 import { SideBar } from "./sidebar";
 import { useAppConfig } from "../store/config";
-import { getClientConfig } from "../config/client";
 import { WebLLMApi, WebLLMContext } from "../client/webllm";
 import Locale from "../locales";
 import { useChatStore } from "../store";
@@ -163,16 +162,17 @@ function Screen() {
 }
 
 const useWebLLM = () => {
+  const config = useAppConfig();
   const [webllm, setWebLLM] = useState<WebLLMApi | undefined>(undefined);
   const [isSWAlive, setSWAlive] = useState(true);
 
   useEffect(() => {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.ready.then(() => {
-        setWebLLM(new WebLLMApi());
+        setWebLLM(new WebLLMApi(config.logLevel));
       });
     } else {
-      setWebLLM(new WebLLMApi());
+      setWebLLM(new WebLLMApi(config.logLevel));
     }
 
     // If service worker registration timeout

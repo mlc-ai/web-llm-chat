@@ -1,3 +1,4 @@
+import { LogLevel } from "@neet-nestor/web-llm/lib/types";
 import { LLMModel } from "../client/api";
 import {
   DEFAULT_INPUT_TEMPLATE,
@@ -45,6 +46,7 @@ export const DEFAULT_CONFIG = {
   hideBuiltinTemplates: false, // dont add builtin masks
 
   cacheType: "cache" as CacheType,
+  logLevel: "WARN" as LogLevel,
   customModels: "",
   models: DEFAULT_MODELS as any as LLMModel[],
 
@@ -145,7 +147,7 @@ export const useAppConfig = createPersistStore(
   }),
   {
     name: StoreKey.Config,
-    version: 0.15,
+    version: 0.2,
     migrate: (persistedState, version) => {
       if (version < 0.15) {
         return {
@@ -165,6 +167,11 @@ export const useAppConfig = createPersistStore(
             enableInjectSystemPrompts: false,
             template: DEFAULT_INPUT_TEMPLATE,
           },
+        };
+      } else if (version === 0.15) {
+        return {
+          ...(persistedState as ChatConfig),
+          logLevel: "WARN",
         };
       }
 

@@ -4,6 +4,7 @@ import Locale from "../locales";
 import { InputRange } from "./input-range";
 import { ListItem, Select } from "./ui-lib";
 import { useAllModels } from "../utils/hooks";
+import React from "react";
 
 export function ModelConfigList(props: {
   modelConfig: ModelConfig;
@@ -26,13 +27,13 @@ export function ModelConfigList(props: {
           }}
         >
           {allModels.map((v, i) => (
-            <>
+            <React.Fragment key={i}>
               {i > 0 && v.family !== allModels[i - 1].family && <hr />}
-              <option value={v.name} key={i}>
+              <option value={v.name}>
                 {v.name}
                 {v.provider ? ` (${v.provider})` : ""}
               </option>
-            </>
+            </React.Fragment>
           ))}
         </Select>
       </ListItem>
