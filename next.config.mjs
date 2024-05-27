@@ -104,7 +104,4 @@ if (mode !== "export") {
   };
 }
 
-export default withSerwistInit({
-  swSrc: "app/worker/service-worker.ts",
-  swDest: "public/sw.js",
-})(nextConfig);
+export default nextConfig;

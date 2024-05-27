@@ -8,14 +8,9 @@ import styles from "./home.module.scss";
 
 import MlcIcon from "../icons/mlc.svg";
 import LoadingIcon from "../icons/three-dots.svg";
-
-import { getCSSVar, useMobileScreen } from "../utils";
-
 import dynamic from "next/dynamic";
 import { Path, SlotID } from "../constant";
 import { ErrorBoundary } from "./error";
-
-import { getISOLang, getLang } from "../locales";
 
 import {
   HashRouter as Router,
@@ -24,12 +19,6 @@ import {
   useLocation,
 } from "react-router-dom";
 import { SideBar } from "./sidebar";
-import { useAppConfig } from "../store/config";
-import { getClientConfig } from "../config/client";
-import { WebLLMApi, WebLLMContext } from "../client/webllm";
-import Locale from "../locales";
-import { useChatStore } from "../store";
-import { ServiceWorkerMLCEngine } from "@neet-nestor/web-llm";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -56,59 +45,6 @@ const Settings = dynamic(async () => (await import("./settings")).Settings, {
   loading: () => <Loading noLogo />,
 });
 
-const Chat = dynamic(async () => (await import("./chat")).Chat, {
-  loading: () => <Loading noLogo />,
-});
-
-const TemplatePage = dynamic(
-  async () => (await import("./template")).TemplatePage,
-  {
-    loading: () => <Loading noLogo />,
-  },
-);
-
-export function useSwitchTheme() {
-  const config = useAppConfig();
-
-  useEffect(() => {
-    document.body.classList.remove("light");
-    document.body.classList.remove("dark");
-
-    if (config.theme === "dark") {
-      document.body.classList.add("dark");
-    } else if (config.theme === "light") {
-      document.body.classList.add("light");
-    }
-
-    const metaDescriptionDark = document.querySelector(
-      'meta[name="theme-color"][media*="dark"]',
-    );
-    const metaDescriptionLight = document.querySelector(
-      'meta[name="theme-color"][media*="light"]',
-    );
-
-    if (config.theme === "auto") {
-      metaDescriptionDark?.setAttribute("content", "#151515");
-      metaDescriptionLight?.setAttribute("content", "#fafafa");
-    } else {
-      const themeColor = getCSSVar("--theme-color");
-      metaDescriptionDark?.setAttribute("content", themeColor);
-      metaDescriptionLight?.setAttribute("content", themeColor);
-    }
-  }, [config.theme]);
-}
-
-function useHtmlLang() {
-  useEffect(() => {
-    const lang = getISOLang();
-    const htmlLang = document.documentElement.lang;
-
-    if (lang !== htmlLang) {
-      document.documentElement.lang = lang;
-    }
-  }, []);
-}
-
 const useHasHydrated = () => {
   const [hasHydrated, setHasHydrated] = useState<boolean>(false);
 
@@ -119,41 +55,18 @@ const useHasHydrated = () => {
   return hasHydrated;
 };
 
-const loadAsyncFonts = () => {
-  const linkEl = document.createElement("link");
-  linkEl.rel = "stylesheet";
-  linkEl.href = "/fonts/font.css";
-  document.head.appendChild(linkEl);
-};
-
 function Screen() {
-  const config = useAppConfig();
   const location = useLocation();
   const isHome = location.pathname === Path.Home;
-  const isMobileScreen = useMobileScreen();
-  const shouldTightBorder = config.tightBorder && !isMobileScreen;
-
-  useEffect(() => {
-    loadAsyncFonts();
-  }, []);
 
   return (
-    <div
-      className={
-        styles.container +
-        ` ${shouldTightBorder ? styles["tight-container"] : styles.container} ${
-          getLang() === "ar" ? styles["rtl-screen"] : ""
-        }`
-      }
-    >
+    <div className={styles.container + " " + styles["tight-container"]}>
       <>
         <SideBar className={isHome ? styles["sidebar-show"] : ""} />
 
         <div className={styles["window-content"]} id={SlotID.AppBody}>
           <Routes>
-            <Route path={Path.Home} element={<Chat />} />
-            <Route path={Path.Templates} element={<TemplatePage />} />
-            <Route path={Path.Chat} element={<Chat />} />
+            <Route path={Path.Home} element={<Settings />} />
             <Route path={Path.Settings} element={<Settings />} />
           </Routes>
         </div>
@@ -162,106 +75,17 @@ function Screen() {
   );
 }
 
-const useWebLLM = () => {
-  const [webllm, setWebLLM] = useState<WebLLMApi | undefined>(undefined);
-  const [isSWAlive, setSWAlive] = useState(true);
-
-  useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.ready.then(() => {
-        setWebLLM(new WebLLMApi());
-      });
-    } else {
-      setWebLLM(new WebLLMApi());
-    }
-
-    // If service worker registration timeout
-    setTimeout(() => {
-      setWebLLM(new WebLLMApi());
-    }, 5_000);
-  }, []);
-
-  if (webllm?.webllm.type === "serviceWorker") {
-    setInterval(() => {
-      if (webllm) {
-        // 10s per heartbeat, dead after 1 min of inactivity
-        setSWAlive(
-          !!webllm.webllm.engine &&
-            (webllm.webllm.engine as ServiceWorkerMLCEngine).missedHeatbeat < 6,
-        );
-      }
-    }, 10_000);
-  }
-
-  return { webllm, isWebllmAlive: isSWAlive };
-};
-
-const useLoadUrlParam = () => {
-  const config = useAppConfig();
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    let modelConfig: any = {
-      model: params.get("model"),
-      temperature: params.has("temperature")
-        ? parseFloat(params.get("temperature")!)
-        : null,
-      top_p: params.has("top_p") ? parseFloat(params.get("top_p")!) : null,
-      max_tokens: params.has("max_tokens")
-        ? parseInt(params.get("max_tokens")!)
-        : null,
-      presence_penalty: params.has("presence_penalty")
-        ? parseFloat(params.get("presence_penalty")!)
-        : null,
-      frequency_penalty: params.has("frequency_penalty")
-        ? parseFloat(params.get("frequency_penalty")!)
-        : null,
-    };
-    Object.keys(modelConfig).forEach((key) => {
-      // If the value of the key is null, delete the key
-      if (modelConfig[key] === null) {
-        delete modelConfig[key];
-      }
-    });
-    if (Object.keys(modelConfig).length > 0) {
-      console.log("Load model config from URL params", modelConfig);
-      config.updateModelConfig(modelConfig);
-    }
-  }, []);
-};
-
-const useStopStreamingMessages = () => {
-  const chatStore = useChatStore();
-
-  // Clean up bad chat messages due to refresh during generating
-  useEffect(() => {
-    chatStore.stopStreaming();
-  }, []);
-};
-
 export function Home() {
   const hasHydrated = useHasHydrated();
-  const { webllm, isWebllmAlive } = useWebLLM();
 
-  useSwitchTheme();
-  useHtmlLang();
-  useLoadUrlParam();
-  useStopStreamingMessages();
-
-  if (!hasHydrated || !webllm) {
+  if (!hasHydrated) {
     return <Loading />;
-  }
-
-  if (!isWebllmAlive) {
-    return <ErrorScreen message={Locale.ServiceWorker.Error} />;
   }
 
   return (
     <ErrorBoundary>
       <Router>
-        <WebLLMContext.Provider value={webllm}>
-          <Screen />
-        </WebLLMContext.Provider>
+        <Screen />
       </Router>
     </ErrorBoundary>
   );

@@ -4,8 +4,6 @@ import EmojiPicker, {
   Theme as EmojiTheme,
 } from "emoji-picker-react";
 
-import { ModelType } from "../store";
-
 import MlcIcon from "../icons/mlc.svg";
 
 export function getEmojiUrl(unified: string, style: EmojiStyle) {
@@ -31,15 +29,7 @@ export function AvatarPicker(props: {
   );
 }
 
-export function Avatar(props: { model?: ModelType; avatar?: string }) {
-  if (props.model) {
-    return (
-      <div className="bot-avatar mlc-icon no-dark">
-        <MlcIcon />
-      </div>
-    );
-  }
-
+export function Avatar(props: { avatar?: string }) {
   return (
     <div className="user-avatar">
       {props.avatar && <EmojiAvatar avatar={props.avatar} />}

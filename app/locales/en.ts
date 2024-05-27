@@ -1,5 +1,3 @@
-import { SubmitKey } from "../store/config";
-
 // if you are adding a new translation, please use PartialLocaleType instead of LocaleType
 
 const en = {
@@ -58,13 +56,6 @@ const en = {
     },
     Rename: "Rename Chat",
     Typing: "Typing…",
-    Input: (submitKey: string) => {
-      var inputHints = `${submitKey} to send`;
-      if (submitKey === String(SubmitKey.Enter)) {
-        inputHints += ", Shift + Enter to wrap";
-      }
-      return inputHints + ", / to search prompts, : to use commands";
-    },
     Send: "Send",
     Config: {
       Reset: "Reset to Default",
