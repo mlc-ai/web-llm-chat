@@ -145,9 +145,9 @@ export const useAppConfig = createPersistStore(
   }),
   {
     name: StoreKey.Config,
-    version: 0.1,
+    version: 0.15,
     migrate: (persistedState, version) => {
-      if (version < 0.1) {
+      if (version < 0.15) {
         return {
           ...(persistedState as ChatConfig),
           models: DEFAULT_MODELS as any as LLMModel[],
