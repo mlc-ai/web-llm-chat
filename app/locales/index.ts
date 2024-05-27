@@ -1,5 +1,4 @@
 import en from "./en";
-import { merge } from "../utils/merge";
 
 import type { LocaleType } from "./en";
 export type { LocaleType, PartialLocaleType } from "./en";
@@ -20,11 +19,6 @@ const LANG_KEY = "lang";
 const DEFAULT_LANG = "en";
 
 const fallbackLang = en;
-const targetLang = ALL_LANGS[getLang()] as LocaleType;
-
-// if target lang missing some fields, it will use fallback lang string
-merge(fallbackLang, targetLang);
-
 export default fallbackLang as LocaleType;
 
 function getItem(key: string) {
