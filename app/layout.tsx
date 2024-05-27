@@ -2,7 +2,6 @@
 import "./styles/globals.scss";
 import "./styles/markdown.scss";
 import "./styles/highlight.scss";
-import { getClientConfig } from "./config/client";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -49,7 +48,6 @@ export default function RootLayout({
           httpEquiv="Content-Security-Policy"
           content={cspHeader.replace(/\n/g, "")}
         />
-        <meta name="config" content={JSON.stringify(getClientConfig())} />
         <meta name="referrer" content="strict-origin-when-cross-origin" />
         <meta
           name="viewport"
