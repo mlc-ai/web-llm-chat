@@ -5,7 +5,15 @@ import RemarkBreaks from "remark-breaks";
 import RehypeKatex from "rehype-katex";
 import RemarkGfm from "remark-gfm";
 import RehypeHighlight from "rehype-highlight";
-import { useRef, useState, RefObject, useEffect, useMemo } from "react";
+import {
+  useRef,
+  useState,
+  RefObject,
+  useEffect,
+  useMemo,
+  Component,
+  FC,
+} from "react";
 import { copyToClipboard } from "../utils";
 import mermaid from "mermaid";
 
@@ -13,6 +21,7 @@ import LoadingIcon from "../icons/three-dots.svg";
 import React from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { showImageModal } from "./ui-lib";
+import { PluggableList } from "react-markdown/lib";
 
 export function Mermaid(props: { code: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -60,7 +69,7 @@ export function Mermaid(props: { code: string }) {
   );
 }
 
-export function PreCode(props: { children: any }) {
+export const PreCode = (props: { children: any }) => {
   const ref = useRef<HTMLPreElement>(null);
   const refText = ref.current?.innerText;
   const [mermaidCode, setMermaidCode] = useState("");
@@ -97,7 +106,7 @@ export function PreCode(props: { children: any }) {
       </pre>
     </>
   );
-}
+};
 
 function escapeDollarNumber(text: string) {
   let escapedText = "";
@@ -141,19 +150,21 @@ function _MarkDownContent(props: { content: string }) {
 
   return (
     <ReactMarkdown
-      remarkPlugins={[RemarkMath, RemarkGfm, RemarkBreaks]}
-      rehypePlugins={[
-        RehypeKatex,
+      remarkPlugins={[RemarkMath, RemarkGfm, RemarkBreaks] as PluggableList}
+      rehypePlugins={
         [
-          RehypeHighlight,
-          {
-            detect: false,
-            ignoreMissing: true,
-          },
-        ],
-      ]}
+          RehypeKatex,
+          [
+            RehypeHighlight,
+            {
+              detect: false,
+              ignoreMissing: true,
+            },
+          ],
+        ] as PluggableList
+      }
       components={{
-        pre: PreCode,
+        pre: PreCode as any,
         p: (pProps) => <p {...pProps} dir="auto" />,
         a: (aProps) => {
           const href = aProps.href || "";
