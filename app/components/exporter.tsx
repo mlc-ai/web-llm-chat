@@ -299,36 +299,6 @@ export function RenderExport(props: {
   );
 }
 
-async function sharegpt(
-  messages: ChatMessage[],
-  avatarUrl: string | null = null,
-) {
-  const msgs = messages.map((m) => ({
-    from: m.role === "user" ? "human" : "gpt",
-    value: m.content,
-  }));
-
-  console.log("[Share]", messages, msgs);
-  const proxyUrl = "/sharegpt";
-  const shareUrl = proxyUrl;
-  const res = await fetch(shareUrl, {
-    body: JSON.stringify({
-      avatarUrl,
-      items: msgs,
-    }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-    method: "POST",
-  });
-
-  const resJson = await res.json();
-  console.log("[Share]", resJson);
-  if (resJson.id) {
-    return `https://shareg.pt/${resJson.id}`;
-  }
-}
-
 export function PreviewActions(props: {
   download: () => void;
   copy: () => void;
@@ -337,47 +307,6 @@ export function PreviewActions(props: {
 }) {
   const [loading, setLoading] = useState(false);
   const [shouldExport, setShouldExport] = useState(false);
-  const config = useAppConfig();
-  const onRenderMsgs = (msgs: ChatMessage[]) => {
-    setShouldExport(false);
-
-    sharegpt(msgs)
-      .then((res) => {
-        if (!res) return;
-        showModal({
-          title: Locale.Export.Share,
-          children: [
-            <input
-              type="text"
-              value={res}
-              key="input"
-              style={{
-                width: "100%",
-                maxWidth: "unset",
-              }}
-              readOnly
-              onClick={(e) => e.currentTarget.select()}
-            ></input>,
-          ],
-          actions: [
-            <IconButton
-              icon={<CopyIcon />}
-              text={Locale.Chat.Actions.Copy}
-              key="copy"
-              onClick={() => copyToClipboard(res)}
-            />,
-          ],
-        });
-        setTimeout(() => {
-          window.open(res, "_blank");
-        }, 800);
-      })
-      .catch((e) => {
-        console.error("[Share]", e);
-        showToast(prettyObject(e));
-      })
-      .finally(() => setLoading(false));
-  };
 
   const share = async () => {
     if (props.messages?.length) {
@@ -412,20 +341,6 @@ export function PreviewActions(props: {
           icon={loading ? <LoadingIcon /> : <ShareIcon />}
           onClick={share}
         ></IconButton>
-      </div>
-      <div
-        style={{
-          position: "fixed",
-          right: "200vw",
-          pointerEvents: "none",
-        }}
-      >
-        {shouldExport && (
-          <RenderExport
-            messages={props.messages ?? []}
-            onRender={onRenderMsgs}
-          />
-        )}
       </div>
     </>
   );
