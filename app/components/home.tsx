@@ -215,6 +215,13 @@ const useWebLLM = () => {
     }, 10_000);
   }
 
+  // Update log level once app config loads
+  useEffect(() => {
+    if (webllm?.webllm.engine) {
+      webllm.webllm.engine.setLogLevel(config.logLevel);
+    }
+  }, [config.logLevel, webllm]);
+
   return { webllm, isWebllmActive };
 };
 
@@ -261,17 +268,6 @@ const useStopStreamingMessages = () => {
   }, []);
 };
 
-const useLogLevel = (webllm?: WebLLMApi) => {
-  const config = useAppConfig();
-
-  // Update log level once app config loads
-  useEffect(() => {
-    if (webllm?.webllm.engine) {
-      webllm.webllm.engine.setLogLevel(config.logLevel);
-    }
-  }, [config.logLevel, webllm]);
-};
-
 export function Home() {
   const hasHydrated = useHasHydrated();
   const { webllm, isWebllmActive } = useWebLLM();
@@ -280,7 +276,6 @@ export function Home() {
   useHtmlLang();
   useLoadUrlParam();
   useStopStreamingMessages();
-  useLogLevel(webllm);
 
   if (!hasHydrated || !webllm || !isWebllmActive) {
     return <Loading />;
