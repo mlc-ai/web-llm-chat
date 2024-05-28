@@ -2,33 +2,30 @@
 
 require("../polyfill");
 
-import { useState, useEffect } from "react";
-
 import styles from "./home.module.scss";
 
-import MlcIcon from "../icons/mlc.svg";
-import LoadingIcon from "../icons/three-dots.svg";
-
-import { getCSSVar, useMobileScreen } from "../utils";
-
 import dynamic from "next/dynamic";
-import { Path, SlotID } from "../constant";
-import { ErrorBoundary } from "./error";
-
-import { getISOLang, getLang } from "../locales";
-
+import { useState, useEffect } from "react";
 import {
   HashRouter as Router,
   Routes,
   Route,
   useLocation,
 } from "react-router-dom";
+import { ServiceWorkerMLCEngine } from "@neet-nestor/web-llm";
+
+import MlcIcon from "../icons/mlc.svg";
+import LoadingIcon from "../icons/three-dots.svg";
+
+import Locale from "../locales";
+import { getCSSVar, useMobileScreen } from "../utils";
+import { Path, SlotID } from "../constant";
+import { ErrorBoundary } from "./error";
+import { getISOLang, getLang } from "../locales";
 import { SideBar } from "./sidebar";
 import { useAppConfig } from "../store/config";
 import { WebLLMApi, WebLLMContext } from "../client/webllm";
-import Locale from "../locales";
 import { useChatStore } from "../store";
-import { ServiceWorkerMLCEngine } from "@neet-nestor/web-llm";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -177,7 +174,9 @@ const useWebLLM = () => {
 
     // If service worker registration timeout
     setTimeout(() => {
-      setWebLLM(new WebLLMApi(config.logLevel));
+      if (!webllm) {
+        setWebLLM(new WebLLMApi(config.logLevel));
+      }
     }, 5_000);
   }, []);
 
