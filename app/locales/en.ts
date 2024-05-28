@@ -395,7 +395,7 @@ const en = {
 
   ServiceWorker: {
     Error:
-      "The WebLLM service worker has lost connection. Please close all tabs of WebLLM Chat and try opening WebLLM Chat again.",
+      "The WebLLM worker has lost connection. Please close all tabs of WebLLM Chat and try opening WebLLM Chat again.",
   },
 };
 
