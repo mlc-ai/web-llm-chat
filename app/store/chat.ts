@@ -1,5 +1,6 @@
 import { trimTopic, getMessageTextContent } from "../utils";
 
+import log from "loglevel";
 import Locale, { getLang } from "../locales";
 import { showToast } from "../components/ui-lib";
 import { ModelConfig, ModelType, useAppConfig } from "./config";
@@ -282,7 +283,7 @@ export const useChatStore = createPersistStore(
         const modelConfig = useAppConfig.getState().modelConfig;
 
         const userContent = fillTemplateWith(content, modelConfig);
-        console.log("[User Input] after template: ", userContent);
+        log.debug("[User Input] after template: ", userContent);
 
         let mContent: string | MultimodalContent[] = userContent;
 
@@ -319,7 +320,7 @@ export const useChatStore = createPersistStore(
         const recentMessages = get().getMessagesWithMemory();
         const sendMessages = recentMessages.concat(userMessage);
 
-        console.log("Messages: ", sendMessages);
+        log.debug("Messages: ", sendMessages);
 
         // save user's and bot's message
         get().updateCurrentSession((session) => {
@@ -418,7 +419,7 @@ export const useChatStore = createPersistStore(
             ]
           : [];
         if (shouldInjectSystemPrompts) {
-          console.log(
+          log.debug(
             "[Global System Prompt] ",
             systemPrompts.at(0)?.content ?? "empty",
           );
@@ -555,7 +556,7 @@ export const useChatStore = createPersistStore(
 
         const lastSummarizeIndex = session.messages.length;
 
-        console.log(
+        log.debug(
           "[Chat History] ",
           toBeSummarizedMsgs,
           historyMsgLength,
@@ -598,7 +599,7 @@ export const useChatStore = createPersistStore(
             ]);
           }
 
-          console.log("summarizeSession", messages);
+          log.debug("summarizeSession", messages);
           webllm.chat({
             messages: toBeSummarizedMsgs,
             config: {
@@ -611,14 +612,14 @@ export const useChatStore = createPersistStore(
               session.memoryPrompt = message;
             },
             onFinish(message) {
-              console.log("[Memory] ", message);
+              log.debug("[Memory] ", message);
               get().updateCurrentSession((session) => {
                 session.lastSummarizeIndex = lastSummarizeIndex;
                 session.memoryPrompt = message; // Update the memory prompt for stored it in local storage
               });
             },
             onError(err) {
-              console.error("[Summarize] ", err);
+              log.error("[Summarize] ", err);
             },
           });
         }

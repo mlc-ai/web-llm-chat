@@ -1,5 +1,6 @@
 "use client";
 
+import log from "loglevel";
 import { createContext } from "react";
 import {
   InitProgressReport,
@@ -35,7 +36,7 @@ export class WebLLMApi implements LLMApi {
 
   constructor(logLevel: LogLevel = "WARN") {
     if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
-      console.log("Service Worker API is available and in use.");
+      log.info("Service Worker API is available and in use.");
       this.webllm = {
         type: "serviceWorker",
         engine: new ServiceWorkerMLCEngine(
@@ -44,7 +45,7 @@ export class WebLLMApi implements LLMApi {
         ),
       };
     } else {
-      console.log(
+      log.info(
         "Service Worker API is unavailable. Falling back to use web worker.",
       );
       this.webllm = {
@@ -117,7 +118,7 @@ export class WebLLMApi implements LLMApi {
     } catch (err: any) {
       let errorMessage = err.message || err.toString() || "";
       if (errorMessage === "[object Object]") {
-        console.log(JSON.stringify(err));
+        log.error(JSON.stringify(err));
         errorMessage = JSON.stringify(err);
       }
       if (!errorMessage.includes("Please call `Engine.reload(model)` first")) {

@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import log from "loglevel";
 
 import styles from "./settings.module.scss";
 import AddIcon from "../icons/add.svg";
@@ -487,6 +488,7 @@ export function Settings() {
                 )?.[0] as LogLevel;
 
                 webllm?.webllm.engine.setLogLevel(logLevel);
+                log.setLevel(logLevel);
                 updateConfig((config) => (config.logLevel = logLevel));
               }}
             ></InputRange>

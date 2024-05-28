@@ -2,6 +2,7 @@ import { ServiceWorkerMLCEngineHandler, MLCEngine } from "@neet-nestor/web-llm";
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { CacheFirst, ExpirationPlugin, Serwist } from "serwist";
+import log from "loglevel";
 
 declare const self: ServiceWorkerGlobalScope;
 const CHATGPT_NEXT_WEB_CACHE = "chatgpt-next-web-cache";
@@ -11,7 +12,7 @@ let handler: ServiceWorkerMLCEngineHandler;
 self.addEventListener("message", (event) => {
   if (!handler) {
     handler = new ServiceWorkerMLCEngineHandler(engine);
-    console.log("Service Worker: Web-LLM Engine Activated");
+    log.info("Service Worker: Web-LLM Engine Activated");
   }
 });
 
@@ -29,7 +30,7 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   if (!handler) {
     handler = new ServiceWorkerMLCEngineHandler(engine);
-    console.log("Service Worker: Web-LLM Engine Activated");
+    log.info("Service Worker: Web-LLM Engine Activated");
   }
 });
 

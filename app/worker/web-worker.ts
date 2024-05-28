@@ -1,3 +1,4 @@
+import log from "loglevel";
 import { MLCEngineWorkerHandler, MLCEngine } from "@neet-nestor/web-llm";
 
 const engine = new MLCEngine();
@@ -8,7 +9,7 @@ self.addEventListener("message", (event) => {});
 self.onmessage = (msg: MessageEvent) => {
   if (!handler) {
     handler = new MLCEngineWorkerHandler(engine);
-    console.log("Web Worker: Web-LLM Engine Activated");
+    log.info("Web Worker: Web-LLM Engine Activated");
   }
   handler.onmessage(msg);
 };
