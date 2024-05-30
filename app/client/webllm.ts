@@ -10,10 +10,10 @@ import {
   ChatCompletionChunk,
   ChatCompletion,
   WebWorkerMLCEngine,
-} from "@neet-nestor/web-llm";
+} from "@mlc-ai/web-llm";
 
 import { ChatOptions, LLMApi, LLMConfig, RequestMessage } from "./api";
-import { LogLevel } from "@neet-nestor/web-llm";
+import { LogLevel } from "@mlc-ai/web-llm";
 
 const KEEP_ALIVE_INTERVAL = 5_000;
 

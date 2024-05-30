@@ -13,7 +13,7 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import { ServiceWorkerMLCEngine } from "@neet-nestor/web-llm";
+import { ServiceWorkerMLCEngine } from "@mlc-ai/web-llm";
 
 import MlcIcon from "../icons/mlc.svg";
 import LoadingIcon from "../icons/three-dots.svg";
