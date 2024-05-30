@@ -1,5 +1,5 @@
 import log from "loglevel";
-import { MLCEngineWorkerHandler, MLCEngine } from "@neet-nestor/web-llm";
+import { MLCEngineWorkerHandler, MLCEngine } from "@mlc-ai/web-llm";
 
 const engine = new MLCEngine();
 let handler: MLCEngineWorkerHandler;
