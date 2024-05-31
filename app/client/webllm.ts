@@ -39,10 +39,7 @@ export class WebLLMApi implements LLMApi {
       log.info("Service Worker API is available and in use.");
       this.webllm = {
         type: "serviceWorker",
-        engine: new ServiceWorkerMLCEngine(
-          navigator.serviceWorker.controller,
-          KEEP_ALIVE_INTERVAL,
-        ),
+        engine: new ServiceWorkerMLCEngine(KEEP_ALIVE_INTERVAL),
       };
     } else {
       log.info(
