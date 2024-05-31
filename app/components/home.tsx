@@ -166,53 +166,10 @@ const useWebLLM = () => {
 
   // Initialize WebLLM engine
   useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.ready.then(() => {
-        setWebLLM(new WebLLMApi(config.logLevel));
-
-        // Verify service worker has been activated
-        const heartbeatCallback = (event: MessageEvent) => {
-          const msg = event.data;
-          if (msg.kind === "heartbeat") {
-            log.info("Confirmed messages from Service Worker. Starting app...");
-            setWebllmAlive(true);
-            navigator.serviceWorker.removeEventListener(
-              "message",
-              heartbeatCallback,
-            );
-          }
-        };
-        navigator.serviceWorker.addEventListener("message", heartbeatCallback);
-        navigator.serviceWorker.controller?.postMessage({
-          kind: "keepAlive",
-          uuid: crypto.randomUUID(),
-        });
-      });
-    } else {
-      setWebLLM(new WebLLMApi(config.logLevel));
-      setWebllmAlive(true);
-    }
-
-    // If service worker registration timeout
-    setTimeout(() => {
-      if (!navigator.serviceWorker?.controller && !isWebllmActive && !webllm) {
-        setWebLLM(new WebLLMApi(config.logLevel));
-        setWebllmAlive(true);
-      }
-    }, 5_000);
+    setWebLLM(new WebLLMApi(config.logLevel));
+    setWebllmAlive(true);
   }, []);
 
-  if (webllm?.webllm.type === "serviceWorker") {
-    setInterval(() => {
-      if (webllm) {
-        // 10s per heartbeat, dead after 30 seconds of inactivity
-        setWebllmAlive(
-          !!webllm.webllm.engine &&
-            (webllm.webllm.engine as ServiceWorkerMLCEngine).missedHeatbeat < 3,
-        );
-      }
-    }, 10_000);
-  }
   return { webllm, isWebllmActive };
 };
 

@@ -35,28 +35,14 @@ export class WebLLMApi implements LLMApi {
   webllm: WebLLMHandler;
 
   constructor(logLevel: LogLevel = "WARN") {
-    if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
-      log.info("Service Worker API is available and in use.");
-      this.webllm = {
-        type: "serviceWorker",
-        engine: new ServiceWorkerMLCEngine(
-          navigator.serviceWorker.controller,
-          KEEP_ALIVE_INTERVAL,
-        ),
-      };
-    } else {
-      log.info(
-        "Service Worker API is unavailable. Falling back to use web worker.",
-      );
-      this.webllm = {
-        type: "webWorker",
-        engine: new WebWorkerMLCEngine(
-          new Worker(new URL("../worker/web-worker.ts", import.meta.url), {
-            type: "module",
-          }),
-        ),
-      };
-    }
+    this.webllm = {
+      type: "webWorker",
+      engine: new WebWorkerMLCEngine(
+        new Worker(new URL("../worker/web-worker.ts", import.meta.url), {
+          type: "module",
+        }),
+      ),
+    };
     this.webllm.engine.setLogLevel(logLevel);
   }
 
@@ -67,17 +53,10 @@ export class WebLLMApi implements LLMApi {
     this.webllm.engine.setInitProgressCallback((report: InitProgressReport) => {
       onUpdate?.(report.text, report.text);
     });
-    if (this.webllm.type === "serviceWorker") {
-      await this.webllm.engine.init(this.llmConfig.model, this.llmConfig, {
-        ...prebuiltAppConfig,
-        useIndexedDBCache: this.llmConfig.cache === "index_db",
-      });
-    } else {
-      await this.webllm.engine.reload(this.llmConfig.model, this.llmConfig, {
-        ...prebuiltAppConfig,
-        useIndexedDBCache: this.llmConfig.cache === "index_db",
-      });
-    }
+    await this.webllm.engine.reload(this.llmConfig.model, this.llmConfig, {
+      ...prebuiltAppConfig,
+      useIndexedDBCache: this.llmConfig.cache === "index_db",
+    });
     this.initialized = true;
   }
 
