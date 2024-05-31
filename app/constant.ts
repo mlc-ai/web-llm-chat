@@ -141,14 +141,14 @@ export const DEFAULT_MODELS: LLMModel[] = [
     size: "7B",
     family: "Llama 2",
   },
-  // {
-  //   name: "Llama-2-13b-chat-hf-q4f16_1-MLC",
-  //   display_name: "Llama 2",
-  //   provider: "Meta",
-  //   size: "13B",
-  //   quantization: "q4f16_1",
-  //   family: "Llama 2",
-  // },
+  {
+    name: "Llama-2-13b-chat-hf-q4f16_1-MLC",
+    display_name: "Llama 2",
+    provider: "Meta",
+    size: "13B",
+    quantization: "q4f16_1",
+    family: "Llama 2",
+  },
   {
     name: "WizardMath-7B-V1.1-q4f16_1-MLC",
     display_name: "WizardMath",
