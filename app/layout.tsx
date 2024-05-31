@@ -28,13 +28,14 @@ const cspHeader = `
     default-src 'self';
     script-src 'self' 'unsafe-eval' 'unsafe-inline';
     worker-src 'self';
-    connect-src https:;
+    connect-src 'self' blob: data: https:;
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data: https:;
     font-src 'self';
     object-src 'none';
     base-uri 'self';
     form-action 'self';
+    frame-ancestors 'none';
     upgrade-insecure-requests;
 `;
 
