@@ -2889,6 +2889,11 @@
     "@webassemblyjs/ast" "1.11.6"
     "@xtuc/long" "4.2.2"
 
+"@webgpu/types@^0.1.42":
+  version "0.1.42"
+  resolved "https://registry.yarnpkg.com/@webgpu/types/-/types-0.1.42.tgz#02ce82ae7d486521064eda2e9c7e38697136afe9"
+  integrity sha512-uvJtt4OD1Vjdebrrz3kNLgpOicYbikwnM8WPG6YD2lkCOHDtPdEtCINJFIFtbOCtPfA8SreR/vKyUNbAt92IwQ==
+
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
   resolved "https://registry.npmmirror.com/@xtuc/ieee754/-/ieee754-1.2.0.tgz#eef014a3145ae477a1cbc00cd1e552336dceb790"

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2015",
-    "types": ["@serwist/next/typings"],
+    "types": ["@serwist/next/typings", "@webgpu/types"],
     "lib": ["dom", "dom.iterable", "esnext", "webworker"],
     "allowJs": true,
     "skipLibCheck": true,

@@ -167,36 +167,60 @@ const useWebLLM = () => {
   // Initialize WebLLM engine
   useEffect(() => {
     if ("serviceWorker" in navigator) {
+      log.info("Service Worker API is available and in use.");
       navigator.serviceWorker.ready.then(() => {
-        setWebLLM(new WebLLMApi(config.logLevel));
-
-        // Verify service worker has been activated
-        const heartbeatCallback = (event: MessageEvent) => {
-          const msg = event.data;
-          if (msg.kind === "heartbeat") {
-            log.info("Confirmed messages from Service Worker. Starting app...");
-            setWebllmAlive(true);
+        log.info("Service Worker is activated.");
+        // Check whether WebGPU is available in Service Worker
+        const request = {
+          kind: "checkWebGPUAvilability",
+          uuid: crypto.randomUUID(),
+          content: "",
+        };
+        const webGPUCheckCallback = (event: MessageEvent) => {
+          const message = event.data;
+          if (message.kind === "return" && message.uuid === request.uuid) {
+            const isWebGPUAvailable = message.content;
+            log.info(
+              isWebGPUAvailable
+                ? "Service Worker has WebGPU Available."
+                : "Service Worker does not have available WebGPU.",
+            );
+            if (!webllm && !isWebllmActive) {
+              setWebLLM(
+                new WebLLMApi(
+                  isWebGPUAvailable ? "serviceWorker" : "webWorker",
+                  config.logLevel,
+                ),
+              );
+              setWebllmAlive(true);
+            }
             navigator.serviceWorker.removeEventListener(
               "message",
-              heartbeatCallback,
+              webGPUCheckCallback,
             );
           }
         };
-        navigator.serviceWorker.addEventListener("message", heartbeatCallback);
-        navigator.serviceWorker.controller?.postMessage({
-          kind: "keepAlive",
-          uuid: crypto.randomUUID(),
-        });
+        navigator.serviceWorker.addEventListener(
+          "message",
+          webGPUCheckCallback,
+        );
+        navigator.serviceWorker.controller?.postMessage(request);
       });
     } else {
-      setWebLLM(new WebLLMApi(config.logLevel));
+      log.info(
+        "Service Worker API is unavailable. Falling back to use web worker.",
+      );
+      setWebLLM(new WebLLMApi("webWorker", config.logLevel));
       setWebllmAlive(true);
     }
 
     // If service worker registration timeout
     setTimeout(() => {
       if (!navigator.serviceWorker?.controller && !isWebllmActive && !webllm) {
-        setWebLLM(new WebLLMApi(config.logLevel));
+        log.info(
+          "Service Worker activation is timed out. Falling back to use web worker.",
+        );
+        setWebLLM(new WebLLMApi("webWorker", config.logLevel));
         setWebllmAlive(true);
       }
     }, 5_000);

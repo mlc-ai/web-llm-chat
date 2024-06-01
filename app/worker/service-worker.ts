@@ -2,17 +2,46 @@ import { ServiceWorkerMLCEngineHandler, MLCEngine } from "@neet-nestor/web-llm";
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { CacheFirst, ExpirationPlugin, Serwist } from "serwist";
-import log from "loglevel";
 
 declare const self: ServiceWorkerGlobalScope;
 const CHATGPT_NEXT_WEB_CACHE = "chatgpt-next-web-cache";
 const engine = new MLCEngine();
 let handler: ServiceWorkerMLCEngineHandler;
 
+async function checkGPUAvailablity() {
+  if (!("gpu" in navigator)) {
+    console.log("Service Worker: Web-LLM Engine Activated");
+    return false;
+  }
+  const adapter = await navigator.gpu.requestAdapter();
+  if (!adapter) {
+    console.log("Service Worker: Web-LLM Engine Activated");
+    return false;
+  }
+  return true;
+}
+
 self.addEventListener("message", (event) => {
   if (!handler) {
     handler = new ServiceWorkerMLCEngineHandler(engine);
-    log.info("Service Worker: Web-LLM Engine Activated");
+    console.log("Service Worker: Web-LLM Engine Activated");
+  }
+
+  const msg = event.data;
+  if (msg.kind === "checkWebGPUAvilability") {
+    console.log("Service Worker: Web-LLM Engine Activated");
+    checkGPUAvailablity().then((gpuAvailable) => {
+      console.log(
+        "Service Worker: WebGPU is " +
+          (gpuAvailable ? "available" : "unavailable"),
+      );
+      const reply = {
+        kind: "return",
+        uuid: msg.uuid,
+        content: gpuAvailable,
+      };
+      event.source?.postMessage(reply);
+    });
   }
 });
 
@@ -30,7 +59,7 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   if (!handler) {
     handler = new ServiceWorkerMLCEngineHandler(engine);
-    log.info("Service Worker: Web-LLM Engine Activated");
+    console.log("Service Worker: Web-LLM Engine Activated");
   }
 });
 

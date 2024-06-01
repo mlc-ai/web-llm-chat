@@ -34,17 +34,18 @@ export class WebLLMApi implements LLMApi {
   private initialized = false;
   webllm: WebLLMHandler;
 
-  constructor(logLevel: LogLevel = "WARN") {
-    if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
-      log.info("Service Worker API is available and in use.");
+  constructor(
+    type: "serviceWorker" | "webWorker",
+    logLevel: LogLevel = "WARN",
+  ) {
+    if (type === "serviceWorker") {
+      log.info("Create ServiceWorkerMLCEngine");
       this.webllm = {
         type: "serviceWorker",
         engine: new ServiceWorkerMLCEngine(KEEP_ALIVE_INTERVAL),
       };
     } else {
-      log.info(
-        "Service Worker API is unavailable. Falling back to use web worker.",
-      );
+      log.info("Create WebWorkerMLCEngine");
       this.webllm = {
         type: "webWorker",
         engine: new WebWorkerMLCEngine(
