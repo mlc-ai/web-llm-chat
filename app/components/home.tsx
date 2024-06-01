@@ -176,6 +176,11 @@ const useWebLLM = () => {
           uuid: crypto.randomUUID(),
           content: "",
         };
+
+        const sendEventInterval = setInterval(() => {
+          navigator.serviceWorker.controller?.postMessage(request);
+        }, 500);
+
         const webGPUCheckCallback = (event: MessageEvent) => {
           const message = event.data;
           if (message.kind === "return" && message.uuid === request.uuid) {
@@ -198,13 +203,13 @@ const useWebLLM = () => {
               "message",
               webGPUCheckCallback,
             );
+            clearInterval(sendEventInterval);
           }
         };
         navigator.serviceWorker.addEventListener(
           "message",
           webGPUCheckCallback,
         );
-        navigator.serviceWorker.controller?.postMessage(request);
       });
     } else {
       log.info(
