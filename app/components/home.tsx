@@ -221,7 +221,7 @@ const useWebLLM = () => {
 
     // If service worker registration timeout
     setTimeout(() => {
-      if (!navigator.serviceWorker?.controller && !isWebllmActive && !webllm) {
+      if (!isWebllmActive && !webllm) {
         log.info(
           "Service Worker activation is timed out. Falling back to use web worker.",
         );
