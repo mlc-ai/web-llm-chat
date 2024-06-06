@@ -240,7 +240,7 @@ const useWebLLM = () => {
             (webllm.webllm.engine as ServiceWorkerMLCEngine).missedHeatbeat < 3,
         );
       }
-    }, 10_000);
+    }, 10000);
   }
   return { webllm, isWebllmActive };
 };
