@@ -228,7 +228,7 @@ const useWebLLM = () => {
         setWebLLM(new WebLLMApi("webWorker", config.logLevel));
         setWebllmAlive(true);
       }
-    }, 5_000);
+    }, 5000);
   }, []);
 
   if (webllm?.webllm.type === "serviceWorker") {
