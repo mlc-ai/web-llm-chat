@@ -43,7 +43,7 @@ export interface LLMUsage {
   total: number;
 }
 
-export interface LLMModel {
+export interface ModelRecord {
   name: string;
   display_name: string;
   provider?: string;
@@ -52,6 +52,10 @@ export interface LLMModel {
   context_length?: string;
   is_default?: boolean;
   family?: string;
+  vram_required_MB?: number;
+  buffer_size_required_bytes?: number;
+  low_resource_required?: boolean;
+  required_features?: string[];
 }
 
 export abstract class LLMApi {

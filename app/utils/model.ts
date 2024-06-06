@@ -1,7 +1,7 @@
-import { LLMModel } from "../client/api";
+import { ModelRecord } from "../client/api";
 
 export function collectModelTable(
-  models: readonly LLMModel[],
+  models: readonly ModelRecord[],
   customModels: string,
 ) {
   const modelTable: Record<
@@ -9,7 +9,7 @@ export function collectModelTable(
     {
       name: string;
       display_name: string;
-      provider?: LLMModel["provider"]; // Marked as optional
+      provider?: ModelRecord["provider"]; // Marked as optional
       isDefault?: boolean;
     }
   > = {};
@@ -46,7 +46,7 @@ export function collectModelTable(
  * Generate full model table.
  */
 export function collectModels(
-  models: readonly LLMModel[],
+  models: readonly ModelRecord[],
   customModels: string,
 ) {
   const modelTable = collectModelTable(models, customModels);
