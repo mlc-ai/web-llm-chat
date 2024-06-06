@@ -58,15 +58,19 @@ body:
 
   - type: markdown
     attributes:
-      value: "## Desktop (please complete the following information):"
+      value: "## LLM in use (please complete if the issue happens while chatting with a specific model)"
   - type: input
-    id: desktop-os
+    id: model-in-use
     attributes:
-      label: "Desktop OS"
-      description: "Your desktop operating system."
-      placeholder: "e.g., Windows 10"
+      label: "LLM Model ID"
+      description: "Which language model are you using when the issue occured? (if)"
+      placeholder: "e.g., Llama-3-8B-Instruct-q4f32_1-MLC"
     validations:
       required: false
+
+  - type: markdown
+    attributes:
+      value: "## Desktop (please complete the following information):"
   - type: input
     id: desktop-browser
     attributes:
@@ -87,14 +91,6 @@ body:
   - type: markdown
     attributes:
       value: "## Smartphone (please complete the following information):"
-  - type: input
-    id: smartphone-device
-    attributes:
-      label: "Smartphone Device"
-      description: "Your smartphone device."
-      placeholder: "e.g., iPhone X"
-    validations:
-      required: false
   - type: input
     id: smartphone-os
     attributes:
