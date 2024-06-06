@@ -179,7 +179,7 @@ const useWebLLM = () => {
 
         const sendEventInterval = setInterval(() => {
           navigator.serviceWorker.controller?.postMessage(request);
-        }, 500);
+        }, 200);
 
         const webGPUCheckCallback = (event: MessageEvent) => {
           const message = event.data;
@@ -228,7 +228,7 @@ const useWebLLM = () => {
         setWebLLM(new WebLLMApi("webWorker", config.logLevel));
         setWebllmAlive(true);
       }
-    }, 5_000);
+    }, 3_000);
   }, []);
 
   if (webllm?.webllm.type === "serviceWorker") {
