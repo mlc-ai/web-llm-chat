@@ -15,7 +15,7 @@ import {
 import { ChatOptions, LLMApi, LLMConfig, RequestMessage } from "./api";
 import { LogLevel } from "@neet-nestor/web-llm";
 
-const KEEP_ALIVE_INTERVAL = 5_000;
+const KEEP_ALIVE_INTERVAL = 5000;
 
 type ServiceWorkerWebLLMHandler = {
   type: "serviceWorker";
