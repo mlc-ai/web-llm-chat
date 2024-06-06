@@ -45,6 +45,15 @@
 .chat-input-actions {
   display: flex;
   flex-wrap: wrap;
+  position: relative;
+
+  .tooltip {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+
+    text-align: center;
+  }
 
   .chat-input-action {
     display: inline-flex;
@@ -595,9 +604,19 @@
 .chat-input-panel-inner {
   cursor: text;
   display: flex;
+  position: relative;
   flex: 1;
   border-radius: 10px;
   border: var(--border-in-light);
+
+  .chat-input-send {
+    background-color: var(--primary);
+    color: white;
+
+    position: absolute;
+    right: 10px;
+    bottom: 12px;
+  }
 }
 
 .chat-input-panel-inner-attach {
@@ -622,15 +641,6 @@
   outline: none;
   box-sizing: border-box;
   min-height: 68px;
-}
-
-.chat-input-send {
-  background-color: var(--primary);
-  color: white;
-
-  position: absolute;
-  right: 30px;
-  bottom: 32px;
 }
 
 @media only screen and (max-width: 600px) {

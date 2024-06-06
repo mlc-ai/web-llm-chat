@@ -275,10 +275,11 @@ export const useChatStore = createPersistStore(
         get().summarizeSession(webllm);
       },
 
-      async onUserInput(
+      onUserInput(
         content: string,
         webllm: WebLLMApi,
         attachImages?: string[],
+        onFinish?: () => void,
       ) {
         const modelConfig = useAppConfig.getState().modelConfig;
 
@@ -361,6 +362,7 @@ export const useChatStore = createPersistStore(
             get().updateCurrentSession((session) => {
               session.isGenerating = false;
             });
+            onFinish?.();
           },
           onError(error) {
             const errorMessage =

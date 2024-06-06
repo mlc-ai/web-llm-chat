@@ -38,6 +38,39 @@ export function Popover(props: {
   );
 }
 
+export function Tooltip(props: {
+  content: JSX.Element;
+  children: JSX.Element;
+  direction?: "left" | "right" | "top" | "bottom";
+}) {
+  const [visible, setVisible] = useState(false);
+
+  const showTooltip = () => setVisible(true);
+  const hideTooltip = () => setVisible(false);
+
+  const direction = props.direction || "top";
+
+  return (
+    <div className={styles.tooltip}>
+      {/* The anchor component */}
+      <div onMouseOver={showTooltip} onMouseOut={hideTooltip}>
+        {props.children}
+      </div>
+
+      {/* Tooltip content */}
+      {visible && (
+        <div
+          className={`${styles["tooltip-content"]} ${
+            styles["tooltip-content-" + direction]
+          }`}
+        >
+          {props.content}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function Card(props: { children: JSX.Element[]; className?: string }) {
   return (
     <div className={styles.card + " " + props.className}>{props.children}</div>

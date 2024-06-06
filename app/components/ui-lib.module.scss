@@ -36,6 +36,50 @@
   backdrop-filter: blur(5px);
 }
 
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-content {
+  position: absolute;
+  padding: 8px;
+  background-color: black;
+  color: white;
+  border-radius: 4px;
+  z-index: 3;
+  white-space: nowrap;
+  font-size: 12px;
+
+  &.tooltip-content-left {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 4px;
+  }
+
+  &.tooltip-content-right {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 4px;
+  }
+
+  &.tooltip-content-top {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 4px 0;
+  }
+
+  &.tooltip-content-bottom {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 4px 0;
+  }
+}
+
 .list-item {
   display: flex;
   justify-content: space-between;

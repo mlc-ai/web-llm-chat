@@ -8,6 +8,7 @@ import React, {
   Fragment,
   RefObject,
   useContext,
+  ReactElement,
 } from "react";
 
 import ShareIcon from "../icons/share.svg";
@@ -28,6 +29,7 @@ import DeleteIcon from "../icons/clear.svg";
 import PinIcon from "../icons/pin.svg";
 import EditIcon from "../icons/rename.svg";
 import ConfirmIcon from "../icons/confirm.svg";
+import InfoIcon from "../icons/info.svg";
 import CancelIcon from "../icons/cancel.svg";
 import ImageIcon from "../icons/image.svg";
 
@@ -71,6 +73,7 @@ import {
   Modal,
   Popover,
   Selector,
+  Tooltip,
   showConfirm,
   showPrompt,
   showToast,
@@ -485,6 +488,7 @@ export function ChatActions(props: {
   showPromptHints: () => void;
   hitBottom: boolean;
   uploading: boolean;
+  tootip?: ReactElement;
 }) {
   const config = useAppConfig();
   const chatStore = useChatStore();
@@ -556,6 +560,18 @@ export function ChatActions(props: {
         icon={<RobotIcon />}
         fullWidth
       />
+      {props.tootip && (
+        <div className={styles.tooltip}>
+          <Tooltip
+            direction="left"
+            content={
+              <div style={{ fontSize: config.fontSize }}>{props.tootip}</div>
+            }
+          >
+            {<InfoIcon />}
+          </Tooltip>
+        </div>
+      )}
 
       {showModelSelector && (
         <Selector
@@ -595,10 +611,12 @@ function _Chat() {
   const isStreaming = session.messages.some((m) => m.streaming);
 
   const [showExport, setShowExport] = useState(false);
+  const [engineStat, setEngineStats] = useState<ReactElement | undefined>(
+    undefined,
+  );
 
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [userInput, setUserInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const { submitKey, shouldSubmit } = useSubmitHandler();
   const scrollRef = useRef<HTMLDivElement>(null);
   const isScrolledToBottom = scrollRef?.current
@@ -684,6 +702,23 @@ function _Chat() {
     }
   };
 
+  const getEngineStats = () => {
+    webllm.webllm.engine.runtimeStatsText().then((stats) => {
+      const lines = stats.split(", ");
+      setEngineStats(
+        <>
+          <b>WebLLM Engine Statistics</b>
+          {lines.map((line) => (
+            <>
+              <br />
+              <span>{line}</span>
+            </>
+          ))}
+        </>,
+      );
+    });
+  };
+
   const onSubmit = (userInput: string) => {
     if (userInput.trim() === "") return;
 
@@ -697,10 +732,7 @@ function _Chat() {
 
     if (isStreaming) return;
 
-    setIsLoading(true);
-    chatStore
-      .onUserInput(userInput, webllm, attachImages)
-      .then(() => setIsLoading(false));
+    chatStore.onUserInput(userInput, webllm, attachImages, getEngineStats);
     setAttachImages([]);
     localStorage.setItem(LAST_INPUT_KEY, userInput);
     setUserInput("");
@@ -849,12 +881,9 @@ function _Chat() {
     deleteMessage(botMessage?.id);
 
     // resend the message
-    setIsLoading(true);
     const textContent = getMessageTextContent(userMessage);
     const images = getMessageImages(userMessage);
-    chatStore
-      .onUserInput(textContent, webllm, images)
-      .then(() => setIsLoading(false));
+    chatStore.onUserInput(textContent, webllm, images, getEngineStats);
     inputRef.current?.focus();
   };
 
@@ -872,41 +901,20 @@ function _Chat() {
 
   // preview messages
   const renderMessages = useMemo(() => {
-    return context
-      .concat(session.messages as RenderMessage[])
-      .concat(
-        isLoading
-          ? [
-              {
-                ...createMessage({
-                  role: "assistant",
-                  content: "……",
-                }),
-                preview: true,
-              },
-            ]
-          : [],
-      )
-      .concat(
-        userInput.length > 0 && config.sendPreviewBubble
-          ? [
-              {
-                ...createMessage({
-                  role: "user",
-                  content: userInput,
-                }),
-                preview: true,
-              },
-            ]
-          : [],
-      );
-  }, [
-    config.sendPreviewBubble,
-    context,
-    isLoading,
-    session.messages,
-    userInput,
-  ]);
+    return context.concat(session.messages as RenderMessage[]).concat(
+      userInput.length > 0 && config.sendPreviewBubble
+        ? [
+            {
+              ...createMessage({
+                role: "user",
+                content: userInput,
+              }),
+              preview: true,
+            },
+          ]
+        : [],
+    );
+  }, [config.sendPreviewBubble, context, session.messages, userInput]);
 
   const [msgRenderIndex, _setMsgRenderIndex] = useState(
     Math.max(0, renderMessages.length - CHAT_PAGE_SIZE),
@@ -1380,6 +1388,7 @@ function _Chat() {
           scrollToBottom={scrollToBottom}
           hitBottom={hitBottom}
           uploading={uploading}
+          tootip={engineStat}
           showPromptSetting={() => setShowEditPromptModal(true)}
           showPromptHints={() => {
             // Click again to close
