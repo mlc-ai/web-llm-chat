@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import { useAppConfig } from "../store";
 import { collectModels } from "./model";
-import { LLMModel } from "../client/api";
+import { ModelRecord } from "../client/api";
 
-export function useAllModels(): LLMModel[] {
+export function useAllModels(): ModelRecord[] {
   const configStore = useAppConfig();
   const models = useMemo(() => {
     return collectModels(configStore.models, configStore.customModels);

@@ -1,5 +1,5 @@
 import { LogLevel } from "@neet-nestor/web-llm";
-import { LLMModel } from "../client/api";
+import { ModelRecord } from "../client/api";
 import {
   DEFAULT_INPUT_TEMPLATE,
   DEFAULT_MODELS,
@@ -48,7 +48,7 @@ export const DEFAULT_CONFIG = {
   cacheType: "cache" as CacheType,
   logLevel: "INFO" as LogLevel,
   customModels: "",
-  models: DEFAULT_MODELS as any as LLMModel[],
+  models: DEFAULT_MODELS as any as ModelRecord[],
 
   modelConfig: {
     model: DEFAULT_MODELS[0].name,
@@ -110,13 +110,13 @@ export const useAppConfig = createPersistStore(
       set(() => ({ ...DEFAULT_CONFIG }));
     },
 
-    mergeModels(newModels: LLMModel[]) {
+    mergeModels(newModels: ModelRecord[]) {
       if (!newModels || newModels.length === 0) {
         return;
       }
 
       const oldModels = get().models;
-      const modelMap: Record<string, LLMModel> = {};
+      const modelMap: Record<string, ModelRecord> = {};
 
       for (const model of oldModels) {
         modelMap[model.name] = model;
@@ -147,12 +147,12 @@ export const useAppConfig = createPersistStore(
   }),
   {
     name: StoreKey.Config,
-    version: 0.31,
+    version: 0.32,
     migrate: (persistedState, version) => {
       if (version < 0.3) {
         return {
           ...(persistedState as ChatConfig),
-          models: DEFAULT_MODELS as any as LLMModel[],
+          models: DEFAULT_MODELS as any as ModelRecord[],
 
           logLevel: "WARN",
           modelConfig: {
@@ -174,6 +174,25 @@ export const useAppConfig = createPersistStore(
         return {
           ...(persistedState as ChatConfig),
           ...{ logLevel: "INFO" },
+        };
+      }
+      if (version === 0.31) {
+        return {
+          ...(persistedState as ChatConfig),
+          models: DEFAULT_MODELS as any as ModelRecord[],
+          modelConfig: {
+            model: DEFAULT_MODELS[0].name,
+            temperature: 1.0,
+            top_p: 1,
+            max_tokens: 4000,
+            presence_penalty: 0,
+            frequency_penalty: 0,
+            sendMemory: true,
+            historyMessageCount: 4,
+            compressMessageLengthThreshold: 1000,
+            enableInjectSystemPrompts: false,
+            template: DEFAULT_INPUT_TEMPLATE,
+          },
         };
       }
 
