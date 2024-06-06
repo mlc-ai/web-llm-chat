@@ -73,6 +73,6 @@ WebLLM Chat thrives on community involvement. We are committed to fostering an i
 
 ## Acknowledgements
 
-WebLLM Chat is built upon the remarkable work of the [WebLLM](https://github.com/mlc-ai/web-llm/) and [NextChat](https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web) projects. We extend our sincere gratitude to the developers and contributors of these projects for their invaluable efforts in advancing the field of browser-based AI and creating user-friendly chat interfaces.
+WebLLM Chat is a companion project of [WebLLM](https://github.com/mlc-ai/web-llm/) and it is built upon the remarkable work of [NextChat](https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web). We extend our sincere gratitude to the developers and contributors of these projects for their invaluable efforts in advancing the field of browser-based AI and creating user-friendly chat interfaces.
 
 Further more, this project is only possible thanks to the shoulders of open-source ecosystems that we stand on. We want to thank the Apache TVM community and developers of the TVM Unity effort. The open-source ML community members made these models publicly available. PyTorch and Hugging Face communities make these models accessible. We would like to thank the teams behind Vicuna, SentencePiece, LLaMA, Alpaca. We also would like to thank the WebAssembly, Emscripten, and WebGPU communities. Finally, thanks to Dawn and WebGPU developers.
