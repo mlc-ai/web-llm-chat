@@ -46,7 +46,7 @@ export const DEFAULT_CONFIG = {
   hideBuiltinTemplates: false, // dont add builtin masks
 
   cacheType: "cache" as CacheType,
-  logLevel: "WARN" as LogLevel,
+  logLevel: "INFO" as LogLevel,
   customModels: "",
   models: DEFAULT_MODELS as any as LLMModel[],
 
@@ -147,7 +147,7 @@ export const useAppConfig = createPersistStore(
   }),
   {
     name: StoreKey.Config,
-    version: 0.3,
+    version: 0.31,
     migrate: (persistedState, version) => {
       if (version < 0.3) {
         return {
@@ -168,6 +168,12 @@ export const useAppConfig = createPersistStore(
             enableInjectSystemPrompts: false,
             template: DEFAULT_INPUT_TEMPLATE,
           },
+        };
+      }
+      if (version === 0.3) {
+        return {
+          ...(persistedState as ChatConfig),
+          ...{ logLevel: "INFO" },
         };
       }
 
