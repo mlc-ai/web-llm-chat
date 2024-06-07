@@ -173,26 +173,18 @@ export const useAppConfig = createPersistStore(
       if (version === 0.3) {
         return {
           ...(persistedState as ChatConfig),
-          ...{ logLevel: "INFO" },
+          logLevel: "INFO",
         };
       }
       if (version === 0.31) {
+        let modelConfig = (persistedState as ChatConfig).modelConfig;
+        if (!DEFAULT_MODELS.some((model) => model.name === modelConfig.model)) {
+          modelConfig.model = DEFAULT_MODELS[0].name;
+        }
         return {
           ...(persistedState as ChatConfig),
           models: DEFAULT_MODELS as any as ModelRecord[],
-          modelConfig: {
-            model: DEFAULT_MODELS[0].name,
-            temperature: 1.0,
-            top_p: 1,
-            max_tokens: 4000,
-            presence_penalty: 0,
-            frequency_penalty: 0,
-            sendMemory: true,
-            historyMessageCount: 4,
-            compressMessageLengthThreshold: 1000,
-            enableInjectSystemPrompts: false,
-            template: DEFAULT_INPUT_TEMPLATE,
-          },
+          modelConfig,
         };
       }
 
