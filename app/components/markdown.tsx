@@ -5,15 +5,7 @@ import RemarkBreaks from "remark-breaks";
 import RehypeKatex from "rehype-katex";
 import RemarkGfm from "remark-gfm";
 import RehypeHighlight from "rehype-highlight";
-import {
-  useRef,
-  useState,
-  RefObject,
-  useEffect,
-  useMemo,
-  Component,
-  FC,
-} from "react";
+import { useRef, useState, RefObject, useEffect, useMemo } from "react";
 import { copyToClipboard } from "../utils";
 import mermaid from "mermaid";
 
