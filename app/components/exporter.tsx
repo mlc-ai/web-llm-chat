@@ -253,52 +253,6 @@ export function MessageExporter() {
   );
 }
 
-export function RenderExport(props: {
-  messages: ChatMessage[];
-  onRender: (messages: ChatMessage[]) => void;
-}) {
-  const domRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!domRef.current) return;
-    const dom = domRef.current;
-    const messages = Array.from(
-      dom.getElementsByClassName(EXPORT_MESSAGE_CLASS_NAME),
-    );
-
-    if (messages.length !== props.messages.length) {
-      return;
-    }
-
-    const renderMsgs = messages.map((v, i) => {
-      const [role, _] = v.id.split(":");
-      return {
-        id: i.toString(),
-        role: role as any,
-        content: role === "user" ? v.textContent ?? "" : v.innerHTML,
-        date: "",
-      };
-    });
-
-    props.onRender(renderMsgs);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return (
-    <div ref={domRef}>
-      {props.messages.map((m, i) => (
-        <div
-          key={i}
-          id={`${m.role}:${i}`}
-          className={EXPORT_MESSAGE_CLASS_NAME}
-        >
-          <Markdown content={getMessageTextContent(m)} defaultShow />
-        </div>
-      ))}
-    </div>
-  );
-}
-
 export function PreviewActions(props: {
   download: () => void;
   copy: () => void;
@@ -306,12 +260,10 @@ export function PreviewActions(props: {
   messages?: ChatMessage[];
 }) {
   const [loading, setLoading] = useState(false);
-  const [shouldExport, setShouldExport] = useState(false);
 
   const share = async () => {
     if (props.messages?.length) {
       setLoading(true);
-      setShouldExport(true);
     }
   };
 
