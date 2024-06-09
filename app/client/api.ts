@@ -1,3 +1,4 @@
+import { CompletionUsage } from "@neet-nestor/web-llm";
 import { CacheType, ModelType } from "../store";
 export const ROLES = ["system", "user", "assistant"] as const;
 export type MessageRole = (typeof ROLES)[number];
@@ -33,7 +34,7 @@ export interface ChatOptions {
   config: LLMConfig;
 
   onUpdate?: (message: string, chunk: string) => void;
-  onFinish: (message: string) => void;
+  onFinish: (message: string, usage?: CompletionUsage) => void;
   onError?: (err: Error) => void;
   onController?: (controller: AbortController) => void;
 }

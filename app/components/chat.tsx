@@ -488,7 +488,6 @@ export function ChatActions(props: {
   showPromptHints: () => void;
   hitBottom: boolean;
   uploading: boolean;
-  tootip?: ReactElement;
 }) {
   const config = useAppConfig();
   const chatStore = useChatStore();
@@ -560,19 +559,6 @@ export function ChatActions(props: {
         icon={<RobotIcon />}
         fullWidth
       />
-      {props.tootip && (
-        <div className={styles.tooltip}>
-          <Tooltip
-            direction="left"
-            content={
-              <div style={{ fontSize: config.fontSize }}>{props.tootip}</div>
-            }
-          >
-            {<InfoIcon />}
-          </Tooltip>
-        </div>
-      )}
-
       {showModelSelector && (
         <Selector
           defaultSelectedValue={currentModel}
@@ -702,23 +688,6 @@ function _Chat() {
     }
   };
 
-  const getEngineStats = () => {
-    webllm.webllm.engine.runtimeStatsText().then((stats) => {
-      const lines = stats.split(", ");
-      setEngineStats(
-        <>
-          <b>WebLLM Engine Statistics</b>
-          {lines.map((line) => (
-            <>
-              <br />
-              <span>{line}</span>
-            </>
-          ))}
-        </>,
-      );
-    });
-  };
-
   const onSubmit = (userInput: string) => {
     if (userInput.trim() === "") return;
 
@@ -732,7 +701,7 @@ function _Chat() {
 
     if (isStreaming) return;
 
-    chatStore.onUserInput(userInput, webllm, attachImages, getEngineStats);
+    chatStore.onUserInput(userInput, webllm, attachImages);
     setAttachImages([]);
     localStorage.setItem(LAST_INPUT_KEY, userInput);
     setUserInput("");
@@ -883,7 +852,7 @@ function _Chat() {
     // resend the message
     const textContent = getMessageTextContent(userMessage);
     const images = getMessageImages(userMessage);
-    chatStore.onUserInput(textContent, webllm, images, getEngineStats);
+    chatStore.onUserInput(textContent, webllm, images);
     inputRef.current?.focus();
   };
 
@@ -1366,6 +1335,38 @@ function _Chat() {
                   </div>
 
                   <div className={styles["chat-message-action-date"]}>
+                    {message.usage && (
+                      <div className={styles.tooltip}>
+                        <Tooltip
+                          direction="top"
+                          content={
+                            <div style={{ fontSize: config.fontSize }}>
+                              <span>
+                                {`Prompt Tokens: ${message.usage.prompt_tokens}`}
+                              </span>
+                              <br />
+                              <span>
+                                {`Completion Tokens: ${message.usage.completion_tokens}`}
+                              </span>
+                              <br />
+                              <span>
+                                {`Prefill: ${message.usage.extra.prefill_tokens_per_s.toFixed(
+                                  4,
+                                )} tokens/sec`}
+                              </span>
+                              <br />
+                              <span>
+                                {`Decoding: ${message.usage.extra.decode_tokens_per_s.toFixed(
+                                  4,
+                                )} tokens/sec`}
+                              </span>
+                            </div>
+                          }
+                        >
+                          {<InfoIcon />}
+                        </Tooltip>
+                      </div>
+                    )}
                     {isContext
                       ? Locale.Chat.IsContext
                       : message.date.toLocaleString()}
@@ -1388,7 +1389,6 @@ function _Chat() {
           scrollToBottom={scrollToBottom}
           hitBottom={hitBottom}
           uploading={uploading}
-          tootip={engineStat}
           showPromptSetting={() => setShowEditPromptModal(true)}
           showPromptHints={() => {
             // Click again to close

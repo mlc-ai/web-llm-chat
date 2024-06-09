@@ -53,7 +53,11 @@ export function Tooltip(props: {
   return (
     <div className={styles.tooltip}>
       {/* The anchor component */}
-      <div onMouseOver={showTooltip} onMouseOut={hideTooltip}>
+      <div
+        className={styles["tooltip-icon"]}
+        onMouseOver={showTooltip}
+        onMouseOut={hideTooltip}
+      >
         {props.children}
       </div>
 

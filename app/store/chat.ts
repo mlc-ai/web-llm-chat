@@ -12,11 +12,11 @@ import {
   StoreKey,
 } from "../constant";
 import { RequestMessage, MultimodalContent } from "../client/api";
-import { prettyObject } from "../utils/format";
 import { estimateTokenLength } from "../utils/token";
 import { nanoid } from "nanoid";
 import { createPersistStore } from "../utils/store";
 import { WebLLMApi } from "../client/webllm";
+import { CompletionUsage } from "@neet-nestor/web-llm";
 
 export type ChatMessage = RequestMessage & {
   date: string;
@@ -24,6 +24,7 @@ export type ChatMessage = RequestMessage & {
   isError?: boolean;
   id: string;
   model?: ModelType;
+  usage?: CompletionUsage;
 };
 
 export function createMessage(override: Partial<ChatMessage>): ChatMessage {
@@ -275,12 +276,7 @@ export const useChatStore = createPersistStore(
         get().summarizeSession(webllm);
       },
 
-      onUserInput(
-        content: string,
-        webllm: WebLLMApi,
-        attachImages?: string[],
-        onFinish?: () => void,
-      ) {
+      onUserInput(content: string, webllm: WebLLMApi, attachImages?: string[]) {
         const modelConfig = useAppConfig.getState().modelConfig;
 
         const userContent = fillTemplateWith(content, modelConfig);
@@ -353,8 +349,9 @@ export const useChatStore = createPersistStore(
               session.messages = session.messages.concat();
             });
           },
-          onFinish(message) {
+          onFinish(message, usage) {
             botMessage.streaming = false;
+            botMessage.usage = usage;
             if (message) {
               botMessage.content = message;
               get().onNewMessage(botMessage, webllm);
@@ -362,7 +359,6 @@ export const useChatStore = createPersistStore(
             get().updateCurrentSession((session) => {
               session.isGenerating = false;
             });
-            onFinish?.();
           },
           onError(error) {
             const errorMessage =

@@ -518,8 +518,16 @@
   width: 100%;
   box-sizing: border-box;
   padding-right: 10px;
-  pointer-events: none;
   z-index: 1;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 4px;
+
+  .tooltip {
+    width: 14px;
+    height: 14px;
+  }
 }
 
 .chat-message-user>.chat-message-container>.chat-message-item {

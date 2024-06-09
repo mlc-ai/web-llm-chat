@@ -38,7 +38,20 @@
 
 .tooltip {
   position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.tooltip-icon {
+  display: flex;
+  align-items: center;
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
 }
 
 .tooltip-content {
@@ -50,6 +63,7 @@
   z-index: 3;
   white-space: nowrap;
   font-size: 12px;
+  text-align: center;
 
   &.tooltip-content-left {
     right: 100%;
