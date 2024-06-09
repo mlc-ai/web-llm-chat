@@ -6,7 +6,7 @@ import styles from "./home.module.scss";
 
 import log from "loglevel";
 import dynamic from "next/dynamic";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   HashRouter as Router,
   Routes,
@@ -164,6 +164,19 @@ const useWebLLM = () => {
   const [webllm, setWebLLM] = useState<WebLLMApi | undefined>(undefined);
   const [isWebllmActive, setWebllmAlive] = useState(false);
 
+  const isWebllmInitialized = useRef(false);
+
+  // If service worker registration timeout, fall back to web worker
+  const timeout = setTimeout(() => {
+    if (!isWebllmInitialized.current && !isWebllmActive && !webllm) {
+      log.info(
+        "Service Worker activation is timed out. Falling back to use web worker.",
+      );
+      setWebLLM(new WebLLMApi("webWorker", config.logLevel));
+      setWebllmAlive(true);
+    }
+  }, 2_000);
+
   // Initialize WebLLM engine
   useEffect(() => {
     if ("serviceWorker" in navigator) {
@@ -198,6 +211,8 @@ const useWebLLM = () => {
                 ),
               );
               setWebllmAlive(true);
+              isWebllmInitialized.current = true;
+              clearTimeout(timeout);
             }
             navigator.serviceWorker.removeEventListener(
               "message",
@@ -217,18 +232,9 @@ const useWebLLM = () => {
       );
       setWebLLM(new WebLLMApi("webWorker", config.logLevel));
       setWebllmAlive(true);
+      isWebllmInitialized.current = true;
+      clearTimeout(timeout);
     }
-
-    // If service worker registration timeout
-    setTimeout(() => {
-      if (!isWebllmActive && !webllm) {
-        log.info(
-          "Service Worker activation is timed out. Falling back to use web worker.",
-        );
-        setWebLLM(new WebLLMApi("webWorker", config.logLevel));
-        setWebllmAlive(true);
-      }
-    }, 3_000);
   }, []);
 
   if (webllm?.webllm.type === "serviceWorker") {
