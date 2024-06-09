@@ -1335,50 +1335,51 @@ function _Chat() {
                   </div>
 
                   <div className={styles["chat-message-action-date"]}>
-                    {(message.stopReason || message.usage) && (
-                      <div className={styles.tooltip}>
-                        <Tooltip
-                          direction="top"
-                          content={
-                            <div style={{ fontSize: config.fontSize }}>
-                              {message.stopReason && (
-                                <>
-                                  <span>
-                                    {`Stop Reason: ${message.stopReason}`}
-                                  </span>
-                                  <br />
-                                </>
-                              )}
-                              {message.usage && (
-                                <>
-                                  <span>
-                                    {`Prompt Tokens: ${message.usage.prompt_tokens}`}
-                                  </span>
-                                  <br />
-                                  <span>
-                                    {`Completion Tokens: ${message.usage.completion_tokens}`}
-                                  </span>
-                                  <br />
-                                  <span>
-                                    {`Prefill: ${message.usage.extra.prefill_tokens_per_s.toFixed(
-                                      4,
-                                    )} tokens/sec`}
-                                  </span>
-                                  <br />
-                                  <span>
-                                    {`Decoding: ${message.usage.extra.decode_tokens_per_s.toFixed(
-                                      4,
-                                    )} tokens/sec`}
-                                  </span>
-                                </>
-                              )}
-                            </div>
-                          }
-                        >
-                          {<InfoIcon />}
-                        </Tooltip>
-                      </div>
-                    )}
+                    {message.role !== "user" &&
+                      (message.stopReason || message.usage) && (
+                        <div className={styles.tooltip}>
+                          <Tooltip
+                            direction="top"
+                            content={
+                              <div style={{ fontSize: config.fontSize }}>
+                                {message.stopReason && (
+                                  <>
+                                    <span>
+                                      {`Stop Reason: ${message.stopReason}`}
+                                    </span>
+                                    <br />
+                                  </>
+                                )}
+                                {message.usage && (
+                                  <>
+                                    <span>
+                                      {`Prompt Tokens: ${message.usage.prompt_tokens}`}
+                                    </span>
+                                    <br />
+                                    <span>
+                                      {`Completion Tokens: ${message.usage.completion_tokens}`}
+                                    </span>
+                                    <br />
+                                    <span>
+                                      {`Prefill: ${message.usage.extra.prefill_tokens_per_s.toFixed(
+                                        4,
+                                      )} tokens/sec`}
+                                    </span>
+                                    <br />
+                                    <span>
+                                      {`Decoding: ${message.usage.extra.decode_tokens_per_s.toFixed(
+                                        4,
+                                      )} tokens/sec`}
+                                    </span>
+                                  </>
+                                )}
+                              </div>
+                            }
+                          >
+                            {<InfoIcon />}
+                          </Tooltip>
+                        </div>
+                      )}
                     {isContext
                       ? Locale.Chat.IsContext
                       : message.date.toLocaleString()}
