@@ -1335,7 +1335,8 @@ function _Chat() {
                   </div>
 
                   <div className={styles["chat-message-action-date"]}>
-                    {message.role === "assistant" &&
+                    {!isContext &&
+                      message.role === "assistant" &&
                       (message.stopReason || message.usage) && (
                         <div className={styles.tooltip}>
                           <Tooltip
