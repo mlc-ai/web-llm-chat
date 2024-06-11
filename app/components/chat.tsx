@@ -91,7 +91,6 @@ import { ContextPrompts, TemplateAvatar, TemplateConfig } from "./template";
 import { ChatCommandPrefix, useChatCommand, useCommand } from "../command";
 import { prettyObject } from "../utils/format";
 import { ExportMessageModal } from "./exporter";
-import { useAllModels } from "../utils/hooks";
 import { MultimodalContent } from "../client/api";
 import { WebLLMContext } from "../client/webllm";
 import { Template, useTemplateStore } from "../store/template";
@@ -494,20 +493,7 @@ export function ChatActions(props: {
 
   // switch model
   const currentModel = config.modelConfig.model;
-  const allModels = useAllModels();
-  const models = useMemo(() => {
-    const defaultModel = allModels.find((m) => m.is_default);
-
-    if (defaultModel) {
-      const arr = [
-        defaultModel,
-        ...allModels.filter((m) => m !== defaultModel),
-      ];
-      return arr;
-    } else {
-      return allModels;
-    }
-  }, [allModels]);
+  const models = config.models;
   const [showModelSelector, setShowModelSelector] = useState(false);
   const [showUploadImage, setShowUploadImage] = useState(false);
 

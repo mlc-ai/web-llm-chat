@@ -58,7 +58,6 @@ export interface ModelRecord {
   size?: string;
   quantization?: string;
   context_length?: string;
-  is_default?: boolean;
   family?: string;
   vram_required_MB?: number;
   buffer_size_required_bytes?: number;

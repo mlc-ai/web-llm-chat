@@ -47,7 +47,6 @@ export const DEFAULT_CONFIG = {
 
   cacheType: "cache" as CacheType,
   logLevel: "INFO" as LogLevel,
-  customModels: "",
   models: DEFAULT_MODELS as any as ModelRecord[],
 
   modelConfig: {
