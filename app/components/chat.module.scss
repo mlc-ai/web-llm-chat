@@ -522,7 +522,12 @@
   display: flex;
   justify-content: end;
   align-items: center;
-  gap: 4px;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  .chat-message-usage {
+    display: flex;
+  }
 
   .tooltip {
     width: 14px;

@@ -1333,54 +1333,21 @@ function _Chat() {
                       </div>
                     )}
                   </div>
-
                   <div className={styles["chat-message-action-date"]}>
-                    {!isContext &&
-                      message.role === "assistant" &&
-                      (message.stopReason || message.usage) && (
-                        <div className={styles.tooltip}>
-                          <Tooltip
-                            direction="top"
-                            content={
-                              <div style={{ fontSize: config.fontSize }}>
-                                {message.stopReason && (
-                                  <>
-                                    <span>
-                                      {`Stop Reason: ${message.stopReason}`}
-                                    </span>
-                                    <br />
-                                  </>
-                                )}
-                                {message.usage && (
-                                  <>
-                                    <span>
-                                      {`Prompt Tokens: ${message.usage.prompt_tokens}`}
-                                    </span>
-                                    <br />
-                                    <span>
-                                      {`Completion Tokens: ${message.usage.completion_tokens}`}
-                                    </span>
-                                    <br />
-                                    <span>
-                                      {`Prefill: ${message.usage.extra.prefill_tokens_per_s.toFixed(
-                                        4,
-                                      )} tokens/sec`}
-                                    </span>
-                                    <br />
-                                    <span>
-                                      {`Decoding: ${message.usage.extra.decode_tokens_per_s.toFixed(
-                                        4,
-                                      )} tokens/sec`}
-                                    </span>
-                                  </>
-                                )}
-                              </div>
-                            }
-                          >
-                            {<InfoIcon />}
-                          </Tooltip>
+                    {message.role === "assistant" && message.usage && (
+                      <>
+                        <div>
+                          {`Prefill: ${message.usage.extra.prefill_tokens_per_s.toFixed(
+                            1,
+                          )} tok/s,`}
                         </div>
-                      )}
+                        <div>
+                          {`Decode: ${message.usage.extra.decode_tokens_per_s.toFixed(
+                            1,
+                          )} tok/s,`}
+                        </div>
+                      </>
+                    )}
                     {isContext
                       ? Locale.Chat.IsContext
                       : message.date.toLocaleString()}
