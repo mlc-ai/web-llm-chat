@@ -128,7 +128,7 @@ export class WebLLMApi implements LLMApi {
         log.error(JSON.stringify(err));
         errorMessage = JSON.stringify(err);
       }
-      if (!errorMessage.includes("Please call `Engine.reload(model)` first")) {
+      if (!errorMessage.includes("MLCEngine.reload(model)")) {
         console.error("Error in chatCompletion", errorMessage);
         if (
           errorMessage.includes("WebGPU") &&
