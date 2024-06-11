@@ -45,6 +45,7 @@ export class WebLLMApi implements LLMApi {
         ...prebuiltAppConfig,
         useIndexedDBCache: this.llmConfig?.cache === "index_db",
       },
+      logLevel,
     };
 
     if (type === "serviceWorker") {
@@ -65,7 +66,6 @@ export class WebLLMApi implements LLMApi {
         ),
       };
     }
-    this.webllm.engine.setLogLevel(logLevel);
   }
 
   async initModel(onUpdate?: (message: string, chunk: string) => void) {

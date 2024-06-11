@@ -79,7 +79,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.6,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
       top_p: 0.9,
     },
   },
@@ -97,7 +96,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.6,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
       top_p: 0.9,
     },
   },
@@ -115,7 +113,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.6,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
       top_p: 0.9,
     },
   },
@@ -133,7 +130,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.6,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 0.9,
     },
   },
@@ -151,7 +148,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 1,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 1,
     },
   },
@@ -169,7 +166,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 1,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 1,
     },
   },
@@ -188,7 +185,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.7,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -205,7 +202,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.7,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -222,7 +219,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 1,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 1,
     },
   },
@@ -239,7 +236,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.7,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -256,7 +253,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 1,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 1,
     },
   },
@@ -275,7 +272,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 1,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 1,
     },
   },
@@ -293,7 +290,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 1,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 1,
     },
   },
@@ -310,7 +307,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -327,7 +324,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -344,7 +341,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -361,7 +358,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -379,7 +376,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.7,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1.1,
+
       top_p: 0.8,
     },
   },
@@ -397,7 +394,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.7,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1.1,
+
       top_p: 0.8,
     },
   },
@@ -415,7 +412,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.7,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1.1,
+
       top_p: 0.8,
     },
   },
@@ -433,7 +430,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.7,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1.1,
+
       top_p: 0.8,
     },
   },
@@ -451,7 +448,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.7,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1.05,
       top_p: 0.8,
     },
   },
@@ -469,7 +465,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.7,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1.05,
       top_p: 0.8,
     },
   },
@@ -489,7 +484,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.7,
       presence_penalty: 0,
       frequency_penalty: 1,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -508,7 +503,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.7,
       presence_penalty: 0,
       frequency_penalty: 1,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -528,7 +523,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.7,
       presence_penalty: 0,
       frequency_penalty: 1,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -547,7 +542,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.7,
       presence_penalty: 0,
       frequency_penalty: 1,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -565,7 +560,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.7,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -583,7 +578,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.7,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -601,7 +596,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.7,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -619,7 +614,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.7,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -636,7 +631,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -652,7 +647,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     low_resource_required: false,
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -669,7 +664,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -685,7 +680,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -704,7 +699,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 1,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 1,
     },
   },
@@ -722,7 +717,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 1,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 1,
     },
   },
@@ -741,7 +736,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 1,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 1,
     },
   },
@@ -759,7 +754,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 1,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 1,
     },
   },
@@ -777,7 +772,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
       temperature: 0.7,
       presence_penalty: 0,
       frequency_penalty: 0,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -793,7 +788,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     low_resource_required: false,
     recommended_config: {
       temperature: 0.6,
-      repetition_penalty: 1,
+
       top_p: 0.9,
     },
   },
@@ -810,7 +805,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.6,
-      repetition_penalty: 1,
+
       top_p: 0.9,
     },
   },
@@ -826,7 +821,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     low_resource_required: false,
     recommended_config: {
       temperature: 0.6,
-      repetition_penalty: 1,
+
       top_p: 0.9,
     },
   },
@@ -843,7 +838,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.6,
-      repetition_penalty: 1,
+
       top_p: 0.9,
     },
   },
@@ -860,7 +855,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.6,
-      repetition_penalty: 1,
+
       top_p: 0.9,
     },
   },
@@ -876,7 +871,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -891,7 +886,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     low_resource_required: false,
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -907,7 +902,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -922,7 +917,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -938,7 +933,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -953,7 +948,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -969,7 +964,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -984,7 +979,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -1001,7 +996,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -1017,7 +1012,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -1034,7 +1029,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },
@@ -1050,7 +1045,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
-      repetition_penalty: 1,
+
       top_p: 0.95,
     },
   },

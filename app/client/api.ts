@@ -30,7 +30,6 @@ export interface LLMConfig {
   stream?: boolean;
   presence_penalty?: number;
   frequency_penalty?: number;
-  repetition_penalty?: number;
 }
 
 export interface ChatOptions {
@@ -70,7 +69,6 @@ export interface ModelRecord {
     top_p?: number;
     presence_penalty?: number;
     frequency_penalty?: number;
-    repetition_penalty?: number;
   };
 }
 
