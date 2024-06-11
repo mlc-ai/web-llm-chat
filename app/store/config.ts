@@ -52,16 +52,22 @@ export const DEFAULT_CONFIG = {
 
   modelConfig: {
     model: DEFAULT_MODELS[0].name,
-    temperature: 1.0,
-    top_p: 1,
-    max_tokens: 4000,
-    presence_penalty: 0,
-    frequency_penalty: 0,
     sendMemory: true,
     historyMessageCount: 4,
     compressMessageLengthThreshold: 1000,
     enableInjectSystemPrompts: false,
     template: DEFAULT_INPUT_TEMPLATE,
+
+    // Chat configs
+    temperature: 1.0,
+    top_p: 1,
+    max_tokens: 4000,
+    presence_penalty: 0,
+    frequency_penalty: 0,
+    repetition_penalty: 0,
+
+    // Use recommended config to overwrite above parameters
+    ...DEFAULT_MODELS[0].recommended_config,
   },
 };
 
@@ -135,6 +141,19 @@ export const useAppConfig = createPersistStore(
       return get().models;
     },
 
+    selectModel(model: ModelType) {
+      const config = DEFAULT_MODELS.find((m) => m.name === model);
+
+      set((state) => ({
+        ...state,
+        modelConfig: {
+          ...state.modelConfig,
+          model,
+          ...(config?.recommended_config || {}),
+        },
+      }));
+    },
+
     updateModelConfig(config: Partial<ModelConfig>) {
       set((state) => ({
         ...state,
@@ -147,48 +166,35 @@ export const useAppConfig = createPersistStore(
   }),
   {
     name: StoreKey.Config,
-    version: 0.32,
+    version: 0.4,
     migrate: (persistedState, version) => {
-      if (version < 0.3) {
+      if (version < 0.4) {
         return {
-          ...(persistedState as ChatConfig),
+          ...DEFAULT_CONFIG,
+          ...(persistedState as any),
           models: DEFAULT_MODELS as any as ModelRecord[],
-
-          logLevel: "WARN",
           modelConfig: {
             model: DEFAULT_MODELS[0].name,
-            temperature: 1.0,
-            top_p: 1,
-            max_tokens: 4000,
-            presence_penalty: 0,
-            frequency_penalty: 0,
             sendMemory: true,
             historyMessageCount: 4,
             compressMessageLengthThreshold: 1000,
             enableInjectSystemPrompts: false,
             template: DEFAULT_INPUT_TEMPLATE,
+
+            // Chat configs
+            temperature: 1.0,
+            top_p: 1,
+            max_tokens: 4000,
+            presence_penalty: 0,
+            frequency_penalty: 0,
+            repetition_penalty: 0,
+
+            // Use recommended config to overwrite above parameters
+            ...DEFAULT_MODELS[0].recommended_config,
           },
         };
       }
-      if (version === 0.3) {
-        return {
-          ...(persistedState as ChatConfig),
-          logLevel: "INFO",
-        };
-      }
-      if (version === 0.31) {
-        let modelConfig = (persistedState as ChatConfig).modelConfig;
-        if (!DEFAULT_MODELS.some((model) => model.name === modelConfig.model)) {
-          modelConfig.model = DEFAULT_MODELS[0].name;
-        }
-        return {
-          ...(persistedState as ChatConfig),
-          models: DEFAULT_MODELS as any as ModelRecord[],
-          modelConfig,
-        };
-      }
-
-      return persistedState as any;
+      return persistedState;
     },
   },
 );

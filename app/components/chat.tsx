@@ -569,7 +569,7 @@ export function ChatActions(props: {
           onClose={() => setShowModelSelector(false)}
           onSelection={(s) => {
             if (s.length === 0) return;
-            config.updateModelConfig({ model: s[0] as ModelType });
+            config.selectModel(s[0] as ModelType);
             showToast(s[0]);
           }}
         />

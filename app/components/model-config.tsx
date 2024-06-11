@@ -1,4 +1,4 @@
-import { ModalConfigValidator, ModelConfig } from "../store";
+import { ModalConfigValidator, ModelConfig, ModelType } from "../store";
 
 import Locale from "../locales";
 import { InputRange } from "./input-range";
@@ -8,6 +8,7 @@ import React from "react";
 
 export function ModelConfigList(props: {
   modelConfig: ModelConfig;
+  selectModel: (model: ModelType) => void;
   updateConfig: (updater: (config: ModelConfig) => void) => void;
 }) {
   const allModels = useAllModels();
@@ -18,12 +19,7 @@ export function ModelConfigList(props: {
         <Select
           value={props.modelConfig.model}
           onChange={(e) => {
-            props.updateConfig(
-              (config) =>
-                (config.model = ModalConfigValidator.model(
-                  e.currentTarget.value,
-                )),
-            );
+            props.selectModel(e.target.value);
           }}
         >
           {allModels.map((v, i) => (

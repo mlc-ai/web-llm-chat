@@ -288,6 +288,7 @@ export function Settings() {
         <List>
           <ModelConfigList
             modelConfig={config.modelConfig}
+            selectModel={config.selectModel}
             updateConfig={(updater) => {
               const modelConfig = { ...config.modelConfig };
               updater(modelConfig);
