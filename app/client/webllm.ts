@@ -40,11 +40,18 @@ export class WebLLMApi implements LLMApi {
     type: "serviceWorker" | "webWorker",
     logLevel: LogLevel = "WARN",
   ) {
+    const engineConfig = {
+      appConfig: {
+        ...prebuiltAppConfig,
+        useIndexedDBCache: this.llmConfig?.cache === "index_db",
+      },
+    };
+
     if (type === "serviceWorker") {
       log.info("Create ServiceWorkerMLCEngine");
       this.webllm = {
         type: "serviceWorker",
-        engine: new ServiceWorkerMLCEngine(KEEP_ALIVE_INTERVAL),
+        engine: new ServiceWorkerMLCEngine(engineConfig, KEEP_ALIVE_INTERVAL),
       };
     } else {
       log.info("Create WebWorkerMLCEngine");
@@ -54,6 +61,7 @@ export class WebLLMApi implements LLMApi {
           new Worker(new URL("../worker/web-worker.ts", import.meta.url), {
             type: "module",
           }),
+          engineConfig,
         ),
       };
     }
@@ -68,15 +76,9 @@ export class WebLLMApi implements LLMApi {
       onUpdate?.(report.text, report.text);
     });
     if (this.webllm.type === "serviceWorker") {
-      await this.webllm.engine.init(this.llmConfig.model, this.llmConfig, {
-        ...prebuiltAppConfig,
-        useIndexedDBCache: this.llmConfig.cache === "index_db",
-      });
+      await this.webllm.engine.reload(this.llmConfig.model, this.llmConfig);
     } else {
-      await this.webllm.engine.reload(this.llmConfig.model, this.llmConfig, {
-        ...prebuiltAppConfig,
-        useIndexedDBCache: this.llmConfig.cache === "index_db",
-      });
+      await this.webllm.engine.reload(this.llmConfig.model, this.llmConfig);
     }
     this.initialized = true;
   }
@@ -235,7 +237,7 @@ export class WebLLMApi implements LLMApi {
     const completion = await this.webllm.engine.chatCompletion({
       stream: stream,
       messages: messages as ChatCompletionMessageParam[],
-      stream_options: { include_usage: true },
+      ...(stream ? { stream_options: { include_usage: true } } : {}),
     });
 
     if (stream) {

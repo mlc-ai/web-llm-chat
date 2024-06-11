@@ -1,4 +1,4 @@
-import { ServiceWorkerMLCEngineHandler, MLCEngine } from "@neet-nestor/web-llm";
+import { MLCEngineServiceWorkerHandler, MLCEngine } from "@neet-nestor/web-llm";
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { CacheFirst, ExpirationPlugin, Serwist } from "serwist";
@@ -6,7 +6,7 @@ import { CacheFirst, ExpirationPlugin, Serwist } from "serwist";
 declare const self: ServiceWorkerGlobalScope;
 const CHATGPT_NEXT_WEB_CACHE = "chatgpt-next-web-cache";
 const engine = new MLCEngine();
-let handler: ServiceWorkerMLCEngineHandler;
+let handler: MLCEngineServiceWorkerHandler;
 
 async function checkGPUAvailablity() {
   if (!("gpu" in navigator)) {
@@ -23,7 +23,7 @@ async function checkGPUAvailablity() {
 
 self.addEventListener("message", (event) => {
   if (!handler) {
-    handler = new ServiceWorkerMLCEngineHandler(engine);
+    handler = new MLCEngineServiceWorkerHandler(engine);
     console.log("Service Worker: Web-LLM Engine Activated");
   }
 
@@ -58,7 +58,7 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("activate", (event) => {
   if (!handler) {
-    handler = new ServiceWorkerMLCEngineHandler(engine);
+    handler = new MLCEngineServiceWorkerHandler(engine);
     console.log("Service Worker: Web-LLM Engine Activated");
   }
 });
