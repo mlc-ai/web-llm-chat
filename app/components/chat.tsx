@@ -583,9 +583,6 @@ function _Chat() {
   const isStreaming = session.messages.some((m) => m.streaming);
 
   const [showExport, setShowExport] = useState(false);
-  const [engineStat, setEngineStats] = useState<ReactElement | undefined>(
-    undefined,
-  );
 
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [userInput, setUserInput] = useState("");
@@ -1334,9 +1331,11 @@ function _Chat() {
                         </div>
                       </>
                     )}
-                    {isContext
-                      ? Locale.Chat.IsContext
-                      : message.date.toLocaleString()}
+                    <div>
+                      {isContext
+                        ? Locale.Chat.IsContext
+                        : message.date.toLocaleString()}
+                    </div>
                   </div>
                 </div>
               </div>
