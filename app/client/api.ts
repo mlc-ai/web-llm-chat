@@ -1,7 +1,4 @@
-import {
-  ChatCompletionFinishReason,
-  CompletionUsage,
-} from "@neet-nestor/web-llm";
+import { ChatCompletionFinishReason, CompletionUsage } from "@mlc-ai/web-llm";
 import { CacheType, ModelType } from "../store";
 export const ROLES = ["system", "user", "assistant"] as const;
 export type MessageRole = (typeof ROLES)[number];

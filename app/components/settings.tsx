@@ -9,15 +9,7 @@ import ClearIcon from "../icons/clear.svg";
 import EditIcon from "../icons/edit.svg";
 import EyeIcon from "../icons/eye.svg";
 
-import {
-  Input,
-  List,
-  ListItem,
-  Modal,
-  Popover,
-  Select,
-  showConfirm,
-} from "./ui-lib";
+import { Input, List, ListItem, Modal, Select, showConfirm } from "./ui-lib";
 import { ModelConfigList } from "./model-config";
 
 import { IconButton } from "./button";
@@ -42,7 +34,7 @@ import { ErrorBoundary } from "./error";
 import { InputRange } from "./input-range";
 import { useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
-import { LogLevel } from "@neet-nestor/web-llm";
+import { LogLevel } from "@mlc-ai/web-llm";
 import { WebLLMContext } from "../client/webllm";
 
 function EditPromptModal(props: { id: string; onClose: () => void }) {

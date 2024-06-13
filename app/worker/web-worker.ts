@@ -1,14 +1,13 @@
 import log from "loglevel";
-import { MLCEngineWorkerHandler, MLCEngine } from "@neet-nestor/web-llm";
+import { WebWorkerMLCEngineHandler } from "@mlc-ai/web-llm";
 
-const engine = new MLCEngine();
-let handler: MLCEngineWorkerHandler;
+let handler: WebWorkerMLCEngineHandler;
 
 self.addEventListener("message", (event) => {});
 
 self.onmessage = (msg: MessageEvent) => {
   if (!handler) {
-    handler = new MLCEngineWorkerHandler(engine);
+    handler = new WebWorkerMLCEngineHandler();
     log.info("Web Worker: Web-LLM Engine Activated");
   }
   handler.onmessage(msg);

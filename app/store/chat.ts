@@ -16,10 +16,7 @@ import { estimateTokenLength } from "../utils/token";
 import { nanoid } from "nanoid";
 import { createPersistStore } from "../utils/store";
 import { WebLLMApi } from "../client/webllm";
-import {
-  ChatCompletionFinishReason,
-  CompletionUsage,
-} from "@neet-nestor/web-llm";
+import { ChatCompletionFinishReason, CompletionUsage } from "@mlc-ai/web-llm";
 
 export type ChatMessage = RequestMessage & {
   date: string;

@@ -12,10 +12,10 @@ import {
   WebWorkerMLCEngine,
   CompletionUsage,
   ChatCompletionFinishReason,
-} from "@neet-nestor/web-llm";
+} from "@mlc-ai/web-llm";
 
 import { ChatOptions, LLMApi, LLMConfig, RequestMessage } from "./api";
-import { LogLevel } from "@neet-nestor/web-llm";
+import { LogLevel } from "@mlc-ai/web-llm";
 
 const KEEP_ALIVE_INTERVAL = 5_000;
 
@@ -128,51 +128,19 @@ export class WebLLMApi implements LLMApi {
         log.error(JSON.stringify(err));
         errorMessage = JSON.stringify(err);
       }
-      if (!errorMessage.includes("MLCEngine.reload(model)")) {
-        console.error("Error in chatCompletion", errorMessage);
-        if (
-          errorMessage.includes("WebGPU") &&
-          errorMessage.includes("compatibility chart")
-        ) {
-          // Add WebGPU compatibility chart link
-          errorMessage = errorMessage.replace(
-            "compatibility chart",
-            "[compatibility chart](https://caniuse.com/webgpu)",
-          );
-        }
-        options.onError?.(errorMessage);
-        return;
-      }
-      // Service worker has been stopped. Restart it
-      try {
-        await this.initModel(options.onUpdate);
-      } catch (err: any) {
-        let errorMessage = err.message || err.toString() || "";
-        if (errorMessage === "[object Object]") {
-          errorMessage = JSON.stringify(err);
-        }
-        console.error("Error while initializing the model", errorMessage);
-        options?.onError?.(errorMessage);
-        return;
-      }
-      try {
-        const completion = await this.chatCompletion(
-          !!options.config.stream,
-          options.messages,
-          options.onUpdate,
+      console.error("Error in chatCompletion", errorMessage);
+      if (
+        errorMessage.includes("WebGPU") &&
+        errorMessage.includes("compatibility chart")
+      ) {
+        // Add WebGPU compatibility chart link
+        errorMessage = errorMessage.replace(
+          "compatibility chart",
+          "[compatibility chart](https://caniuse.com/webgpu)",
         );
-        reply = completion.content;
-        stopReason = completion.stopReason;
-        usage = completion.usage;
-      } catch (err: any) {
-        let errorMessage = err.message || err.toString() || "";
-        if (errorMessage === "[object Object]") {
-          errorMessage = JSON.stringify(err);
-        }
-        console.error("Error in chatCompletion", errorMessage);
-        options.onError?.(errorMessage);
-        return;
       }
+      options.onError?.(errorMessage);
+      return;
     }
 
     if (reply) {
