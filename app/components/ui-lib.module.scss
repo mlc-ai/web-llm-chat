@@ -103,6 +103,10 @@
   padding: 10px 20px;
   animation: slide-in ease 0.6s;
 
+  &.list-item-separator {
+    border-bottom: var(--border-in-dark);
+  }
+
   .list-header {
     display: flex;
     align-items: center;

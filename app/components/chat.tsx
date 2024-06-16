@@ -551,6 +551,7 @@ export function ChatActions(props: {
           items={models.map((m) => ({
             title: m.name,
             value: m.name,
+            family: m.family,
           }))}
           onClose={() => setShowModelSelector(false)}
           onSelection={(s) => {

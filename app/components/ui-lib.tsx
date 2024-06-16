@@ -488,6 +488,7 @@ export function Selector<T>(props: {
     title: string;
     subTitle?: string;
     value: T;
+    family?: string;
   }>;
   defaultSelectedValue?: T;
   onSelection?: (selection: T[]) => void;
@@ -500,9 +501,15 @@ export function Selector<T>(props: {
         <List>
           {props.items.map((item, i) => {
             const selected = props.defaultSelectedValue === item.value;
+            const lastOfFamily =
+              i < props.items.length - 1 &&
+              item.family !== props.items[i + 1].family;
             return (
               <ListItem
-                className={styles["selector-item"]}
+                className={
+                  styles["selector-item"] +
+                  (lastOfFamily ? " " + styles["list-item-separator"] : "")
+                }
                 key={i}
                 title={item.title}
                 subTitle={item.subTitle}
