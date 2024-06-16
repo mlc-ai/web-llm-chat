@@ -70,6 +70,5 @@ export interface ModelRecord {
 
 export abstract class LLMApi {
   abstract chat(options: ChatOptions): Promise<void>;
-  abstract usage(): Promise<LLMUsage>;
   abstract abort(): Promise<void>;
 }

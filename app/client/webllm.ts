@@ -69,30 +69,15 @@ export class WebLLMApi implements LLMApi {
     }
   }
 
-  async initModel(onUpdate?: (message: string, chunk: string) => void) {
+  private async initModel(onUpdate?: (message: string, chunk: string) => void) {
     if (!this.llmConfig) {
       throw Error("llmConfig is undefined");
     }
     this.webllm.engine.setInitProgressCallback((report: InitProgressReport) => {
       onUpdate?.(report.text, report.text);
     });
-    if (this.webllm.type === "serviceWorker") {
-      await this.webllm.engine.reload(this.llmConfig.model, this.llmConfig);
-    } else {
-      await this.webllm.engine.reload(this.llmConfig.model, this.llmConfig);
-    }
+    await this.webllm.engine.reload(this.llmConfig.model, this.llmConfig);
     this.initialized = true;
-  }
-
-  isConfigChanged(config: LLMConfig) {
-    return (
-      this.llmConfig?.model !== config.model ||
-      this.llmConfig?.cache !== config.cache ||
-      this.llmConfig?.temperature !== config.temperature ||
-      this.llmConfig?.top_p !== config.top_p ||
-      this.llmConfig?.presence_penalty !== config.presence_penalty ||
-      this.llmConfig?.frequency_penalty !== config.frequency_penalty
-    );
   }
 
   async chat(options: ChatOptions): Promise<void> {
@@ -156,14 +141,7 @@ export class WebLLMApi implements LLMApi {
     await this.webllm.engine?.interruptGenerate();
   }
 
-  async usage() {
-    return {
-      used: 0,
-      total: 0,
-    };
-  }
-
-  isDifferentConfig(config: LLMConfig): boolean {
+  private isDifferentConfig(config: LLMConfig): boolean {
     if (!this.llmConfig) {
       return true;
     }
