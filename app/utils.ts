@@ -269,3 +269,11 @@ export function isVisionModel(model: string) {
     visionKeywords.some((keyword) => model.includes(keyword)) || isGpt4Turbo
   );
 }
+
+// Fix various problems in webllm generation
+export function fixMessage(message: string) {
+  // RedPajama model incorrectly includes `<human` in response
+  message = message.replace(/(<human\s*)+$/, "");
+
+  return message;
+}
