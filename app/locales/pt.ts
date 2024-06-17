@@ -203,26 +203,6 @@ const pt: PartialLocaleType = {
       Check: "Verificar",
       NoAccess: "Insira a Chave API para verificar o saldo",
     },
-    Access: {
-      AccessCode: {
-        Title: "Código de Acesso",
-        SubTitle: "Controle de Acesso Habilitado",
-        Placeholder: "Insira o Código",
-      },
-      CustomEndpoint: {
-        Title: "Endpoint Personalizado",
-        SubTitle: "Use serviço personalizado Azure ou OpenAI",
-      },
-      Provider: {
-        Title: "Provedor do Modelo",
-        SubTitle: "Selecione Azure ou OpenAI",
-      },
-      CustomModel: {
-        Title: "Modelos Personalizados",
-        SubTitle: "Opções de modelo personalizado, separados por vírgula",
-      },
-    },
-
     Model: "Modelo",
     Temperature: {
       Title: "Temperatura",

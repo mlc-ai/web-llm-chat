@@ -203,7 +203,7 @@ export function Modal(props: ModalProps) {
 
 export function showModal(props: ModalProps) {
   const div = document.createElement("div");
-  div.className = "modal-template";
+  div.className = "screen-model-container";
   document.body.appendChild(div);
 
   const root = createRoot(div);
@@ -340,7 +340,7 @@ export function Select(
 
 export function showConfirm(content: any) {
   const div = document.createElement("div");
-  div.className = "modal-template";
+  div.className = "screen-model-container";
   document.body.appendChild(div);
 
   const root = createRoot(div);
@@ -413,7 +413,7 @@ function PromptInput(props: {
 
 export function showPrompt(content: any, value = "", rows = 3) {
   const div = document.createElement("div");
-  div.className = "modal-template";
+  div.className = "screen-model-container";
   document.body.appendChild(div);
 
   const root = createRoot(div);

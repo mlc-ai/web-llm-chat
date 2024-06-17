@@ -4,7 +4,7 @@ import EmojiPicker, {
   Theme as EmojiTheme,
 } from "emoji-picker-react";
 
-import { ModelType } from "../store";
+import { Model } from "../store";
 
 import MlcIcon from "../icons/mlc.svg";
 
@@ -31,7 +31,7 @@ export function AvatarPicker(props: {
   );
 }
 
-export function Avatar(props: { model?: ModelType; avatar?: string }) {
+export function Avatar(props: { model?: Model; avatar?: string }) {
   if (props.model) {
     return (
       <div className="bot-avatar mlc-icon no-dark">

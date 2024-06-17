@@ -45,7 +45,8 @@ import {
   createMessage,
   useAppConfig,
   DEFAULT_TOPIC,
-  ModelType,
+  Model,
+  ModelClient,
 } from "../store";
 
 import {
@@ -92,9 +93,9 @@ import { ChatCommandPrefix, useChatCommand, useCommand } from "../command";
 import { prettyObject } from "../utils/format";
 import { ExportMessageModal } from "./exporter";
 import { MultimodalContent } from "../client/api";
-import { WebLLMContext } from "../client/webllm";
 import { Template, useTemplateStore } from "../store/template";
 import Image from "next/image";
+import { MLCLLMContext, WebLLMContext } from "../context";
 
 export function ScrollDownToast(prop: { show: boolean; onclick: () => void }) {
   return (
@@ -125,7 +126,7 @@ export function SessionConfigModel(props: { onClose: () => void }) {
   };
 
   return (
-    <div className="modal-template">
+    <div className="screen-model-container">
       <Modal
         title={Locale.Context.Edit}
         onClose={() => props.onClose()}
@@ -556,7 +557,7 @@ export function ChatActions(props: {
           onClose={() => setShowModelSelector(false)}
           onSelection={(s) => {
             if (s.length === 0) return;
-            config.selectModel(s[0] as ModelType);
+            config.selectModel(s[0] as Model);
             showToast(s[0]);
           }}
         />
@@ -606,6 +607,12 @@ function _Chat() {
   const [uploading, setUploading] = useState(false);
   const [showEditPromptModal, setShowEditPromptModal] = useState(false);
   const webllm = useContext(WebLLMContext)!;
+  const mlcllm = useContext(MLCLLMContext)!;
+
+  const llm =
+    config.modelClientType === ModelClient.MLCLLM_API ? mlcllm : webllm;
+
+  const models = config.models;
 
   // prompt hints
   const promptStore = usePromptStore();
@@ -685,7 +692,7 @@ function _Chat() {
 
     if (isStreaming) return;
 
-    chatStore.onUserInput(userInput, webllm, attachImages);
+    chatStore.onUserInput(userInput, llm, attachImages);
     setAttachImages([]);
     localStorage.setItem(LAST_INPUT_KEY, userInput);
     setUserInput("");
@@ -713,7 +720,7 @@ function _Chat() {
 
   // stop response
   const onUserStop = () => {
-    webllm.abort();
+    llm.abort();
     chatStore.stopStreaming();
   };
 
@@ -836,7 +843,7 @@ function _Chat() {
     // resend the message
     const textContent = getMessageTextContent(userMessage);
     const images = getMessageImages(userMessage);
-    chatStore.onUserInput(textContent, webllm, images);
+    chatStore.onUserInput(textContent, llm, images);
     inputRef.current?.focus();
   };
 
@@ -867,7 +874,13 @@ function _Chat() {
           ]
         : [],
     );
-  }, [config.sendPreviewBubble, context, session.messages, userInput]);
+  }, [
+    config.sendPreviewBubble,
+    context,
+    session.messages,
+    session.messages.length,
+    userInput,
+  ]);
 
   const [msgRenderIndex, _setMsgRenderIndex] = useState(
     Math.max(0, renderMessages.length - CHAT_PAGE_SIZE),
@@ -1183,10 +1196,9 @@ function _Chat() {
                       )}
                       {message.role === "assistant" && (
                         <div className={styles["chat-message-role-name"]}>
-                          {config.models.find((m) => m.name === message.model)
-                            ? config.models.find(
-                                (m) => m.name === message.model,
-                              )!.display_name
+                          {models.find((m) => m.name === message.model)
+                            ? models.find((m) => m.name === message.model)!
+                                .display_name
                             : message.model}
                         </div>
                       )}

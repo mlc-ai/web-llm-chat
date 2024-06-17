@@ -6,7 +6,7 @@ import styles from "./home.module.scss";
 
 import log from "loglevel";
 import dynamic from "next/dynamic";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import {
   HashRouter as Router,
   Routes,
@@ -20,13 +20,15 @@ import LoadingIcon from "../icons/three-dots.svg";
 
 import Locale from "../locales";
 import { getCSSVar, useMobileScreen } from "../utils";
-import { Path, SlotID } from "../constant";
+import { DEFAULT_MODELS, Path, SlotID } from "../constant";
 import { ErrorBoundary } from "./error";
 import { getISOLang, getLang } from "../locales";
 import { SideBar } from "./sidebar";
 import { useAppConfig } from "../store/config";
-import { WebLLMApi, WebLLMContext } from "../client/webllm";
-import { useChatStore } from "../store";
+import { WebLLMApi } from "../client/webllm";
+import { ModelClient, useChatStore } from "../store";
+import { MLCLLMContext, WebLLMContext } from "../context";
+import { MlcLLMApi } from "../client/mlcllm";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -251,6 +253,17 @@ const useWebLLM = () => {
   return { webllm, isWebllmActive };
 };
 
+const useMlcLLM = () => {
+  const config = useAppConfig();
+  const [mlcllm, setMlcLlm] = useState<MlcLLMApi | undefined>(undefined);
+
+  useEffect(() => {
+    setMlcLlm(new MlcLLMApi(config.modelConfig.mlc_endpoint));
+  }, [config.modelConfig.mlc_endpoint, setMlcLlm]);
+
+  return mlcllm;
+};
+
 const useLoadUrlParam = () => {
   const config = useAppConfig();
 
@@ -306,14 +319,32 @@ const useLogLevel = (webllm?: WebLLMApi) => {
   }, [config.logLevel, webllm?.webllm?.engine]);
 };
 
+const useModels = (mlcllm: MlcLLMApi | undefined) => {
+  const config = useAppConfig();
+
+  useEffect(() => {
+    if (config.modelClientType == ModelClient.WEBLLM) {
+      config.setModels(DEFAULT_MODELS);
+    } else if (config.modelClientType == ModelClient.MLCLLM_API) {
+      if (mlcllm) {
+        mlcllm.models().then((models) => {
+          config.setModels(models);
+        });
+      }
+    }
+  }, [config.modelClientType, mlcllm]);
+};
+
 export function Home() {
   const hasHydrated = useHasHydrated();
   const { webllm, isWebllmActive } = useWebLLM();
+  const mlcllm = useMlcLLM();
 
   useSwitchTheme();
   useHtmlLang();
   useLoadUrlParam();
   useStopStreamingMessages();
+  useModels(mlcllm);
   useLogLevel(webllm);
 
   if (!hasHydrated || !webllm || !isWebllmActive) {
@@ -328,7 +359,9 @@ export function Home() {
     <ErrorBoundary>
       <Router>
         <WebLLMContext.Provider value={webllm}>
-          <Screen />
+          <MLCLLMContext.Provider value={mlcllm}>
+            <Screen />
+          </MLCLLMContext.Provider>
         </WebLLMContext.Provider>
       </Router>
     </ErrorBoundary>

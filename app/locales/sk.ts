@@ -205,43 +205,6 @@ const sk: PartialLocaleType = {
       Check: "Skontrolovať",
       NoAccess: "Zadajte API kľúč na skontrolovanie zostatku",
     },
-    Access: {
-      AccessCode: {
-        Title: "Prístupový kód",
-        SubTitle: "Povolený prístupový kód",
-        Placeholder: "Zadajte kód",
-      },
-      CustomEndpoint: {
-        Title: "Vlastný koncový bod",
-        SubTitle: "Použiť vlastnú službu Azure alebo OpenAI",
-      },
-      Provider: {
-        Title: "Poskytovateľ modelu",
-        SubTitle: "Vyberte Azure alebo OpenAI",
-      },
-      CustomModel: {
-        Title: "Vlastné modely",
-        SubTitle: "Možnosti vlastného modelu, oddelené čiarkou",
-      },
-      Google: {
-        ApiKey: {
-          Title: "API kľúč",
-          SubTitle:
-            "Obísť obmedzenia prístupu heslom pomocou vlastného API kľúča Google AI Studio",
-          Placeholder: "API kľúč Google AI Studio",
-        },
-
-        Endpoint: {
-          Title: "Adresa koncového bodu",
-          SubTitle: "Príklad:",
-        },
-
-        ApiVersion: {
-          Title: "Verzia API (gemini-pro verzia API)",
-          SubTitle: "Vyberte špecifickú verziu časti",
-        },
-      },
-    },
 
     Model: "Model",
     Temperature: {

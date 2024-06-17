@@ -17,6 +17,7 @@ import {
 import { ChatOptions, LLMApi, LLMConfig, RequestMessage } from "./api";
 import { LogLevel } from "@mlc-ai/web-llm";
 import { fixMessage } from "../utils";
+import { DEFAULT_MODELS } from "../constant";
 
 const KEEP_ALIVE_INTERVAL = 5_000;
 
@@ -215,6 +216,8 @@ export class WebLLMApi implements LLMApi {
       usage: chatCompletion.usage,
     };
   }
-}
 
-export const WebLLMContext = createContext<WebLLMApi | undefined>(undefined);
+  async models() {
+    return DEFAULT_MODELS;
+  }
+}
