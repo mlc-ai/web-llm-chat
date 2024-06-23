@@ -24,10 +24,24 @@
 - **Ganranteed Privacy**: With the AI model running locally on your hardware and all data processing happening within your browser, your data and conversations never leave your computer, ensuring your privacy.
 - **Offline Accessibility**: WebLLM Chat can be used entirely offline after the initial setup and download, allowing you to engage with AI-powered conversations without an active internet connection.
 - **User-Friendly Interface**: Enjoy the intuitive and feature-rich user interface, complete with markdown support, dark mode, and a responsive design optimized for various screen sizes.
+- **Custom Models**: Connect to any custom language model on you local environment through [MLC-LLM](https://llm.mlc.ai/). For detail, check the [Use Custom Models](#use-custom-models) section.
 - **Open Source and Customizable**: Build and customize your own AI-powered applications with our open-source framework.
-- **i18n**: English, 简体中文, 繁体中文, 日本語, Français, Español, Italiano, Türkçe, Deutsch, Tiếng Việt, Русский, Čeština, 한국어, Indonesia
 
 WebLLM Chat is a pioneering initiative that combines the robust backend capabilities of WebLLM with the user-friendly interface of NextChat. As a part of the broader MLC.ai family, this project contributes to our mission of democratizing AI technology by making powerful tools accessible directly to end-users. By integrating with NextChat, WebLLM Chat not only enhances the chatting experience but also broadens the scope for deployment of self-hosted and customizable language models.
+
+## Built-in Models
+
+WebLLM Chat natively supports WebLLM build-in models. You can find the full list [here](https://github.com/mlc-ai/web-llm?tab=readme-ov-file#built-in-models).
+
+## Use Custom Models
+
+WebLLM Chat supports custom language models through [MLC-LLM](https://llm.mlc.ai/). Follow the following steps to use custom models on your local environment:
+
+1. (Optional) Compile the model into MLC format by following [the instructions](https://llm.mlc.ai/docs/compilation/convert_weights.html).
+
+2. Host REST API through MLC-LLM by following [the instructions](https://llm.mlc.ai/docs/deploy/rest.html).
+
+3. Go to [WebLLM Chat](https://chat.webllm.ai/), select "Settings" in the side bar, then select "MLC-LLM REST API Endpoint (Advanced)" as "Model Type" and type the REST API endpoint URL from step 2.
 
 ## Development
 
