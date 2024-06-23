@@ -41,7 +41,7 @@ WebLLM Chat supports custom language models through [MLC-LLM](https://llm.mlc.ai
 
 2. Host REST API through MLC-LLM by following [the instructions](https://llm.mlc.ai/docs/deploy/rest.html).
 
-3. Go to [WebLLM Chat](https://chat.webllm.ai/), select "Settings" in the side bar, then select "MLC-LLM REST API Endpoint (Advanced)" as "Model Type" and type the REST API endpoint URL from step 2.
+3. Go to [WebLLM Chat](https://chat.webllm.ai/), select "Settings" in the side bar, then select "MLC-LLM REST API (Advanced)" as "Model Type" and type the REST API endpoint URL from step 2.
 
 ## Development
 

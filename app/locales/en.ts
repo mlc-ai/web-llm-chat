@@ -219,15 +219,15 @@ const en = {
     ModelClientType: {
       Title: "Model Type",
       WebLlm: "WebLLM Models",
-      MlcLlm: "MLC-LLM REST API Endpoint (Advanced)",
+      MlcLlm: "MLC-LLM REST API (Advanced)",
     },
 
     MlcLlmApi: {
       Title: "API Endpoint",
-      SubTitle: "MLC-LLM serve API endpoint",
+      SubTitle: "Endpoint URL created by MLC-LLM serve command",
       Connect: {
         Title: "Connect",
-        SubTitle: "Connect to the API endpoint",
+        SubTitle: "Connect to the API",
       },
     },
 
