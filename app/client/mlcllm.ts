@@ -1,6 +1,6 @@
 import log from "loglevel";
 import { ChatOptions, LLMApi } from "./api";
-import { ChatCompletionFinishReason } from "@mlc-ai/web-llm";
+import { ChatCompletionFinishReason, CompletionUsage } from "@mlc-ai/web-llm";
 
 export class MlcLLMApi implements LLMApi {
   private endpoint: string;
@@ -24,6 +24,7 @@ export class MlcLLMApi implements LLMApi {
 
     let reply: string = "";
     let stopReason: ChatCompletionFinishReason | undefined;
+    let usage: CompletionUsage | undefined;
 
     try {
       const response = await fetch(`${this.endpoint}/v1/chat/completions`, {
@@ -52,6 +53,10 @@ export class MlcLLMApi implements LLMApi {
               if (data.choices[0].finish_reason) {
                 stopReason = data.choices[0].finish_reason;
               }
+
+              if (data.usage) {
+                usage = data.usage;
+              }
             }
           }
 
@@ -60,12 +65,13 @@ export class MlcLLMApi implements LLMApi {
             break;
           }
         }
-        options.onFinish(reply, stopReason);
+        options.onFinish(reply, stopReason, usage);
       } else {
         const data = await response.json();
         options.onFinish(
           data.choices[0].message.content,
-          data.choices[0].finish_reason,
+          data.choices[0].finish_reason || undefined,
+          data.usage || undefined,
         );
       }
     } catch (error: any) {
