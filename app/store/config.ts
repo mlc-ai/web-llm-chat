@@ -201,30 +201,9 @@ export const useAppConfig = createPersistStore(
   }),
   {
     name: StoreKey.Config,
-    version: 0.43,
+    version: 0.44,
     migrate: (persistedState, version) => {
-      if (version < 0.41) {
-        return {
-          ...DEFAULT_CONFIG,
-          ...(persistedState as any),
-          models: DEFAULT_MODELS as any as ModelRecord[],
-
-          modelConfig: {
-            model: DEFAULT_MODELS[0].name,
-
-            // Chat configs
-            temperature: 1.0,
-            top_p: 1,
-            max_tokens: 4000,
-            presence_penalty: 0,
-            frequency_penalty: 0,
-
-            // Use recommended config to overwrite above parameters
-            ...DEFAULT_MODELS[0].recommended_config,
-          },
-        };
-      }
-      if (version < 0.42) {
+      if (version < 0.44) {
         return {
           ...DEFAULT_CONFIG,
           ...(persistedState as any),
