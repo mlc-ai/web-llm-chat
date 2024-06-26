@@ -34,7 +34,7 @@ import { ErrorBoundary } from "./error";
 import { InputRange } from "./input-range";
 import { useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
-import { LogLevel } from "@mlc-ai/web-llm";
+import { LogLevel } from "@neet-nestor/web-llm";
 import { WebLLMContext } from "../context";
 
 function EditPromptModal(props: { id: string; onClose: () => void }) {

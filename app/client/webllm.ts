@@ -12,10 +12,10 @@ import {
   WebWorkerMLCEngine,
   CompletionUsage,
   ChatCompletionFinishReason,
-} from "@mlc-ai/web-llm";
+} from "@neet-nestor/web-llm";
 
 import { ChatOptions, LLMApi, LLMConfig, RequestMessage } from "./api";
-import { LogLevel } from "@mlc-ai/web-llm";
+import { LogLevel } from "@neet-nestor/web-llm";
 import { fixMessage } from "../utils";
 import { DEFAULT_MODELS } from "../constant";
 

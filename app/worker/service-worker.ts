@@ -1,4 +1,4 @@
-import { ServiceWorkerMLCEngineHandler } from "@mlc-ai/web-llm";
+import { ServiceWorkerMLCEngineHandler } from "@neet-nestor/web-llm";
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { CacheFirst, ExpirationPlugin, Serwist } from "serwist";
