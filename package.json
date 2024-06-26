@@ -60,7 +60,7 @@
     "prettier": "^3.0.2",
     "serwist": "^9.0.2",
     "typescript": "^5.4.5",
-    "webpack": "^5.88.1",
+    "webpack": "^5.92.1",
     "zustymiddlewarets": "^1.4.2"
   },
   "resolutions": {
