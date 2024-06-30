@@ -179,14 +179,21 @@ export const useAppConfig = createPersistStore(
     },
 
     setModels(models: ModelRecord[]) {
-      set((state) => ({
-        ...state,
-        models,
-        modelConfig: {
-          ...state.modelConfig,
-          model: models[0].name,
-        },
-      }));
+      if (models.some((m) => m.name === get().modelConfig.model)) {
+        set((state) => ({
+          ...state,
+          models,
+        }));
+      } else {
+        set((state) => ({
+          ...state,
+          models,
+          modelConfig: {
+            ...state.modelConfig,
+            model: models[0].name,
+          },
+        }));
+      }
     },
 
     updateModelConfig(config: Partial<ModelConfig>) {
