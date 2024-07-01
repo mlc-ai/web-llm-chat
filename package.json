@@ -20,7 +20,7 @@
     "@neet-nestor/web-llm": "^0.2.58",
     "@serwist/next": "^9.0.2",
     "@svgr/webpack": "^6.5.1",
-    "emoji-picker-react": "^4.9.2",
+    "emoji-picker-react": "^4.11.0",
     "fuse.js": "^7.0.0",
     "html-to-image": "^1.11.11",
     "loglevel": "^1.9.1",
