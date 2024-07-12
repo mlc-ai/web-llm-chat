@@ -1,4 +1,4 @@
-import { LogLevel } from "@neet-nestor/web-llm";
+import { LogLevel } from "@mlc-ai/web-llm";
 import { ModelRecord } from "../client/api";
 import {
   DEFAULT_INPUT_TEMPLATE,

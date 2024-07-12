@@ -1,6 +1,6 @@
 {
   "name": "web-llm-chat",
-  "version": "0.1",
+  "version": "0.2",
   "private": false,
   "license": "Apache-2.0",
   "scripts": {
@@ -17,7 +17,7 @@
   "dependencies": {
     "@fortaine/fetch-event-source": "^3.0.6",
     "@hello-pangea/dnd": "^16.5.0",
-    "@neet-nestor/web-llm": "^0.2.58",
+    "@mlc-ai/web-llm": "^0.2.48",
     "@serwist/next": "^9.0.2",
     "@svgr/webpack": "^6.5.1",
     "emoji-picker-react": "^4.9.2",
