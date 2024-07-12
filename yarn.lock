@@ -2089,16 +2089,16 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@neet-nestor/web-llm@^0.2.58":
-  version "0.2.58"
-  resolved "https://registry.yarnpkg.com/@neet-nestor/web-llm/-/web-llm-0.2.58.tgz#72a3c04d7165880ebda1fda5e19008c2c15f0edb"
-  integrity sha512-ZLxAcr0cCeZEHttew/zV22KWkXRcp2gr36opgG1pWnCrNIWbGP7fdvzlMc5VuMOMmRSMWkJzLZZZ5hkzsX+aSA==
+"@mlc-ai/web-llm@^0.2.48":
+  version "0.2.48"
+  resolved "https://registry.yarnpkg.com/@mlc-ai/web-llm/-/web-llm-0.2.48.tgz#61f076db6b8c650a203f43cb37c7f826168eff35"
+  integrity sha512-KzHL13EEoyXeDqpMx6p/1Im6T4C6t31yrI9VN9VPcWD40BAiAqVZhR8E85PQ6aNZEAqISlfJTryuP7L+0IJ2+g==
   dependencies:
     loglevel "^1.9.1"
 
-"@next/env@13.4.9":
+"@mlc-ai/web-llm
   version "13.4.9"
-  resolved "https://registry.yarnpkg.com/@next/env/-/env-13.4.9.tgz#b77759514dd56bfa9791770755a2482f4d6ca93e"
+  resolved "https://registry.yarnpkg.com/@mlc-ai/web-llm.9.tgz#b77759514dd56bfa9791770755a2482f4d6ca93e"
   integrity sha512-vuDRK05BOKfmoBYLNi2cujG2jrYbEod/ubSSyqgmEx9n/W3eZaJQdRNhTfumO+qmq/QTzLurW487n/PM/fHOkw==
 
 "@next/eslint-plugin-next@13.4.19":

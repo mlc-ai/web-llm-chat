@@ -1,5 +1,5 @@
 import log from "loglevel";
-import { WebWorkerMLCEngineHandler } from "@neet-nestor/web-llm";
+import { WebWorkerMLCEngineHandler } from "@mlc-ai/web-llm";
 
 let handler: WebWorkerMLCEngineHandler;
 
