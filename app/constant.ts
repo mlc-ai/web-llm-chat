@@ -508,7 +508,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     },
   },
   {
-    name: "Qwen2-0.5B-Instruct-q4f16-MLC",
+    name: "Qwen2-0.5B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
     size: "0.5B",
@@ -965,7 +965,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     },
   },
   {
-    name: "Llama-3-70B-Instruct-q3f16-MLC",
+    name: "Llama-3-70B-Instruct-q3f16_1-MLC",
     display_name: "Llama",
     provider: "Meta",
     size: "70B",
