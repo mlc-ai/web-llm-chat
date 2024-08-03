@@ -6,7 +6,7 @@ import styles from "./home.module.scss";
 
 import log from "loglevel";
 import dynamic from "next/dynamic";
-import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   HashRouter as Router,
   Routes,
@@ -18,7 +18,7 @@ import { ServiceWorkerMLCEngine } from "@mlc-ai/web-llm";
 import MlcIcon from "../icons/mlc.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 
-import Locale, { changeLang, AllLangs, Lang } from "../locales";
+import Locale from "../locales";
 import { getCSSVar, useMobileScreen } from "../utils";
 import { DEFAULT_MODELS, Path, SlotID } from "../constant";
 import { ErrorBoundary } from "./error";
