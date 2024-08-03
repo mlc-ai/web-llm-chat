@@ -104,6 +104,16 @@ function getLanguage() {
 }
 
 export function getLang(): Lang {
+  if (typeof window !== "undefined") {
+    const params = new URLSearchParams(window.location.search);
+    if (
+      params.get("lang") &&
+      AllLangs.includes(params.get("lang")!.toLowerCase() as Lang)
+    ) {
+      return params.get("lang") as Lang;
+    }
+  }
+
   const savedLang = getItem(LANG_KEY);
 
   if (AllLangs.includes((savedLang ?? "") as Lang)) {

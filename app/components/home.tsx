@@ -18,7 +18,7 @@ import { ServiceWorkerMLCEngine } from "@mlc-ai/web-llm";
 import MlcIcon from "../icons/mlc.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 
-import Locale from "../locales";
+import Locale, { changeLang, AllLangs, Lang } from "../locales";
 import { getCSSVar, useMobileScreen } from "../utils";
 import { DEFAULT_MODELS, Path, SlotID } from "../constant";
 import { ErrorBoundary } from "./error";
