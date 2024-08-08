@@ -529,7 +529,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Alibaba",
     size: "0.5B",
     quantization: "q0f16",
-
     family: "Qwen 2",
     vram_required_MB: 1624.12,
     low_resource_required: true,
@@ -546,7 +545,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Alibaba",
     size: "0.5B",
     quantization: "q0f32",
-
     family: "Qwen 2",
     vram_required_MB: 2654.75,
     low_resource_required: true,
@@ -563,7 +561,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Alibaba",
     size: "1.5B",
     quantization: "q4f16_1",
-
     family: "Qwen 2",
     vram_required_MB: 1629.75,
     low_resource_required: true,
@@ -580,7 +577,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Alibaba",
     size: "1.5B",
     quantization: "q4f32",
-
     family: "Qwen 2",
     vram_required_MB: 1888.97,
     low_resource_required: true,
@@ -630,7 +626,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Alibaba",
     size: "1.5B",
     quantization: "q4f16_1",
-    family: "Qwen 2",
+    family: "Qwen 2 Math",
     vram_required_MB: 1629.75,
     low_resource_required: true,
     recommended_config: {
@@ -646,7 +642,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Alibaba",
     size: "1.5B",
     quantization: "q4f32_1",
-    family: "Qwen 2",
+    family: "Qwen 2 Math",
     vram_required_MB: 1888.97,
     low_resource_required: true,
     recommended_config: {
@@ -662,7 +658,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Alibaba",
     size: "7B",
     quantization: "q4f16_1",
-    family: "Qwen 2",
+    family: "Qwen 2 Math",
     vram_required_MB: 5106.67,
     low_resource_required: false,
     recommended_config: {
@@ -678,7 +674,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Alibaba",
     size: "7B",
     quantization: "q4f32_1",
-    family: "Qwen 2",
+    family: "Qwen 2 Math",
     vram_required_MB: 5900.09,
     low_resource_required: false,
     recommended_config: {
