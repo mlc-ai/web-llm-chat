@@ -208,24 +208,13 @@ export const useAppConfig = createPersistStore(
   }),
   {
     name: StoreKey.Config,
-    version: 0.48,
+    version: 0.49,
     migrate: (persistedState, version) => {
-      if (version < 0.48) {
+      if (version < 0.49) {
         return {
           ...DEFAULT_CONFIG,
           ...(persistedState as any),
           models: DEFAULT_MODELS as any as ModelRecord[],
-
-          sendMemory: (persistedState as any).modelConfig?.sendMemory || true,
-          historyMessageCount:
-            (persistedState as any).modelConfig?.historyMessageCount || 4,
-          compressMessageLengthThreshold:
-            (persistedState as any).modelConfig
-              ?.compressMessageLengthThreshold || 1000,
-          enableInjectSystemPrompts:
-            (persistedState as any).modelConfig?.enableInjectSystemPrompts ||
-            false,
-          template: DEFAULT_INPUT_TEMPLATE,
 
           modelConfig: {
             model: DEFAULT_MODELS[0].name,
