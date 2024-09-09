@@ -15,9 +15,12 @@
     "proxy-dev": "sh ./scripts/init-proxy.sh && proxychains -f ./scripts/proxychains.conf yarn dev"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "@fortaine/fetch-event-source": "^3.0.6",
     "@hello-pangea/dnd": "^16.5.0",
     "@mlc-ai/web-llm": "^0.2.62",
+    "@mui/material": "^6.0.2",
     "@serwist/next": "^9.0.2",
     "@svgr/webpack": "^6.5.1",
     "emoji-picker-react": "^4.9.2",

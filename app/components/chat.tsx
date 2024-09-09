@@ -73,6 +73,7 @@ import {
   ListItem,
   Modal,
   Popover,
+  PopoverSelector,
   Selector,
   Tooltip,
   showConfirm,
@@ -96,6 +97,7 @@ import { MultimodalContent } from "../client/api";
 import { Template, useTemplateStore } from "../store/template";
 import Image from "next/image";
 import { MLCLLMContext, WebLLMContext } from "../context";
+import { SelectorWithPopover } from "./SubComponent/Chat/SelectorWithPopover";
 
 export function ScrollDownToast(prop: { show: boolean; onclick: () => void }) {
   return (
@@ -547,12 +549,17 @@ export function ChatActions(props: {
         fullWidth
       />
       {showModelSelector && (
-        <Selector
+        <PopoverSelector
           defaultSelectedValue={currentModel}
-          items={models.map((m) => ({
-            title: m.name,
-            value: m.name,
-            family: m.family,
+          items={models?.map((m) => ({
+            title: m?.name,
+            value: m?.name,
+            family: m?.family,
+            provider: m?.provider,
+            size: m?.size,
+            quantization: m?.quantization,
+            vram_required_MB: m?.vram_required_MB,
+            low_resource_required: m?.low_resource_required,
           }))}
           onClose={() => setShowModelSelector(false)}
           onSelection={(s) => {
