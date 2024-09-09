@@ -15,6 +15,9 @@ import Locale from "../locales";
 import { createRoot } from "react-dom/client";
 import React, { HTMLProps, useEffect, useState } from "react";
 import { IconButton } from "./button";
+import MuiPopover from "@mui/material/Popover";
+import { Box, Typography } from "@mui/material";
+import { ModelRecord } from "../client/api";
 
 export function Popover(props: {
   children: JSX.Element;
@@ -536,5 +539,223 @@ export function Selector<T>(props: {
         </List>
       </div>
     </div>
+  );
+}
+
+export function PopoverSelector<T>(props: {
+  items: Array<{
+    title: string;
+    subTitle?: string;
+    value: T;
+    family?: string;
+  }>;
+  defaultSelectedValue?: T;
+  onSelection?: (selection: T[]) => void;
+  onClose?: () => void;
+  multiple?: boolean;
+}) {
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [popoverContent, setPopoverContent] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
+
+  const handlePopoverOpen = (
+    event: React.MouseEvent<HTMLElement>,
+    content: ModelRecord,
+  ) => {
+    setAnchorEl(event.currentTarget);
+    setPopoverContent(content);
+    setOpen(true);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+    setPopoverContent(null);
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <div className={styles["selector"]} onClick={() => props.onClose?.()}>
+        <div className={styles["selector-content"]}>
+          <List>
+            {props.items.map((item, i) => {
+              const selected = props.defaultSelectedValue === item.value;
+              const lastOfFamily =
+                i < props.items.length - 1 &&
+                item.family !== props.items[i + 1].family;
+
+              return (
+                <div
+                  key={i}
+                  onMouseEnter={(event) => handlePopoverOpen(event, item)}
+                  onMouseLeave={handlePopoverClose}
+                  aria-owns={open ? "mouse-over-popover" : undefined}
+                  aria-haspopup="true"
+                >
+                  <ListItem
+                    className={
+                      styles["selector-item"] +
+                      (lastOfFamily ? " " + styles["list-item-separator"] : "")
+                    }
+                    title={item.title}
+                    subTitle={item.subTitle}
+                    onClick={() => {
+                      props.onSelection?.([item.value]);
+                      props.onClose?.();
+                    }}
+                  >
+                    {selected ? (
+                      <div
+                        style={{
+                          height: 10,
+                          width: 10,
+                          backgroundColor: "var(--primary)",
+                          borderRadius: 10,
+                        }}
+                      ></div>
+                    ) : null}
+                  </ListItem>
+                </div>
+              );
+            })}
+          </List>
+        </div>
+      </div>
+
+      <MuiPopover
+        id="mouse-over-popover"
+        sx={{ pointerEvents: "none", marginLeft: "10px" }}
+        open={open}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: "center",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "center",
+          horizontal: "left",
+        }}
+        onClose={handlePopoverClose}
+        disableRestoreFocus
+      >
+        {popoverContent && (
+          <Box sx={{ padding: "8px", maxWidth: "250px" }}>
+            <Typography
+              sx={{ fontWeight: "bold", marginBottom: "6px", fontSize: "1rem" }}
+            >
+              {popoverContent.title}
+            </Typography>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "6px",
+              }}
+            >
+              <Typography
+                variant="subtitle2"
+                color="text.secondary"
+                sx={{ fontSize: "0.875rem" }}
+              >
+                Provider:
+              </Typography>
+              <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
+                {popoverContent.provider}
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "6px",
+              }}
+            >
+              <Typography
+                variant="subtitle2"
+                color="text.secondary"
+                sx={{ fontSize: "0.875rem" }}
+              >
+                Size:
+              </Typography>
+              <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
+                {popoverContent.size}
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "6px",
+              }}
+            >
+              <Typography
+                variant="subtitle2"
+                color="text.secondary"
+                sx={{ fontSize: "0.875rem" }}
+              >
+                Quantization:
+              </Typography>
+              <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
+                {popoverContent.quantization}
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "6px",
+              }}
+            >
+              <Typography
+                variant="subtitle2"
+                color="text.secondary"
+                sx={{ fontSize: "0.875rem" }}
+              >
+                Family:
+              </Typography>
+              <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
+                {popoverContent.family}
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "6px",
+              }}
+            >
+              <Typography
+                variant="subtitle2"
+                color="text.secondary"
+                sx={{ fontSize: "0.875rem" }}
+              >
+                VRAM Required:
+              </Typography>
+              <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
+                {popoverContent.vram_required_MB} MB
+              </Typography>
+            </Box>
+
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Typography
+                variant="subtitle2"
+                color="text.secondary"
+                sx={{ fontSize: "0.875rem" }}
+              >
+                Low Resource Required:
+              </Typography>
+              <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
+                {popoverContent.low_resource_required ? "Yes" : "No"}
+              </Typography>
+            </Box>
+          </Box>
+        )}
+      </MuiPopover>
+    </>
   );
 }
