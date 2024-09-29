@@ -230,7 +230,10 @@ const en = {
         SubTitle: "Connect to the API",
       },
     },
-
+    ContextWindowLength: {
+      Title: "Context Window Length",
+      SubTitle: "The maximum number of tokens for the context window",
+    },
     Temperature: {
       Title: "Temperature",
       SubTitle: "A larger value makes the more random output",

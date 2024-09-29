@@ -155,6 +155,7 @@ export class WebLLMApi implements LLMApi {
     // Compare optional fields
     const optionalFields: (keyof LLMConfig)[] = [
       "temperature",
+      "context_window_size",
       "top_p",
       "stream",
       "presence_penalty",

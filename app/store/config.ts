@@ -1,4 +1,4 @@
-import { LogLevel } from "@neet-nestor/web-llm";
+import { LogLevel, prebuiltAppConfig } from "@neet-nestor/web-llm";
 import { ModelRecord } from "../client/api";
 import {
   DEFAULT_INPUT_TEMPLATE,
@@ -39,6 +39,7 @@ export type ModelConfig = {
 
   // Chat configs
   temperature: number;
+  context_window_size?: number;
   top_p: number;
   max_tokens: number;
   presence_penalty: number;
@@ -83,6 +84,10 @@ const DEFAULT_MODEL_CONFIG: ModelConfig = {
   // Chat configs
   temperature: 1.0,
   top_p: 1,
+  context_window_size:
+    prebuiltAppConfig.model_list.find(
+      (m) => m.model_id === DEFAULT_MODELS[0].name,
+    )?.overrides?.context_window_size ?? 4096,
   max_tokens: 4000,
   presence_penalty: 0,
   frequency_penalty: 0,
@@ -142,7 +147,10 @@ export const ModalConfigValidator = {
     return x as Model;
   },
   max_tokens(x: number) {
-    return limitNumber(x, 0, 512000, 1024);
+    return limitNumber(x, 0, 131072, 1024);
+  },
+  context_window_size(x: number) {
+    return limitNumber(x, 0, 131072, 1024);
   },
   presence_penalty(x: number) {
     return limitNumber(x, -2, 2, 0);
@@ -208,9 +216,9 @@ export const useAppConfig = createPersistStore(
   }),
   {
     name: StoreKey.Config,
-    version: 0.54,
+    version: 0.55,
     migrate: (persistedState, version) => {
-      if (version < 0.54) {
+      if (version < 0.55) {
         return {
           ...DEFAULT_CONFIG,
           ...(persistedState as any),
@@ -222,6 +230,7 @@ export const useAppConfig = createPersistStore(
             // Chat configs
             temperature: 1.0,
             top_p: 1,
+            context_window_size: 4096,
             max_tokens: 4000,
             presence_penalty: 0,
             frequency_penalty: 0,

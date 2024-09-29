@@ -74,6 +74,35 @@ export function ModelConfigList() {
               ))}
             </Select>
           </ListItem>
+
+          {/* New setting item for LLM model context window length */}
+          <ListItem
+            title={Locale.Settings.ContextWindowLength.Title}
+            subTitle={Locale.Settings.ContextWindowLength.SubTitle}
+          >
+            <Select
+              value={config.modelConfig.context_window_size}
+              onChange={(e) => {
+                updateModelConfig(
+                  (config) =>
+                    (config.context_window_size =
+                      ModalConfigValidator.context_window_size(
+                        parseInt(e.currentTarget.value),
+                      )),
+                );
+              }}
+            >
+              <option value="1024">1K</option>
+              <option value="2048">2K</option>
+              <option value="4096">4K</option>
+              <option value="8192">8K</option>
+              <option value="16384">16K</option>
+              <option value="32768">32K</option>
+              <option value="65536">64K</option>
+              <option value="131072">128K</option>
+            </Select>
+          </ListItem>
+
           <ListItem
             title={Locale.Settings.Temperature.Title}
             subTitle={Locale.Settings.Temperature.SubTitle}
