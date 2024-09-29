@@ -73,8 +73,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1B",
     quantization: "q4f32",
     family: "Llama 3.2",
-    vram_required_MB: 1128.82,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -89,8 +87,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1B",
     quantization: "q4f16",
     family: "Llama 3.2",
-    vram_required_MB: 879.04,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -105,8 +101,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1B",
     quantization: "q0f32",
     family: "Llama 3.2",
-    vram_required_MB: 5106.26,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -121,8 +115,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1B",
     quantization: "q0f16",
     family: "Llama 3.2",
-    vram_required_MB: 2573.13,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -137,8 +129,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "3B",
     quantization: "q4f32",
     family: "Llama 3.2",
-    vram_required_MB: 2951.51,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -153,8 +143,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "3B",
     quantization: "q4f16",
     family: "Llama 3.2",
-    vram_required_MB: 2263.69,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -170,8 +158,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "8B",
     quantization: "q4f32",
     family: "Llama 3.1",
-    vram_required_MB: 5295.7,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -186,8 +172,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "8B",
     quantization: "q4f16",
     family: "Llama 3.1",
-    vram_required_MB: 4598.34,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -202,8 +186,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "8B",
     quantization: "q4f32",
     family: "Llama 3.1",
-    vram_required_MB: 6101.01,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -218,8 +200,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "8B",
     quantization: "q4f16",
     family: "Llama 3.1",
-    vram_required_MB: 5001,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -234,8 +214,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "8B",
     quantization: "q4f16",
     family: "Hermes 2 Pro",
-    vram_required_MB: 4976.13,
-    low_resource_required: false,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -250,8 +228,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "8B",
     quantization: "q4f32",
     family: "Hermes 2 Pro",
-    vram_required_MB: 6051.27,
-    low_resource_required: false,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -266,8 +242,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "8B",
     quantization: "q4f32",
     family: "Hermes 3",
-    vram_required_MB: 5779.27,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -282,8 +256,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "8B",
     quantization: "q4f16",
     family: "Hermes 3",
-    vram_required_MB: 4876.13,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -298,9 +270,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f16",
     family: "Hermes 2 Pro",
-    vram_required_MB: 4033.28,
-    low_resource_required: false,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -314,8 +283,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Microsoft",
     quantization: "q4f16",
     family: "Phi 3.5 Mini",
-    vram_required_MB: 3672.07,
-    low_resource_required: false,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -329,8 +296,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Microsoft",
     quantization: "q4f32",
     family: "Phi 3.5 Mini",
-    vram_required_MB: 5483.12,
-    low_resource_required: false,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -344,8 +309,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Microsoft",
     quantization: "q4f16",
     family: "Phi 3.5 Mini",
-    vram_required_MB: 2520.07,
-    low_resource_required: true,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -359,8 +322,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Microsoft",
     quantization: "q4f32",
     family: "Phi 3.5 Mini",
-    vram_required_MB: 3179.12,
-    low_resource_required: true,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -375,9 +336,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f16",
     family: "Mistral",
-    vram_required_MB: 4573.39,
-    low_resource_required: false,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -392,8 +350,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f32",
     family: "Mistral",
-    vram_required_MB: 5619.27,
-    low_resource_required: false,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -408,9 +364,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f16",
     family: "Mistral",
-    vram_required_MB: 4573.39,
-    low_resource_required: false,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -423,9 +376,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f16",
     family: "Hermes",
-    vram_required_MB: 4573.39,
-    low_resource_required: false,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -438,9 +388,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f16",
     family: "Hermes",
-    vram_required_MB: 4573.39,
-    low_resource_required: false,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -453,9 +400,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f16",
     family: "WizardMath",
-    vram_required_MB: 4573.39,
-    low_resource_required: false,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -468,9 +412,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.7B",
     quantization: "q0f16",
     family: "SmolLM",
-    vram_required_MB: 3736.19,
-    low_resource_required: true,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.6,
       top_p: 0.92,
@@ -483,8 +424,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.7B",
     quantization: "q0f32",
     family: "SmolLM",
-    vram_required_MB: 7432.38,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.6,
       top_p: 0.92,
@@ -497,9 +436,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.7B",
     quantization: "q4f16",
     family: "SmolLM",
-    vram_required_MB: 1390.19,
-    low_resource_required: true,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.6,
       top_p: 0.92,
@@ -512,8 +448,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.7B",
     quantization: "q4f32",
     family: "SmolLM",
-    vram_required_MB: 1924.38,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.6,
       top_p: 0.92,
@@ -526,9 +460,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "360M",
     quantization: "q0f16",
     family: "SmolLM",
-    vram_required_MB: 791.99,
-    low_resource_required: true,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.6,
       top_p: 0.92,
@@ -541,8 +472,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "360M",
     quantization: "q0f32",
     family: "SmolLM",
-    vram_required_MB: 1583.99,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.6,
       top_p: 0.92,
@@ -555,9 +484,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "360M",
     quantization: "q4f16",
     family: "SmolLM",
-    vram_required_MB: 296.06,
-    low_resource_required: true,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.6,
       top_p: 0.92,
@@ -570,8 +496,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "360M",
     quantization: "q4f32",
     family: "SmolLM",
-    vram_required_MB: 419.61,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.6,
       top_p: 0.92,
@@ -584,9 +508,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "135M",
     quantization: "q0f16",
     family: "SmolLM",
-    vram_required_MB: 314.69,
-    low_resource_required: true,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.6,
       top_p: 0.92,
@@ -599,8 +520,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "135M",
     quantization: "q0f32",
     family: "SmolLM",
-    vram_required_MB: 629.38,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.6,
       top_p: 0.92,
@@ -613,9 +532,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "135M",
     quantization: "q4f16",
     family: "SmolLM",
-    vram_required_MB: 130.33,
-    low_resource_required: true,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.6,
       top_p: 0.92,
@@ -628,8 +544,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "135M",
     quantization: "q4f32",
     family: "SmolLM",
-    vram_required_MB: 196.54,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.6,
       top_p: 0.92,
@@ -642,8 +556,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "0.5B",
     quantization: "q4f16",
     family: "Qwen 2.5",
-    vram_required_MB: 944.62,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -658,8 +570,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "0.5B",
     quantization: "q4f32",
     family: "Qwen 2.5",
-    vram_required_MB: 1060.2,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -674,8 +584,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "0.5B",
     quantization: "q4f16",
     family: "Qwen 2.5",
-    vram_required_MB: 944.62,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -690,8 +598,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "0.5B",
     quantization: "q0f16",
     family: "Qwen 2.5",
-    vram_required_MB: 1624.12,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -706,8 +612,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "0.5B",
     quantization: "q0f32",
     family: "Qwen 2.5",
-    vram_required_MB: 2654.75,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -722,8 +626,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.5B",
     quantization: "q4f16",
     family: "Qwen 2.5",
-    vram_required_MB: 1629.75,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -738,8 +640,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.5B",
     quantization: "q4f32",
     family: "Qwen 2.5",
-    vram_required_MB: 1888.97,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -754,8 +654,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "3B",
     quantization: "q4f16",
     family: "Qwen 2.5",
-    vram_required_MB: 2504.76,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -770,8 +668,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "3B",
     quantization: "q4f32",
     family: "Qwen 2.5",
-    vram_required_MB: 2893.64,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -786,8 +682,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f16",
     family: "Qwen 2.5",
-    vram_required_MB: 5106.67,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -802,8 +696,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f32",
     family: "Qwen 2.5",
-    vram_required_MB: 5900.09,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -819,8 +711,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.5B",
     quantization: "q4f16",
     family: "Qwen 2.5 Coder",
-    vram_required_MB: 5106.67,
-    low_resource_required: false,
     recommended_config: {
       temperature: 1.0,
       presence_penalty: 0,
@@ -835,8 +725,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.5B",
     quantization: "q4f32",
     family: "Qwen 2.5 Coder",
-    vram_required_MB: 5900.09,
-    low_resource_required: false,
     recommended_config: {
       temperature: 1.0,
       presence_penalty: 0,
@@ -851,8 +739,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f16",
     family: "Qwen 2.5 Coder",
-    vram_required_MB: 5106.67,
-    low_resource_required: false,
     recommended_config: {
       temperature: 1.0,
       presence_penalty: 0,
@@ -867,8 +753,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f32",
     family: "Qwen 2.5 Coder",
-    vram_required_MB: 5900.09,
-    low_resource_required: false,
     recommended_config: {
       temperature: 1.0,
       presence_penalty: 0,
@@ -884,8 +768,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.5B",
     quantization: "q4f16",
     family: "Qwen 2 Math",
-    vram_required_MB: 1629.75,
-    low_resource_required: true,
     recommended_config: {
       temperature: 1.0,
       presence_penalty: 0,
@@ -900,8 +782,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.5B",
     quantization: "q4f32_1",
     family: "Qwen 2 Math",
-    vram_required_MB: 1888.97,
-    low_resource_required: true,
     recommended_config: {
       temperature: 1.0,
       presence_penalty: 0,
@@ -916,8 +796,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f16",
     family: "Qwen 2 Math",
-    vram_required_MB: 5106.67,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -932,8 +810,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f32_1",
     family: "Qwen 2 Math",
-    vram_required_MB: 5900.09,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -948,10 +824,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "2B",
     quantization: "q4f16",
     family: "Gemma",
-    vram_required_MB: 1895.3,
-    low_resource_required: false,
-    buffer_size_required_bytes: 262144000,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -966,9 +838,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "2B",
     quantization: "q4f32",
     family: "Gemma",
-    vram_required_MB: 2508.75,
-    low_resource_required: false,
-    buffer_size_required_bytes: 262144000,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -983,10 +852,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "2B",
     quantization: "q4f16",
     family: "Gemma",
-    vram_required_MB: 1583.3,
-    low_resource_required: true,
-    buffer_size_required_bytes: 262144000,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1001,9 +866,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "2B",
     quantization: "q4f32",
     family: "Gemma",
-    vram_required_MB: 1884.75,
-    low_resource_required: true,
-    buffer_size_required_bytes: 262144000,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1018,10 +880,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "9B",
     quantization: "q4f16",
     family: "Gemma",
-    vram_required_MB: 6422.01,
-    low_resource_required: false,
-    buffer_size_required_bytes: 262144000,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1036,10 +894,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "9B",
     quantization: "q4f32",
     family: "Gemma",
-    vram_required_MB: 8383.33,
-    low_resource_required: false,
-    buffer_size_required_bytes: 262144000,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1054,8 +908,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.6B",
     quantization: "q4f16",
     family: "StableLM 2",
-    vram_required_MB: 2087.66,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1070,8 +922,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.6B",
     quantization: "q4f32",
     family: "StableLM 2",
-    vram_required_MB: 2999.33,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1086,8 +936,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.6B",
     quantization: "q4f16",
     family: "StableLM 2",
-    vram_required_MB: 1511.66,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1102,8 +950,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.6B",
     quantization: "q4f32",
     family: "StableLM 2",
-    vram_required_MB: 1847.33,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1118,9 +964,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "3B",
     quantization: "q4f16",
     family: "RedPajama",
-    vram_required_MB: 2972.09,
-    low_resource_required: false,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1133,8 +976,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "3B",
     quantization: "q4f32",
     family: "RedPajama",
-    vram_required_MB: 3928.09,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1147,9 +988,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "3B",
     quantization: "q4f16",
     family: "RedPajama",
-    vram_required_MB: 2041.09,
-    low_resource_required: true,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1162,8 +1000,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "3B",
     quantization: "q4f32",
     family: "RedPajama",
-    vram_required_MB: 2558.09,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1176,9 +1012,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.1B",
     quantization: "q4f16",
     family: "TinyLlama",
-    vram_required_MB: 697.24,
-    low_resource_required: true,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -1193,8 +1026,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.1B",
     quantization: "q4f32",
     family: "TinyLlama",
-    vram_required_MB: 839.98,
-    low_resource_required: true,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -1209,9 +1040,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.1B",
     quantization: "q4f16",
     family: "TinyLlama",
-    vram_required_MB: 675.24,
-    low_resource_required: true,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -1226,8 +1054,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.1B",
     quantization: "q4f32",
     family: "TinyLlama",
-    vram_required_MB: 795.98,
-    low_resource_required: true,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -1242,8 +1068,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "70B",
     quantization: "q3f16",
     family: "Llama 3.1",
-    vram_required_MB: 31153.13,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -1258,8 +1082,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "0.5B",
     quantization: "q4f16",
     family: "Qwen 2",
-    vram_required_MB: 944.62,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1274,8 +1096,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "0.5B",
     quantization: "q0f16",
     family: "Qwen 2",
-    vram_required_MB: 1624.12,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1290,8 +1110,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "0.5B",
     quantization: "q0f32",
     family: "Qwen 2",
-    vram_required_MB: 2654.75,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1306,8 +1124,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.5B",
     quantization: "q4f16",
     family: "Qwen 2",
-    vram_required_MB: 1629.75,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1322,8 +1138,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.5B",
     quantization: "q4f32",
     family: "Qwen 2",
-    vram_required_MB: 1888.97,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1338,8 +1152,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f32",
     family: "Qwen 2",
-    vram_required_MB: 5106.67,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1354,8 +1166,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f32",
     family: "Qwen 2",
-    vram_required_MB: 5900.09,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1370,8 +1180,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "8B",
     quantization: "q4f32",
     family: "Llama 3",
-    vram_required_MB: 5295.7,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -1386,8 +1194,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "8B",
     quantization: "q4f16",
     family: "Llama 3",
-    vram_required_MB: 4598.34,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -1402,8 +1208,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "8B",
     quantization: "q4f32",
     family: "Llama 3",
-    vram_required_MB: 6101.01,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -1418,8 +1222,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "8B",
     quantization: "q4f16",
     family: "Llama 3",
-    vram_required_MB: 5001.0,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -1434,8 +1236,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "70B",
     quantization: "q3f16",
     family: "Llama 3",
-    vram_required_MB: 31153.13,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1450,8 +1250,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Microsoft",
     quantization: "q4f16",
     family: "Phi 3 Mini Instruct",
-    vram_required_MB: 3672.07,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1465,8 +1263,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Microsoft",
     quantization: "q4f32",
     family: "Phi 3 Mini Instruct",
-    vram_required_MB: 5483.12,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1480,8 +1276,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Microsoft",
     quantization: "q4f16",
     family: "Phi 3 Mini Instruct",
-    vram_required_MB: 2520.07,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1495,8 +1289,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Microsoft",
     quantization: "q4f32",
     family: "Phi 3 Mini Instruct",
-    vram_required_MB: 3179.12,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1511,8 +1303,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f32",
     family: "Llama 2",
-    vram_required_MB: 5284.01,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.6,
       top_p: 0.9,
@@ -1525,9 +1315,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f16",
     family: "Llama 2",
-    vram_required_MB: 4618.52,
-    low_resource_required: false,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.6,
       top_p: 0.9,
@@ -1540,8 +1327,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f32",
     family: "Llama 2",
-    vram_required_MB: 9109.03,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.6,
       top_p: 0.9,
@@ -1554,9 +1339,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "7B",
     quantization: "q4f16",
     family: "Llama 2",
-    vram_required_MB: 6749.02,
-    low_resource_required: false,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.6,
       top_p: 0.9,
@@ -1569,9 +1351,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "13B",
     quantization: "q4f16",
     family: "Llama 2",
-    vram_required_MB: 11814.09,
-    low_resource_required: false,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.6,
       top_p: 0.9,
@@ -1583,9 +1362,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Microsoft",
     quantization: "q4f16",
     family: "Phi 2",
-    vram_required_MB: 3053.97,
-    low_resource_required: false,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1597,8 +1373,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Microsoft",
     quantization: "q4f32",
     family: "Phi 2",
-    vram_required_MB: 4032.48,
-    low_resource_required: false,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1610,9 +1384,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Microsoft",
     quantization: "q4f16",
     family: "Phi 2",
-    vram_required_MB: 2131.97,
-    low_resource_required: true,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1624,8 +1395,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Microsoft",
     quantization: "q4f32",
     family: "Phi 2",
-    vram_required_MB: 2740.48,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1637,9 +1406,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Microsoft",
     quantization: "q4f16",
     family: "Phi 1.5",
-    vram_required_MB: 1210.09,
-    low_resource_required: true,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1651,8 +1417,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Microsoft",
     quantization: "q4f32",
     family: "Phi 1.5",
-    vram_required_MB: 1682.09,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1664,9 +1428,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Microsoft",
     quantization: "q4f16",
     family: "Phi 1.5",
-    vram_required_MB: 1210.09,
-    low_resource_required: true,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1678,8 +1439,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     provider: "Microsoft",
     quantization: "q4f32",
     family: "Phi 1.5",
-    vram_required_MB: 1682.09,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1692,9 +1451,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.1B",
     quantization: "q4f16",
     family: "TinyLlama",
-    vram_required_MB: 697.24,
-    low_resource_required: true,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1707,8 +1463,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.1B",
     quantization: "q4f32",
     family: "TinyLlama",
-    vram_required_MB: 839.98,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1721,9 +1475,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.1B",
     quantization: "q4f16",
     family: "TinyLlama",
-    vram_required_MB: 675.24,
-    low_resource_required: true,
-    required_features: ["shader-f16"],
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1736,8 +1487,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     size: "1.1B",
     quantization: "q4f32",
     family: "TinyLlama",
-    vram_required_MB: 795.98,
-    low_resource_required: true,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
