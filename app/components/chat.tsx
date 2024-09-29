@@ -514,7 +514,7 @@ export function ChatActions(props: {
       )}
       <ChatAction
         onClick={props.showPromptSetting}
-        text={Locale.Chat.Actions.EditPrompts}
+        text={Locale.Chat.Actions.EditConversation}
         icon={<EditIcon />}
       />
       <ChatAction
@@ -1143,7 +1143,7 @@ function _Chat() {
       >
         <div className={styles["chat-action-context"]}>
           <ChatAction
-            text={Locale.Chat.Actions.EditPrompts}
+            text={Locale.Chat.Actions.EditConversation}
             icon={<EditIcon />}
             onClick={() => setShowEditPromptModal(true)}
             fullWidth

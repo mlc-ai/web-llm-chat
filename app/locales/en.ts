@@ -28,7 +28,7 @@ const en = {
       Retry: "Retry",
       Delete: "Delete",
       Edit: "Edit",
-      EditPrompts: "Edit Prompts",
+      EditConversation: "Edit Conversation",
     },
     Commands: {
       new: "Start a new chat",
@@ -193,7 +193,7 @@ const en = {
         Search: "Search Prompts",
       },
       EditModal: {
-        Title: "Edit Prompt",
+        Title: "Edit Conversation",
       },
     },
     HistoryCount: {
