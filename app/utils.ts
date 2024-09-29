@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { showToast } from "./components/ui-lib";
 import Locale from "./locales";
 import { RequestMessage } from "./client/api";
+import { Model } from "./store";
+import { ModelType, prebuiltAppConfig } from "@neet-nestor/web-llm";
+import { ChatImage } from "./typing";
 
 export function trimTopic(topic: string) {
   // Fix an issue where double quotes still show in the Indonesian language
@@ -51,7 +54,7 @@ export async function downloadAs(text: string, filename: string) {
   document.body.removeChild(element);
 }
 
-export function compressImage(file: File, maxSize: number): Promise<string> {
+export function compressImage(file: File, maxSize: number): Promise<ChatImage> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = (readerEvent: any) => {
@@ -83,7 +86,11 @@ export function compressImage(file: File, maxSize: number): Promise<string> {
           }
         } while (dataUrl.length > maxSize);
 
-        resolve(dataUrl);
+        resolve({
+          url: dataUrl,
+          width: width,
+          height: height,
+        });
       };
       image.onerror = reject;
       image.src = readerEvent.target.result;
@@ -244,31 +251,26 @@ export function getMessageTextContent(message: RequestMessage) {
   return "";
 }
 
-export function getMessageImages(message: RequestMessage): string[] {
+export function getMessageImages(message: RequestMessage): ChatImage[] {
   if (typeof message.content === "string") {
     return [];
   }
-  const urls: string[] = [];
+  const urls: ChatImage[] = [];
   for (const c of message.content) {
     if (c.type === "image_url") {
-      urls.push(c.image_url?.url ?? "");
+      urls.push({
+        url: c.image_url?.url ?? "",
+        width: c.dimension?.width ?? 0,
+        height: c.dimension?.height ?? 0,
+      });
     }
   }
   return urls;
 }
 
-export function isVisionModel(model: string) {
-  // Note: This is a better way using the TypeScript feature instead of `&&` or `||` (ts v5.5.0-dev.20240314 I've been using)
-
-  const visionKeywords = ["vision", "claude-3", "gemini-1.5-pro"];
-
-  const isGpt4Turbo =
-    model.includes("gpt-4-turbo") && !model.includes("preview");
-
-  return (
-    visionKeywords.some((keyword) => model.includes(keyword)) || isGpt4Turbo
-  );
-}
+export const isVisionModel = (model: Model) =>
+  prebuiltAppConfig.model_list.find((m) => m.model_id === model)?.model_type ===
+  ModelType.VLM;
 
 // Fix various problems in webllm generation
 export function fixMessage(message: string) {

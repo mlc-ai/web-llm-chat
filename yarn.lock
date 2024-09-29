@@ -1180,10 +1180,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@mlc-ai/web-llm@^0.2.71":
+"@neet-nestor/web-llm@^0.2.71":
   version "0.2.71"
-  resolved "https://registry.yarnpkg.com/@mlc-ai/web-llm/-/web-llm-0.2.71.tgz#6e0533fc6ad643a852f9c79d650506ea96061924"
-  integrity sha512-VRo+yZFnHsQeI/a0DLNnnUdWtDGiIwL7vYN4YdYXMZMKXGT+rcXRRUIVlH3/AVUbQx/TKHyKl1wxenXg6Bpx1w==
+  resolved "https://registry.yarnpkg.com/@neet-nestor/web-llm/-/web-llm-0.2.71.tgz#8dd96fec43ad3ec1c890c60c8999985764262b92"
+  integrity sha512-cvdFLoCXazp2WvGR3H9OYARAPlz7WrPr2ii1AHGY+FHJZUd0Db7OiSRy+hBxWEtdyeWZyj1dTW8hYhAIiO+Deg==
   dependencies:
     loglevel "^1.9.1"
 

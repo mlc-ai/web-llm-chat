@@ -437,7 +437,7 @@ export function ImagePreviewer(props: {
                 {getMessageImages(m).length == 1 && (
                   <img
                     key={i}
-                    src={getMessageImages(m)[0]}
+                    src={getMessageImages(m)[0].url}
                     alt="message"
                     className={styles["message-image"]}
                   />
@@ -451,7 +451,7 @@ export function ImagePreviewer(props: {
                       } as React.CSSProperties
                     }
                   >
-                    {getMessageImages(m).map((src, i) => (
+                    {getMessageImages(m).map(({ url: src }, i) => (
                       <img
                         key={i}
                         src={src}

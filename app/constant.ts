@@ -65,7 +65,34 @@ Latex block format: $$e=mc^2$$
 `;
 
 export const DEFAULT_MODELS: ModelRecord[] = [
-  // Llama-3.2 1B
+  // Phi-3.5 Vision
+  {
+    name: "Phi-3.5-vision-instruct-q4f16_1-MLC",
+    display_name: "Phi",
+    provider: "Microsoft",
+    quantization: "q4f16",
+    family: "Phi 3.5 Vision",
+    recommended_config: {
+      temperature: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 1,
+    },
+  },
+  {
+    name: "Phi-3.5-vision-instruct-q4f32_1-MLC",
+    display_name: "Phi",
+    provider: "Microsoft",
+    quantization: "q4f32",
+    family: "Phi 3.5 Vision",
+    recommended_config: {
+      temperature: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 1,
+    },
+  },
+  // Llama-3.2
   {
     name: "Llama-3.2-1B-Instruct-q4f32_1-MLC",
     display_name: "Llama",
@@ -279,7 +306,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
   },
   {
     name: "Phi-3.5-mini-instruct-q4f16_1-MLC",
-    display_name: "Phi 3.5",
+    display_name: "Phi",
     provider: "Microsoft",
     quantization: "q4f16",
     family: "Phi 3.5 Mini",
@@ -292,7 +319,7 @@ export const DEFAULT_MODELS: ModelRecord[] = [
   },
   {
     name: "Phi-3.5-mini-instruct-q4f32_1-MLC",
-    display_name: "Phi 3.5",
+    display_name: "Phi",
     provider: "Microsoft",
     quantization: "q4f32",
     family: "Phi 3.5 Mini",

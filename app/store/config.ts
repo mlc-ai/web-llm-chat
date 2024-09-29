@@ -1,4 +1,4 @@
-import { LogLevel } from "@mlc-ai/web-llm";
+import { LogLevel } from "@neet-nestor/web-llm";
 import { ModelRecord } from "../client/api";
 import {
   DEFAULT_INPUT_TEMPLATE,
@@ -208,9 +208,9 @@ export const useAppConfig = createPersistStore(
   }),
   {
     name: StoreKey.Config,
-    version: 0.53,
+    version: 0.54,
     migrate: (persistedState, version) => {
-      if (version < 0.53) {
+      if (version < 0.54) {
         return {
           ...DEFAULT_CONFIG,
           ...(persistedState as any),

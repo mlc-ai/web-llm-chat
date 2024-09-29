@@ -7,3 +7,9 @@ export interface RequestMessage {
   role: MessageRole;
   content: string;
 }
+
+export interface ChatImage {
+  url: string;
+  width: number;
+  height: number;
+}

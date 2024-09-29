@@ -13,7 +13,7 @@ import MinIcon from "../icons/min.svg";
 import Locale from "../locales";
 
 import { createRoot } from "react-dom/client";
-import React, { HTMLProps, useEffect, useState } from "react";
+import React, { HTMLProps, ReactNode, useEffect, useState } from "react";
 import { IconButton } from "./button";
 
 export function Popover(props: {
@@ -95,7 +95,6 @@ export function ListItem(props: {
       onClick={props.onClick}
     >
       <div className={styles["list-header"]}>
-        {props.icon && <div className={styles["list-icon"]}>{props.icon}</div>}
         <div className={styles["list-item-title"]}>
           <div>{props.title}</div>
           {props.subTitle && (
@@ -104,6 +103,7 @@ export function ListItem(props: {
             </div>
           )}
         </div>
+        {props.icon && <div className={styles["list-icon"]}>{props.icon}</div>}
       </div>
       {props.children}
     </div>
@@ -489,6 +489,7 @@ export function Selector<T>(props: {
     subTitle?: string;
     value: T;
     family?: string;
+    icon?: JSX.Element;
   }>;
   defaultSelectedValue?: T;
   onSelection?: (selection: T[]) => void;
@@ -517,6 +518,7 @@ export function Selector<T>(props: {
                   props.onSelection?.([item.value]);
                   props.onClose?.();
                 }}
+                icon={item.icon}
               >
                 {selected ? (
                   <div

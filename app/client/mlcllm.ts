@@ -1,6 +1,9 @@
 import log from "loglevel";
 import { ChatOptions, LLMApi } from "./api";
-import { ChatCompletionFinishReason, CompletionUsage } from "@mlc-ai/web-llm";
+import {
+  ChatCompletionFinishReason,
+  CompletionUsage,
+} from "@neet-nestor/web-llm";
 
 export class MlcLLMApi implements LLMApi {
   private endpoint: string;

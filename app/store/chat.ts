@@ -15,7 +15,11 @@ import { RequestMessage, MultimodalContent, LLMApi } from "../client/api";
 import { estimateTokenLength } from "../utils/token";
 import { nanoid } from "nanoid";
 import { createPersistStore } from "../utils/store";
-import { ChatCompletionFinishReason, CompletionUsage } from "@mlc-ai/web-llm";
+import {
+  ChatCompletionFinishReason,
+  CompletionUsage,
+} from "@neet-nestor/web-llm";
+import { ChatImage } from "../typing";
 
 export type ChatMessage = RequestMessage & {
   date: string;
@@ -279,7 +283,7 @@ export const useChatStore = createPersistStore(
         get().summarizeSession(llm);
       },
 
-      onUserInput(content: string, llm: LLMApi, attachImages?: string[]) {
+      onUserInput(content: string, llm: LLMApi, attachImages?: ChatImage[]) {
         const modelConfig = useAppConfig.getState().modelConfig;
 
         const userContent = fillTemplateWith(content, useAppConfig.getState());
@@ -295,11 +299,15 @@ export const useChatStore = createPersistStore(
             },
           ];
           mContent = mContent.concat(
-            attachImages.map((url) => {
+            attachImages.map((imageData) => {
               return {
                 type: "image_url",
                 image_url: {
-                  url: url,
+                  url: imageData.url,
+                },
+                dimension: {
+                  width: imageData.width,
+                  height: imageData.height,
                 },
               };
             }),
