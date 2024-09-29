@@ -67,10 +67,10 @@ Latex block format: $$e=mc^2$$
 export const DEFAULT_MODELS: ModelRecord[] = [
   // Phi-3.5 Vision
   {
-    name: "Phi-3.5-vision-instruct-q4f16_1-MLC",
+    name: "Phi-3.5-vision-instruct-q4f32_1-MLC",
     display_name: "Phi",
     provider: "Microsoft",
-    quantization: "q4f16",
+    quantization: "q4f32",
     family: "Phi 3.5 Vision",
     recommended_config: {
       temperature: 1,
@@ -80,10 +80,10 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     },
   },
   {
-    name: "Phi-3.5-vision-instruct-q4f32_1-MLC",
+    name: "Phi-3.5-vision-instruct-q4f16_1-MLC",
     display_name: "Phi",
     provider: "Microsoft",
-    quantization: "q4f32",
+    quantization: "q4f16",
     family: "Phi 3.5 Vision",
     recommended_config: {
       temperature: 1,
