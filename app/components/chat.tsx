@@ -72,6 +72,7 @@ import {
   showConfirm,
   showPrompt,
   showToast,
+  Tooltip,
 } from "./ui-lib";
 import { useNavigate } from "react-router-dom";
 import {
@@ -549,7 +550,11 @@ export function ChatActions(props: {
             title: m.name,
             value: m.name,
             family: m.family,
-            icon: isVisionModel(m.name) ? <EyeIcon /> : undefined,
+            icon: isVisionModel(m.name) ? (
+              <Tooltip content={<div>Vision Model</div>} direction="bottom">
+                <EyeIcon />
+              </Tooltip>
+            ) : undefined,
           }))}
           onClose={() => setShowModelSelector(false)}
           onSelection={(s) => {
