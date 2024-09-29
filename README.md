@@ -22,7 +22,8 @@
 
 - **Browser-Native AI**: Experience cutting-edge language models running natively within your web browser with WebGPU acceleration, eliminating the need for server-side processing or cloud dependencies.
 - **Ganranteed Privacy**: With the AI model running locally on your hardware and all data processing happening within your browser, your data and conversations never leave your computer, ensuring your privacy.
-- **Offline Accessibility**: WebLLM Chat can be used entirely offline after the initial setup and download, allowing you to engage with AI-powered conversations without an active internet connection.
+- **Offline Accessibility**: Run entirely offline after the initial setup and download, allowing you to engage with AI-powered conversations without an active internet connection.
+- **Vision Model Support**: Chat with AI by uploading and sending images, making it easy to get insights and answers based on visual content.
 - **User-Friendly Interface**: Enjoy the intuitive and feature-rich user interface, complete with markdown support, dark mode, and a responsive design optimized for various screen sizes.
 - **Custom Models**: Connect to any custom language model on you local environment through [MLC-LLM](https://llm.mlc.ai/). For detail, check the [Use Custom Models](#use-custom-models) section.
 - **Open Source and Customizable**: Build and customize your own AI-powered applications with our open-source framework.
