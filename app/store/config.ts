@@ -78,22 +78,23 @@ export type ConfigType = {
   modelConfig: ModelConfig;
 };
 
+const DEFAULT_MODEL = "Llama-3.2-1B-Instruct-q4f32_1-MLC";
+
 const DEFAULT_MODEL_CONFIG: ModelConfig = {
-  model: DEFAULT_MODELS[0].name,
+  model: DEFAULT_MODEL,
 
   // Chat configs
   temperature: 1.0,
   top_p: 1,
   context_window_size:
-    prebuiltAppConfig.model_list.find(
-      (m) => m.model_id === DEFAULT_MODELS[0].name,
-    )?.overrides?.context_window_size ?? 4096,
+    prebuiltAppConfig.model_list.find((m) => m.model_id === DEFAULT_MODEL)
+      ?.overrides?.context_window_size ?? 4096,
   max_tokens: 4000,
   presence_penalty: 0,
   frequency_penalty: 0,
 
   // Use recommended config to overwrite above parameters
-  ...DEFAULT_MODELS[0].recommended_config,
+  ...DEFAULT_MODELS.find((m) => m.name === DEFAULT_MODEL)!.recommended_config,
 
   mlc_endpoint: "",
 };
@@ -216,28 +217,13 @@ export const useAppConfig = createPersistStore(
   }),
   {
     name: StoreKey.Config,
-    version: 0.56,
+    version: 0.58,
     migrate: (persistedState, version) => {
-      if (version < 0.56) {
+      if (version < 0.58) {
         return {
           ...DEFAULT_CONFIG,
           ...(persistedState as any),
           models: DEFAULT_MODELS as any as ModelRecord[],
-
-          modelConfig: {
-            model: DEFAULT_MODELS[0].name,
-
-            // Chat configs
-            temperature: 1.0,
-            top_p: 1,
-            context_window_size: 4096,
-            max_tokens: 4000,
-            presence_penalty: 0,
-            frequency_penalty: 0,
-
-            // Use recommended config to overwrite above parameters
-            ...DEFAULT_MODELS[0].recommended_config,
-          },
         };
       }
       return persistedState;
