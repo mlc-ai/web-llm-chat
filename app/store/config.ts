@@ -1,4 +1,4 @@
-import { LogLevel, prebuiltAppConfig } from "@neet-nestor/web-llm";
+import { LogLevel, prebuiltAppConfig } from "@mlc-ai/web-llm";
 import { ModelRecord } from "../client/api";
 import {
   DEFAULT_INPUT_TEMPLATE,

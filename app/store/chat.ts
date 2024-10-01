@@ -15,10 +15,7 @@ import { RequestMessage, MultimodalContent, LLMApi } from "../client/api";
 import { estimateTokenLength } from "../utils/token";
 import { nanoid } from "nanoid";
 import { createPersistStore } from "../utils/store";
-import {
-  ChatCompletionFinishReason,
-  CompletionUsage,
-} from "@neet-nestor/web-llm";
+import { ChatCompletionFinishReason, CompletionUsage } from "@mlc-ai/web-llm";
 import { ChatImage } from "../typing";
 
 export type ChatMessage = RequestMessage & {

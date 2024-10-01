@@ -3,7 +3,7 @@ import { showToast } from "./components/ui-lib";
 import Locale from "./locales";
 import { RequestMessage } from "./client/api";
 import { Model } from "./store";
-import { ModelType, prebuiltAppConfig } from "@neet-nestor/web-llm";
+import { ModelType, prebuiltAppConfig } from "@mlc-ai/web-llm";
 import { ChatImage } from "./typing";
 
 export function trimTopic(topic: string) {
