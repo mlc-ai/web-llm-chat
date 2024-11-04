@@ -1,4 +1,6 @@
+import { prebuiltAppConfig } from "@mlc-ai/web-llm";
 import { ModelRecord } from "./client/api";
+import { getQuantization, getSize } from "./utils";
 
 export const OWNER = "mlc-ai";
 export const REPO = "web-llm-chat";
@@ -64,13 +66,12 @@ Latex inline format: \\(x^2\\)
 Latex block format: $$e=mc^2$$
 `;
 
-export const DEFAULT_MODELS: ModelRecord[] = [
+const DEFAULT_MODEL_BASES: ModelRecord[] = [
   // Phi-3.5 Vision
   {
     name: "Phi-3.5-vision-instruct-q4f32_1-MLC",
     display_name: "Phi",
     provider: "Microsoft",
-    quantization: "q4f32_1",
     family: "Phi 3.5 Vision",
     recommended_config: {
       temperature: 1,
@@ -83,7 +84,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Phi-3.5-vision-instruct-q4f16_1-MLC",
     display_name: "Phi",
     provider: "Microsoft",
-    quantization: "q4f16_1",
     family: "Phi 3.5 Vision",
     recommended_config: {
       temperature: 1,
@@ -97,8 +97,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-3.2-1B-Instruct-q4f32_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    size: "1B",
-    quantization: "q4f32_1",
     family: "Llama 3.2",
     recommended_config: {
       temperature: 0.6,
@@ -111,8 +109,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-3.2-1B-Instruct-q4f16_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    size: "1B",
-    quantization: "q4f16_1",
     family: "Llama 3.2",
     recommended_config: {
       temperature: 0.6,
@@ -125,8 +121,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-3.2-1B-Instruct-q0f32-MLC",
     display_name: "Llama",
     provider: "Meta",
-    size: "1B",
-    quantization: "q0f32",
     family: "Llama 3.2",
     recommended_config: {
       temperature: 0.6,
@@ -139,8 +133,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-3.2-1B-Instruct-q0f16-MLC",
     display_name: "Llama",
     provider: "Meta",
-    size: "1B",
-    quantization: "q0f16",
     family: "Llama 3.2",
     recommended_config: {
       temperature: 0.6,
@@ -153,8 +145,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-3.2-3B-Instruct-q4f32_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    size: "3B",
-    quantization: "q4f32_1",
     family: "Llama 3.2",
     recommended_config: {
       temperature: 0.6,
@@ -167,8 +157,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-3.2-3B-Instruct-q4f16_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    size: "3B",
-    quantization: "q4f16_1",
     family: "Llama 3.2",
     recommended_config: {
       temperature: 0.6,
@@ -182,8 +170,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-3.1-8B-Instruct-q4f32_1-MLC-1k",
     display_name: "Llama",
     provider: "Meta",
-    size: "8B",
-    quantization: "q4f32_1",
     family: "Llama 3.1",
     recommended_config: {
       temperature: 0.6,
@@ -196,8 +182,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-3.1-8B-Instruct-q4f16_1-MLC-1k",
     display_name: "Llama",
     provider: "Meta",
-    size: "8B",
-    quantization: "q4f16_1",
     family: "Llama 3.1",
     recommended_config: {
       temperature: 0.6,
@@ -210,8 +194,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-3.1-8B-Instruct-q4f32_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    size: "8B",
-    quantization: "q4f32_1",
     family: "Llama 3.1",
     recommended_config: {
       temperature: 0.6,
@@ -224,8 +206,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-3.1-8B-Instruct-q4f16_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    size: "8B",
-    quantization: "q4f16_1",
     family: "Llama 3.1",
     recommended_config: {
       temperature: 0.6,
@@ -238,8 +218,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Hermes-2-Pro-Llama-3-8B-q4f16_1-MLC",
     display_name: "Hermes",
     provider: "NousResearch",
-    size: "8B",
-    quantization: "q4f16_1",
     family: "Hermes 2 Pro",
     recommended_config: {
       temperature: 1,
@@ -252,8 +230,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Hermes-2-Pro-Llama-3-8B-q4f32_1-MLC",
     display_name: "Hermes",
     provider: "NousResearch",
-    size: "8B",
-    quantization: "q4f32_1",
     family: "Hermes 2 Pro",
     recommended_config: {
       temperature: 1,
@@ -266,8 +242,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Hermes-3-Llama-3.1-8B-q4f32_1-MLC",
     display_name: "Hermes",
     provider: "NousResearch",
-    size: "8B",
-    quantization: "q4f32_1",
     family: "Hermes 3",
     recommended_config: {
       temperature: 0.6,
@@ -280,8 +254,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Hermes-3-Llama-3.1-8B-q4f16_1-MLC",
     display_name: "Hermes",
     provider: "NousResearch",
-    size: "8B",
-    quantization: "q4f16_1",
     family: "Hermes 3",
     recommended_config: {
       temperature: 0.6,
@@ -294,8 +266,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Hermes-2-Pro-Mistral-7B-q4f16_1-MLC",
     display_name: "Hermes",
     provider: "NousResearch",
-    size: "7B",
-    quantization: "q4f16_1",
     family: "Hermes 2 Pro",
     recommended_config: {
       temperature: 0.7,
@@ -308,7 +278,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Phi-3.5-mini-instruct-q4f16_1-MLC",
     display_name: "Phi",
     provider: "Microsoft",
-    quantization: "q4f16_1",
     family: "Phi 3.5 Mini",
     recommended_config: {
       temperature: 1,
@@ -321,7 +290,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Phi-3.5-mini-instruct-q4f32_1-MLC",
     display_name: "Phi",
     provider: "Microsoft",
-    quantization: "q4f32_1",
     family: "Phi 3.5 Mini",
     recommended_config: {
       temperature: 1,
@@ -334,7 +302,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Phi-3.5-mini-instruct-q4f16_1-MLC-1k",
     display_name: "Phi",
     provider: "Microsoft",
-    quantization: "q4f16_1",
     family: "Phi 3.5 Mini",
     recommended_config: {
       temperature: 1,
@@ -347,7 +314,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Phi-3.5-mini-instruct-q4f32_1-MLC-1k",
     display_name: "Phi",
     provider: "Microsoft",
-    quantization: "q4f32_1",
     family: "Phi 3.5 Mini",
     recommended_config: {
       temperature: 1,
@@ -360,8 +326,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Mistral-7B-Instruct-v0.3-q4f16_1-MLC",
     display_name: "Mistral",
     provider: "Mistral AI",
-    size: "7B",
-    quantization: "q4f16_1",
     family: "Mistral",
     recommended_config: {
       temperature: 1,
@@ -374,8 +338,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Mistral-7B-Instruct-v0.3-q4f32_1-MLC",
     display_name: "Mistral",
     provider: "Mistral AI",
-    size: "7B",
-    quantization: "q4f32_1",
     family: "Mistral",
     recommended_config: {
       temperature: 1,
@@ -388,8 +350,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Mistral-7B-Instruct-v0.2-q4f16_1-MLC",
     display_name: "Mistral",
     provider: "Mistral AI",
-    size: "7B",
-    quantization: "q4f16_1",
     family: "Mistral",
     recommended_config: {
       temperature: 0.7,
@@ -400,8 +360,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "OpenHermes-2.5-Mistral-7B-q4f16_1-MLC",
     display_name: "OpenHermes",
     provider: "NousResearch",
-    size: "7B",
-    quantization: "q4f16_1",
     family: "Hermes",
     recommended_config: {
       temperature: 0.7,
@@ -412,8 +370,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "NeuralHermes-2.5-Mistral-7B-q4f16_1-MLC",
     display_name: "NeuralHermes",
     provider: "Maxime Labonne",
-    size: "7B",
-    quantization: "q4f16_1",
     family: "Hermes",
     recommended_config: {
       temperature: 0.7,
@@ -424,164 +380,113 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "WizardMath-7B-V1.1-q4f16_1-MLC",
     display_name: "WizardMath",
     provider: "WizardLM",
-    size: "7B",
-    quantization: "q4f16_1",
     family: "WizardMath",
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
     },
   },
+  // SmolLM2
   {
-    name: "SmolLM-1.7B-Instruct-q0f16-MLC",
+    name: "SmolLM2-1.7B-Instruct-q4f16_1-MLC",
     display_name: "SmolLM",
-    provider: "SmolLM",
-    size: "1.7B",
-    quantization: "q0f16",
-    family: "SmolLM",
+    provider: "HuggingFaceTB",
+    family: "SmolLM2",
     recommended_config: {
-      temperature: 0.6,
-      top_p: 0.92,
+      temperature: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 1,
     },
   },
   {
-    name: "SmolLM-1.7B-Instruct-q0f32-MLC",
+    name: "SmolLM2-1.7B-Instruct-q4f32_1-MLC",
     display_name: "SmolLM",
-    provider: "SmolLM",
-    size: "1.7B",
-    quantization: "q0f32",
-    family: "SmolLM",
+    provider: "HuggingFaceTB",
+    family: "SmolLM2",
     recommended_config: {
-      temperature: 0.6,
-      top_p: 0.92,
+      temperature: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 1,
     },
   },
   {
-    name: "SmolLM-1.7B-Instruct-q4f16_1-MLC",
+    name: "SmolLM2-360M-Instruct-q0f16-MLC",
     display_name: "SmolLM",
-    provider: "SmolLM",
-    size: "1.7B",
-    quantization: "q4f16_1",
-    family: "SmolLM",
+    provider: "HuggingFaceTB",
+    family: "SmolLM2",
     recommended_config: {
-      temperature: 0.6,
-      top_p: 0.92,
+      temperature: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 1,
     },
   },
   {
-    name: "SmolLM-1.7B-Instruct-q4f32_1-MLC",
+    name: "SmolLM2-360M-Instruct-q0f32-MLC",
     display_name: "SmolLM",
-    provider: "SmolLM",
-    size: "1.7B",
-    quantization: "q4f32_1",
-    family: "SmolLM",
+    provider: "HuggingFaceTB",
+    family: "SmolLM2",
     recommended_config: {
-      temperature: 0.6,
-      top_p: 0.92,
+      temperature: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 1,
     },
   },
   {
-    name: "SmolLM-360M-Instruct-q0f16-MLC",
+    name: "SmolLM2-360M-Instruct-q4f16_1-MLC",
     display_name: "SmolLM",
-    provider: "SmolLM",
-    size: "360M",
-    quantization: "q0f16",
-    family: "SmolLM",
+    provider: "HuggingFaceTB",
+    family: "SmolLM2",
     recommended_config: {
-      temperature: 0.6,
-      top_p: 0.92,
+      temperature: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 1,
     },
   },
   {
-    name: "SmolLM-360M-Instruct-q0f32-MLC",
+    name: "SmolLM2-360M-Instruct-q4f32_1-MLC",
     display_name: "SmolLM",
-    provider: "SmolLM",
-    size: "360M",
-    quantization: "q0f32",
-    family: "SmolLM",
+    provider: "HuggingFaceTB",
+    family: "SmolLM2",
     recommended_config: {
-      temperature: 0.6,
-      top_p: 0.92,
+      temperature: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 1,
     },
   },
   {
-    name: "SmolLM-360M-Instruct-q4f16_1-MLC",
+    name: "SmolLM2-135M-Instruct-q0f16-MLC",
     display_name: "SmolLM",
-    provider: "SmolLM",
-    size: "360M",
-    quantization: "q4f16_1",
-    family: "SmolLM",
+    provider: "HuggingFaceTB",
+    family: "SmolLM2",
     recommended_config: {
-      temperature: 0.6,
-      top_p: 0.92,
+      temperature: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 1,
     },
   },
   {
-    name: "SmolLM-360M-Instruct-q4f32_1-MLC",
+    name: "SmolLM2-135M-Instruct-q0f32-MLC",
     display_name: "SmolLM",
-    provider: "SmolLM",
-    size: "360M",
-    quantization: "q4f32_1",
-    family: "SmolLM",
+    provider: "HuggingFaceTB",
+    family: "SmolLM2",
     recommended_config: {
-      temperature: 0.6,
-      top_p: 0.92,
-    },
-  },
-  {
-    name: "SmolLM-135M-Instruct-q0f16-MLC",
-    display_name: "SmolLM",
-    provider: "SmolLM",
-    size: "135M",
-    quantization: "q0f16",
-    family: "SmolLM",
-    recommended_config: {
-      temperature: 0.6,
-      top_p: 0.92,
-    },
-  },
-  {
-    name: "SmolLM-135M-Instruct-q0f32-MLC",
-    display_name: "SmolLM",
-    provider: "SmolLM",
-    size: "135M",
-    quantization: "q0f32",
-    family: "SmolLM",
-    recommended_config: {
-      temperature: 0.6,
-      top_p: 0.92,
-    },
-  },
-  {
-    name: "SmolLM-135M-Instruct-q4f16_1-MLC",
-    display_name: "SmolLM",
-    provider: "SmolLM",
-    size: "135M",
-    quantization: "q4f16_1",
-    family: "SmolLM",
-    recommended_config: {
-      temperature: 0.6,
-      top_p: 0.92,
-    },
-  },
-  {
-    name: "SmolLM-135M-Instruct-q4f32_1-MLC",
-    display_name: "SmolLM",
-    provider: "SmolLM",
-    size: "135M",
-    quantization: "q4f32_1",
-    family: "SmolLM",
-    recommended_config: {
-      temperature: 0.6,
-      top_p: 0.92,
+      temperature: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 1,
     },
   },
   {
     name: "Qwen2.5-0.5B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "0.5B",
-    quantization: "q4f16_1",
     family: "Qwen 2.5",
     recommended_config: {
       temperature: 0.7,
@@ -594,8 +499,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2.5-0.5B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "0.5B",
-    quantization: "q4f32_1",
     family: "Qwen 2.5",
     recommended_config: {
       temperature: 0.7,
@@ -608,8 +511,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2.5-0.5B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "0.5B",
-    quantization: "q4f16_1",
     family: "Qwen 2.5",
     recommended_config: {
       temperature: 0.7,
@@ -622,8 +523,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2.5-0.5B-Instruct-q0f16-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "0.5B",
-    quantization: "q0f16",
     family: "Qwen 2.5",
     recommended_config: {
       temperature: 0.7,
@@ -636,8 +535,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2.5-0.5B-Instruct-q0f32-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "0.5B",
-    quantization: "q0f32",
     family: "Qwen 2.5",
     recommended_config: {
       temperature: 0.7,
@@ -650,8 +547,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "1.5B",
-    quantization: "q4f16_1",
     family: "Qwen 2.5",
     recommended_config: {
       temperature: 0.7,
@@ -664,8 +559,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2.5-1.5B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "1.5B",
-    quantization: "q4f32_1",
     family: "Qwen 2.5",
     recommended_config: {
       temperature: 0.7,
@@ -678,8 +571,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2.5-3B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "3B",
-    quantization: "q4f16_1",
     family: "Qwen 2.5",
     recommended_config: {
       temperature: 0.7,
@@ -692,8 +583,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2.5-3B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "3B",
-    quantization: "q4f32_1",
     family: "Qwen 2.5",
     recommended_config: {
       temperature: 0.7,
@@ -706,8 +595,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2.5-7B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "7B",
-    quantization: "q4f16_1",
     family: "Qwen 2.5",
     recommended_config: {
       temperature: 0.7,
@@ -720,8 +607,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2.5-7B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "7B",
-    quantization: "q4f32_1",
     family: "Qwen 2.5",
     recommended_config: {
       temperature: 0.7,
@@ -735,8 +620,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2.5-Coder-1.5B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "1.5B",
-    quantization: "q4f16_1",
     family: "Qwen 2.5 Coder",
     recommended_config: {
       temperature: 1.0,
@@ -749,8 +632,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2.5-Coder-1.5B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "1.5B",
-    quantization: "q4f32_1",
     family: "Qwen 2.5 Coder",
     recommended_config: {
       temperature: 1.0,
@@ -763,8 +644,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "7B",
-    quantization: "q4f16_1",
     family: "Qwen 2.5 Coder",
     recommended_config: {
       temperature: 1.0,
@@ -777,8 +656,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2.5-Coder-7B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "7B",
-    quantization: "q4f32_1",
     family: "Qwen 2.5 Coder",
     recommended_config: {
       temperature: 1.0,
@@ -792,8 +669,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2-Math-1.5B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "1.5B",
-    quantization: "q4f16_1",
     family: "Qwen 2 Math",
     recommended_config: {
       temperature: 1.0,
@@ -806,8 +681,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2-Math-1.5B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "1.5B",
-    quantization: "q4f32_1",
     family: "Qwen 2 Math",
     recommended_config: {
       temperature: 1.0,
@@ -820,8 +693,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2-Math-7B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "7B",
-    quantization: "q4f16_1",
     family: "Qwen 2 Math",
     recommended_config: {
       temperature: 0.7,
@@ -834,8 +705,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2-Math-7B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "7B",
-    quantization: "q4f32_1",
     family: "Qwen 2 Math",
     recommended_config: {
       temperature: 0.7,
@@ -848,8 +717,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "gemma-2-2b-it-q4f16_1-MLC",
     display_name: "Gemma",
     provider: "Google",
-    size: "2B",
-    quantization: "q4f16_1",
     family: "Gemma",
     recommended_config: {
       temperature: 0.7,
@@ -862,8 +729,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "gemma-2-2b-it-q4f32_1-MLC",
     display_name: "Gemma",
     provider: "Google",
-    size: "2B",
-    quantization: "q4f32_1",
     family: "Gemma",
     recommended_config: {
       temperature: 0.7,
@@ -876,8 +741,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "gemma-2-2b-it-q4f16_1-MLC-1k",
     display_name: "Gemma",
     provider: "Google",
-    size: "2B",
-    quantization: "q4f16_1",
     family: "Gemma",
     recommended_config: {
       temperature: 0.7,
@@ -890,8 +753,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "gemma-2-2b-it-q4f32_1-MLC-1k",
     display_name: "Gemma",
     provider: "Google",
-    size: "2B",
-    quantization: "q4f32_1",
     family: "Gemma",
     recommended_config: {
       temperature: 0.7,
@@ -904,8 +765,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "gemma-2-9b-it-q4f16_1-MLC",
     display_name: "Gemma",
     provider: "Google",
-    size: "9B",
-    quantization: "q4f16_1",
     family: "Gemma",
     recommended_config: {
       temperature: 0.7,
@@ -918,8 +777,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "gemma-2-9b-it-q4f32_1-MLC",
     display_name: "Gemma",
     provider: "Google",
-    size: "9B",
-    quantization: "q4f32_1",
     family: "Gemma",
     recommended_config: {
       temperature: 0.7,
@@ -932,8 +789,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "gemma-2-2b-jpn-it-q4f16_1-MLC",
     display_name: "Gemma",
     provider: "Google",
-    size: "2B",
-    quantization: "q4f16_1",
     family: "Gemma",
     recommended_config: {
       temperature: 0.7,
@@ -946,8 +801,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "gemma-2-2b-jpn-it-q4f32_1-MLC",
     display_name: "Gemma",
     provider: "Google",
-    size: "2B",
-    quantization: "q4f32_1",
     family: "Gemma",
     recommended_config: {
       temperature: 0.7,
@@ -960,8 +813,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "stablelm-2-zephyr-1_6b-q4f16_1-MLC",
     display_name: "StableLM",
     provider: "Hugging Face",
-    size: "1.6B",
-    quantization: "q4f16_1",
     family: "StableLM 2",
     recommended_config: {
       temperature: 0.7,
@@ -974,8 +825,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "stablelm-2-zephyr-1_6b-q4f32_1-MLC",
     display_name: "StableLM",
     provider: "Hugging Face",
-    size: "1.6B",
-    quantization: "q4f32_1",
     family: "StableLM 2",
     recommended_config: {
       temperature: 0.7,
@@ -988,8 +837,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "stablelm-2-zephyr-1_6b-q4f16_1-MLC-1k",
     display_name: "StableLM",
     provider: "Hugging Face",
-    size: "1.6B",
-    quantization: "q4f16_1",
     family: "StableLM 2",
     recommended_config: {
       temperature: 0.7,
@@ -1002,8 +849,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "stablelm-2-zephyr-1_6b-q4f32_1-MLC-1k",
     display_name: "StableLM",
     provider: "Hugging Face",
-    size: "1.6B",
-    quantization: "q4f32_1",
     family: "StableLM 2",
     recommended_config: {
       temperature: 0.7,
@@ -1016,8 +861,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "RedPajama-INCITE-Chat-3B-v1-q4f16_1-MLC",
     display_name: "RedPajama",
     provider: "Together",
-    size: "3B",
-    quantization: "q4f16_1",
     family: "RedPajama",
     recommended_config: {
       temperature: 0.7,
@@ -1028,8 +871,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "RedPajama-INCITE-Chat-3B-v1-q4f32_1-MLC",
     display_name: "RedPajama",
     provider: "Together",
-    size: "3B",
-    quantization: "q4f32_1",
     family: "RedPajama",
     recommended_config: {
       temperature: 0.7,
@@ -1040,8 +881,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "RedPajama-INCITE-Chat-3B-v1-q4f16_1-MLC-1k",
     display_name: "RedPajama",
     provider: "Together",
-    size: "3B",
-    quantization: "q4f16_1",
     family: "RedPajama",
     recommended_config: {
       temperature: 0.7,
@@ -1052,8 +891,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "RedPajama-INCITE-Chat-3B-v1-q4f32_1-MLC-1k",
     display_name: "RedPajama",
     provider: "Together",
-    size: "3B",
-    quantization: "q4f32_1",
     family: "RedPajama",
     recommended_config: {
       temperature: 0.7,
@@ -1064,8 +901,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "TinyLlama-1.1B-Chat-v1.0-q4f16_1-MLC",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
-    size: "1.1B",
-    quantization: "q4f16_1",
     family: "TinyLlama",
     recommended_config: {
       temperature: 1,
@@ -1078,8 +913,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "TinyLlama-1.1B-Chat-v1.0-q4f32_1-MLC",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
-    size: "1.1B",
-    quantization: "q4f32_1",
     family: "TinyLlama",
     recommended_config: {
       temperature: 1,
@@ -1092,8 +925,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "TinyLlama-1.1B-Chat-v1.0-q4f16_1-MLC-1k",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
-    size: "1.1B",
-    quantization: "q4f16_1",
     family: "TinyLlama",
     recommended_config: {
       temperature: 1,
@@ -1106,8 +937,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "TinyLlama-1.1B-Chat-v1.0-q4f32_1-MLC-1k",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
-    size: "1.1B",
-    quantization: "q4f32_1",
     family: "TinyLlama",
     recommended_config: {
       temperature: 1,
@@ -1120,8 +949,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-3.1-70B-Instruct-q3f16_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    size: "70B",
-    quantization: "q3f16_1",
     family: "Llama 3.1",
     recommended_config: {
       temperature: 0.6,
@@ -1134,8 +961,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2-0.5B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "0.5B",
-    quantization: "q4f16_1",
     family: "Qwen 2",
     recommended_config: {
       temperature: 0.7,
@@ -1148,8 +973,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2-0.5B-Instruct-q0f16-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "0.5B",
-    quantization: "q0f16",
     family: "Qwen 2",
     recommended_config: {
       temperature: 0.7,
@@ -1162,8 +985,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2-0.5B-Instruct-q0f32-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "0.5B",
-    quantization: "q0f32",
     family: "Qwen 2",
     recommended_config: {
       temperature: 0.7,
@@ -1176,8 +997,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2-1.5B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "1.5B",
-    quantization: "q4f16_1",
     family: "Qwen 2",
     recommended_config: {
       temperature: 0.7,
@@ -1190,8 +1009,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2-1.5B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "1.5B",
-    quantization: "q4f32_1",
     family: "Qwen 2",
     recommended_config: {
       temperature: 0.7,
@@ -1204,8 +1021,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2-7B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "7B",
-    quantization: "q4f16_1",
     family: "Qwen 2",
     recommended_config: {
       temperature: 0.7,
@@ -1218,8 +1033,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Qwen2-7B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    size: "7B",
-    quantization: "q4f32",
     family: "Qwen 2",
     recommended_config: {
       temperature: 0.7,
@@ -1232,8 +1045,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-3-8B-Instruct-q4f32_1-MLC-1k",
     display_name: "Llama",
     provider: "Meta",
-    size: "8B",
-    quantization: "q4f32_1",
     family: "Llama 3",
     recommended_config: {
       temperature: 0.6,
@@ -1246,8 +1057,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-3-8B-Instruct-q4f16_1-MLC-1k",
     display_name: "Llama",
     provider: "Meta",
-    size: "8B",
-    quantization: "q4f16_1",
     family: "Llama 3",
     recommended_config: {
       temperature: 0.6,
@@ -1260,8 +1069,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-3-8B-Instruct-q4f32_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    size: "8B",
-    quantization: "q4f32_1",
     family: "Llama 3",
     recommended_config: {
       temperature: 0.6,
@@ -1274,8 +1081,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-3-8B-Instruct-q4f16_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    size: "8B",
-    quantization: "q4f16_1",
     family: "Llama 3",
     recommended_config: {
       temperature: 0.6,
@@ -1288,8 +1093,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-3-70B-Instruct-q3f16_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    size: "70B",
-    quantization: "q3f16_1",
     family: "Llama 3",
     recommended_config: {
       temperature: 0.7,
@@ -1303,7 +1106,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Phi-3-mini-4k-instruct-q4f16_1-MLC",
     display_name: "Phi 3",
     provider: "Microsoft",
-    quantization: "q4f16_1",
     family: "Phi 3 Mini Instruct",
     recommended_config: {
       temperature: 0.7,
@@ -1316,7 +1118,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Phi-3-mini-4k-instruct-q4f32_1-MLC",
     display_name: "Phi 3",
     provider: "Microsoft",
-    quantization: "q4f32_1",
     family: "Phi 3 Mini Instruct",
     recommended_config: {
       temperature: 0.7,
@@ -1329,7 +1130,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Phi-3-mini-4k-instruct-q4f16_1-MLC-1k",
     display_name: "Phi 3",
     provider: "Microsoft",
-    quantization: "q4f16_1",
     family: "Phi 3 Mini Instruct",
     recommended_config: {
       temperature: 0.7,
@@ -1342,7 +1142,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Phi-3-mini-4k-instruct-q4f32_1-MLC-1k",
     display_name: "Phi 3",
     provider: "Microsoft",
-    quantization: "q4f32_1",
     family: "Phi 3 Mini Instruct",
     recommended_config: {
       temperature: 0.7,
@@ -1355,8 +1154,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-2-7b-chat-hf-q4f32_1-MLC-1k",
     display_name: "Llama",
     provider: "Meta",
-    size: "7B",
-    quantization: "q4f32_1",
     family: "Llama 2",
     recommended_config: {
       temperature: 0.6,
@@ -1367,8 +1164,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-2-7b-chat-hf-q4f16_1-MLC-1k",
     display_name: "Llama",
     provider: "Meta",
-    size: "7B",
-    quantization: "q4f16_1",
     family: "Llama 2",
     recommended_config: {
       temperature: 0.6,
@@ -1379,8 +1174,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-2-7b-chat-hf-q4f32_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    size: "7B",
-    quantization: "q4f32_1",
     family: "Llama 2",
     recommended_config: {
       temperature: 0.6,
@@ -1391,8 +1184,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-2-7b-chat-hf-q4f16_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    size: "7B",
-    quantization: "q4f16_1",
     family: "Llama 2",
     recommended_config: {
       temperature: 0.6,
@@ -1403,8 +1194,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "Llama-2-13b-chat-hf-q4f16_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    size: "13B",
-    quantization: "q4f16_1",
     family: "Llama 2",
     recommended_config: {
       temperature: 0.6,
@@ -1415,7 +1204,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "phi-2-q4f16_1-MLC",
     display_name: "Phi",
     provider: "Microsoft",
-    quantization: "q4f16_1",
     family: "Phi 2",
     recommended_config: {
       temperature: 0.7,
@@ -1426,7 +1214,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "phi-2-q4f32_1-MLC",
     display_name: "Phi",
     provider: "Microsoft",
-    quantization: "q4f32_1",
     family: "Phi 2",
     recommended_config: {
       temperature: 0.7,
@@ -1437,7 +1224,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "phi-2-q4f16_1-MLC-1k",
     display_name: "Phi",
     provider: "Microsoft",
-    quantization: "q4f16_1",
     family: "Phi 2",
     recommended_config: {
       temperature: 0.7,
@@ -1448,7 +1234,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "phi-2-q4f32_1-MLC-1k",
     display_name: "Phi",
     provider: "Microsoft",
-    quantization: "q4f32_1",
     family: "Phi 2",
     recommended_config: {
       temperature: 0.7,
@@ -1459,7 +1244,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "phi-1_5-q4f16_1-MLC",
     display_name: "Phi",
     provider: "Microsoft",
-    quantization: "q4f16_1",
     family: "Phi 1.5",
     recommended_config: {
       temperature: 0.7,
@@ -1470,7 +1254,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "phi-1_5-q4f32_1-MLC",
     display_name: "Phi",
     provider: "Microsoft",
-    quantization: "q4f32_1",
     family: "Phi 1.5",
     recommended_config: {
       temperature: 0.7,
@@ -1481,7 +1264,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "phi-1_5-q4f16_1-MLC-1k",
     display_name: "Phi",
     provider: "Microsoft",
-    quantization: "q4f16_1",
     family: "Phi 1.5",
     recommended_config: {
       temperature: 0.7,
@@ -1492,7 +1274,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "phi-1_5-q4f32_1-MLC-1k",
     display_name: "Phi",
     provider: "Microsoft",
-    quantization: "q4f32_1",
     family: "Phi 1.5",
     recommended_config: {
       temperature: 0.7,
@@ -1503,8 +1284,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "TinyLlama-1.1B-Chat-v0.4-q4f16_1-MLC",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
-    size: "1.1B",
-    quantization: "q4f16_1",
     family: "TinyLlama",
     recommended_config: {
       temperature: 0.7,
@@ -1515,8 +1294,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "TinyLlama-1.1B-Chat-v0.4-q4f32_1-MLC",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
-    size: "1.1B",
-    quantization: "q4f32_1",
     family: "TinyLlama",
     recommended_config: {
       temperature: 0.7,
@@ -1527,8 +1304,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "TinyLlama-1.1B-Chat-v0.4-q4f16_1-MLC-1k",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
-    size: "1.1B",
-    quantization: "q4f16_1",
     family: "TinyLlama",
     recommended_config: {
       temperature: 0.7,
@@ -1539,8 +1314,6 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     name: "TinyLlama-1.1B-Chat-v0.4-q4f32_1-MLC-1k",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
-    size: "1.1B",
-    quantization: "q4f32_1",
     family: "TinyLlama",
     recommended_config: {
       temperature: 0.7,
@@ -1548,6 +1321,24 @@ export const DEFAULT_MODELS: ModelRecord[] = [
     },
   },
 ];
+
+export const DEFAULT_MODELS: ModelRecord[] = DEFAULT_MODEL_BASES.filter(
+  (model) => {
+    if (
+      !prebuiltAppConfig.model_list.map((m) => m.model_id).includes(model.name)
+    ) {
+      console.warn(
+        `Model ${model.name} not supported by current WebLLM version.`,
+      );
+      return false;
+    }
+    return true;
+  },
+).map((model) => ({
+  ...model,
+  size: getSize(model.name),
+  quantization: getQuantization(model.name),
+}));
 
 export const CHAT_PAGE_SIZE = 15;
 export const MAX_RENDER_MSG_COUNT = 45;
