@@ -278,7 +278,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Hermes-2-Pro-Mistral-7B-q4f16_1-MLC",
     display_name: "Hermes",
     provider: "NousResearch",
-    family: ModelFamily.LLAMA,
+    family: ModelFamily.MISTRAL,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
