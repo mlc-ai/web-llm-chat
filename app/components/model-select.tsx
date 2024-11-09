@@ -245,7 +245,6 @@ const ModelSelect: React.FC<ModelSearchProps> = ({
               baseModel={model[0]}
               variants={model[1]}
               isExpanded={expandedModels.has(model[0])}
-              hasSingleVariant={model[1].length === 1}
               determineModelIcon={determineModelIcon}
               extractModelDetails={extractModelDetails}
               onSelectModel={onSelectModel}
