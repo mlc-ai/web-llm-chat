@@ -66,13 +66,25 @@ Latex inline format: \\(x^2\\)
 Latex block format: $$e=mc^2$$
 `;
 
+export enum ModelFamily {
+  LLAMA = "llama",
+  PHI = "phi",
+  MISTRAL = "mistral",
+  GEMMA = "gemma",
+  QWEN = "qwen",
+  SMOL_LM = "smollm",
+  WIZARD_MATH = "wizardmath",
+  STABLE_LM = "stablelm",
+  REDPAJAMA = "redpajama",
+}
+
 const DEFAULT_MODEL_BASES: ModelRecord[] = [
   // Phi-3.5 Vision
   {
     name: "Phi-3.5-vision-instruct-q4f32_1-MLC",
     display_name: "Phi",
     provider: "Microsoft",
-    family: "Phi 3.5 Vision",
+    family: ModelFamily.PHI,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -84,7 +96,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Phi-3.5-vision-instruct-q4f16_1-MLC",
     display_name: "Phi",
     provider: "Microsoft",
-    family: "Phi 3.5 Vision",
+    family: ModelFamily.PHI,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -97,7 +109,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-3.2-1B-Instruct-q4f32_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 3.2",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -109,7 +121,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-3.2-1B-Instruct-q4f16_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 3.2",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -121,7 +133,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-3.2-1B-Instruct-q0f32-MLC",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 3.2",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -133,7 +145,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-3.2-1B-Instruct-q0f16-MLC",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 3.2",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -145,7 +157,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-3.2-3B-Instruct-q4f32_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 3.2",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -157,7 +169,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-3.2-3B-Instruct-q4f16_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 3.2",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -170,7 +182,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-3.1-8B-Instruct-q4f32_1-MLC-1k",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 3.1",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -182,7 +194,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-3.1-8B-Instruct-q4f16_1-MLC-1k",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 3.1",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -194,7 +206,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-3.1-8B-Instruct-q4f32_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 3.1",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -206,7 +218,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-3.1-8B-Instruct-q4f16_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 3.1",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -218,7 +230,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Hermes-2-Pro-Llama-3-8B-q4f16_1-MLC",
     display_name: "Hermes",
     provider: "NousResearch",
-    family: "Hermes 2 Pro",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -230,7 +242,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Hermes-2-Pro-Llama-3-8B-q4f32_1-MLC",
     display_name: "Hermes",
     provider: "NousResearch",
-    family: "Hermes 2 Pro",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -242,7 +254,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Hermes-3-Llama-3.1-8B-q4f32_1-MLC",
     display_name: "Hermes",
     provider: "NousResearch",
-    family: "Hermes 3",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -254,7 +266,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Hermes-3-Llama-3.1-8B-q4f16_1-MLC",
     display_name: "Hermes",
     provider: "NousResearch",
-    family: "Hermes 3",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -266,7 +278,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Hermes-2-Pro-Mistral-7B-q4f16_1-MLC",
     display_name: "Hermes",
     provider: "NousResearch",
-    family: "Hermes 2 Pro",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -278,7 +290,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Phi-3.5-mini-instruct-q4f16_1-MLC",
     display_name: "Phi",
     provider: "Microsoft",
-    family: "Phi 3.5 Mini",
+    family: ModelFamily.PHI,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -290,7 +302,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Phi-3.5-mini-instruct-q4f32_1-MLC",
     display_name: "Phi",
     provider: "Microsoft",
-    family: "Phi 3.5 Mini",
+    family: ModelFamily.PHI,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -302,7 +314,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Phi-3.5-mini-instruct-q4f16_1-MLC-1k",
     display_name: "Phi",
     provider: "Microsoft",
-    family: "Phi 3.5 Mini",
+    family: ModelFamily.PHI,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -314,7 +326,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Phi-3.5-mini-instruct-q4f32_1-MLC-1k",
     display_name: "Phi",
     provider: "Microsoft",
-    family: "Phi 3.5 Mini",
+    family: ModelFamily.PHI,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -326,7 +338,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Mistral-7B-Instruct-v0.3-q4f16_1-MLC",
     display_name: "Mistral",
     provider: "Mistral AI",
-    family: "Mistral",
+    family: ModelFamily.MISTRAL,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -338,7 +350,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Mistral-7B-Instruct-v0.3-q4f32_1-MLC",
     display_name: "Mistral",
     provider: "Mistral AI",
-    family: "Mistral",
+    family: ModelFamily.MISTRAL,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -350,7 +362,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Mistral-7B-Instruct-v0.2-q4f16_1-MLC",
     display_name: "Mistral",
     provider: "Mistral AI",
-    family: "Mistral",
+    family: ModelFamily.MISTRAL,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -360,7 +372,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "OpenHermes-2.5-Mistral-7B-q4f16_1-MLC",
     display_name: "OpenHermes",
     provider: "NousResearch",
-    family: "Hermes",
+    family: ModelFamily.MISTRAL,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -370,7 +382,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "NeuralHermes-2.5-Mistral-7B-q4f16_1-MLC",
     display_name: "NeuralHermes",
     provider: "Maxime Labonne",
-    family: "Hermes",
+    family: ModelFamily.MISTRAL,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -380,7 +392,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "WizardMath-7B-V1.1-q4f16_1-MLC",
     display_name: "WizardMath",
     provider: "WizardLM",
-    family: "WizardMath",
+    family: ModelFamily.WIZARD_MATH,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -391,7 +403,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "SmolLM2-1.7B-Instruct-q4f16_1-MLC",
     display_name: "SmolLM",
     provider: "HuggingFaceTB",
-    family: "SmolLM2",
+    family: ModelFamily.SMOL_LM,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -403,7 +415,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "SmolLM2-1.7B-Instruct-q4f32_1-MLC",
     display_name: "SmolLM",
     provider: "HuggingFaceTB",
-    family: "SmolLM2",
+    family: ModelFamily.SMOL_LM,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -415,7 +427,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "SmolLM2-360M-Instruct-q0f16-MLC",
     display_name: "SmolLM",
     provider: "HuggingFaceTB",
-    family: "SmolLM2",
+    family: ModelFamily.SMOL_LM,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -427,7 +439,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "SmolLM2-360M-Instruct-q0f32-MLC",
     display_name: "SmolLM",
     provider: "HuggingFaceTB",
-    family: "SmolLM2",
+    family: ModelFamily.SMOL_LM,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -439,7 +451,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "SmolLM2-360M-Instruct-q4f16_1-MLC",
     display_name: "SmolLM",
     provider: "HuggingFaceTB",
-    family: "SmolLM2",
+    family: ModelFamily.SMOL_LM,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -451,7 +463,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "SmolLM2-360M-Instruct-q4f32_1-MLC",
     display_name: "SmolLM",
     provider: "HuggingFaceTB",
-    family: "SmolLM2",
+    family: ModelFamily.SMOL_LM,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -463,7 +475,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "SmolLM2-135M-Instruct-q0f16-MLC",
     display_name: "SmolLM",
     provider: "HuggingFaceTB",
-    family: "SmolLM2",
+    family: ModelFamily.SMOL_LM,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -475,7 +487,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "SmolLM2-135M-Instruct-q0f32-MLC",
     display_name: "SmolLM",
     provider: "HuggingFaceTB",
-    family: "SmolLM2",
+    family: ModelFamily.SMOL_LM,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -487,7 +499,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2.5-0.5B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2.5",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -499,7 +511,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2.5-0.5B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2.5",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -511,7 +523,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2.5-0.5B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2.5",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -523,7 +535,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2.5-0.5B-Instruct-q0f16-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2.5",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -535,7 +547,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2.5-0.5B-Instruct-q0f32-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2.5",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -547,7 +559,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2.5",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -559,7 +571,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2.5-1.5B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2.5",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -571,7 +583,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2.5-3B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2.5",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -583,7 +595,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2.5-3B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2.5",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -595,7 +607,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2.5-7B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2.5",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -607,7 +619,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2.5-7B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2.5",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -620,7 +632,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2.5-Coder-1.5B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2.5 Coder",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 1.0,
       presence_penalty: 0,
@@ -632,7 +644,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2.5-Coder-1.5B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2.5 Coder",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 1.0,
       presence_penalty: 0,
@@ -644,7 +656,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2.5 Coder",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 1.0,
       presence_penalty: 0,
@@ -656,7 +668,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2.5-Coder-7B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2.5 Coder",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 1.0,
       presence_penalty: 0,
@@ -669,7 +681,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2-Math-1.5B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2 Math",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 1.0,
       presence_penalty: 0,
@@ -681,7 +693,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2-Math-1.5B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2 Math",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 1.0,
       presence_penalty: 0,
@@ -693,7 +705,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2-Math-7B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2 Math",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -705,7 +717,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2-Math-7B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2 Math",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -717,7 +729,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "gemma-2-2b-it-q4f16_1-MLC",
     display_name: "Gemma",
     provider: "Google",
-    family: "Gemma",
+    family: ModelFamily.GEMMA,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -729,7 +741,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "gemma-2-2b-it-q4f32_1-MLC",
     display_name: "Gemma",
     provider: "Google",
-    family: "Gemma",
+    family: ModelFamily.GEMMA,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -741,7 +753,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "gemma-2-2b-it-q4f16_1-MLC-1k",
     display_name: "Gemma",
     provider: "Google",
-    family: "Gemma",
+    family: ModelFamily.GEMMA,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -753,7 +765,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "gemma-2-2b-it-q4f32_1-MLC-1k",
     display_name: "Gemma",
     provider: "Google",
-    family: "Gemma",
+    family: ModelFamily.GEMMA,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -765,7 +777,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "gemma-2-9b-it-q4f16_1-MLC",
     display_name: "Gemma",
     provider: "Google",
-    family: "Gemma",
+    family: ModelFamily.GEMMA,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -777,7 +789,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "gemma-2-9b-it-q4f32_1-MLC",
     display_name: "Gemma",
     provider: "Google",
-    family: "Gemma",
+    family: ModelFamily.GEMMA,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -789,7 +801,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "gemma-2-2b-jpn-it-q4f16_1-MLC",
     display_name: "Gemma",
     provider: "Google",
-    family: "Gemma",
+    family: ModelFamily.GEMMA,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -801,7 +813,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "gemma-2-2b-jpn-it-q4f32_1-MLC",
     display_name: "Gemma",
     provider: "Google",
-    family: "Gemma",
+    family: ModelFamily.GEMMA,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -813,7 +825,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "stablelm-2-zephyr-1_6b-q4f16_1-MLC",
     display_name: "StableLM",
     provider: "Hugging Face",
-    family: "StableLM 2",
+    family: ModelFamily.STABLE_LM,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -825,7 +837,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "stablelm-2-zephyr-1_6b-q4f32_1-MLC",
     display_name: "StableLM",
     provider: "Hugging Face",
-    family: "StableLM 2",
+    family: ModelFamily.STABLE_LM,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -837,7 +849,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "stablelm-2-zephyr-1_6b-q4f16_1-MLC-1k",
     display_name: "StableLM",
     provider: "Hugging Face",
-    family: "StableLM 2",
+    family: ModelFamily.STABLE_LM,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -849,7 +861,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "stablelm-2-zephyr-1_6b-q4f32_1-MLC-1k",
     display_name: "StableLM",
     provider: "Hugging Face",
-    family: "StableLM 2",
+    family: ModelFamily.STABLE_LM,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -861,7 +873,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "RedPajama-INCITE-Chat-3B-v1-q4f16_1-MLC",
     display_name: "RedPajama",
     provider: "Together",
-    family: "RedPajama",
+    family: ModelFamily.REDPAJAMA,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -871,7 +883,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "RedPajama-INCITE-Chat-3B-v1-q4f32_1-MLC",
     display_name: "RedPajama",
     provider: "Together",
-    family: "RedPajama",
+    family: ModelFamily.REDPAJAMA,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -881,7 +893,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "RedPajama-INCITE-Chat-3B-v1-q4f16_1-MLC-1k",
     display_name: "RedPajama",
     provider: "Together",
-    family: "RedPajama",
+    family: ModelFamily.REDPAJAMA,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -891,7 +903,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "RedPajama-INCITE-Chat-3B-v1-q4f32_1-MLC-1k",
     display_name: "RedPajama",
     provider: "Together",
-    family: "RedPajama",
+    family: ModelFamily.REDPAJAMA,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -901,7 +913,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "TinyLlama-1.1B-Chat-v1.0-q4f16_1-MLC",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
-    family: "TinyLlama",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -913,7 +925,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "TinyLlama-1.1B-Chat-v1.0-q4f32_1-MLC",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
-    family: "TinyLlama",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -925,7 +937,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "TinyLlama-1.1B-Chat-v1.0-q4f16_1-MLC-1k",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
-    family: "TinyLlama",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -937,7 +949,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "TinyLlama-1.1B-Chat-v1.0-q4f32_1-MLC-1k",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
-    family: "TinyLlama",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -949,7 +961,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-3.1-70B-Instruct-q3f16_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 3.1",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -961,7 +973,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2-0.5B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -973,7 +985,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2-0.5B-Instruct-q0f16-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -985,7 +997,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2-0.5B-Instruct-q0f32-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -997,7 +1009,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2-1.5B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1009,7 +1021,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2-1.5B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1021,7 +1033,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2-7B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1033,7 +1045,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Qwen2-7B-Instruct-q4f32_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
-    family: "Qwen 2",
+    family: ModelFamily.QWEN,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1045,7 +1057,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-3-8B-Instruct-q4f32_1-MLC-1k",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 3",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -1057,7 +1069,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-3-8B-Instruct-q4f16_1-MLC-1k",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 3",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -1069,7 +1081,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-3-8B-Instruct-q4f32_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 3",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -1081,7 +1093,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-3-8B-Instruct-q4f16_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 3",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       presence_penalty: 0,
@@ -1093,7 +1105,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-3-70B-Instruct-q3f16_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 3",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1106,7 +1118,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Phi-3-mini-4k-instruct-q4f16_1-MLC",
     display_name: "Phi 3",
     provider: "Microsoft",
-    family: "Phi 3 Mini Instruct",
+    family: ModelFamily.PHI,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1118,7 +1130,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Phi-3-mini-4k-instruct-q4f32_1-MLC",
     display_name: "Phi 3",
     provider: "Microsoft",
-    family: "Phi 3 Mini Instruct",
+    family: ModelFamily.PHI,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1130,7 +1142,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Phi-3-mini-4k-instruct-q4f16_1-MLC-1k",
     display_name: "Phi 3",
     provider: "Microsoft",
-    family: "Phi 3 Mini Instruct",
+    family: ModelFamily.PHI,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1142,7 +1154,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Phi-3-mini-4k-instruct-q4f32_1-MLC-1k",
     display_name: "Phi 3",
     provider: "Microsoft",
-    family: "Phi 3 Mini Instruct",
+    family: ModelFamily.PHI,
     recommended_config: {
       temperature: 0.7,
       presence_penalty: 0,
@@ -1154,7 +1166,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-2-7b-chat-hf-q4f32_1-MLC-1k",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 2",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       top_p: 0.9,
@@ -1164,7 +1176,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-2-7b-chat-hf-q4f16_1-MLC-1k",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 2",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       top_p: 0.9,
@@ -1174,7 +1186,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-2-7b-chat-hf-q4f32_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 2",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       top_p: 0.9,
@@ -1184,7 +1196,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-2-7b-chat-hf-q4f16_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 2",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       top_p: 0.9,
@@ -1194,7 +1206,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-2-13b-chat-hf-q4f16_1-MLC",
     display_name: "Llama",
     provider: "Meta",
-    family: "Llama 2",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
       top_p: 0.9,
@@ -1204,7 +1216,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "phi-2-q4f16_1-MLC",
     display_name: "Phi",
     provider: "Microsoft",
-    family: "Phi 2",
+    family: ModelFamily.PHI,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1214,7 +1226,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "phi-2-q4f32_1-MLC",
     display_name: "Phi",
     provider: "Microsoft",
-    family: "Phi 2",
+    family: ModelFamily.PHI,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1224,7 +1236,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "phi-2-q4f16_1-MLC-1k",
     display_name: "Phi",
     provider: "Microsoft",
-    family: "Phi 2",
+    family: ModelFamily.PHI,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1234,7 +1246,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "phi-2-q4f32_1-MLC-1k",
     display_name: "Phi",
     provider: "Microsoft",
-    family: "Phi 2",
+    family: ModelFamily.PHI,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1244,7 +1256,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "phi-1_5-q4f16_1-MLC",
     display_name: "Phi",
     provider: "Microsoft",
-    family: "Phi 1.5",
+    family: ModelFamily.PHI,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1254,7 +1266,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "phi-1_5-q4f32_1-MLC",
     display_name: "Phi",
     provider: "Microsoft",
-    family: "Phi 1.5",
+    family: ModelFamily.PHI,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1264,7 +1276,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "phi-1_5-q4f16_1-MLC-1k",
     display_name: "Phi",
     provider: "Microsoft",
-    family: "Phi 1.5",
+    family: ModelFamily.PHI,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1274,7 +1286,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "phi-1_5-q4f32_1-MLC-1k",
     display_name: "Phi",
     provider: "Microsoft",
-    family: "Phi 1.5",
+    family: ModelFamily.PHI,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1284,7 +1296,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "TinyLlama-1.1B-Chat-v0.4-q4f16_1-MLC",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
-    family: "TinyLlama",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1294,7 +1306,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "TinyLlama-1.1B-Chat-v0.4-q4f32_1-MLC",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
-    family: "TinyLlama",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1304,7 +1316,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "TinyLlama-1.1B-Chat-v0.4-q4f16_1-MLC-1k",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
-    family: "TinyLlama",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,
@@ -1314,7 +1326,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "TinyLlama-1.1B-Chat-v0.4-q4f32_1-MLC-1k",
     display_name: "TinyLlama",
     provider: "Zhang Peiyuan",
-    family: "TinyLlama",
+    family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.7,
       top_p: 0.95,

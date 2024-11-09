@@ -1,5 +1,6 @@
 import { ChatCompletionFinishReason, CompletionUsage } from "@mlc-ai/web-llm";
 import { CacheType, Model } from "../store";
+import { ModelFamily } from "../constant";
 export const ROLES = ["system", "user", "assistant"] as const;
 export type MessageRole = (typeof ROLES)[number];
 
@@ -58,7 +59,7 @@ export interface ModelRecord {
   provider?: string;
   size?: string;
   quantization?: string;
-  family?: string;
+  family: ModelFamily;
   recommended_config?: {
     temperature?: number;
     context_window_size?: number;

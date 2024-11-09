@@ -68,11 +68,9 @@ import {
   ListItem,
   Modal,
   Popover,
-  Selector,
   showConfirm,
   showPrompt,
   showToast,
-  Tooltip,
 } from "./ui-lib";
 import { useNavigate } from "react-router-dom";
 import {
@@ -83,7 +81,7 @@ import {
   UNFINISHED_INPUT,
 } from "../constant";
 import { Avatar, AvatarPicker } from "./emoji";
-import { ContextPrompts, TemplateAvatar, TemplateConfig } from "./template";
+import { ContextPrompts, TemplateAvatar } from "./template";
 import { ChatCommandPrefix, useChatCommand, useCommand } from "../command";
 import { prettyObject } from "../utils/format";
 import { ExportMessageModal } from "./exporter";
@@ -91,8 +89,8 @@ import { MultimodalContent } from "../client/api";
 import { Template, useTemplateStore } from "../store/template";
 import Image from "next/image";
 import { MLCLLMContext, WebLLMContext } from "../context";
-import EyeIcon from "../icons/eye.svg";
 import { ChatImage } from "../typing";
+import ModelSelect from "./model-select";
 
 export function ScrollDownToast(prop: { show: boolean; onclick: () => void }) {
   return (
@@ -544,23 +542,14 @@ export function ChatActions(props: {
         fullWidth
       />
       {showModelSelector && (
-        <Selector
-          defaultSelectedValue={currentModel}
-          items={models.map((m) => ({
-            title: m.name,
-            value: m.name,
-            family: m.family,
-            icon: isVisionModel(m.name) ? (
-              <Tooltip content={<div>Vision Model</div>} direction="bottom">
-                <EyeIcon />
-              </Tooltip>
-            ) : undefined,
-          }))}
-          onClose={() => setShowModelSelector(false)}
-          onSelection={(s) => {
-            if (s.length === 0) return;
-            config.selectModel(s[0] as Model);
-            showToast(s[0]);
+        <ModelSelect
+          onClose={() => {
+            setShowModelSelector(false);
+          }}
+          availableModels={models.map((m) => m.name)}
+          onSelectModel={(modelName) => {
+            config.selectModel(modelName as Model);
+            showToast(modelName);
           }}
         />
       )}

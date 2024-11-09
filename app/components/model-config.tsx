@@ -3,6 +3,7 @@ import {
   ModelConfig,
   useAppConfig,
   ModelClient,
+  Model,
 } from "../store";
 
 import CancelIcon from "../icons/cancel.svg";
@@ -11,13 +12,15 @@ import ConnectIcon from "../icons/connection.svg";
 
 import Locale from "../locales";
 import { InputRange } from "./input-range";
-import { List, ListItem, Modal, Select } from "./ui-lib";
+import { List, ListItem, Modal, Select, showToast } from "./ui-lib";
 import React, { useState } from "react";
 import { IconButton } from "./button";
+import ModelSelect from "./model-select";
 
 export function ModelConfigList() {
   const config = useAppConfig();
   const models = config.models;
+  const [showModelSelector, setShowModelSelector] = useState(false);
   const [showApiConnectModel, setShowApiConnectModel] = useState(false);
 
   const [endpointInput, setEndpointInput] = useState<string>(
@@ -59,8 +62,13 @@ export function ModelConfigList() {
           <ListItem title={Locale.Settings.Model}>
             <Select
               value={config.modelConfig.model}
-              onChange={(e) => {
-                config.selectModel(e.target.value);
+              onClick={(e) => {
+                e.preventDefault();
+                setShowModelSelector(true);
+              }}
+              onMouseDown={(e) => {
+                // Prevent the dropdown list from opening
+                e.preventDefault();
               }}
             >
               {models.map((v, i) => (
@@ -237,7 +245,17 @@ export function ModelConfigList() {
           </ListItem>
         </>
       )}
-
+      {showModelSelector && (
+        <ModelSelect
+          onClose={() => {
+            setShowModelSelector(false);
+          }}
+          availableModels={models.map((m) => m.name)}
+          onSelectModel={(modelName) => {
+            config.selectModel(modelName as Model);
+          }}
+        />
+      )}
       {showApiConnectModel && (
         <div className="screen-model-container">
           <Modal

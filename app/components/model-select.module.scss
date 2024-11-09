@@ -1,0 +1,71 @@
+.header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    gap: 20px;
+    padding-bottom: 20px;
+}
+
+.input-container {
+    position: relative;
+    width: 100%;
+}
+
+input.input[type=text] {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+}
+
+.input-icon {
+    position: absolute;
+    left: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    width: 1rem;
+    height: 1rem;
+}
+
+.model-list {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-auto-rows: auto;
+    align-items: start;
+}
+
+.model-family-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+
+    .model-family-button {
+        .icon {
+            position: relative;
+            height: 1rem;
+            width: 1rem;
+
+            svg,
+            img {
+                max-width: 100%;
+                max-height: 100%;
+                filter: none !important;
+            }
+        }
+    }
+}
+
+.model-icon {
+    height: 1rem;
+    width: 1rem;
+    position: relative;
+
+    svg,
+    img {
+        max-width: 100%;
+        max-height: 100%;
+        filter: none !important;
+    }
+}

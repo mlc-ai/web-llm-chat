@@ -347,7 +347,10 @@ const en = {
     NotShow: "Never Show Again",
     ConfirmNoShow: "Confirm to disable? You can enable it in settings later.",
   },
-
+  ModelSelect: {
+    Title: "Model Selection",
+    SearchPlaceholder: "Search model...",
+  },
   UI: {
     Confirm: "Confirm",
     Cancel: "Cancel",

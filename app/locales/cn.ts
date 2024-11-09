@@ -314,6 +314,10 @@ const cn = {
     Settings: "检测到链接中包含了预制设置，是否自动填入？",
   },
 
+  ModelSelect: {
+    Title: "选择模型",
+    SearchPlaceholder: "搜索一个模型……",
+  },
   UI: {
     Confirm: "确认",
     Cancel: "取消",
