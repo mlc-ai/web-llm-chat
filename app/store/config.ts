@@ -217,9 +217,9 @@ export const useAppConfig = createPersistStore(
   }),
   {
     name: StoreKey.Config,
-    version: 0.6,
+    version: 0.61,
     migrate: (persistedState, version) => {
-      if (version < 0.6) {
+      if (version < 0.61) {
         return {
           ...DEFAULT_CONFIG,
           ...(persistedState as any),

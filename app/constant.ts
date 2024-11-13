@@ -629,6 +629,54 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
   },
   // Qwen2.5-Coder
   {
+    name: "Qwen2.5-Coder-0.5B-Instruct-q4f16_1-MLC",
+    display_name: "Qwen",
+    provider: "Alibaba",
+    family: ModelFamily.QWEN,
+    recommended_config: {
+      temperature: 0.7,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 0.8,
+    },
+  },
+  {
+    name: "Qwen2.5-Coder-0.5B-Instruct-q4f32_1-MLC",
+    display_name: "Qwen",
+    provider: "Alibaba",
+    family: ModelFamily.QWEN,
+    recommended_config: {
+      temperature: 0.7,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 0.8,
+    },
+  },
+  {
+    name: "Qwen2.5-Coder-0.5B-Instruct-q0f16-MLC",
+    display_name: "Qwen",
+    provider: "Alibaba",
+    family: ModelFamily.QWEN,
+    recommended_config: {
+      temperature: 0.7,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 0.8,
+    },
+  },
+  {
+    name: "Qwen2.5-Coder-0.5B-Instruct-q0f32-MLC",
+    display_name: "Qwen",
+    provider: "Alibaba",
+    family: ModelFamily.QWEN,
+    recommended_config: {
+      temperature: 0.7,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 0.8,
+    },
+  },
+  {
     name: "Qwen2.5-Coder-1.5B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
@@ -650,6 +698,30 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
       presence_penalty: 0,
       frequency_penalty: 0,
       top_p: 1.0,
+    },
+  },
+  {
+    name: "Qwen2.5-Coder-3B-Instruct-q4f16_1-MLC",
+    display_name: "Qwen",
+    provider: "Alibaba",
+    family: ModelFamily.QWEN,
+    recommended_config: {
+      temperature: 0.7,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 0.8,
+    },
+  },
+  {
+    name: "Qwen2.5-Coder-3B-Instruct-q4f32_1-MLC",
+    display_name: "Qwen",
+    provider: "Alibaba",
+    family: ModelFamily.QWEN,
+    recommended_config: {
+      temperature: 0.7,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 0.8,
     },
   },
   {
