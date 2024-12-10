@@ -55,6 +55,11 @@ input.input[type=text] {
             }
         }
     }
+
+    .selected-model-family {
+        border-color: var(--primary);
+        background-color: var(--second);
+    }
 }
 
 .model-icon {

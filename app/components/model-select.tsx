@@ -233,7 +233,7 @@ const ModelSelect: React.FC<ModelSearchProps> = ({
                     {Icon ? <Icon /> : <Cpu />}
                   </div>
                 }
-                className={style["model-family-button"]}
+                className={`${style["model-family-button"]}${selectedFamilies.includes(key) ? " " + style["selected-model-family"] : ""}`}
               />
             ))}
           </div>
