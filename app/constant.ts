@@ -76,6 +76,7 @@ export enum ModelFamily {
   WIZARD_MATH = "wizardmath",
   STABLE_LM = "stablelm",
   REDPAJAMA = "redpajama",
+  DEEPSEEK = "DeepSeek",
 }
 
 const DEFAULT_MODEL_BASES: ModelRecord[] = [
@@ -226,11 +227,12 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
       top_p: 0.9,
     },
   },
+  // Deepseek
   {
-    name: "Hermes-2-Pro-Llama-3-8B-q4f16_1-MLC",
-    display_name: "Hermes",
-    provider: "NousResearch",
-    family: ModelFamily.LLAMA,
+    name: "DeepSeek-R1-Distill-Qwen-7B-q4f16_1-MLC",
+    display_name: "DeepSeek",
+    provider: "DeepSeek",
+    family: ModelFamily.DEEPSEEK,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
@@ -239,15 +241,64 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     },
   },
   {
-    name: "Hermes-2-Pro-Llama-3-8B-q4f32_1-MLC",
-    display_name: "Hermes",
-    provider: "NousResearch",
-    family: ModelFamily.LLAMA,
+    name: "DeepSeek-R1-Distill-Qwen-7B-q4f32_1-MLC",
+    display_name: "DeepSeek",
+    provider: "DeepSeek",
+    family: ModelFamily.DEEPSEEK,
     recommended_config: {
       temperature: 1,
       presence_penalty: 0,
       frequency_penalty: 0,
       top_p: 1,
+    },
+  },
+  {
+    name: "DeepSeek-R1-Distill-Llama-8B-q4f32_1-MLC",
+    display_name: "DeepSeek",
+    provider: "DeepSeek",
+    family: ModelFamily.DEEPSEEK,
+    recommended_config: {
+      temperature: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 1,
+    },
+  },
+  {
+    name: "DeepSeek-R1-Distill-Llama-8B-q4f16_1-MLC",
+    display_name: "DeepSeek",
+    provider: "DeepSeek",
+    family: ModelFamily.DEEPSEEK,
+    recommended_config: {
+      temperature: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 1,
+    },
+  },
+  // Hermes
+  {
+    name: "Hermes-3-Llama-3.2-3B-q4f32_1-MLC",
+    display_name: "Hermes",
+    provider: "NousResearch",
+    family: ModelFamily.LLAMA,
+    recommended_config: {
+      temperature: 0.6,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 0.9,
+    },
+  },
+  {
+    name: "Hermes-3-Llama-3.2-3B-q4f16_1-MLC",
+    display_name: "Hermes",
+    provider: "NousResearch",
+    family: ModelFamily.LLAMA,
+    recommended_config: {
+      temperature: 0.6,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 0.9,
     },
   },
   {
@@ -286,6 +337,31 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
       top_p: 0.95,
     },
   },
+  {
+    name: "Hermes-2-Pro-Llama-3-8B-q4f16_1-MLC",
+    display_name: "Hermes",
+    provider: "NousResearch",
+    family: ModelFamily.LLAMA,
+    recommended_config: {
+      temperature: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 1,
+    },
+  },
+  {
+    name: "Hermes-2-Pro-Llama-3-8B-q4f32_1-MLC",
+    display_name: "Hermes",
+    provider: "NousResearch",
+    family: ModelFamily.LLAMA,
+    recommended_config: {
+      temperature: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 1,
+    },
+  },
+  // Phi
   {
     name: "Phi-3.5-mini-instruct-q4f16_1-MLC",
     display_name: "Phi",
