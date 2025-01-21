@@ -207,11 +207,6 @@ const ModelSelect: React.FC<ModelSearchProps> = ({
     return counts;
   };
 
-  const modelCounts = countModelsPerFamily(availableModels);
-  const sortedModelFamilies = Object.entries(modelFamilies).sort(
-    ([a], [b]) => (modelCounts[b] || 0) - (modelCounts[a] || 0),
-  );
-
   return (
     <div className="screen-model-container">
       <Modal title={Locale.ModelSelect.Title} onClose={onClose}>
@@ -222,20 +217,22 @@ const ModelSelect: React.FC<ModelSearchProps> = ({
             inputRef={searchInputRef}
           />
           <div className={style["model-family-filter"]}>
-            {sortedModelFamilies.map(([key, { name, icon: Icon }]) => (
-              <IconButton
-                key={key}
-                onClick={() => handleToggleFamilyFilter(key)}
-                bordered
-                text={name}
-                icon={
-                  <div className={style["icon"]}>
-                    {Icon ? <Icon /> : <Cpu />}
-                  </div>
-                }
-                className={`${style["model-family-button"]}${selectedFamilies.includes(key) ? " " + style["selected-model-family"] : ""}`}
-              />
-            ))}
+            {Object.entries(modelFamilies).map(
+              ([key, { name, icon: Icon }]) => (
+                <IconButton
+                  key={key}
+                  onClick={() => handleToggleFamilyFilter(key)}
+                  bordered
+                  text={name}
+                  icon={
+                    <div className={style["icon"]}>
+                      {Icon ? <Icon /> : <Cpu />}
+                    </div>
+                  }
+                  className={`${style["model-family-button"]}${selectedFamilies.includes(key) ? " " + style["selected-model-family"] : ""}`}
+                />
+              ),
+            )}
           </div>
         </div>
         <div className={style["model-list"]}>

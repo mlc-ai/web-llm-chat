@@ -73,20 +73,20 @@ export interface ModelDetails {
 export const modelDetailsList: ModelDetails[] = [
   { family: ModelFamily.LLAMA, name: "Llama", icon: MetaIcon },
   { family: ModelFamily.DEEPSEEK, name: "DeepSeek", icon: DeepSeekIcon },
-  { family: ModelFamily.PHI, name: "Phi", icon: MicrosoftIcon },
-  { family: ModelFamily.MISTRAL, name: "Mistral", icon: MistralIcon },
-  { family: ModelFamily.GEMMA, name: "Gemma", icon: GoogleIcon },
   {
     family: ModelFamily.QWEN,
     name: "Qwen",
     icon: (...props) => <img src="./qwen.webp" alt="Qwen Logo" {...props} />,
   },
+  { family: ModelFamily.GEMMA, name: "Gemma", icon: GoogleIcon },
+  { family: ModelFamily.PHI, name: "Phi", icon: MicrosoftIcon },
+  { family: ModelFamily.MISTRAL, name: "Mistral", icon: MistralIcon },
   {
     family: ModelFamily.SMOL_LM,
     name: "SmolLM",
     icon: (...props) => <img src="./smollm.png" alt="SmolLM Logo" {...props} />,
   },
-  { family: ModelFamily.WIZARD_MATH, name: "Wizard Math", icon: WandSparkles },
   { family: ModelFamily.STABLE_LM, name: "StableLM", icon: StablelmIcon },
   { family: ModelFamily.REDPAJAMA, name: "RedPajama", icon: Shirt },
+  { family: ModelFamily.WIZARD_MATH, name: "Wizard Math", icon: WandSparkles },
 ];
