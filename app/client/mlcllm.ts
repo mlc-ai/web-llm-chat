@@ -1,6 +1,10 @@
 import log from "loglevel";
 import { ChatOptions, LLMApi } from "./api";
-import { ChatCompletionFinishReason, CompletionUsage } from "@mlc-ai/web-llm";
+import {
+  ChatCompletionFinishReason,
+  CompletionUsage,
+  ChatCompletion,
+} from "@mlc-ai/web-llm";
 
 export class MlcLLMApi implements LLMApi {
   private endpoint: string;
@@ -45,22 +49,29 @@ export class MlcLLMApi implements LLMApi {
           const chunk = new TextDecoder("utf-8").decode(value);
           const result = chunk.match(/data: (.+)/);
           if (result) {
-            const data = JSON.parse(result[1]);
-            if (data.choices && data.choices.length > 0) {
-              reply += data.choices[0].delta.content; // Append the content
-              options.onUpdate?.(reply, chunk); // Handle the chunk update
+            try {
+              const data = JSON.parse(result[1]);
+              if (data.choices && data.choices.length > 0) {
+                reply += data.choices[0].delta.content; // Append the content
+                options.onUpdate?.(reply, chunk); // Handle the chunk update
 
-              if (data.choices[0].finish_reason) {
-                stopReason = data.choices[0].finish_reason;
-              }
+                if (data.choices[0].finish_reason) {
+                  stopReason = data.choices[0].finish_reason;
+                }
 
-              if (data.usage) {
-                usage = data.usage;
+                if (data.usage) {
+                  usage = data.usage;
+                }
               }
+            } catch (e) {
+              log.error(
+                "Error parsing streaming response from MLC-LLM server",
+                e,
+              );
             }
           }
 
-          if (chunk === "[DONE]") {
+          if (chunk.includes("[DONE]")) {
             // Ending the stream when "[DONE]" is found
             break;
           }
