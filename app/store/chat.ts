@@ -363,6 +363,9 @@ export const useChatStore = createPersistStore(
             botMessage.usage = usage;
             botMessage.stopReason = stopReason;
             if (message) {
+              if (!this.config.enable_thinking) {
+                message = message.replace(/<think>\s*<\/think>/g, "");
+              }
               botMessage.content = message;
               get().onNewMessage(botMessage, llm);
             }
