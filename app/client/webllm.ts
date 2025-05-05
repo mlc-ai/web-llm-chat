@@ -172,13 +172,14 @@ export class WebLLMApi implements LLMApi {
       "stream",
       "presence_penalty",
       "frequency_penalty",
+      "enable_thinking",
     ];
 
     for (const field of optionalFields) {
       if (
         this.llmConfig[field] !== undefined &&
         config[field] !== undefined &&
-        config[field] !== config[field]
+        this.llmConfig[field] !== config[field]
       ) {
         return true;
       }
