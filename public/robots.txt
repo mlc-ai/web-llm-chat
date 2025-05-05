@@ -1,4 +1,3 @@
 User-agent: *
-Disallow: /
-User-agent: vitals.vercel-insights.com
 Allow: /
+Sitemap: https://chat.webllm.ai/sitemap.xml
