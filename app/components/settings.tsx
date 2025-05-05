@@ -538,20 +538,6 @@ export function Settings() {
             </Select>
           </ListItem>
           <ListItem
-            title={Locale.Settings.EnableThinking.Title}
-            subTitle={Locale.Settings.EnableThinking.SubTitle}
-          >
-            <input
-              type="checkbox"
-              checked={config.enableThinking}
-              onChange={(e) =>
-                updateConfig(
-                  (config) => (config.enableThinking = e.currentTarget.checked),
-                )
-              }
-            ></input>
-          </ListItem>
-          <ListItem
             title={Locale.Settings.LogLevel.Title}
             subTitle={Locale.Settings.LogLevel.SubTitle}
           >

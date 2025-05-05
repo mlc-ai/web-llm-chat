@@ -71,6 +71,10 @@
     width: var(--icon-width);
     overflow: hidden;
 
+    &.selected {
+      background-color: var(--second);
+    }
+
     &:not(:last-child) {
       margin-right: 5px;
     }

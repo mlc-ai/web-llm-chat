@@ -228,6 +228,10 @@ const cn = {
       Title: "频率惩罚度 (frequency_penalty)",
       SubTitle: "值越大，越有可能降低重复字词",
     },
+    EnableThinking: {
+      Title: "深度思考",
+      SubTitle: "允许模型在回答时进行深度思考",
+    },
   },
   Store: {
     DefaultTopic: "新的聊天",
