@@ -537,7 +537,7 @@ export function ChatActions(props: {
           });
         }}
       />
-      {config.modelConfig.model.startsWith("Qwen3") && (
+      {config.modelConfig.model.toLowerCase().startsWith("qwen3") && (
         <ChatAction
           onClick={() =>
             config.update(

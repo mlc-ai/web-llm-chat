@@ -85,7 +85,9 @@ export class WebLLMApi implements LLMApi {
     if (!this.initialized || this.isDifferentConfig(options.config)) {
       this.llmConfig = { ...(this.llmConfig || {}), ...options.config };
       // Check if this is a Qwen3 model with thinking mode enabled
-      const isQwen3Model = this.llmConfig?.model?.startsWith("Qwen3");
+      const isQwen3Model = this.llmConfig?.model
+        ?.toLowerCase()
+        .startsWith("qwen3");
       const isThinkingEnabled = this.llmConfig?.enable_thinking === true;
 
       // Apply special config for Qwen3 models with thinking mode enabled
@@ -200,7 +202,9 @@ export class WebLLMApi implements LLMApi {
     // For Qwen3 models, we need to filter out the <think>...</think> content
     // Do not do it inplace, create a new messages array
     let newMessages: RequestMessage[] | undefined;
-    const isQwen3Model = this.llmConfig?.model?.startsWith("Qwen3");
+    const isQwen3Model = this.llmConfig?.model
+      ?.toLowerCase()
+      .startsWith("qwen3");
     if (isQwen3Model) {
       newMessages = messages.map((message) => {
         const newMessage = { ...message };
