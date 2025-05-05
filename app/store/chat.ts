@@ -347,6 +347,7 @@ export const useChatStore = createPersistStore(
             ...modelConfig,
             cache: useAppConfig.getState().cacheType,
             stream: true,
+            enable_thinking: useAppConfig.getState().enableThinking,
           },
           onUpdate(message) {
             botMessage.streaming = true;
@@ -362,6 +363,9 @@ export const useChatStore = createPersistStore(
             botMessage.usage = usage;
             botMessage.stopReason = stopReason;
             if (message) {
+              if (!this.config.enable_thinking) {
+                message = message.replace(/<think>\s*<\/think>/g, "");
+              }
               botMessage.content = message;
               get().onNewMessage(botMessage, llm);
             }
@@ -532,6 +536,7 @@ export const useChatStore = createPersistStore(
               model: modelConfig.model,
               cache: useAppConfig.getState().cacheType,
               stream: false,
+              enable_thinking: false, // never think for topic
             },
             onFinish(message) {
               get().updateCurrentSession(
@@ -615,6 +620,7 @@ export const useChatStore = createPersistStore(
               stream: true,
               model: modelConfig.model,
               cache: useAppConfig.getState().cacheType,
+              enable_thinking: false, // never think for summarization
             },
             onUpdate(message) {
               session.memoryPrompt = message;

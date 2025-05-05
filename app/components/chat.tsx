@@ -27,6 +27,7 @@ import DeleteIcon from "../icons/clear.svg";
 import EditIcon from "../icons/rename.svg";
 import ConfirmIcon from "../icons/confirm.svg";
 import ImageIcon from "../icons/image.svg";
+import BrainIcon from "../icons/brain.svg";
 
 import BottomIcon from "../icons/bottom.svg";
 import StopIcon from "../icons/pause.svg";
@@ -385,6 +386,7 @@ function ChatAction(props: {
   icon: JSX.Element;
   onClick: () => void;
   fullWidth?: boolean;
+  selected?: boolean;
 }) {
   const iconRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -406,7 +408,7 @@ function ChatAction(props: {
 
   return props.fullWidth ? (
     <div
-      className={`${styles["chat-input-action"]} clickable ${styles["full-width"]}`}
+      className={`${styles["chat-input-action"]} clickable ${styles["full-width"]} ${props.selected ? styles["selected"] : ""}`}
       onClick={props.onClick}
     >
       <div ref={iconRef} className={styles["icon"]}>
@@ -418,7 +420,7 @@ function ChatAction(props: {
     </div>
   ) : (
     <div
-      className={`${styles["chat-input-action"]} clickable`}
+      className={`${styles["chat-input-action"]} clickable ${props.selected ? styles["selected"] : ""}`}
       onClick={() => {
         props.onClick();
         setTimeout(updateWidth, 1);
@@ -535,6 +537,18 @@ export function ChatActions(props: {
           });
         }}
       />
+      {config.modelConfig.model.toLowerCase().startsWith("qwen3") && (
+        <ChatAction
+          onClick={() =>
+            config.update(
+              (config) => (config.enableThinking = !config.enableThinking),
+            )
+          }
+          text={Locale.Settings.THINKING}
+          icon={<BrainIcon />}
+          selected={config.enableThinking}
+        />
+      )}
       <ChatAction
         onClick={() => setShowModelSelector(true)}
         text={currentModel}

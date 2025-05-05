@@ -83,6 +83,24 @@ export function ModelConfigList() {
             </Select>
           </ListItem>
 
+          {config.modelConfig.model.toLowerCase().startsWith("qwen3") && (
+            <ListItem
+              title={Locale.Settings.EnableThinking.Title}
+              subTitle={Locale.Settings.EnableThinking.SubTitle}
+            >
+              <input
+                type="checkbox"
+                checked={config.enableThinking}
+                onChange={(e) =>
+                  config.update(
+                    (config) =>
+                      (config.enableThinking = e.currentTarget.checked),
+                  )
+                }
+              ></input>
+            </ListItem>
+          )}
+
           {/* New setting item for LLM model context window length */}
           <ListItem
             title={Locale.Settings.ContextWindowLength.Title}

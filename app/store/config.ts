@@ -75,6 +75,7 @@ export type ConfigType = {
 
   cacheType: CacheType;
   logLevel: LogLevel;
+  enableThinking: boolean;
   modelConfig: ModelConfig;
 };
 
@@ -124,6 +125,7 @@ export const DEFAULT_CONFIG: ConfigType = {
   models: DEFAULT_MODELS,
   cacheType: CacheType.Cache,
   logLevel: "INFO",
+  enableThinking: false,
 
   modelConfig: DEFAULT_MODEL_CONFIG,
 };
@@ -217,9 +219,9 @@ export const useAppConfig = createPersistStore(
   }),
   {
     name: StoreKey.Config,
-    version: 0.62,
+    version: 0.64,
     migrate: (persistedState, version) => {
-      if (version < 0.62) {
+      if (version < 0.64) {
         return {
           ...DEFAULT_CONFIG,
           ...(persistedState as any),

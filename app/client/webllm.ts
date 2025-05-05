@@ -84,6 +84,20 @@ export class WebLLMApi implements LLMApi {
   async chat(options: ChatOptions): Promise<void> {
     if (!this.initialized || this.isDifferentConfig(options.config)) {
       this.llmConfig = { ...(this.llmConfig || {}), ...options.config };
+      // Check if this is a Qwen3 model with thinking mode enabled
+      const isQwen3Model = this.llmConfig?.model
+        ?.toLowerCase()
+        .startsWith("qwen3");
+      const isThinkingEnabled = this.llmConfig?.enable_thinking === true;
+
+      // Apply special config for Qwen3 models with thinking mode enabled
+      if (isQwen3Model && isThinkingEnabled && this.llmConfig) {
+        this.llmConfig = {
+          ...this.llmConfig,
+          temperature: 0.6,
+          top_p: 0.95,
+        };
+      }
       try {
         await this.initModel(options.onUpdate);
       } catch (err: any) {
@@ -160,13 +174,14 @@ export class WebLLMApi implements LLMApi {
       "stream",
       "presence_penalty",
       "frequency_penalty",
+      "enable_thinking",
     ];
 
     for (const field of optionalFields) {
       if (
         this.llmConfig[field] !== undefined &&
         config[field] !== undefined &&
-        config[field] !== config[field]
+        this.llmConfig[field] !== config[field]
       ) {
         return true;
       }
@@ -184,10 +199,39 @@ export class WebLLMApi implements LLMApi {
       usage?: CompletionUsage,
     ) => void,
   ) {
+    // For Qwen3 models, we need to filter out the <think>...</think> content
+    // Do not do it inplace, create a new messages array
+    let newMessages: RequestMessage[] | undefined;
+    const isQwen3Model = this.llmConfig?.model
+      ?.toLowerCase()
+      .startsWith("qwen3");
+    if (isQwen3Model) {
+      newMessages = messages.map((message) => {
+        const newMessage = { ...message };
+        if (
+          message.role === "assistant" &&
+          typeof message.content === "string"
+        ) {
+          newMessage.content = message.content.replace(
+            /^<think>[\s\S]*?<\/think>\n?\n?/,
+            "",
+          );
+        }
+        return newMessage;
+      });
+    }
+
+    // Prepare extra_body with enable_thinking option for Qwen3 models
+    const extraBody: Record<string, any> = {};
+    if (isQwen3Model) {
+      extraBody.enable_thinking = this.llmConfig?.enable_thinking ?? false;
+    }
+
     const completion = await this.webllm.engine.chatCompletion({
       stream: stream,
-      messages: messages as ChatCompletionMessageParam[],
+      messages: (newMessages || messages) as ChatCompletionMessageParam[],
       ...(stream ? { stream_options: { include_usage: true } } : {}),
+      ...(Object.keys(extraBody).length > 0 ? { extra_body: extraBody } : {}),
     });
 
     if (stream) {

@@ -206,6 +206,7 @@ const en = {
         "Will compress if uncompressed messages length exceeds the value",
     },
 
+    THINKING: "Thinking",
     Usage: {
       Title: "Account Balance",
       SubTitle(used: any, total: any) {
@@ -263,6 +264,10 @@ const en = {
     LogLevel: {
       Title: "Logging Level",
       SubTitle: "Adjust how much detail should be printed to console",
+    },
+    EnableThinking: {
+      Title: "Enable Thinking",
+      SubTitle: "Allow reasoning models to think step-by-step",
     },
   },
   Store: {

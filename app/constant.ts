@@ -79,6 +79,20 @@ export enum ModelFamily {
   DEEPSEEK = "DeepSeek",
 }
 
+const qwen3_common_configs = {
+  display_name: "Qwen",
+  provider: "Alibaba",
+  family: ModelFamily.QWEN,
+  // Recommended config is for non-thinking mode
+  // For thinking mode, see webllm.ts where temperature=0.6 and top_p=0.95 are applied
+  recommended_config: {
+    temperature: 0.7,
+    presence_penalty: 0,
+    frequency_penalty: 0,
+    top_p: 0.8,
+  },
+};
+
 const DEFAULT_MODEL_BASES: ModelRecord[] = [
   // Phi-3.5 Vision
   {
@@ -410,6 +424,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
       top_p: 1,
     },
   },
+  // Mistral
   {
     name: "Mistral-7B-Instruct-v0.3-q4f16_1-MLC",
     display_name: "Mistral",
@@ -464,6 +479,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
       top_p: 0.95,
     },
   },
+  // WizardMath
   {
     name: "WizardMath-7B-V1.1-q4f16_1-MLC",
     display_name: "WizardMath",
@@ -571,6 +587,48 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
       top_p: 1,
     },
   },
+  // Qwen3
+  {
+    name: "Qwen3-0.6B-q4f16_1-MLC",
+    ...qwen3_common_configs,
+  },
+  {
+    name: "Qwen3-0.6B-q4f32_1-MLC",
+    ...qwen3_common_configs,
+  },
+  {
+    name: "Qwen3-0.6B-q0f16-MLC",
+    ...qwen3_common_configs,
+  },
+  {
+    name: "Qwen3-0.6B-q0f32-MLC",
+    ...qwen3_common_configs,
+  },
+  {
+    name: "Qwen3-1.7B-q4f16_1-MLC",
+    ...qwen3_common_configs,
+  },
+  {
+    name: "Qwen3-1.7B-q4f32_1-MLC",
+    ...qwen3_common_configs,
+  },
+  {
+    name: "Qwen3-4B-q4f16_1-MLC",
+    ...qwen3_common_configs,
+  },
+  {
+    name: "Qwen3-4B-q4f32_1-MLC",
+    ...qwen3_common_configs,
+  },
+  {
+    name: "Qwen3-8B-q4f16_1-MLC",
+    ...qwen3_common_configs,
+  },
+  {
+    name: "Qwen3-8B-q4f32_1-MLC",
+    ...qwen3_common_configs,
+  },
+  // Qwen2.5
   {
     name: "Qwen2.5-0.5B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
@@ -585,18 +643,6 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
   },
   {
     name: "Qwen2.5-0.5B-Instruct-q4f32_1-MLC",
-    display_name: "Qwen",
-    provider: "Alibaba",
-    family: ModelFamily.QWEN,
-    recommended_config: {
-      temperature: 0.7,
-      presence_penalty: 0,
-      frequency_penalty: 0,
-      top_p: 0.8,
-    },
-  },
-  {
-    name: "Qwen2.5-0.5B-Instruct-q4f16_1-MLC",
     display_name: "Qwen",
     provider: "Alibaba",
     family: ModelFamily.QWEN,
@@ -873,6 +919,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
       top_p: 0.8,
     },
   },
+  // Gemma 2
   {
     name: "gemma-2-2b-it-q4f16_1-MLC",
     display_name: "Gemma",
@@ -969,6 +1016,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
       top_p: 0.9,
     },
   },
+  // StableLM
   {
     name: "stablelm-2-zephyr-1_6b-q4f16_1-MLC",
     display_name: "StableLM",
@@ -1017,6 +1065,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
       top_p: 0.95,
     },
   },
+  // RedPajama
   {
     name: "RedPajama-INCITE-Chat-3B-v1-q4f16_1-MLC",
     display_name: "RedPajama",
@@ -1057,6 +1106,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
       top_p: 0.95,
     },
   },
+  // TinyLlama
   {
     name: "TinyLlama-1.1B-Chat-v1.0-q4f16_1-MLC",
     display_name: "TinyLlama",
@@ -1105,6 +1155,7 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
       top_p: 1,
     },
   },
+  // Older models
   {
     name: "Llama-3.1-70B-Instruct-q3f16_1-MLC",
     display_name: "Llama",
