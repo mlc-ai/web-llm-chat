@@ -33,6 +33,7 @@ export interface LLMConfig {
   stream?: boolean;
   presence_penalty?: number;
   frequency_penalty?: number;
+  enable_thinking?: boolean;
 }
 
 export interface ChatOptions {

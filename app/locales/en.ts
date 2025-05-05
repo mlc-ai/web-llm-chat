@@ -264,6 +264,10 @@ const en = {
       Title: "Logging Level",
       SubTitle: "Adjust how much detail should be printed to console",
     },
+    EnableThinking: {
+      Title: "Enable Thinking for Qwen3",
+      SubTitle: "Allow Qwen3 models to show thinking process in responses",
+    },
   },
   Store: {
     DefaultTopic: "New Conversation",

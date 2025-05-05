@@ -75,6 +75,7 @@ export type ConfigType = {
 
   cacheType: CacheType;
   logLevel: LogLevel;
+  enableThinking: boolean;
   modelConfig: ModelConfig;
 };
 
@@ -124,6 +125,7 @@ export const DEFAULT_CONFIG: ConfigType = {
   models: DEFAULT_MODELS,
   cacheType: CacheType.Cache,
   logLevel: "INFO",
+  enableThinking: false,
 
   modelConfig: DEFAULT_MODEL_CONFIG,
 };
