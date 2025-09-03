@@ -6,9 +6,22 @@ import { getClientConfig } from "./config/client";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://chat.webllm.ai"),
   title: "WebLLM Chat",
   description:
     "Chat with AI large language models running natively in your browser. Enjoy private, server-free, seamless AI conversations.",
+  keywords: [
+    "WebLLM",
+    "AI chat",
+    "machine learning",
+    "browser AI",
+    "language model",
+    "no server",
+  ],
+  authors: [{ name: "WebLLM Team" }],
+  publisher: "WebLLM",
+  creator: "WebLLM",
+  robots: "index, follow",
   viewport: {
     width: "device-width",
     initialScale: 1,
@@ -21,6 +34,32 @@ export const metadata: Metadata = {
   appleWebApp: {
     title: "WebLLM Chat",
     statusBarStyle: "default",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://chat.webllm.ai",
+    title: "WebLLM Chat",
+    description:
+      "Chat with AI large language models running natively in your browser",
+    siteName: "WebLLM Chat",
+    images: [
+      {
+        url: "https://chat.webllm.ai/mlc-logo.png",
+        width: 360,
+        height: 360,
+        alt: "WebLLM Chat - Browser-based AI conversation",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "WebLLM Chat",
+    description:
+      "Chat with AI large language models running natively in your browser",
+    images: ["https://chat.webllm.ai/mlc-logo.png"],
+  },
+  alternates: {
+    canonical: "https://chat.webllm.ai",
   },
 };
 
@@ -78,6 +117,30 @@ export default function RootLayout({
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#062578" />
         <meta name="msapplication-TileColor" content="#2b5797" />
         <meta name="theme-color" content="#ffffff" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              name: "WebLLM Chat",
+              url: "https://chat.webllm.ai",
+              description:
+                "Chat with AI large language models running natively in your browser. Enjoy private, server-free, seamless AI conversations.",
+              applicationCategory: "Artificial Intelligence",
+              offers: {
+                "@type": "Offer",
+                price: "0",
+                priceCurrency: "USD",
+              },
+              operatingSystem: "Web Browser",
+              creator: {
+                "@type": "Organization",
+                name: "WebLLM",
+              },
+            }),
+          }}
+        />
       </head>
       <body>{children}</body>
     </html>
