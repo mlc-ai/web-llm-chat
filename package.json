@@ -11,7 +11,7 @@
     "export": "cross-env BUILD_MODE=export next build",
     "export:dev": "cross-env BUILD_MODE=export next dev",
     "prompts": "node ./scripts/fetch-prompts.mjs",
-    "prepare": "husky install",
+    "prepare": "husky",
     "proxy-dev": "sh ./scripts/init-proxy.sh && proxychains -f ./scripts/proxychains.conf yarn dev"
   },
   "dependencies": {
