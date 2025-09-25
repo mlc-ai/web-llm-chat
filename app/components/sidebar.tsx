@@ -7,7 +7,6 @@ import SettingsIcon from "../icons/gear.svg";
 import GithubIcon from "../icons/github.svg";
 import InternetIcon from "../icons/internet.svg";
 import MlcIcon from "../icons/mlc.svg";
-import TonomyIcon from "../icons/tonomy.svg";
 import AddIcon from "../icons/add.svg";
 import DeleteIcon from "../icons/delete.svg";
 import TemplateIcon from "../icons/chat.svg";
@@ -15,7 +14,7 @@ import DragIcon from "../icons/drag.svg";
 import LightIcon from "../icons/light.svg";
 import DarkIcon from "../icons/dark.svg";
 import AutoIcon from "../icons/auto.svg";
-import TonomyMiniIcon from "../icons/tonomy-mini.svg";
+import Image from "next/image";
 
 import Locale from "../locales";
 
@@ -172,7 +171,7 @@ export function SideBar(props: { className?: string }) {
           <div className={styles["sidebar-sub-title"]}>{Locale.Subtitle}</div>
         </div>
         <div className={styles["sidebar-logo"] + " no-dark tonomy-icon"}>
-          <TonomyIcon />
+          <Image src="/tonomy-logo.png" alt="Tonomy" width={28} height={28} />
         </div>
       </div>
 
@@ -235,7 +234,12 @@ export function SideBar(props: { className?: string }) {
               icon={
                 <>
                   {theme === Theme.TonomyBlackmode ? (
-                    <TonomyMiniIcon />
+                    <Image
+                      src="/tonomy-logo.png"
+                      alt="Tonomy"
+                      width={16}
+                      height={16}
+                    />
                   ) : theme === Theme.Auto ? (
                     <AutoIcon />
                   ) : theme === Theme.Light ? (

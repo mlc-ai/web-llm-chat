@@ -16,8 +16,8 @@ import {
 import { ServiceWorkerMLCEngine } from "@mlc-ai/web-llm";
 
 import MlcIcon from "../icons/mlc.svg";
-import TonomyIcon from "../icons/tonomy.svg";
 import LoadingIcon from "../icons/three-dots.svg";
+import Image from "next/image";
 
 import Locale from "../locales";
 import { getCSSVar, useMobileScreen } from "../utils";
@@ -38,7 +38,12 @@ export function Loading(props: { noLogo?: boolean }) {
         <div
           className={styles["loading-content-logo"] + " no-dark tonomy-icon"}
         >
-          <TonomyIcon />
+          <Image
+            src="/tonomy-logo.png"
+            alt="Tonomy Logo"
+            width={80}
+            height={80}
+          />
         </div>
       )}
       <LoadingIcon />
