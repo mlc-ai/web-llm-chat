@@ -713,3 +713,62 @@
     pointer-events: all;
   }
 }
+
+// Tonomy brand enhancements for chat messages
+:global(.tonomy-blackmode) {
+
+  // Chat message bubbles - AI messages (left side)
+  .chat-message .chat-message-item {
+    background-color: var(--tonomy-deep-purple);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #E8E8E8; // Ensure text is white/light gray
+
+    // Make markdown content white too
+    * {
+      color: #E8E8E8;
+    }
+  }
+
+  // User messages (right side) - slightly different background
+  .chat-message-user .chat-message-item {
+    background-color: rgba(88, 51, 188, 0.15); // Subtle purple tint for user messages
+    border: 1px solid rgba(88, 51, 188, 0.3);
+    color: #E8E8E8; // Ensure text is white/light gray
+
+    // Make markdown content white too
+    * {
+      color: #E8E8E8;
+    }
+  }
+
+  // Chat message status text (typing indicator, etc.)
+  .chat-message-status {
+    color: #A0A0A0; // Muted gray for status text
+  }
+
+  // Role names (model names, etc.)
+  .chat-message-role-name {
+    color: var(--tonomy-purple); // Only the model name gets brand color
+    font-family: 'Host Grotesk', sans-serif;
+    font-weight: 600;
+  }
+
+  // Chat input actions styling
+  .chat-input-action {
+    background-color: rgba(88, 51, 188, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #E8E8E8;
+
+    &.selected {
+      background-color: rgba(88, 51, 188, 0.2);
+      border-color: var(--tonomy-purple);
+    }
+  }
+
+  // Toast/scroll down button
+  .toast-content {
+    background-color: var(--tonomy-deep-purple);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #E8E8E8;
+  }
+}

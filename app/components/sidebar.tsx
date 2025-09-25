@@ -7,6 +7,7 @@ import SettingsIcon from "../icons/gear.svg";
 import GithubIcon from "../icons/github.svg";
 import InternetIcon from "../icons/internet.svg";
 import MlcIcon from "../icons/mlc.svg";
+import TonomyIcon from "../icons/tonomy.svg";
 import AddIcon from "../icons/add.svg";
 import DeleteIcon from "../icons/delete.svg";
 import TemplateIcon from "../icons/chat.svg";
@@ -14,6 +15,7 @@ import DragIcon from "../icons/drag.svg";
 import LightIcon from "../icons/light.svg";
 import DarkIcon from "../icons/dark.svg";
 import AutoIcon from "../icons/auto.svg";
+import TonomyMiniIcon from "../icons/tonomy-mini.svg";
 
 import Locale from "../locales";
 
@@ -147,7 +149,7 @@ export function SideBar(props: { className?: string }) {
 
   const { theme } = config;
   function nextTheme() {
-    const themes = [Theme.Auto, Theme.Light, Theme.Dark];
+    const themes = [Theme.TonomyBlackmode, Theme.Auto, Theme.Light, Theme.Dark];
     const themeIndex = themes.indexOf(theme);
     const nextIndex = (themeIndex + 1) % themes.length;
     const nextTheme = themes[nextIndex];
@@ -169,8 +171,8 @@ export function SideBar(props: { className?: string }) {
           <div className={styles["sidebar-title"]}>{Locale.Title}</div>
           <div className={styles["sidebar-sub-title"]}>{Locale.Subtitle}</div>
         </div>
-        <div className={styles["sidebar-logo"] + " no-dark mlc-icon"}>
-          <MlcIcon />
+        <div className={styles["sidebar-logo"] + " no-dark tonomy-icon"}>
+          <TonomyIcon />
         </div>
       </div>
 
@@ -232,7 +234,9 @@ export function SideBar(props: { className?: string }) {
             <IconButton
               icon={
                 <>
-                  {theme === Theme.Auto ? (
+                  {theme === Theme.TonomyBlackmode ? (
+                    <TonomyMiniIcon />
+                  ) : theme === Theme.Auto ? (
                     <AutoIcon />
                   ) : theme === Theme.Light ? (
                     <LightIcon />

@@ -81,3 +81,63 @@
     margin-left: 5px;
   }
 }
+
+.shadow {
+  box-shadow: var(--card-shadow);
+}
+
+.border {
+  border: var(--border-in-light);
+}
+
+.icon-button-icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .icon-button {
+    padding: 16px;
+  }
+}
+
+.icon-button-text {
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:not(:first-child) {
+    margin-left: 5px;
+  }
+}
+
+// Tonomy brand enhancements for buttons
+:global(.tonomy-blackmode) .icon-button {
+  /* Keep regular buttons neutral - only style primary buttons with color */
+
+  &.primary {
+    background: var(--tonomy-purple);
+    color: var(--tonomy-white);
+    border: 1px solid var(--tonomy-purple);
+
+    &:hover {
+      background: var(--tonomy-pink);
+      border-color: var(--tonomy-pink);
+    }
+
+    path {
+      fill: var(--tonomy-white) !important;
+    }
+  }
+}
+
+// Tonomy brand typography
+:global(.tonomy-blackmode) .icon-button-text {
+  font-family: 'Host Grotesk', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}

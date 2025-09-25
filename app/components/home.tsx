@@ -16,6 +16,7 @@ import {
 import { ServiceWorkerMLCEngine } from "@mlc-ai/web-llm";
 
 import MlcIcon from "../icons/mlc.svg";
+import TonomyIcon from "../icons/tonomy.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 
 import Locale from "../locales";
@@ -34,8 +35,10 @@ export function Loading(props: { noLogo?: boolean }) {
   return (
     <div className={styles["loading-content"] + " no-dark"}>
       {!props.noLogo && (
-        <div className={styles["loading-content-logo"] + " no-dark mlc-icon"}>
-          <MlcIcon />
+        <div
+          className={styles["loading-content-logo"] + " no-dark tonomy-icon"}
+        >
+          <TonomyIcon />
         </div>
       )}
       <LoadingIcon />
@@ -72,11 +75,17 @@ export function useSwitchTheme() {
   useEffect(() => {
     document.body.classList.remove("light");
     document.body.classList.remove("dark");
+    document.body.classList.remove("tonomy-blackmode");
 
     if (config.theme === "dark") {
       document.body.classList.add("dark");
     } else if (config.theme === "light") {
       document.body.classList.add("light");
+    } else if (config.theme === "tonomy-blackmode") {
+      document.body.classList.add("tonomy-blackmode");
+    } else {
+      // Default to Tonomy blackmode theme for auto and any other case
+      document.body.classList.add("tonomy-blackmode");
     }
 
     const metaDescriptionDark = document.querySelector(
@@ -87,8 +96,11 @@ export function useSwitchTheme() {
     );
 
     if (config.theme === "auto") {
-      metaDescriptionDark?.setAttribute("content", "#151515");
-      metaDescriptionLight?.setAttribute("content", "#fafafa");
+      metaDescriptionDark?.setAttribute("content", "#09031A");
+      metaDescriptionLight?.setAttribute("content", "#1F1A2D");
+    } else if (config.theme === "tonomy-blackmode") {
+      metaDescriptionDark?.setAttribute("content", "#09031A");
+      metaDescriptionLight?.setAttribute("content", "#09031A");
     } else {
       const themeColor = getCSSVar("--theme-color");
       metaDescriptionDark?.setAttribute("content", themeColor);

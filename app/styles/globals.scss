@@ -1,5 +1,6 @@
 @import "./animation.scss";
 @import "./window.scss";
+@import "./tonomy.scss";
 
 @mixin light {
   --theme: light;
@@ -64,7 +65,7 @@
 }
 
 :root {
-  @include light;
+  @include tonomy-blackmode;
 
   --window-width: 90vw;
   --window-height: 90vh;
@@ -94,10 +95,12 @@
   }
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300;400;500;600;700;800&display=swap');
+
 html {
   height: var(--full-height);
 
-  font-family: "Noto Sans", "SF Pro SC", "SF Pro Text", "SF Pro Icons",
+  font-family: "Host Grotesk", "Noto Sans", "SF Pro SC", "SF Pro Text", "SF Pro Icons",
     "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 

@@ -3,8 +3,8 @@ import { SubmitKey } from "../store/config";
 // if you are adding a new translation, please use PartialLocaleType instead of LocaleType
 
 const en = {
-  Title: "WebLLM Chat",
-  Subtitle: "AI Models Running in Browser",
+  Title: "Tonomy Shadow Chat",
+  Subtitle: "Privacy-First AI Assistant",
   WIP: "Coming Soon...",
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messages`,
@@ -50,6 +50,7 @@ const en = {
         auto: "Auto",
         light: "Light Theme",
         dark: "Dark Theme",
+        "tonomy-blackmode": "Tonomy Blackmode",
       },
       QuickPrompt: "Quick Prompts",
       Clear: "Clear Context",

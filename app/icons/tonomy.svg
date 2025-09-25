@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 120 120" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tonomyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D154EF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5833BC;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer circle with gradient -->
+  <circle cx="60" cy="60" r="55" fill="url(#tonomyGradient)" opacity="0.9"/>
+  
+  <!-- Inner geometric design representing decentralization and connectivity -->
+  <g fill="white" opacity="0.95">
+    <!-- Central node -->
+    <circle cx="60" cy="60" r="8"/>
+    
+    <!-- Connecting nodes forming a network pattern -->
+    <circle cx="35" cy="35" r="6"/>
+    <circle cx="85" cy="35" r="6"/>
+    <circle cx="35" cy="85" r="6"/>
+    <circle cx="85" cy="85" r="6"/>
+    
+    <!-- Connection lines -->
+    <line x1="60" y1="60" x2="35" y2="35" stroke="white" stroke-width="3" opacity="0.8"/>
+    <line x1="60" y1="60" x2="85" y2="35" stroke="white" stroke-width="3" opacity="0.8"/>
+    <line x1="60" y1="60" x2="35" y2="85" stroke="white" stroke-width="3" opacity="0.8"/>
+    <line x1="60" y1="60" x2="85" y2="85" stroke="white" stroke-width="3" opacity="0.8"/>
+    
+    <!-- Outer ring nodes -->
+    <circle cx="60" cy="25" r="4"/>
+    <circle cx="95" cy="60" r="4"/>
+    <circle cx="60" cy="95" r="4"/>
+    <circle cx="25" cy="60" r="4"/>
+    
+    <!-- Secondary connections -->
+    <line x1="35" y1="35" x2="60" y2="25" stroke="white" stroke-width="2" opacity="0.6"/>
+    <line x1="85" y1="35" x2="95" y2="60" stroke="white" stroke-width="2" opacity="0.6"/>
+    <line x1="85" y1="85" x2="60" y2="95" stroke="white" stroke-width="2" opacity="0.6"/>
+    <line x1="35" y1="85" x2="25" y2="60" stroke="white" stroke-width="2" opacity="0.6"/>
+  </g>
+  
+  <!-- Tonomy text (optional, can be removed for icon-only usage) -->
+  <text x="60" y="110" font-family="Host Grotesk, sans-serif" font-size="12" font-weight="800" 
+        text-anchor="middle" fill="url(#tonomyGradient)" opacity="0.9">TONOMY</text>
+</svg>

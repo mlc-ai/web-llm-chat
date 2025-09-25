@@ -22,6 +22,7 @@ export enum Theme {
   Auto = "auto",
   Dark = "dark",
   Light = "light",
+  TonomyBlackmode = "tonomy-blackmode",
 }
 
 export enum CacheType {
@@ -106,7 +107,7 @@ export const DEFAULT_CONFIG: ConfigType = {
   submitKey: SubmitKey.Enter,
   avatar: "1f603",
   fontSize: 14,
-  theme: Theme.Auto,
+  theme: Theme.TonomyBlackmode,
   tightBorder: false,
   sendPreviewBubble: true,
   enableAutoGenerateTitle: true,

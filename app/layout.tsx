@@ -7,20 +7,21 @@ import { type Metadata } from "next";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://chat.webllm.ai"),
-  title: "WebLLM Chat",
+  title: "Tonomy Chat",
   description:
-    "Chat with AI large language models running natively in your browser. Enjoy private, server-free, seamless AI conversations.",
+    "Privacy-first AI assistant powered by Tonomy. Chat with AI language models running securely in your browser with complete data sovereignty.",
   keywords: [
-    "WebLLM",
+    "Tonomy",
     "AI chat",
-    "machine learning",
+    "privacy-first",
     "browser AI",
     "language model",
-    "no server",
+    "decentralized",
+    "data sovereignty",
   ],
-  authors: [{ name: "WebLLM Team" }],
-  publisher: "WebLLM",
-  creator: "WebLLM",
+  authors: [{ name: "Tonomy" }],
+  publisher: "Tonomy",
+  creator: "Tonomy",
   robots: "index, follow",
   viewport: {
     width: "device-width",
@@ -28,20 +29,20 @@ export const metadata: Metadata = {
     maximumScale: 1,
   },
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
-    { media: "(prefers-color-scheme: dark)", color: "#151515" },
+    { media: "(prefers-color-scheme: light)", color: "#1F1A2D" },
+    { media: "(prefers-color-scheme: dark)", color: "#09031A" },
   ],
   appleWebApp: {
-    title: "WebLLM Chat",
+    title: "Tonomy Shadow Chat",
     statusBarStyle: "default",
   },
   openGraph: {
     type: "website",
     url: "https://chat.webllm.ai",
-    title: "WebLLM Chat",
+    title: "Tonomy Shadow Chat",
     description:
-      "Chat with AI large language models running natively in your browser",
-    siteName: "WebLLM Chat",
+      "Privacy-first AI assistant powered by Tonomy - Chat with complete data sovereignty",
+    siteName: "Tonomy Shadow Chat",
     images: [
       {
         url: "https://chat.webllm.ai/mlc-logo.png",
