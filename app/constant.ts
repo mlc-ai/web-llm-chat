@@ -4,7 +4,7 @@ import { getQuantization, getSize } from "./utils";
 
 export const OWNER = "theblockstalk";
 export const REPO = "web-llm-chat";
-export const WEBLLM_HOME_URL = "https://webllm.mlc.ai";
+export const WEBLLM_HOME_URL = "https://chat.tonomy.io";
 export const REPO_URL = `https://github.com/${OWNER}/${REPO}`;
 export const ISSUE_URL = `https://github.com/${OWNER}/${REPO}/issues`;
 

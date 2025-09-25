@@ -937,7 +937,7 @@ function _Chat() {
       : -1;
 
   const autoFocus = !isMobileScreen; // wont auto focus on mobile screen
-  const showMaxIcon = !isMobileScreen;
+  const showMaxIcon = false; //!isMobileScreen;
 
   useCommand({
     fill: setUserInput,

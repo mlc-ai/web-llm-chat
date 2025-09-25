@@ -175,7 +175,7 @@ export function SideBar(props: { className?: string }) {
         </div>
       </div>
 
-      <div className={styles["sidebar-header-bar"]}>
+      {/* <div className={styles["sidebar-header-bar"]}>
         <IconButton
           icon={<TemplateIcon />}
           text={shouldNarrow ? undefined : Locale.Template.Name}
@@ -194,7 +194,7 @@ export function SideBar(props: { className?: string }) {
           }}
           shadow
         />
-      </div>
+      </div> */}
 
       <div
         className={styles["sidebar-body"]}
@@ -224,12 +224,12 @@ export function SideBar(props: { className?: string }) {
               <IconButton icon={<InternetIcon />} shadow />
             </a>
           </div>
-          <div className={styles["sidebar-action"]}>
+          {/* <div className={styles["sidebar-action"]}>
             <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
               <IconButton icon={<GithubIcon />} shadow />
             </a>
-          </div>
-          <div className={styles["sidebar-action"]}>
+          </div> */}
+          {/* <div className={styles["sidebar-action"]}>
             <IconButton
               icon={
                 <>
@@ -252,7 +252,7 @@ export function SideBar(props: { className?: string }) {
               onClick={nextTheme}
               shadow
             />
-          </div>
+          </div> */}
         </div>
         <div>
           <IconButton
