@@ -239,9 +239,9 @@ const useWebLLM = () => {
     }
   }, []);
 
-  if (webllm?.webllm.type === "serviceWorker") {
+  if (webllm?.webllm?.type === "serviceWorker") {
     setInterval(() => {
-      if (webllm) {
+      if (webllm?.webllm) {
         // 10s per heartbeat, dead after 30 seconds of inactivity
         setWebllmAlive(
           !!webllm.webllm.engine &&
@@ -314,7 +314,7 @@ const useLogLevel = (webllm?: WebLLMApi) => {
   useEffect(() => {
     log.setLevel(config.logLevel);
     if (webllm?.webllm?.engine) {
-      webllm.webllm.engine.setLogLevel(config.logLevel);
+      webllm?.webllm?.engine.setLogLevel(config.logLevel);
     }
   }, [config.logLevel, webllm?.webllm?.engine]);
 };
