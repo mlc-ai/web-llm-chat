@@ -241,6 +241,18 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
       top_p: 0.9,
     },
   },
+  {
+    name: "Llama-3.1-8B-Amelue-Instruct-q4f16_1-MLC",
+    display_name: "Amelue AI Agent",
+    provider: "Amelue",
+    family: ModelFamily.LLAMA,
+    recommended_config: {
+      temperature: 0.6,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 0.9,
+    },
+  },
   // Deepseek
   {
     name: "DeepSeek-R1-Distill-Qwen-7B-q4f16_1-MLC",
@@ -1535,6 +1547,9 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
 
 export const DEFAULT_MODELS: ModelRecord[] = DEFAULT_MODEL_BASES.filter(
   (model) => {
+    if (model.provider === "Amelue") {
+      return true;
+    }
     if (
       !prebuiltAppConfig.model_list.map((m) => m.model_id).includes(model.name)
     ) {

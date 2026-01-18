@@ -12,6 +12,9 @@ import {
   WebWorkerMLCEngine,
   CompletionUsage,
   ChatCompletionFinishReason,
+  AppConfig,
+  modelLibURLPrefix,
+  modelVersion,
 } from "@mlc-ai/web-llm";
 
 import { ChatOptions, LLMApi, LLMConfig, RequestMessage } from "./api";
@@ -33,6 +36,25 @@ type WebWorkerWebLLMHandler = {
 
 type WebLLMHandler = ServiceWorkerWebLLMHandler | WebWorkerWebLLMHandler;
 
+export const customAppConfig: AppConfig = {
+  model_list: [
+    {
+      model: "https://huggingface.co/jerryyiransun/Llama-3_1-8B-Instruct_MLC",
+      model_id: "Llama-3.1-8B-Amelue-Instruct-q4f16_1-MLC",
+      model_lib:
+        modelLibURLPrefix +
+        modelVersion +
+        "/Llama-3_1-8B-Instruct-q4f16_1-ctx4k_cs1k-webgpu.wasm",
+      vram_required_MB: 4598.34,
+      low_resource_required: true,
+      overrides: {
+        context_window_size: 1024,
+      },
+    },
+  ],
+  useIndexedDBCache: true,
+};
+
 export class WebLLMApi implements LLMApi {
   private llmConfig?: LLMConfig;
   private initialized = false;
@@ -45,6 +67,7 @@ export class WebLLMApi implements LLMApi {
     const engineConfig = {
       appConfig: {
         ...prebuiltAppConfig,
+        ...customAppConfig,
         useIndexedDBCache: this.llmConfig?.cache === "index_db",
       },
       logLevel,
