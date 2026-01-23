@@ -66,6 +66,14 @@ const TemplatePage = dynamic(
   },
 );
 
+const Landing = dynamic(async () => (await import("./landing")).LandingPage, {
+  loading: () => <Loading noLogo />,
+});
+
+const ChatRoom = dynamic(async () => (await import("./chatroom")).ChatRoom, {
+  loading: () => <Loading noLogo />,
+});
+
 export function useSwitchTheme() {
   const config = useAppConfig();
 
@@ -150,10 +158,11 @@ function Screen() {
 
         <div className={styles["window-content"]} id={SlotID.AppBody}>
           <Routes>
-            <Route path={Path.Home} element={<Chat />} />
-            <Route path={Path.Templates} element={<TemplatePage />} />
-            <Route path={Path.Chat} element={<Chat />} />
+            <Route path={Path.Home} element={<Landing />} />
+            {/* <Route path={Path.Templates} element={<TemplatePage />} /> */}
+            <Route path={Path.Chat} element={<ChatRoom />} />
             <Route path={Path.Settings} element={<Settings />} />
+            <Route path={Path.MyAgent} element={<Chat />} />
           </Routes>
         </div>
       </>

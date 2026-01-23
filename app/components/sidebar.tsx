@@ -170,7 +170,7 @@ export function SideBar(props: { className?: string }) {
           <div className={styles["sidebar-sub-title"]}>{Locale.Subtitle}</div>
         </div>
         <div className={styles["sidebar-logo"] + " no-dark mlc-icon"}>
-          <MlcIcon />
+          {/* <MlcIcon /> */}
         </div>
       </div>
 
@@ -180,7 +180,7 @@ export function SideBar(props: { className?: string }) {
           text={shouldNarrow ? undefined : Locale.Template.Name}
           className={styles["sidebar-bar-button"]}
           onClick={() => {
-            navigate(Path.Templates, { state: { fromHome: true } });
+            navigate(Path.MyAgent, { state: { fromHome: true } });
           }}
           shadow
         />

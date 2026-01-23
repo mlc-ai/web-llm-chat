@@ -3,8 +3,8 @@ import { SubmitKey } from "../store/config";
 // if you are adding a new translation, please use PartialLocaleType instead of LocaleType
 
 const en = {
-  Title: "WebLLM Chat",
-  Subtitle: "AI Models Running in Browser",
+  Title: "The Town",
+  Subtitle: "Fantasy World Built by AI Agents",
   WIP: "Coming Soon...",
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messages`,
@@ -305,7 +305,7 @@ const en = {
     Sysmessage: "You are an assistant that",
   },
   Template: {
-    Name: "Prompts",
+    Name: "My Agent",
     Page: {
       Title: "Prompt Library",
       SubTitle: "Saved Prompt Collection",

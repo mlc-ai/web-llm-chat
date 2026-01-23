@@ -10,9 +10,10 @@ export const ISSUE_URL = `https://github.com/${OWNER}/${REPO}/issues`;
 
 export enum Path {
   Home = "/",
-  Chat = "/chat",
+  Chat = "/chatroom",
   Settings = "/settings",
   Templates = "/templates",
+  MyAgent = "/my-agent",
 }
 
 export enum ApiPath {
