@@ -10,9 +10,10 @@ export const ISSUE_URL = `https://github.com/${OWNER}/${REPO}/issues`;
 
 export enum Path {
   Home = "/",
-  Chat = "/chat",
+  Chat = "/chatroom",
   Settings = "/settings",
   Templates = "/templates",
+  MyAgent = "/my-agent",
 }
 
 export enum ApiPath {
@@ -233,6 +234,18 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
     name: "Llama-3.1-8B-Instruct-q4f16_1-MLC",
     display_name: "Llama",
     provider: "Meta",
+    family: ModelFamily.LLAMA,
+    recommended_config: {
+      temperature: 0.6,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 0.9,
+    },
+  },
+  {
+    name: "Llama-3.1-8B-Amelue-Instruct-q4f16_1-MLC",
+    display_name: "Amelue AI Agent",
+    provider: "Amelue",
     family: ModelFamily.LLAMA,
     recommended_config: {
       temperature: 0.6,
@@ -1535,6 +1548,9 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
 
 export const DEFAULT_MODELS: ModelRecord[] = DEFAULT_MODEL_BASES.filter(
   (model) => {
+    if (model.provider === "Amelue") {
+      return true;
+    }
     if (
       !prebuiltAppConfig.model_list.map((m) => m.model_id).includes(model.name)
     ) {
