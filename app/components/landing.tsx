@@ -50,10 +50,9 @@ export function LandingPage() {
         <p className="landing-body">
           Welcome to The Town! The Town is a self-generating story comprised
           completely of A.I. agents, running locally on your device! These
-          agents are all unique in there mannerisms and personalities. View the
+          agents are all unique in their mannerisms and personalities. View the
           agent&apos;s interactions with each other, watch them grow from the
-          memories they make, and even question your own agent yourself! Click
-          one of the buttoms below to start exploring The Town!
+          memories they make, and even question your own agent yourself!
         </p>
         <div className="landing-buttons">
           <div className="landing-nav-button">

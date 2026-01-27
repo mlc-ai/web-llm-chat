@@ -513,29 +513,10 @@ export function ChatActions(props: {
           icon={props.uploading ? <LoadingButtonIcon /> : <ImageIcon />}
         />
       )}
-      <ChatAction // Edit Conversation (REMOVEEDITACTION)
-        onClick={props.showPromptSetting}
-        text={Locale.Chat.Actions.EditConversation}
-        icon={<EditIcon />}
-      />
       <ChatAction // Prompts, stored in public/prompts.json, path to file used for prompts is on line 137 of ../store/prompts.ts
         onClick={props.showPromptHints}
         text={Locale.Chat.InputActions.QuickPrompt}
         icon={<PromptIcon />}
-      />
-      <ChatAction // Clear context (REMOVECONTEXT)
-        text={Locale.Chat.InputActions.Clear}
-        icon={<BreakIcon />}
-        onClick={() => {
-          chatStore.updateCurrentSession((session) => {
-            if (session.clearContextIndex === session.messages.length) {
-              session.clearContextIndex = undefined;
-            } else {
-              session.clearContextIndex = session.messages.length;
-              session.memoryPrompt = ""; // will clear memory
-            }
-          });
-        }}
       />
       {config.modelConfig.model.toLowerCase().startsWith("qwen3") && (
         <ChatAction
@@ -549,12 +530,6 @@ export function ChatActions(props: {
           selected={config.enableThinking}
         />
       )}
-      <ChatAction // This is the model selection, I don't know if we want to keep this functionality at all or remove it completely, will ask Jerry
-        onClick={() => setShowModelSelector(true)}
-        text={currentModel}
-        icon={<RobotIcon />}
-        fullWidth
-      />
       {showModelSelector && (
         <ModelSelect
           onClose={() => {
@@ -1071,7 +1046,7 @@ function _Chat() {
         <div className={`window-header-title ${styles["chat-body-title"]}`}>
           <div
             className={`window-header-main-title ${styles["chat-body-main-title"]}`}
-            onClickCapture={() => setShowEditPromptModal(true)} // If we want edit conversation at all, keep this, else set to false and change styling to remove underline
+            onClickCapture={() => setShowEditPromptModal(false)} // If we want edit conversation at all, keep this, else set to false and change styling to remove underline
           >
             {!session.topic ? DEFAULT_TOPIC : session.topic}
           </div>
@@ -1080,15 +1055,6 @@ function _Chat() {
           </div>
         </div>
         <div className="window-actions">
-          {!isMobileScreen && ( // This is the edit conversation button, remove if we want to change it (REMOVEEDITACTION)
-            <div className="window-action-button">
-              <IconButton
-                icon={<RenameIcon />}
-                bordered
-                onClick={() => setShowEditPromptModal(true)}
-              />
-            </div>
-          )}
           <div className="window-action-button">
             <IconButton
               icon={<ShareIcon />}
@@ -1149,14 +1115,6 @@ function _Chat() {
           setAutoScroll(false);
         }}
       >
-        <div className={styles["chat-action-context"]}>
-          <ChatAction // This is the edit conversation button at the very top, if we want to remove that.
-            text={Locale.Chat.Actions.EditConversation}
-            icon={<EditIcon />}
-            onClick={() => setShowEditPromptModal(true)}
-            fullWidth
-          />
-        </div>
         {messages.map((message, i) => {
           const isUser = message.role === "user";
           const isContext = i < context.length;
