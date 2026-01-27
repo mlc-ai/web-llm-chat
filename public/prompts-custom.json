@@ -1,0 +1,19 @@
+{
+    "cn": [
+        [
+            "I can't read or write or speak Chinese",
+            "Sorry team :("
+        ]
+    ],
+    "en": [
+        [
+            "Day Summary",
+            "How was your day? What places did you go to, what did you do, who did you talk to?"
+        ],
+        [
+            "Emotional Questioning",
+            "How do you feel today? How is your mood and what are some things that are affecting your mood?"
+        ]
+    ]
+
+}

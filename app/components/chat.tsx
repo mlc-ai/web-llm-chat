@@ -169,7 +169,7 @@ export function SessionConfigModel(props: { onClose: () => void }) {
           />,
         ]}
       >
-        <ContextPrompts
+        <ContextPrompts // Remove if we don't want the context stuff
           context={session.template.context}
           updateContext={(updater) => {
             const context = session.template.context.slice();
@@ -179,7 +179,7 @@ export function SessionConfigModel(props: { onClose: () => void }) {
         />
 
         <List>
-          <ListItem
+          <ListItem // Remove if we don't want edit topic functionality
             title={Locale.Chat.EditMessage.Topic.Title}
             subTitle={Locale.Chat.EditMessage.Topic.SubTitle}
           >
@@ -194,7 +194,7 @@ export function SessionConfigModel(props: { onClose: () => void }) {
             ></input>
           </ListItem>
           <ListItem title={Locale.Template.Config.Avatar}>
-            <Popover
+            <Popover // Remove if we don't want avatar selection
               content={
                 <AvatarPicker
                   onEmojiClick={(emoji) => {
@@ -218,7 +218,7 @@ export function SessionConfigModel(props: { onClose: () => void }) {
             </Popover>
           </ListItem>
           <ListItem
-            title={Locale.Template.Config.HideContext.Title}
+            title={Locale.Template.Config.HideContext.Title} //  Remove if we don't want to hide context prompts
             subTitle={Locale.Template.Config.HideContext.SubTitle}
           >
             <input
@@ -503,7 +503,7 @@ export function ChatActions(props: {
       props.setUploading(false);
     }
   }, [chatStore, currentModel, models]);
-
+  // This is for the input bar quick actions, (Edit conversation, quick prompts, clear context, model selection)
   return (
     <div className={styles["chat-input-actions"]}>
       {showUploadImage && (
@@ -513,17 +513,17 @@ export function ChatActions(props: {
           icon={props.uploading ? <LoadingButtonIcon /> : <ImageIcon />}
         />
       )}
-      <ChatAction
+      <ChatAction // Edit Conversation (REMOVEEDITACTION)
         onClick={props.showPromptSetting}
         text={Locale.Chat.Actions.EditConversation}
         icon={<EditIcon />}
       />
-      <ChatAction
+      <ChatAction // Prompts, stored in public/prompts.json, path to file used for prompts is on line 137 of ../store/prompts.ts
         onClick={props.showPromptHints}
         text={Locale.Chat.InputActions.QuickPrompt}
         icon={<PromptIcon />}
       />
-      <ChatAction
+      <ChatAction // Clear context (REMOVECONTEXT)
         text={Locale.Chat.InputActions.Clear}
         icon={<BreakIcon />}
         onClick={() => {
@@ -549,7 +549,7 @@ export function ChatActions(props: {
           selected={config.enableThinking}
         />
       )}
-      <ChatAction
+      <ChatAction // This is the model selection, I don't know if we want to keep this functionality at all or remove it completely, will ask Jerry
         onClick={() => setShowModelSelector(true)}
         text={currentModel}
         icon={<RobotIcon />}
@@ -1071,7 +1071,7 @@ function _Chat() {
         <div className={`window-header-title ${styles["chat-body-title"]}`}>
           <div
             className={`window-header-main-title ${styles["chat-body-main-title"]}`}
-            onClickCapture={() => setShowEditPromptModal(true)}
+            onClickCapture={() => setShowEditPromptModal(true)} // If we want edit conversation at all, keep this, else set to false and change styling to remove underline
           >
             {!session.topic ? DEFAULT_TOPIC : session.topic}
           </div>
@@ -1080,7 +1080,7 @@ function _Chat() {
           </div>
         </div>
         <div className="window-actions">
-          {!isMobileScreen && (
+          {!isMobileScreen && ( // This is the edit conversation button, remove if we want to change it (REMOVEEDITACTION)
             <div className="window-action-button">
               <IconButton
                 icon={<RenameIcon />}
@@ -1150,7 +1150,7 @@ function _Chat() {
         }}
       >
         <div className={styles["chat-action-context"]}>
-          <ChatAction
+          <ChatAction // This is the edit conversation button at the very top, if we want to remove that.
             text={Locale.Chat.Actions.EditConversation}
             icon={<EditIcon />}
             onClick={() => setShowEditPromptModal(true)}
@@ -1184,7 +1184,7 @@ function _Chat() {
                             <Avatar avatar="2699-fe0f" /> // Gear icon
                           ) : (
                             <TemplateAvatar
-                              avatar={session.template.avatar}
+                              avatar={session.template.avatar} // This is the avatar icon, it is changeable, and is set to the session (../store/chat.ts) .template (../store/template.ts). Default is set to mlc bot icon. Will talk to Jerry about how he wants to approach this, since he was planning on changing session storage if I recall.
                               model={message.model || config.modelConfig.model}
                             />
                           )}
@@ -1210,45 +1210,6 @@ function _Chat() {
                       {showActions && (
                         <div className={styles["chat-message-actions"]}>
                           <div className={styles["chat-input-actions"]}>
-                            <ChatAction
-                              text={Locale.Chat.Actions.Edit}
-                              icon={<EditIcon />}
-                              onClick={async () => {
-                                const newMessage = await showPrompt(
-                                  Locale.Chat.Actions.Edit,
-                                  getMessageTextContent(message),
-                                  10,
-                                );
-                                let newContent: string | MultimodalContent[] =
-                                  newMessage;
-                                const images = getMessageImages(message);
-                                if (images.length > 0) {
-                                  newContent = [
-                                    { type: "text", text: newMessage },
-                                  ];
-                                  for (let i = 0; i < images.length; i++) {
-                                    newContent.push({
-                                      type: "image_url",
-                                      image_url: {
-                                        url: images[i].url,
-                                      },
-                                      dimension: {
-                                        width: images[i].width,
-                                        height: images[i].height,
-                                      },
-                                    });
-                                  }
-                                }
-                                chatStore.updateCurrentSession((session) => {
-                                  const m = session.template.context
-                                    .concat(session.messages)
-                                    .find((m) => m.id === message.id);
-                                  if (m) {
-                                    m.content = newContent;
-                                  }
-                                });
-                              }}
-                            />
                             {message.streaming ? (
                               <ChatAction
                                 text={Locale.Chat.Actions.Stop}
@@ -1261,12 +1222,6 @@ function _Chat() {
                                   text={Locale.Chat.Actions.Retry}
                                   icon={<ResetIcon />}
                                   onClick={() => onResend(message)}
-                                />
-
-                                <ChatAction
-                                  text={Locale.Chat.Actions.Delete}
-                                  icon={<DeleteIcon />}
-                                  onClick={() => onDelete(message.id ?? i)}
                                 />
 
                                 <ChatAction
@@ -1383,6 +1338,7 @@ function _Chat() {
           uploading={uploading}
           showPromptSetting={() => setShowEditPromptModal(true)}
           showPromptHints={() => {
+            // Quick prompts
             // Click again to close
             if (promptHints.length > 0) {
               setPromptHints([]);

@@ -134,7 +134,7 @@ export const usePromptStore = createPersistStore(
     name: StoreKey.Prompt,
 
     onRehydrateStorage(state) {
-      const PROMPT_URL = "./prompts.json";
+      const PROMPT_URL = "./prompts-custom.json";
 
       type PromptList = Array<[string, string]>;
 
