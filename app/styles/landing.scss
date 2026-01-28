@@ -1,32 +1,141 @@
-.landing-main-title {
-    font-size: 40px;
-    font-weight: bolder;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: block;
-    max-width: 50vw;
+/* Landing header: larger, centered title with fullscreen on the right */
+.landing-header.window-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+
+  .landing-header-left,
+  .landing-header-right {
+    flex: 0 0 48px;
+    min-width: 48px;
+    display: flex;
+    align-items: center;
   }
+
+  .landing-header-right {
+    justify-content: flex-end;
+  }
+
+  .landing-header-title {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+
+    .window-header-main-title {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      white-space: normal;
+      max-width: none;
+      line-height: 1.2;
+    }
+
+    .window-header-sub-title {
+      font-size: 1.125rem;
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+  }
+}
+
+.landing-page {
+  flex: 1;
+  overflow: auto;
+  overflow-x: hidden;
+  padding: 24px 20px 24px;
+  text-align: center;
+}
+
+.landing-section {
+  margin-bottom: 40px;
+  text-align: center;
+
+  &:last-of-type {
+    margin-bottom: 32px;
+  }
+}
+
+.landing-section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 16px;
+}
+
+.landing-image-wrapper {
+  margin: 0 auto 16px;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.landing-pixel-border {
+  border: 3px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+.landing-pixel-image {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.landing-image {
+  vertical-align: middle;
+}
+
+.landing-section-copy {
+  max-width: 480px;
+  margin: 0 auto;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+.landing-body-section {
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+}
 
 .landing-body {
   flex: 1;
   overflow: auto;
   overflow-x: hidden;
-  padding: 20px;
-  padding-bottom: 0px;
-  padding-top: 0px;
+  padding: 0 0 20px;
   position: relative;
   overscroll-behavior: none;
-  text-align: justify;
+  text-align: center;
+  line-height: 1.6;
+  margin: 0 0 8px;
 }
 
 .landing-buttons {
-    display: flex;
-    padding: 20px;
-    padding-top: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 0;
 }
 
 .landing-nav-button {
-    padding-right: 10px;
-    padding-left: 10px;
+  flex-shrink: 0;
+}
+
+/* Dark mode adjustments for pixel border */
+.dark .landing-pixel-border {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.3);
 }
