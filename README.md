@@ -82,6 +82,40 @@ If your proxy needs password, use:
 -e PROXY_URL="http://127.0.0.1:7890 user pass"
 ```
 
+## CI/CD Prerequisites
+
+Vercel deployment workflows require GitHub Actions repository secrets. Configure these before using CI/CD deployment automation.
+
+### Required GitHub Actions Secrets
+
+| Secret | Used by | Purpose |
+| --- | --- | --- |
+| `VERCEL_TOKEN` | `.github/workflows/vercel_deploy.yaml`, `.github/workflows/deploy_preview.yml`, `.github/workflows/remove_deploy_preview.yml` | Authenticates Vercel CLI and cleanup API calls. |
+| `VERCEL_ORG_ID` | `.github/workflows/vercel_deploy.yaml`, `.github/workflows/deploy_preview.yml`, `.github/workflows/remove_deploy_preview.yml` | Selects Vercel organization/team context. |
+| `VERCEL_PROJECT_ID` | `.github/workflows/vercel_deploy.yaml`, `.github/workflows/deploy_preview.yml`, `.github/workflows/remove_deploy_preview.yml` | Selects target Vercel project. |
+
+Forks and self-hosted variants must provide their own values for these secrets.
+
+### Setup
+
+1. Open repository **Settings > Secrets and variables > Actions**.
+2. Add the three required repository secrets listed above.
+3. Re-run any failed workflow (or push a new commit) to verify setup.
+
+### Failure Symptoms
+
+- Missing `VERCEL_TOKEN`: `vercel pull`, `vercel build`, or `vercel deploy` fails with authentication errors.
+- Missing `VERCEL_ORG_ID` / `VERCEL_PROJECT_ID`: Vercel project/org resolution fails.
+- Missing secrets in preview cleanup: `.github/workflows/remove_deploy_preview.yml` cannot query/delete preview deployments.
+
+### Quick Verification
+
+1. Push a non-main branch commit and confirm `.github/workflows/deploy_preview.yml` completes.
+2. Push or merge to main and confirm `.github/workflows/vercel_deploy.yaml` completes.
+3. Close a PR from a preview branch and confirm `.github/workflows/remove_deploy_preview.yml` runs cleanup.
+
+For detailed operator guidance, see [docs/ci-cd-secrets.md](docs/ci-cd-secrets.md).
+
 ## Community and Contributions
 
 WebLLM Chat thrives on community involvement. We are committed to fostering an inclusive and innovative community where developers and AI enthusiasts can collaborate, contribute, and push the boundaries of what's possible in AI technology. Join us on Discord to connect with fellow developers and contribute to the project.
