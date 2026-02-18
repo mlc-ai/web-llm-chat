@@ -70,6 +70,42 @@ export interface ModelRecord {
   };
 }
 
+export enum ModelLoadErrorCode {
+  MANIFEST_FETCH_FAILED = "manifest_fetch_failed",
+  ARTIFACT_FETCH_FAILED = "artifact_fetch_failed",
+  WORKER_INIT_FAILED = "worker_init_failed",
+  WEBGPU_INIT_FAILED = "webgpu_init_failed",
+  CACHE_INVALID = "cache_invalid",
+  NETWORK_ERROR = "network_error",
+  UNKNOWN_ERROR = "unknown_error",
+}
+
+export interface ModelLoadError extends Error {
+  code: ModelLoadErrorCode;
+  model: string;
+  stage: "engine_init" | "model_reload" | "chat_completion";
+  httpStatus?: number;
+  url?: string;
+  retryable: boolean;
+  timestamp: number;
+}
+
+export function createModelLoadError(
+  code: ModelLoadErrorCode,
+  message: string,
+  details: Partial<ModelLoadError>,
+): ModelLoadError {
+  const error = new Error(message) as ModelLoadError;
+  error.code = code;
+  error.model = details.model || "unknown";
+  error.stage = details.stage || "engine_init";
+  error.httpStatus = details.httpStatus;
+  error.url = details.url;
+  error.retryable = details.retryable ?? false;
+  error.timestamp = Date.now();
+  return error;
+}
+
 export abstract class LLMApi {
   abstract chat(options: ChatOptions): Promise<void>;
   abstract abort(): Promise<void>;

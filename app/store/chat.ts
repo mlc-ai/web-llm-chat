@@ -374,13 +374,44 @@ export const useChatStore = createPersistStore(
             });
           },
           onError(error) {
-            const errorMessage =
-              error.message || error.toString?.() || undefined;
-            const isAborted = errorMessage?.includes("aborted");
-            botMessage.content += "\n\n" + errorMessage;
+            let errorMessage: string;
+            let retryHint = "";
+
+            if (error.code) {
+              // Structured ModelLoadError
+              errorMessage = `❌ **${error.code}**\n\n${error.message}`;
+
+              if (error.retryable) {
+                retryHint =
+                  "\n\n💡 **Suggestion**: This error may be temporary. Try:\n" +
+                  "1. Refresh the page\n" +
+                  "2. Clear browser cache (Settings → Storage)\n" +
+                  "3. Try a different model";
+              }
+
+              if (error.code === "webgpu_init_failed") {
+                retryHint =
+                  "\n\n💡 **Your browser doesn't support WebGPU**. " +
+                  "Please use Chrome 113+, Edge 113+, or check compatibility at https://caniuse.com/webgpu";
+              }
+
+              console.error("[Chat Error Details]", {
+                code: error.code,
+                model: error.model,
+                stage: error.stage,
+                timestamp: error.timestamp,
+              });
+            } else {
+              // Fallback for non-structured errors
+              errorMessage = error.message || error.toString?.() || "Unknown error";
+            }
+
+            const isAborted = errorMessage.includes("aborted");
+            botMessage.content += "\n\n" + errorMessage + retryHint;
             botMessage.streaming = false;
             userMessage.isError = !isAborted;
             botMessage.isError = !isAborted;
+
             get().updateCurrentSession((session) => {
               session.messages = session.messages.concat();
               session.isGenerating = false;

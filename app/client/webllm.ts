@@ -14,7 +14,15 @@ import {
   ChatCompletionFinishReason,
 } from "@mlc-ai/web-llm";
 
-import { ChatOptions, LLMApi, LLMConfig, RequestMessage } from "./api";
+import {
+  ChatOptions,
+  LLMApi,
+  LLMConfig,
+  RequestMessage,
+  ModelLoadError,
+  ModelLoadErrorCode,
+  createModelLoadError,
+} from "./api";
 import { LogLevel } from "@mlc-ai/web-llm";
 import { fixMessage } from "../utils";
 import { DEFAULT_MODELS } from "../constant";
@@ -101,12 +109,15 @@ export class WebLLMApi implements LLMApi {
       try {
         await this.initModel(options.onUpdate);
       } catch (err: any) {
-        let errorMessage = err.message || err.toString() || "";
-        if (errorMessage === "[object Object]") {
-          errorMessage = JSON.stringify(err);
-        }
-        console.error("Error while initializing the model", errorMessage);
-        options?.onError?.(errorMessage);
+        const modelError = this.classifyError(err, options.config.model);
+        console.error("Model initialization failed:", {
+          code: modelError.code,
+          model: modelError.model,
+          stage: modelError.stage,
+          message: modelError.message,
+          retryable: modelError.retryable,
+        });
+        options?.onError?.(modelError);
         return;
       }
     }
@@ -154,6 +165,83 @@ export class WebLLMApi implements LLMApi {
 
   async abort() {
     await this.webllm.engine?.interruptGenerate();
+  }
+
+  private classifyError(err: any, modelId: string): ModelLoadError {
+    const errorMessage = err.message || err.toString() || "";
+
+    // WebGPU errors
+    if (errorMessage.includes("WebGPU") || errorMessage.includes("GPU")) {
+      return createModelLoadError(
+        ModelLoadErrorCode.WEBGPU_INIT_FAILED,
+        "WebGPU is not available. Please use a browser with WebGPU support (Chrome/Edge 113+). See https://caniuse.com/webgpu",
+        {
+          model: modelId,
+          stage: "engine_init",
+          retryable: false,
+        },
+      );
+    }
+
+    // Network/fetch errors
+    if (
+      errorMessage.includes("fetch") ||
+      errorMessage.includes("network") ||
+      errorMessage.includes("Failed to load") ||
+      errorMessage.includes("NetworkError")
+    ) {
+      return createModelLoadError(
+        ModelLoadErrorCode.ARTIFACT_FETCH_FAILED,
+        `Failed to download model artifacts: ${errorMessage}`,
+        {
+          model: modelId,
+          stage: "model_reload",
+          retryable: true,
+        },
+      );
+    }
+
+    // Cache errors
+    if (
+      errorMessage.includes("cache") ||
+      errorMessage.includes("IndexedDB") ||
+      errorMessage.includes("storage") ||
+      errorMessage.includes("QuotaExceededError")
+    ) {
+      return createModelLoadError(
+        ModelLoadErrorCode.CACHE_INVALID,
+        `Cache error during model load: ${errorMessage}`,
+        {
+          model: modelId,
+          stage: "model_reload",
+          retryable: true,
+        },
+      );
+    }
+
+    // Worker errors
+    if (errorMessage.includes("worker") || errorMessage.includes("Worker")) {
+      return createModelLoadError(
+        ModelLoadErrorCode.WORKER_INIT_FAILED,
+        `Worker initialization failed: ${errorMessage}`,
+        {
+          model: modelId,
+          stage: "engine_init",
+          retryable: true,
+        },
+      );
+    }
+
+    // Default unknown error
+    return createModelLoadError(
+      ModelLoadErrorCode.UNKNOWN_ERROR,
+      errorMessage || "Unknown model loading error",
+      {
+        model: modelId,
+        stage: "model_reload",
+        retryable: false,
+      },
+    );
   }
 
   private isDifferentConfig(config: LLMConfig): boolean {
