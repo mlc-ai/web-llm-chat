@@ -82,6 +82,16 @@ If your proxy needs password, use:
 -e PROXY_URL="http://127.0.0.1:7890 user pass"
 ```
 
+## Contributing
+
+We welcome contributions from the community! Whether you're fixing bugs, adding features, or improving documentation, your help makes WebLLM Chat better.
+
+**Get Started:**
+- Read our [Contributing Guide](CONTRIBUTING.md) for development setup and guidelines
+- Check out [open issues](https://github.com/mlc-ai/web-llm-chat/issues) to find something to work on
+- Look for `good first issue` label for beginner-friendly tasks
+- Join our [Discord community](https://discord.gg/9Xpy2HGBuD) to connect with other contributors
+
 ## Community and Contributions
 
 WebLLM Chat thrives on community involvement. We are committed to fostering an inclusive and innovative community where developers and AI enthusiasts can collaborate, contribute, and push the boundaries of what's possible in AI technology. Join us on Discord to connect with fellow developers and contribute to the project.
