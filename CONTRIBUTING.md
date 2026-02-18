@@ -346,10 +346,10 @@ describe('formatMessage', () => {
   it('should remove HTML tags from message', () => {
     // Arrange
     const input = '<p>Hello <b>world</b></p>';
-    
+
     // Act
     const result = formatMessage(input);
-    
+
     // Assert
     expect(result).toBe('Hello world');
   });
@@ -390,14 +390,14 @@ Update the README.md when:
 /**
  * Loads a model with automatic fallback to alternative CDNs
  * if the primary source is unavailable.
- * 
+ *
  * @param modelName - Name of the model to load (e.g., "Llama-3.1-8B")
  * @param config - Optional model configuration
  * @returns Promise that resolves when model is loaded
  * @throws {NetworkError} When all CDN sources fail
  */
 async function loadModelWithFallback(
-  modelName: string, 
+  modelName: string,
   config?: ModelConfig
 ): Promise<void> {
   // Implementation
