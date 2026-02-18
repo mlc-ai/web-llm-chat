@@ -1,12 +1,12 @@
-# Implementation Plan for Issue #89
+# Implementation Plan for Issue #91
 
 **Repository:** mlc-ai/web-llm-chat
-**Issue:** [#89 - Add CONTRIBUTING.md file to guide contributors](https://github.com/mlc-ai/web-llm-chat/issues/89)
+**Issue:** [#91 - Add CONTRIBUTING.md file for contributor guidelines](https://github.com/mlc-ai/web-llm-chat/issues/91)
 **Status:** Open
 **Priority:** Medium (Documentation improvement)
 **Created:** February 18, 2026
-**Reporter:** @Arunvallal
-**Related Issue:** #91 (duplicate request)
+**Reporter:** @ManishPanda-ta
+**Related Issues:** #89, #90 (duplicate requests)
 
 ---
 
@@ -214,13 +214,13 @@ Check out [good first issues](https://github.com/mlc-ai/web-llm-chat/labels/good
 
 ### Phase 3: Communication
 
-#### Task 3.1: Update Issue #89 & #91
+#### Task 3.1: Update Issues #89, #90, #91
 **Effort:** 5 minutes
 
 **Actions:**
-1. Comment on issue #89 linking to PR
-2. Mark as "Fixes #89" in PR description
-3. Also references #91 (duplicate)
+1. Comment on issue #91 linking to PR
+2. Mark as "Fixes #91" in PR description
+3. Also references #89 and #90 (duplicates)
 
 ---
 
@@ -257,8 +257,8 @@ Check out [good first issues](https://github.com/mlc-ai/web-llm-chat/labels/good
 Adds comprehensive CONTRIBUTING.md file to guide contributors through the contribution process.
 
 ## Fixes
-- Fixes #89
-- Relates to #91
+- Fixes #91
+- Also addresses #89 and #90
 
 ## What's Included
 - Complete setup instructions with prerequisites
@@ -280,7 +280,7 @@ Adds comprehensive CONTRIBUTING.md file to guide contributors through the contri
 ## Checklist
 - [x] Created comprehensive CONTRIBUTING.md (515 lines)
 - [x] Followed conventional commit format
-- [x] Referenced related issues (#89, #91)
+- [x] Referenced related issues (#89, #90, #91)
 - [x] Used clear, beginner-friendly language
 - [x] Included examples and code snippets
 - [ ] Waiting for review and feedback
@@ -306,7 +306,7 @@ Adds comprehensive CONTRIBUTING.md file to guide contributors through the contri
 - ✅ CONTRIBUTING.md file exists in repository
 - ✅ File appears in GitHub's "Contribute" button dropdown
 - ✅ README references contribution guide
-- ✅ Issues #89 and #91 closed
+- ✅ Issues #89, #90, and #91 closed
 
 ### Short-term (1-3 months)
 - 📈 Increase in new contributor PRs
@@ -356,8 +356,9 @@ Adds comprehensive CONTRIBUTING.md file to guide contributors through the contri
 
 ## Related Documentation
 
-- Issue #89: https://github.com/mlc-ai/web-llm-chat/issues/89
-- Issue #91: https://github.com/mlc-ai/web-llm-chat/issues/91
+- Issue #91: https://github.com/mlc-ai/web-llm-chat/issues/91 (primary)
+- Issue #89: https://github.com/mlc-ai/web-llm-chat/issues/89 (duplicate)
+- Issue #90: https://github.com/mlc-ai/web-llm-chat/issues/90 (duplicate)
 - GitHub Guide: https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions
 - Conventional Commits: https://www.conventionalcommits.org/
 
@@ -365,8 +366,8 @@ Adds comprehensive CONTRIBUTING.md file to guide contributors through the contri
 
 ## Notes
 
-- **Duplicate Issue**: Issue #91 created by us has similar scope to #89
-- **Collaboration**: Both reporters offered to help with implementation
+- **Duplicate Issues**: Issues #89 and #90 created by others have similar scope to #91
+- **Collaboration**: Multiple reporters offered to help with implementation
 - **Timing**: Created today (Feb 18, 2026) along with implementation
 - **Status**: CONTRIBUTING.md already created and pushed to fork
 - **Next Step**: Create PR from fork to upstream
@@ -379,11 +380,11 @@ Adds comprehensive CONTRIBUTING.md file to guide contributors through the contri
 - [x] Create CONTRIBUTING.md file
 - [x] Commit with proper message
 - [x] Push to fork
-- [ ] Create pull request to upstream
-- [ ] Link PR to issues #89 and #91
+- [x] Create pull request to upstream (#97)
+- [x] Link PR to issues #89, #90, and #91
 
 ### After PR Merge
-- [ ] Comment on both issues confirming resolution
+- [ ] Comment on all issues confirming resolution
 - [ ] Update README with Contributing section
 - [ ] Consider adding PR template
 - [ ] Announce in Discord community
