@@ -167,17 +167,22 @@ const useWebLLM = () => {
   const [isWebllmActive, setWebllmAlive] = useState(false);
 
   const isWebllmInitialized = useRef(false);
+  const fallbackTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   // If service worker registration timeout, fall back to web worker
-  const timeout = setTimeout(() => {
-    if (!isWebllmInitialized.current && !isWebllmActive && !webllm) {
-      log.info(
-        "Service Worker activation is timed out. Falling back to use web worker.",
-      );
-      setWebLLM(new WebLLMApi("webWorker", config.logLevel));
-      setWebllmAlive(true);
-    }
-  }, 2_000);
+  useEffect(() => {
+    fallbackTimeoutRef.current = setTimeout(() => {
+      if (!isWebllmInitialized.current && !isWebllmActive && !webllm) {
+        log.info(
+          "Service Worker activation is timed out. Falling back to use web worker.",
+        );
+        setWebLLM(new WebLLMApi("webWorker", config.logLevel));
+        setWebllmAlive(true);
+      }
+    }, 2_000);
+    return () => clearTimeout(fallbackTimeoutRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Initialize WebLLM engine
   useEffect(() => {
@@ -214,7 +219,7 @@ const useWebLLM = () => {
               );
               setWebllmAlive(true);
               isWebllmInitialized.current = true;
-              clearTimeout(timeout);
+              clearTimeout(fallbackTimeoutRef.current);
             }
             navigator.serviceWorker.removeEventListener(
               "message",
@@ -235,7 +240,7 @@ const useWebLLM = () => {
       setWebLLM(new WebLLMApi("webWorker", config.logLevel));
       setWebllmAlive(true);
       isWebllmInitialized.current = true;
-      clearTimeout(timeout);
+      clearTimeout(fallbackTimeoutRef.current);
     }
   }, []);
 
@@ -245,7 +250,8 @@ const useWebLLM = () => {
         // 10s per heartbeat, dead after 30 seconds of inactivity
         setWebllmAlive(
           !!webllm.webllm.engine &&
-            (webllm.webllm.engine as ServiceWorkerMLCEngine).missedHeatbeat < 3,
+            (webllm.webllm.engine as ServiceWorkerMLCEngine).missedHeartbeat <
+              3,
         );
       }
     }, 10_000);
