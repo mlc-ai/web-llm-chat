@@ -13,7 +13,6 @@ import LoadingIcon from "../icons/three-dots.svg";
 import React from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { showImageModal } from "./ui-lib";
-import { PluggableList } from "react-markdown/lib";
 
 export function Mermaid(props: { code: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -135,33 +134,31 @@ function escapeBrackets(text: string) {
   );
 }
 
-function _MarkDownContent(props: { content: string }) {
+function MarkdownContentImpl(props: { content: string }) {
   const escapedContent = useMemo(() => {
     return escapeBrackets(escapeDollarNumber(props.content));
   }, [props.content]);
 
   return (
     <ReactMarkdown
-      remarkPlugins={[RemarkMath, RemarkGfm, RemarkBreaks] as PluggableList}
-      rehypePlugins={
+      remarkPlugins={[RemarkMath, RemarkGfm, RemarkBreaks]}
+      rehypePlugins={[
+        RehypeKatex,
         [
-          RehypeKatex,
-          [
-            RehypeHighlight,
-            {
-              detect: true,
-              ignoreMissing: true,
-            },
-          ],
-        ] as PluggableList
-      }
+          RehypeHighlight,
+          {
+            detect: true,
+            ignoreMissing: true,
+          },
+        ],
+      ]}
       components={{
         pre: PreCode as any,
         p: (pProps) => <p {...pProps} dir="auto" />,
         a: (aProps) => {
           const href = aProps.href || "";
           const isInternal = /^\/#/i.test(href);
-          const target = isInternal ? "_self" : aProps.target ?? "_blank";
+          const target = isInternal ? "_self" : (aProps.target ?? "_blank");
           return <a {...aProps} target={target} />;
         },
       }}
@@ -171,7 +168,7 @@ function _MarkDownContent(props: { content: string }) {
   );
 }
 
-export const MarkdownContent = React.memo(_MarkDownContent);
+export const MarkdownContent = React.memo(MarkdownContentImpl);
 
 export function Markdown(
   props: {

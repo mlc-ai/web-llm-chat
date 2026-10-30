@@ -271,16 +271,22 @@ export const useChatStore = createPersistStore(
         }));
       },
 
-      onNewMessage(message: ChatMessage, llm: LLMApi) {
-        get().updateCurrentSession((session) => {
+      onNewMessage(message: ChatMessage, llm: LLMApi, sessionId: string) {
+        get().updateSession(sessionId, (session) => {
           session.messages = session.messages.concat();
           session.lastUpdate = Date.now();
         });
-        get().updateStat(message);
-        get().summarizeSession(llm);
+        get().updateStat(message, sessionId);
+        if (
+          message.stopReason !== "abort" &&
+          get().currentSession().id === sessionId
+        ) {
+          get().summarizeSession(llm);
+        }
       },
 
       onUserInput(content: string, llm: LLMApi, attachImages?: ChatImage[]) {
+        const sessionId = get().currentSession().id;
         const modelConfig = useAppConfig.getState().modelConfig;
 
         const userContent = fillTemplateWith(content, useAppConfig.getState());
@@ -328,7 +334,7 @@ export const useChatStore = createPersistStore(
         log.debug("Messages: ", sendMessages);
 
         // save user's and bot's message
-        get().updateCurrentSession((session) => {
+        get().updateSession(sessionId, (session) => {
           const savedUserMessage = {
             ...userMessage,
             content: mContent,
@@ -354,7 +360,7 @@ export const useChatStore = createPersistStore(
             if (message) {
               botMessage.content = message;
             }
-            get().updateCurrentSession((session) => {
+            get().updateSession(sessionId, (session) => {
               session.messages = session.messages.concat();
             });
           },
@@ -362,14 +368,15 @@ export const useChatStore = createPersistStore(
             botMessage.streaming = false;
             botMessage.usage = usage;
             botMessage.stopReason = stopReason;
+            botMessage.content = message;
             if (message) {
               if (!this.config.enable_thinking) {
                 message = message.replace(/<think>\s*<\/think>/g, "");
               }
               botMessage.content = message;
-              get().onNewMessage(botMessage, llm);
+              get().onNewMessage(botMessage, llm, sessionId);
             }
-            get().updateCurrentSession((session) => {
+            get().updateSession(sessionId, (session) => {
               session.isGenerating = false;
             });
           },
@@ -381,7 +388,7 @@ export const useChatStore = createPersistStore(
             botMessage.streaming = false;
             userMessage.isError = !isAborted;
             botMessage.isError = !isAborted;
-            get().updateCurrentSession((session) => {
+            get().updateSession(sessionId, (session) => {
               session.messages = session.messages.concat();
               session.isGenerating = false;
             });
@@ -539,7 +546,8 @@ export const useChatStore = createPersistStore(
               enable_thinking: false, // never think for topic
             },
             onFinish(message) {
-              get().updateCurrentSession(
+              get().updateSession(
+                session.id,
                 (session) =>
                   (session.topic =
                     message.length > 0 ? trimTopic(message) : DEFAULT_TOPIC),
@@ -601,7 +609,7 @@ export const useChatStore = createPersistStore(
           }
           // The last message must be from user
           if (
-            toBeSummarizedMsgs[toBeSummarizedMsgs.length - 1].role === "system"
+            toBeSummarizedMsgs[toBeSummarizedMsgs.length - 1].role !== "user"
           ) {
             toBeSummarizedMsgs = toBeSummarizedMsgs.concat([
               createMessage({
@@ -627,7 +635,7 @@ export const useChatStore = createPersistStore(
             },
             onFinish(message) {
               log.debug("[Memory] ", message);
-              get().updateCurrentSession((session) => {
+              get().updateSession(session.id, (session) => {
                 session.lastSummarizeIndex = lastSummarizeIndex;
                 session.memoryPrompt = message; // Update the memory prompt for stored it in local storage
               });
@@ -664,18 +672,23 @@ export const useChatStore = createPersistStore(
         set(() => ({ sessions }));
       },
 
-      updateStat(message: ChatMessage) {
-        get().updateCurrentSession((session) => {
+      updateStat(message: ChatMessage, sessionId: string) {
+        get().updateSession(sessionId, (session) => {
           session.stat.charCount += message.content.length;
           // TODO: should update chat count and word count
         });
       },
 
-      updateCurrentSession(updater: (session: ChatSession) => void) {
+      updateSession(id: string, updater: (session: ChatSession) => void) {
         const sessions = get().sessions;
-        const index = get().currentSessionIndex;
-        updater(sessions[index]);
+        const session = sessions.find((session) => session.id === id);
+        if (!session) return;
+        updater(session);
         set(() => ({ sessions }));
+      },
+
+      updateCurrentSession(updater: (session: ChatSession) => void) {
+        get().updateSession(get().currentSession().id, updater);
       },
 
       clearAllData() {

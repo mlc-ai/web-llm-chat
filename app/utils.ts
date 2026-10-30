@@ -285,7 +285,7 @@ export function fixMessage(message: string) {
 
 // Get model size from model id
 export function getSize(model_id: string): string | undefined {
-  const sizeRegex = /-(\d+(\.\d+)?[BK])-?/;
+  const sizeRegex = /-(E?\d+(\.\d+)?[BK])-?/i;
   const match = model_id.match(sizeRegex);
   if (match) {
     return match[1];

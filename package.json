@@ -8,6 +8,7 @@
     "build": "cross-env BUILD_MODE=standalone next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "node --experimental-vm-modules --test tests/*.test.mjs",
     "export": "cross-env BUILD_MODE=export next build",
     "export:dev": "cross-env BUILD_MODE=export next dev",
     "prompts": "node ./scripts/fetch-prompts.mjs",
@@ -17,7 +18,7 @@
   "dependencies": {
     "@fortaine/fetch-event-source": "^3.0.6",
     "@hello-pangea/dnd": "^16.5.0",
-    "@mlc-ai/web-llm": "^0.2.81",
+    "@mlc-ai/web-llm": "^0.2.87",
     "@serwist/next": "^9.0.2",
     "@svgr/webpack": "^6.5.1",
     "emoji-picker-react": "^4.9.2",
