@@ -1,7 +1,6 @@
 "use client";
 
 import log from "loglevel";
-import { createContext } from "react";
 import {
   InitProgressReport,
   prebuiltAppConfig,
@@ -36,6 +35,9 @@ type WebLLMHandler = ServiceWorkerWebLLMHandler | WebWorkerWebLLMHandler;
 export class WebLLMApi implements LLMApi {
   private llmConfig?: LLMConfig;
   private initialized = false;
+  private loading = false;
+  private pendingChat = Promise.resolve();
+  private abortId = 0;
   webllm: WebLLMHandler;
 
   constructor(
@@ -43,10 +45,7 @@ export class WebLLMApi implements LLMApi {
     logLevel: LogLevel = "WARN",
   ) {
     const engineConfig = {
-      appConfig: {
-        ...prebuiltAppConfig,
-        useIndexedDBCache: this.llmConfig?.cache === "index_db",
-      },
+      appConfig: prebuiltAppConfig,
       logLevel,
     };
 
@@ -77,30 +76,44 @@ export class WebLLMApi implements LLMApi {
     this.webllm.engine.setInitProgressCallback((report: InitProgressReport) => {
       onUpdate?.(report.text, report.text);
     });
-    await this.webllm.engine.reload(this.llmConfig.model, this.llmConfig);
+    this.webllm.engine.setAppConfig({
+      ...prebuiltAppConfig,
+      cacheBackend: this.llmConfig.cache === "index_db" ? "indexeddb" : "cache",
+    });
+    await this.webllm.engine.reload(this.llmConfig.model, {
+      context_window_size: this.llmConfig.context_window_size,
+    });
     this.initialized = true;
   }
 
-  async chat(options: ChatOptions): Promise<void> {
-    if (!this.initialized || this.isDifferentConfig(options.config)) {
-      this.llmConfig = { ...(this.llmConfig || {}), ...options.config };
-      // Check if this is a Qwen3 model with thinking mode enabled
-      const isQwen3Model = this.llmConfig?.model
-        ?.toLowerCase()
-        .startsWith("qwen3");
-      const isThinkingEnabled = this.llmConfig?.enable_thinking === true;
+  chat(options: ChatOptions): Promise<void> {
+    const abortId = this.abortId;
+    const request = this.pendingChat.then(() => this.runChat(options, abortId));
+    this.pendingChat = request.catch(() => {});
+    return request;
+  }
 
-      // Apply special config for Qwen3 models with thinking mode enabled
-      if (isQwen3Model && isThinkingEnabled && this.llmConfig) {
-        this.llmConfig = {
-          ...this.llmConfig,
-          temperature: 0.6,
-          top_p: 0.95,
-        };
-      }
+  private async runChat(options: ChatOptions, abortId: number): Promise<void> {
+    if (abortId !== this.abortId) {
+      options.onFinish("", "abort");
+      return;
+    }
+    const config = { ...this.llmConfig, ...options.config };
+    const reload = !this.initialized || this.isDifferentConfig(config);
+    const cacheChanged =
+      this.initialized && this.llmConfig?.cache !== config.cache;
+    this.llmConfig = config;
+    if (reload) {
+      this.initialized = false;
+      this.loading = true;
       try {
+        if (cacheChanged) await this.webllm.engine.unload();
         await this.initModel(options.onUpdate);
       } catch (err: any) {
+        if (abortId !== this.abortId) {
+          options.onFinish("", "abort");
+          return;
+        }
         let errorMessage = err.message || err.toString() || "";
         if (errorMessage === "[object Object]") {
           errorMessage = JSON.stringify(err);
@@ -108,7 +121,15 @@ export class WebLLMApi implements LLMApi {
         console.error("Error while initializing the model", errorMessage);
         options?.onError?.(errorMessage);
         return;
+      } finally {
+        this.loading = false;
       }
+    }
+
+    if (abortId !== this.abortId) {
+      this.initialized = false;
+      options.onFinish("", "abort");
+      return;
     }
 
     let reply: string | null = "";
@@ -144,7 +165,9 @@ export class WebLLMApi implements LLMApi {
       return;
     }
 
-    if (reply) {
+    if (abortId !== this.abortId) {
+      options.onFinish(reply ? fixMessage(reply) : "", "abort", usage);
+    } else if (reply) {
       reply = fixMessage(reply);
       options.onFinish(reply, stopReason, usage);
     } else {
@@ -153,7 +176,12 @@ export class WebLLMApi implements LLMApi {
   }
 
   async abort() {
-    await this.webllm.engine?.interruptGenerate();
+    this.abortId++;
+    if (this.loading) {
+      await this.webllm.engine.unload();
+    } else {
+      await this.webllm.engine.interruptGenerate();
+    }
   }
 
   private isDifferentConfig(config: LLMConfig): boolean {
@@ -161,33 +189,11 @@ export class WebLLMApi implements LLMApi {
       return true;
     }
 
-    // Compare required fields
-    if (this.llmConfig.model !== config.model) {
-      return true;
-    }
-
-    // Compare optional fields
-    const optionalFields: (keyof LLMConfig)[] = [
-      "temperature",
-      "context_window_size",
-      "top_p",
-      "stream",
-      "presence_penalty",
-      "frequency_penalty",
-      "enable_thinking",
-    ];
-
-    for (const field of optionalFields) {
-      if (
-        this.llmConfig[field] !== undefined &&
-        config[field] !== undefined &&
-        this.llmConfig[field] !== config[field]
-      ) {
-        return true;
-      }
-    }
-
-    return false;
+    return (
+      this.llmConfig.model !== config.model ||
+      this.llmConfig.cache !== config.cache ||
+      this.llmConfig.context_window_size !== config.context_window_size
+    );
   }
 
   async chatCompletion(
@@ -227,9 +233,15 @@ export class WebLLMApi implements LLMApi {
       extraBody.enable_thinking = this.llmConfig?.enable_thinking ?? false;
     }
 
-    const completion = await this.webllm.engine.chatCompletion({
+    const thinking = isQwen3Model && this.llmConfig?.enable_thinking;
+    const completion = await this.webllm.engine.chat.completions.create({
       stream: stream,
       messages: (newMessages || messages) as ChatCompletionMessageParam[],
+      temperature: thinking ? 0.6 : this.llmConfig?.temperature,
+      top_p: thinking ? 0.95 : this.llmConfig?.top_p,
+      max_tokens: this.llmConfig?.max_tokens,
+      presence_penalty: this.llmConfig?.presence_penalty,
+      frequency_penalty: this.llmConfig?.frequency_penalty,
       ...(stream ? { stream_options: { include_usage: true } } : {}),
       ...(Object.keys(extraBody).length > 0 ? { extra_body: extraBody } : {}),
     });

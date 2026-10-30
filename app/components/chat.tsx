@@ -579,7 +579,7 @@ export function DeleteImageButton(props: { deleteImage: () => void }) {
   );
 }
 
-function _Chat() {
+function ChatContent() {
   type RenderMessage = ChatMessage & { preview?: boolean };
 
   const chatStore = useChatStore();
@@ -726,7 +726,6 @@ function _Chat() {
   // stop response
   const onUserStop = () => {
     llm.abort();
-    chatStore.stopStreaming();
   };
 
   // Reset session status on initial loading
@@ -1476,5 +1475,5 @@ function _Chat() {
 export function Chat() {
   const chatStore = useChatStore();
   const sessionIndex = chatStore.currentSessionIndex;
-  return <_Chat key={sessionIndex}></_Chat>;
+  return <ChatContent key={sessionIndex}></ChatContent>;
 }

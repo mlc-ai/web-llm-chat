@@ -919,6 +919,31 @@ const DEFAULT_MODEL_BASES: ModelRecord[] = [
       top_p: 0.8,
     },
   },
+  // Gemma 4
+  {
+    name: "gemma-4-E2B-it-q4f16_1-MLC",
+    display_name: "Gemma 4",
+    provider: "Google",
+    family: ModelFamily.GEMMA,
+    recommended_config: {
+      temperature: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 0.95,
+    },
+  },
+  {
+    name: "gemma-4-E2B-it-q4f32_1-MLC",
+    display_name: "Gemma 4",
+    provider: "Google",
+    family: ModelFamily.GEMMA,
+    recommended_config: {
+      temperature: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      top_p: 0.95,
+    },
+  },
   // Gemma 2
   {
     name: "gemma-2-2b-it-q4f16_1-MLC",

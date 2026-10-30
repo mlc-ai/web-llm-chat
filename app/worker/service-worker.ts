@@ -5,44 +5,40 @@ import { CacheFirst, ExpirationPlugin, Serwist } from "serwist";
 
 declare const self: ServiceWorkerGlobalScope;
 const CHATGPT_NEXT_WEB_CACHE = "chatgpt-next-web-cache";
-let handler: ServiceWorkerMLCEngineHandler;
 
 async function checkGPUAvailablity() {
   if (!("gpu" in navigator)) {
-    console.log("Service Worker: Web-LLM Engine Activated");
     return false;
   }
-  const adapter = await navigator.gpu.requestAdapter();
+  const adapter = await navigator.gpu.requestAdapter().catch(() => null);
   if (!adapter) {
-    console.log("Service Worker: Web-LLM Engine Activated");
     return false;
   }
   return true;
 }
 
 self.addEventListener("message", (event) => {
-  if (!handler) {
-    handler = new ServiceWorkerMLCEngineHandler();
-    console.log("Service Worker: Web-LLM Engine Activated");
-  }
-
   const msg = event.data;
   if (msg.kind === "checkWebGPUAvilability") {
-    console.log("Service Worker: Web-LLM Engine Activated");
-    checkGPUAvailablity().then((gpuAvailable) => {
-      console.log(
-        "Service Worker: WebGPU is " +
-          (gpuAvailable ? "available" : "unavailable"),
-      );
-      const reply = {
-        kind: "return",
-        uuid: msg.uuid,
-        content: gpuAvailable,
-      };
-      event.source?.postMessage(reply);
-    });
+    event.stopImmediatePropagation();
+    event.waitUntil(
+      checkGPUAvailablity().then((gpuAvailable) => {
+        console.log(
+          "Service Worker: WebGPU is " +
+            (gpuAvailable ? "available" : "unavailable"),
+        );
+        const reply = {
+          kind: "return",
+          uuid: msg.uuid,
+          content: gpuAvailable,
+        };
+        event.source?.postMessage(reply);
+      }),
+    );
   }
 });
+
+new ServiceWorkerMLCEngineHandler();
 
 self.addEventListener("install", (event) => {
   // Always update right away
@@ -53,13 +49,6 @@ self.addEventListener("install", (event) => {
       return cache.addAll([]);
     }),
   );
-});
-
-self.addEventListener("activate", (event) => {
-  if (!handler) {
-    handler = new ServiceWorkerMLCEngineHandler();
-    console.log("Service Worker: Web-LLM Engine Activated");
-  }
 });
 
 // This declares the value of `injectionPoint` to TypeScript.
